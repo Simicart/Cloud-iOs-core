@@ -143,8 +143,6 @@
         categoryCollection = [[SimiCategoryModelCollection alloc] init];
     }
     NSMutableDictionary *params = [[NSMutableDictionary alloc]init];
-    [params setValue:@"50" forKey:@"limit"];
-    [params setValue:@"0" forKey:@"offset"];
     if(self.categoryId && ![self.categoryId isEqualToString:@""])
         [params setValue:self.categoryId forKey:@"filter[parent]"];
     else

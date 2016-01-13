@@ -65,7 +65,7 @@
     [self initDescriptionTab];
 //    [self initTechSpecTab];
 //    [self initReviewTab];
-//    [self initRelatedProductTab];
+    [self initRelatedProductTab];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"SCProductMoreViewController_InitTab" object:self userInfo:@{@"PageScrollView":_pageScrollView}];
     [self.view addSubview:_pageScrollView];
     [_pageScrollView generate];
@@ -153,12 +153,26 @@
 - (void)initRelatedProductTab
 {
     // Relate Products
-    SCProductRelateViewController *relateViewController = [SCProductRelateViewController new];
-    relateViewController.relateProductCollection = [self.productModel valueForKey:@"related_products"];
-    relateViewController.productListGetProductType = ProductListGetProductTypeFromRelateProduct;
-    relateViewController.delegate = self;
-    [self addChildViewController:relateViewController];
-    [_pageScrollView addTab:SCLocalizedString(@"Related Products") View:relateViewController.view Info:nil];
+    if ([self.productModel valueForKey:@"related_products"] && [[self.productModel valueForKey:@"related_products"] isKindOfClass:[NSArray class]]) {
+        NSMutableArray *arrayRelateds = [[NSMutableArray alloc]initWithArray:[self.productModel valueForKey:@"related_products"]];
+        NSString *stringIds = @"";
+        for (int j = 0; j < arrayRelateds.count; j++) {
+            if (j!= 0) {
+                stringIds = [NSString stringWithFormat:@"%@,%@",stringIds,[[arrayRelateds objectAtIndex:j] valueForKey:@"_id"]];
+            }else
+                stringIds = [NSString stringWithFormat:@"%@",[[arrayRelateds objectAtIndex:j] valueForKey:@"_id"]];
+        }
+        if (arrayRelateds.count > 0) {
+            SCProductRelateViewController *relateViewController = [SCProductRelateViewController new];
+            relateViewController.relateProductCollection = [self.productModel valueForKey:@"related_products"];
+            relateViewController.productListGetProductType = ProductListGetProductTypeFromRelateProduct;
+            relateViewController.stringIds = stringIds;
+            relateViewController.delegate = self;
+            [self addChildViewController:relateViewController];
+            [_pageScrollView addTab:SCLocalizedString(@"Related Products") View:relateViewController.view Info:nil];
+        }
+        
+    }
 }
 
 - (void)initMoreViewAction

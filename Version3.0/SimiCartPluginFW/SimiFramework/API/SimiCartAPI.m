@@ -11,8 +11,8 @@
 @implementation SimiCartAPI
 
 - (void)mergeQuoteWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector{
-    NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kSimiQuotes];
-    [self requestWithMethod:GET URL:url params:params target:target selector:selector header:nil];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@", kBaseURL, kSimiQuotes,@"/merge"];
+    [self requestWithMethod:POST URL:url params:params target:target selector:selector header:nil];
 }
 
 - (void)getQuotesWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector{

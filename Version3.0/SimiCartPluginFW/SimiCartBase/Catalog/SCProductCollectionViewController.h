@@ -49,7 +49,6 @@ typedef NS_ENUM(NSInteger, ProductListGetProductType) {
 
 @property (strong, nonatomic) NSString *categoryID;
 @property (strong, nonatomic) NSString *keySearchProduct;
-//@property (strong, nonatomic) NSString *spotID;
 @property (nonatomic, strong) NSDictionary* spotModel;
 @property (nonatomic, strong) UILabel *lbNotFound;
 @property (nonatomic, strong) NSDictionary* filterParam;
@@ -60,6 +59,7 @@ typedef NS_ENUM(NSInteger, ProductListGetProductType) {
 @property (nonatomic) CGFloat lastContentOffset;
 @property (nonatomic) int totalNumberProduct;
 @property (nonatomic) BOOL isSearchOnAllProducts;
+@property (nonatomic, strong) NSString *relatedIds;
 
 - (void)viewDidLoadAfter;
 - (void)viewWillAppearAfter;

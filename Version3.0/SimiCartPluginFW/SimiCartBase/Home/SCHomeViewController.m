@@ -143,8 +143,7 @@
             row.identifier = HOME_LOADING_CELL;
             row.height = [SimiGlobalVar scaleValue:177];
             [section addRow:row];
-        }else
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"DidGetAllDataAtHome" object:nil];
+        }
         [_cells addObject:section];
     }
     [tableViewHome reloadData];

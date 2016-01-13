@@ -19,4 +19,5 @@
 @property (nonatomic, strong) SCProductCollectionViewController *relateProductCollectionViewController;
 @property (nonatomic) ProductListGetProductType productListGetProductType;
 @property (nonatomic, strong) id<SCProductRelateViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *stringIds;
 @end

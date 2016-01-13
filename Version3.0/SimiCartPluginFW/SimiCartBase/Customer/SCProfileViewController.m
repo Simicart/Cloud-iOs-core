@@ -227,6 +227,11 @@
         [alertView show];
         return;
     }
+    for (SimiFormAbstract *field in self.form.fields) {
+        if ([field isKindOfClass:[SimiFormText class]]) {
+            [((SimiFormText*)field).inputText resignFirstResponder];
+        }
+    }
     isChangePassword = NO;
     NSString *curPass = @"";
     NSString *newPass = @"";
@@ -240,8 +245,6 @@
     
     if (curPass.length > 0 || newPass.length > 0 || confirmPass.length > 0) {
         if (![newPass isEqualToString:confirmPass]) {
-            //                newPass.textColor = [UIColor redColor];
-            //                confirmPass.textColor = [UIColor redColor];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:SCLocalizedString(@"Password and Confirm password don't match.") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
             [alertView show];
             return;
@@ -251,7 +254,6 @@
             return;
         }else{
             isChangePassword = YES;
-//            [form setValue:isChangePassword forKey:@"change_password"];
             [customer setValue:@"1" forKey:@"change_password"];
         }
     }
@@ -276,6 +278,7 @@
         NSString *message = SCLocalizedString(@"The account information has been saved.");
         if ([noti.name isEqualToString:DidChangeUserInfo]) {
             alertView.message = message;
+            
         }
         if ([noti.name isEqualToString:DidChangeUserPassword]) {
             if (isChangePassword) {

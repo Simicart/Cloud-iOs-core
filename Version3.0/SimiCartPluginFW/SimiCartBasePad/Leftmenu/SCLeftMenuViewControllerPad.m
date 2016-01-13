@@ -106,6 +106,7 @@ static CGFloat MENU_WIDTH = 328;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"DidGetStoreCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrLogout:) name:@"DidLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrLogout:) name:@"DidLogout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidChangeUserInfo object:nil];
 }
 #pragma mark Show and Hide LeftMenu
 - (void)didClickShow
@@ -244,8 +245,11 @@ static CGFloat MENU_WIDTH = 328;
 {
     SimiResponder *responder = (SimiResponder *)[noti.userInfo valueForKey:@"responder"];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
-        if ([noti.name isEqualToString:@"DidGetCMSPages"]) {
+        if ([noti.name isEqualToString:DidGetCMSPages]) {
             [self removeObserverForNotification:noti];
+            [self setCells:nil];
+        }else if([noti.name isEqualToString:DidChangeUserInfo])
+        {
             [self setCells:nil];
         }
     }

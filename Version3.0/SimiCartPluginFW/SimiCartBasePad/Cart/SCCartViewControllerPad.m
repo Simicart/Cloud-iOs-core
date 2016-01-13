@@ -83,10 +83,7 @@
         qtyButtonList = [[NSMutableDictionary alloc] init];
     }
     self.cart = [[SimiGlobalVar sharedInstance] cart];
-//    if ([SimiGlobalVar sharedInstance].isGettingCart) {
-//        [self startLoadingData];
-//    }
-    if(self.cartQuote)
+    if(self.cartQuote == nil)
         self.cartQuote = [SimiCartModel new];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:PushLoginInCheckout object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearCart) name:DidPlaceOrderAfter object:nil];
@@ -224,7 +221,14 @@
                 NSString *cartItemID = [item valueForKey:@"_id"];
                 [cell setCartItemId:cartItemID];
                 cell.delegate = self;
-                [cell setImagePath:[item valueForKey:@"image"]];
+//                [cell setImagePath:[item valueForKey:@"image"]];
+                if ([item valueForKey:@"images"] && [[item valueForKey:@"images"] isKindOfClass:[NSArray class]]) {
+                    NSMutableArray *images = [[NSMutableArray alloc]initWithArray:[item valueForKey:@"images"]];
+                    if (images.count > 0) {
+                        NSDictionary *image = [images objectAtIndex:0];
+                        [cell setImagePath:[image valueForKey:@"url"]];
+                    }
+                }
                 if(qtyButtonList == nil){
                     qtyButtonList = [[NSMutableDictionary alloc] init];
                 }
@@ -317,7 +321,7 @@
 -(void) productImageClicked:(NSIndexPath* )indexPath{
     SimiSection *section = [self.productCells objectAtIndex:[indexPath section]];
     if ([section.identifier isEqualToString:CART_PRODUCTS]) {
-        NSString *productID = [[self.cart objectAtIndex:indexPath.row] valueForKey:@"_id"];
+        NSString *productID = [[self.cart objectAtIndex:indexPath.row] valueForKey:@"product_id"];
         SCProductViewControllerPad *nextController = [[SCProductViewControllerPad alloc]init];
         [nextController setProductId:productID];
         [self.navigationController pushViewController:nextController animated:YES];
@@ -354,6 +358,8 @@
         [currentQtyButton setTitle:[self.qtyArray objectAtIndex: [selectedIndex intValue]] forState:UIControlStateNormal];
         NSMutableArray *qtyDictArr = [[NSMutableArray alloc] init];
         qtyDictArr = [self.cart objectAtIndex:self.currentItemIndex];
+        NSString* qty = [self.qtyArray objectAtIndex: [selectedIndex intValue]];
+        [qtyDictArr setValue:qty forKey:@"qty"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEditItemQty:) name:DidEditQty object:self.cartQuote];
         [self.cartQuote editQtyInCartWithData:qtyDictArr cartId:[SimiGlobalVar sharedInstance].quoteId];
         [self startLoadingData];
@@ -425,8 +431,10 @@
 
 - (void)askCustomerRole{
     UIActionSheet *actionSheet;
-    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
-    if ([[[store valueForKey:@"checkout_config"] valueForKey:@"enable_guest_checkout"] boolValue]) {
+//    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
+//    isEnableGuestCheckout = [[[store valueForKey:@"checkout_config"] valueForKey:@"enable_guest_checkout"] boolValue];
+    isEnableGuestCheckout = YES;
+    if (isEnableGuestCheckout) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SCLocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:SCLocalizedString(@"Checkout as existing customer"), SCLocalizedString(@"Checkout as new customer"), SCLocalizedString(@"Checkout as guest"), nil];
     }else{
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SCLocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:SCLocalizedString(@"Checkout as existing customer"), SCLocalizedString(@"Checkout as new customer"), nil];
@@ -435,8 +443,6 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
-    BOOL isEnableGuestCheckout = [[[store valueForKey:@"checkout_config"] valueForKey:@"enable_guest_checkout"] boolValue];
     if (isEnableGuestCheckout) {
         switch (buttonIndex) {
             case 0: //Checkout as existing customer
@@ -580,6 +586,7 @@
 - (void)selectAddress:(SimiAddressModel *)address
 {
     [_popController dismissPopoverAnimated:YES];
+    _popController = nil;
     [self showScreenWhenHiddenPopOver];
     SCOrderViewControllerPad *orderViewController = [[SCOrderViewControllerPad alloc]init];
     orderViewController.shippingAddress = [address mutableCopy];
@@ -593,7 +600,6 @@
 - (void)didLogin:(NSNotification*)noti
 {
     [_popController dismissPopoverAnimated:YES];
-    [self getCart];
     
     SCAddressViewController *addressViewController = [SCAddressViewController new];
     addressViewController.delegate = self;

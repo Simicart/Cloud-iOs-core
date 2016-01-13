@@ -180,20 +180,20 @@
 {
     heightCell = 5;
     //Axe Edit 150804
-    float widthTitle = [SimiGlobalVar scaleValue:190];
-    float widthValue = [SimiGlobalVar scaleValue:97];
+    float widthTitle = [SimiGlobalVar scaleValue:150];
+    float widthValue = [SimiGlobalVar scaleValue:120];
     float origionTitleX = [SimiGlobalVar scaleValue:16];
-    float origionValueX = [SimiGlobalVar scaleValue:206];
+    float origionValueX = [SimiGlobalVar scaleValue:166];
     float heightLabel = 22;
     float heightLabelWithDistance = 25;
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         heightCell = 15;
-        origionValueX = self.frame.size.width - 120;
-        widthValue = 100;
+        origionValueX = self.frame.size.width - 150;
+        widthValue = 130;
         origionTitleX = 10;
-        widthTitle = self.frame.size.width - 130;
+        widthTitle = self.frame.size.width - 160;
         heightLabel = 22;
         heightLabelWithDistance = 25;
     }

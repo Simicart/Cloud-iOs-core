@@ -141,6 +141,7 @@ static NSString *FOGIMAGE = @"FOGIMAGE";
         if([customer valueForKey:@"_id"] != nil && ![[customer valueForKey:@"_id"] isEqualToString:@""]){
             [_cartViewControllerPad getQuotesWithCustomerId:[customer valueForKey:@"_id"]];
         }
+        [_cartViewControllerPad getCart];
     }
     return _cartViewControllerPad;
 }

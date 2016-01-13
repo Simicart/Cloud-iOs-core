@@ -224,6 +224,12 @@ static NSString * const reuseIdentifier = @"CellTable";
             }
         }
             break;
+        case ProductListGetProductTypeFromRelateProduct:
+        {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetProducts:) name:DidGetAllProducts object:productCollection];
+             [productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":self.relatedIds}];
+        }
+            break;
         default:
             break;
     }

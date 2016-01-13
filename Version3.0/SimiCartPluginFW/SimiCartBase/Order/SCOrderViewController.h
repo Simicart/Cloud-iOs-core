@@ -45,6 +45,11 @@ static NSString *hasData = @"hasData";
 static NSString *saveCreditCardsToLocal = @"saveCreditCardsToLocal";
 
 @interface SCOrderViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SCAddressDelegate, SimiToolbarDelegate, UIAlertViewDelegate, SCCreditCardViewDelegates, UITabBarControllerDelegate,UIPopoverControllerDelegate>
+{
+    SimiCartModel *cartModel;
+    BOOL didAddBilling;
+    BOOL didSaveShipping;
+}
 
 /*
  The function tableView cellForRowAtIndexPath raise notification name: "InitializedOrderCell-After" after created a cell.
@@ -102,12 +107,13 @@ static NSString *saveCreditCardsToLocal = @"saveCreditCardsToLocal";
 - (void)savePaymentMethod:(SimiModel *)payment;
 - (void)didGetOrderConfig:(NSNotification *)noti;
 - (void)didSetCouponCode:(NSNotification *)noti;
-- (void)didReceiveNotification:(NSNotification *)noti;
+- (void)didPlaceOrder:(NSNotification *)noti;
 - (void)didClickHeader:(id)sender;
 - (void)toggleCheckBox:(SimiCheckbox *)sender;
 - (SimiModel*)convertShippingData:(SimiShippingModel *)method;
 - (void)addShippingAddressForQuote;
 - (void)addBillingAddressForQuote;
+- (void)didAddNewCustomerToQuote:(NSNotification*)noti;
 
 @end
 

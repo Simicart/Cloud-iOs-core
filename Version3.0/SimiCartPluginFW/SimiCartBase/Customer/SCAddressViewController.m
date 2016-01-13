@@ -79,9 +79,11 @@
 
 - (void)getAddresses{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetAddresses:) name:DidGetAddressCollection object:customer];
-    [self startLoadingData];
-    self.isGettingAddress = YES;
-    [customer getAddressCollection];
+    if (customer != nil) {        
+        [self startLoadingData];
+        self.isGettingAddress = YES;
+        [customer getAddressCollection];
+    }
 }
 
 - (void)didGetAddresses:(NSNotification *)noti{
@@ -90,7 +92,6 @@
         SimiAddressModelCollection *addressModelCollection = [SimiAddressModelCollection new];
         addressCollection = [customer valueForKey:@"addresses"];
         for (int i = (int)(addressCollection.count -1); i >= 0; i--) {
-//        for (int i = 0; i< (int)addressCollection.count; i++) {
             SimiAddressModel *addressModel = [addressCollection objectAtIndex:i];
             [addressModelCollection addObject:addressModel];
         }
@@ -277,12 +278,13 @@
             nextController.isEditing = YES;
             [self.navigationController pushViewController:nextController animated:YES];
         }else{
-            if(SIMI_SYSTEM_IOS >=8){
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [self.navigationController popViewControllerAnimated:NO];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                if(SIMI_SYSTEM_IOS >=8){
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [self.navigationController popViewControllerAnimated:NO];
+                }
             }
-            
             [_delegate selectAddress:[addressCollection objectAtIndex:indexPath.row]];
         }
     } else if ([aSection.identifier isEqualToString:ADDRESS_ADD_SECTION]) {

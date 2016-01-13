@@ -27,6 +27,7 @@ static NSString *CART_CHECKOUT_ROW  = @"checkoutrow";
     CGFloat valuesOfCart;
 //    BOOL isCancelClicked;
     NSMutableDictionary *qtyButtonList;
+    BOOL isEnableGuestCheckout;
 }
 
 /**

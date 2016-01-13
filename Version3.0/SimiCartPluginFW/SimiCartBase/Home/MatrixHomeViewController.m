@@ -144,8 +144,7 @@
         if (!(isDidGetBanner && isDidGetCategory && isDidGetSpotProduct)) {
             SimiRow *row04 = [[SimiRow alloc]initWithIdentifier:HOME_LOADING_CELL height:[SimiGlobalVar scaleValue:100]];
             [section addObject:row04];
-        }else
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"DidGetAllDataAtHome" object:nil];
+        }
         [_cells addObject:section];
         [tableViewHome reloadData];
     }
@@ -190,20 +189,20 @@
         [_viewCate01 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:0]];
         _viewCate01.delegate =self;
         
-        _viewCate02 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(110, 5, 210, 105)]  isAllCate:NO];
         if (homeCategoryModelCollection.count >1) {
+        _viewCate02 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(110, 5, 210, 105)]  isAllCate:NO];
             [_viewCate02 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:1]];
         }
         _viewCate02.delegate =self;
         
-        _viewCate03 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 115, 210, 105)] isAllCate:NO];
         if (homeCategoryModelCollection.count > 2) {
+        _viewCate03 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 115, 210, 105)] isAllCate:NO];
             [_viewCate03 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:2]];
         }
         _viewCate03.delegate =self;
         
-        _viewAllCate = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(215, 115, 105, 105)] isAllCate:YES];
         if (homeCategoryModelCollection.count > 3) {
+        _viewAllCate = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(215, 115, 105, 105)] isAllCate:NO];
             [_viewAllCate cusSetCateModel:[homeCategoryModelCollection objectAtIndex:3]];
         }
         _viewAllCate.delegate =self;
@@ -234,8 +233,8 @@
         [self removeObserverForNotification:noti];
         SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
         if ([responder.status isEqualToString:@"SUCCESS"]) {
-            if (self.homeCategoryModelCollection.count == 0 && [DEMO_MODE boolValue]) {
-                for (int i = 0; i < 4; i++) {
+            if (self.homeCategoryModelCollection.count < 5 && [DEMO_MODE boolValue]) {
+                for (int i = (int)self.homeCategoryModelCollection.count - 1; i < 4; i++) {
                     SimiModel *cateModel = [SimiModel new];
                     [cateModel setValue:@"YES" forKey:isFake];
                     [cateModel setValue:[NSString stringWithFormat:@"Category %d",i] forKey:@"category_name"];

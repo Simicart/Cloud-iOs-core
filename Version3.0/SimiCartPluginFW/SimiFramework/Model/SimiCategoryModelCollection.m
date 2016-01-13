@@ -17,8 +17,15 @@ NSString *const scDefaultGetHomeCategory = @"category-widgets";
     [self preDoRequest];
     modelActionType = ModelActionTypeGet;
     NSString *extendsUrl = @"";
-    
-    [(SimiCategoryAPI *)[self getAPI] getCategoryCollectionWithParams:params extendsUrl:extendsUrl target:self selector:@selector(didFinishRequest:responder:)];
+    NSMutableDictionary *parameters = nil;
+    if (params != nil) {
+        parameters = [[NSMutableDictionary alloc]initWithDictionary:params];
+    }else
+        parameters = [NSMutableDictionary new];
+    [parameters setValue:@"50" forKey:@"limit"];
+    [parameters setValue:@"0" forKey:@"offset"];
+    [parameters setValue:@"1" forKey:@"filter[status]"];
+    [(SimiCategoryAPI *)[self getAPI] getCategoryCollectionWithParams:parameters extendsUrl:extendsUrl target:self selector:@selector(didFinishRequest:responder:)];
 }
 
 - (void)getHomeDefaultCategories{
@@ -26,7 +33,11 @@ NSString *const scDefaultGetHomeCategory = @"category-widgets";
     currentNotificationName = DidGetHomeCategories;
     [self preDoRequest];
     NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURL, scDefaultGetHomeCategory];
-    [[self getAPI] requestWithMethod:GET URL:urlPath params:nil target:self selector:@selector(didFinishRequest:responder:) header:nil];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    [parameters setValue:@"50" forKey:@"limit"];
+    [parameters setValue:@"0" forKey:@"offset"];
+    [parameters setValue:@"1" forKey:@"filter[status]"];
+    [[self getAPI] requestWithMethod:GET URL:urlPath params:parameters target:self selector:@selector(didFinishRequest:responder:) header:nil];
 }
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder

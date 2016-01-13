@@ -60,6 +60,21 @@
     [btnPlaceNow setTitle:[SCLocalizedString(@"Place Now") uppercaseString] forState:UIControlStateNormal];
     [btnPlaceNow setTitleColor:THEME_BUTTON_TEXT_COLOR forState:UIControlStateNormal];
     [btnPlaceNow addTarget:self action:@selector(placeOrder) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (![[SimiGlobalVar sharedInstance]isLogin]) {
+        cartModel = [SimiCartModel new];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:@{@"address":self.shippingAddress,@"customer_email":[self.shippingAddress valueForKey:@"email"]}];
+        if (self.isNewCustomer) {
+            [params setValue:[self.shippingAddress valueForKey:@"customer_password"] forKey:@"password"];
+            [params setValue:@"1" forKey:@"create_new_customer"];
+        }
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didAddNewCustomerToQuote:) name:DidAddNewCustomerToQuote object:cartModel];
+        [cartModel addNewCustomerToQuote:params];
+    }
+    if (self.order == nil) {
+        self.order = [[SimiOrderModel alloc] init];
+    }
+    [SimiGlobalVar sharedInstance].needGetCart = YES;
     [SimiGlobalVar sharedInstance].needGetCart = YES;
 
 }
@@ -235,6 +250,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SCOrderViewController-InitRightTableAfter" object:_orderTableRight];
 }
 
+-(void)selectAddress:(SimiAddressModel *)address
+{
+    [_popController dismissPopoverAnimated:YES];
+    _popController = nil;
+    [super selectAddress:address];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    _popController = nil;
+}
+
 #pragma mark Place Order
 - (void)placeOrder{
     //Gin edit
@@ -260,7 +287,7 @@
             [params setValue:@"0" forKey:@"condition"];
         }
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidPlaceOrder object:self.order];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrder:) name:DidPlaceOrder object:self.order];
         // Liam Update Credit Card
         SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
         [[NSNotificationCenter defaultCenter]postNotificationName:SCOrderViewControllerBeforePlaceOrder object:self userInfo:@{@"order":self.order,@"payment":payment}];
@@ -717,7 +744,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"InitializedOrderCell-After" object:simiRow userInfo:@{@"tableView": tableView, @"indexPath": indexPath, @"cell": cell}];
     return cell;
 }
-#pragma mark TableView Delegate
 
 #pragma mark Table View Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -739,7 +765,6 @@
         SCAddressViewController *nextController = [[SCAddressViewController alloc]init];
         [nextController setDelegate:self];
         [nextController setIsGetOrderAddress:YES];
-        //[self.navigationController pushViewController:nextController animated:YES];
         
         UINavigationController *navi;
         navi = [[UINavigationController alloc]initWithRootViewController:nextController];
@@ -747,18 +772,22 @@
         _popController.delegate = self;
         nextController.popover = _popController;
         navi.navigationBar.tintColor = THEME_COLOR;
-        if (SIMI_SYSTEM_IOS >= 8) {
-            navi.navigationBar.tintColor = THEME_APP_BACKGROUND_COLOR;
-        }
         navi.navigationBar.barTintColor = THEME_COLOR;
+        if (SIMI_SYSTEM_IOS >= 8) {
+            navi.navigationBar.tintColor = [UIColor whiteColor];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
+            });
+        }
         [_popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
+
+        return;
         
     }if(simiRow.identifier == ORDER_VIEW_SHIPPING_ADDRESS){
         self.isSelectBillingAddress = NO;
         SCAddressViewController *nextController = [[SCAddressViewController alloc]init];
         [nextController setDelegate:self];
         [nextController setIsGetOrderAddress:YES];
-        //[self.navigationController pushViewController:nextController animated:YES];
         
         UINavigationController *navi;
         navi = [[UINavigationController alloc]initWithRootViewController:nextController];
@@ -766,11 +795,15 @@
         _popController.delegate = self;
         nextController.popover = _popController;
         navi.navigationBar.tintColor = THEME_COLOR;
+        navi.navigationBar.barTintColor = THEME_COLOR;
         if (SIMI_SYSTEM_IOS >= 8) {
             navi.navigationBar.tintColor = [UIColor whiteColor];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
+            });
         }
-        navi.navigationBar.barTintColor = THEME_COLOR;
         [_popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
+        return;
     }else if(simiRow.identifier == ORDER_VIEW_PAYMENT_METHOD){
         self.selectedPayment  = indexPath.row;
         SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
@@ -802,9 +835,7 @@
         }else if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeSDK){
             
         }else{
-//            if([self.isReloadPayment isEqualToString:@"1"]){
-                [self savePaymentMethod:payment];
-//            }
+            [self savePaymentMethod:payment];
         }
         [self reloadData];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -890,7 +921,6 @@
     [self startLoadingData];
     if([SimiGlobalVar sharedInstance].quoteId != nil)
         [self.order selectShippingMethod:shippingMethod quoteId:[SimiGlobalVar sharedInstance].quoteId];
-    
 }
 
 #pragma mark Keyboard Delegate

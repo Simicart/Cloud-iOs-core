@@ -28,7 +28,7 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"InitializedRootController" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationWillSwitchLanguage" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrderWithNewCustomer:) name:@"DidPlaceOrder-After" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrderWithNewCustomer:) name:DidPlaceOrderAfter object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotificationFromServer:) name:@"DidRecieveNotificationFromServer" object:nil];
     }
     return self;
@@ -45,7 +45,7 @@
 
 - (void)didPlaceOrderWithNewCustomer:(NSNotification*)noti
 {
-    if ([noti.name isEqualToString:@"DidPlaceOrder-After"]) {
+    if ([noti.name isEqualToString:DidPlaceOrderAfter]) {
         SCOrderViewController *orderViewController = [noti.userInfo valueForKey:@"controller"];
         if (orderViewController.isNewCustomer) {
             SimiCustomerModel *customer = [[SimiCustomerModel alloc]init];
@@ -66,6 +66,9 @@
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([[responder.status uppercaseString] isEqualToString:@"SUCCESS"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PushLoginNormal" object:nil];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
     [self removeObserverForNotification:noti];
 }

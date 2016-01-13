@@ -27,6 +27,7 @@
     }
     [self.view addSubview:relateProductCollectionViewController.collectionView];
     self.relateProductCollectionViewController.delegate = self;
+    self.relateProductCollectionViewController.relatedIds = self.stringIds;
     [self.relateProductCollectionViewController getProducts];
     [self startLoadingData];
 }

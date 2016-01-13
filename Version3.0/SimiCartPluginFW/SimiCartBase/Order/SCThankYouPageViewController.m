@@ -37,7 +37,7 @@ NSString * BUTTON = @"BUTTON";
     padding = 15;
     paddingButton = [SimiGlobalVar scaleValue:65];
     heightButton = 44;
-    des = @"You have placed an order successfully";
+    des = SCLocalizedString(@"You have placed an order successfully");
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         oriYButton = [SimiGlobalVar scaleValue:170];

@@ -91,6 +91,19 @@
     [btnPlaceNow setHidden:YES];
     [self addShippingAddressForQuote];
     [self addBillingAddressForQuote];
+    if (![[SimiGlobalVar sharedInstance]isLogin]) {
+        cartModel = [SimiCartModel new];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:@{@"address":self.shippingAddress,@"customer_email":[shippingAddress valueForKey:@"email"]}];
+        if (self.isNewCustomer) {
+            [params setValue:[shippingAddress valueForKey:@"customer_password"] forKey:@"password"];
+            [params setValue:@"1" forKey:@"create_new_customer"];
+        }
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didAddNewCustomerToQuote:) name:DidAddNewCustomerToQuote object:cartModel];
+        [cartModel addNewCustomerToQuote:params];
+    }
+    if (self.order == nil) {
+        self.order = [[SimiOrderModel alloc] init];
+    }
     [SimiGlobalVar sharedInstance].needGetCart = YES;
 }
 
@@ -644,9 +657,7 @@
         if (SIMI_SYSTEM_IOS>=8) {
             [self.navigationController pushViewController:nextController animated:YES];
         }else{
-            // May start edited 20151022
             [self.navigationController pushViewController:nextController animated:NO];
-            // May end 20151022
         }
         
     }if(simiRow.identifier == ORDER_VIEW_SHIPPING_ADDRESS){
@@ -657,9 +668,7 @@
         if (SIMI_SYSTEM_IOS>=8) {
             [self.navigationController pushViewController:nextController animated:YES];
         }else{
-            // May start edited 20151022
             [self.navigationController pushViewController:nextController animated:NO];
-            // May end 20151022
         }
     }else if(simiRow.identifier == ORDER_VIEW_PAYMENT_METHOD){
         self.selectedPayment  = indexPath.row;
@@ -692,15 +701,12 @@
         }else if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeSDK){
             NSLog(@"zzzz");
         }else{
-//            if([self.isReloadPayment isEqualToString:@"1"]){
                 [self savePaymentMethod:payment];
-//            }
         }
         _orderTable = nil;
        [simiSection setHeaderTitle:[payment valueForKey:@"payment_method"]];
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:[self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION]] withRowAnimation:UITableViewRowAnimationNone];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        //Gin edit
         if ((selectedShippingMedthod != -1)){
             [self.tableViewOrder scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.tableViewOrder numberOfRowsInSection:[self.orderTable getSectionIndexByIdentifier:ORDER_TOTALS_SECTION]] - 1) inSection:[self.orderTable getSectionIndexByIdentifier:ORDER_TOTALS_SECTION]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }else{
@@ -708,7 +714,6 @@
                 [self.tableViewOrder scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.orderTable getSectionIndexByIdentifier:ORDER_SHIPMENT_SECTION]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
         }
-        //end
     }else if(simiRow.identifier == ORDER_VIEW_SHIPPING_METHOD){
         [self didSelectShippingMethodAtIndex: indexPath.row];
     }else if(simiRow.identifier == ORDER_VIEW_TERM){
@@ -761,23 +766,31 @@
     }
 }
 
-#pragma mark SCShipping Delegate
+#pragma mark Select Shipping Method
+- (int)getSelectedShippingMedthodId
+{
+    for (int i=0; i< self.shippingCollection.count; i++){
+        NSArray *shippingMethods = [self.shippingCollection objectAtIndex:i];
+        NSInteger selectedId = [[shippingMethods valueForKey:@"s_method_selected"] integerValue];
+        if(selectedId == 1){
+            return i;
+        }
+    }
+    return 0;
+}
+
 - (void)didSelectShippingMethodAtIndex:(NSInteger)index{
     self.selectedShippingMedthod = index;
     SimiShippingModel *method = (SimiShippingModel *)[self.shippingCollection objectAtIndex:self.selectedShippingMedthod];
     SimiModel *shippingMethod = [self convertShippingData:method];
-    //Gin edit
     [self.expandableSections setValue:@"YES" forKey:ORDER_PAYMENT_SECTION];
-    //End
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSaveShippingMethod:) name:DidSaveShippingMethod object:self.order];
     [self startLoadingData];
     if([SimiGlobalVar sharedInstance].quoteId != nil)
         [self.order selectShippingMethod:shippingMethod quoteId:[SimiGlobalVar sharedInstance].quoteId];
-    //Gin edit
     if (selectedPayment != -1){
         [self.tableViewOrder scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.orderTable getSectionIndexByIdentifier:ORDER_TOTALS_SECTION]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
-    //end
 }
 
 -(SimiModel*)convertShippingData:(SimiShippingModel *)method{
@@ -792,13 +805,120 @@
 
 #pragma mark Save Shipping Method
 - (void)didSaveShippingMethod:(NSNotification *)noti{
+    didSaveShipping = YES;
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
         [self setOrderTotalData:self.order];
-        if (selectedPayment == -1 && _firstScrollToPaymentMethod && selectedShippingMedthod != -1) {
+        [self didGetOrderConfig:noti];
+        if (selectedPayment == -1 && _firstScrollToPaymentMethod && selectedShippingMedthod != -1 && [self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION] != NSNotFound) {
             _firstScrollToPaymentMethod = NO;
             [self.tableViewOrder scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+        [alertView show];
+    }
+    [self stopLoadingData];
+    [self removeObserverForNotification:noti];
+}
+
+#pragma mark Add Address for quote
+- (void)addShippingAddressForQuote{
+    if (self.shippingCollection == nil) {
+        self.shippingCollection = [[SimiShippingModelCollection alloc] init];
+    }
+    if(self.shippingAddress != nil)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddShippingAddress:) name:DidGetShippingMethod object:self.shippingCollection];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setValue:self.shippingAddress forKey:@"shipping_address"];
+        if([SimiGlobalVar sharedInstance].quoteId != nil)
+            [self.shippingCollection addShippingAddressForQuote:[SimiGlobalVar sharedInstance].quoteId withParams:params];
+        [self startLoadingData];
+        didSaveShipping = NO;
+    }
+}
+
+- (void)addBillingAddressForQuote{
+    if (self.paymentCollection == nil) {
+        self.paymentCollection = [[SimiPaymentModelCollection alloc] init];
+    }
+    if(self.billingAddress != nil)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddBillingAddress:) name:DidGetPaymentMethod object:self.paymentCollection];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setValue:self.shippingAddress forKey:@"billing_address"];
+        if([SimiGlobalVar sharedInstance].quoteId != nil)
+            [self.paymentCollection addBillingAddressForQuote:[SimiGlobalVar sharedInstance].quoteId withParams:params];
+        [self startLoadingData];
+        didAddBilling = NO;
+    }
+}
+
+- (void)didAddShippingAddress:(NSNotification *)noti{
+    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
+    if ([responder.status isEqualToString:@"SUCCESS"]) {
+        if (self.shippingCollection.count == 0) {
+            self.selectedShippingMedthod = 0;
+            self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"NO",ORDER_SHIPMENT_SECTION, nil];
+            [self getOrderConfig];
+        }else{
+            self.selectedShippingMedthod = [self getSelectedShippingMedthodId];
+            [self didSelectShippingMethodAtIndex:self.selectedShippingMedthod];
+        }
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+        [alertView show];
+    }
+    [self removeObserverForNotification:noti];
+    [self stopLoadingData];
+}
+
+- (void)didAddBillingAddress:(NSNotification *)noti{
+    didAddBilling  = YES;
+    [self stopLoadingData];
+    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
+    if ([responder.status isEqualToString:@"SUCCESS"]) {
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+        [alertView show];
+    }
+    [self removeObserverForNotification:noti];
+    [self reloadData];
+}
+
+- (void)didAddNewCustomerToQuote:(NSNotification*)noti
+{
+    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
+    if ([responder.status isEqualToString:@"SUCCESS"]) {
+    }else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+        [alertView show];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    [self removeObserverForNotification:noti];
+}
+
+- (void)stopLoadingData
+{
+    if (didAddBilling && didSaveShipping) {
+        [super stopLoadingData];
+    }
+}
+
+#pragma mark Save Payment Method
+- (void)savePaymentMethod:(SimiModel *)payment{
+    [self startLoadingData];
+    if([SimiGlobalVar sharedInstance].quoteId != nil)
+        [self.order selectPaymentMethod:payment quoteId:[SimiGlobalVar sharedInstance].quoteId];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSavePaymentMethod:) name:DidSavePaymentMethod object:self.order];
+}
+
+- (void)didSavePaymentMethod:(NSNotification *)noti{
+    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
+    if ([responder.status isEqualToString:@"SUCCESS"]) {
+        [self setOrderTotalData:self.order];
         [self reloadData];
     }else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
@@ -834,7 +954,7 @@
         SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
         [[NSNotificationCenter defaultCenter]postNotificationName:SCOrderViewControllerBeforePlaceOrder object:self userInfo:@{@"order":self.order,@"payment":payment}];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidPlaceOrder object:self.order];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrder:) name:DidPlaceOrder object:self.order];
         [self startLoadingData];
         
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -889,16 +1009,15 @@
 - (void)selectAddress:(SimiAddressModel *)address{
     if (self.isSelectBillingAddress) {
         self.billingAddress = address;
+        [self addBillingAddressForQuote];
         if (self.shippingAddress == nil) {
             self.shippingAddress = address;
+            [self addShippingAddressForQuote];
         }
     }else{
         self.shippingAddress = address;
+        [self addShippingAddressForQuote];
     }
-//    [self getOrderConfig];
-    [self addShippingAddressForQuote];
-    [self addBillingAddressForQuote];
-//    [self reloadData];
 }
 
 #pragma mark Credit Card View Delegate
@@ -922,86 +1041,6 @@
     [self reloadData];
 }
 
-#pragma mark Save Payment Method
-- (void)savePaymentMethod:(SimiModel *)payment{
-    [self startLoadingData];
-    if([SimiGlobalVar sharedInstance].quoteId != nil)
-        [self.order selectPaymentMethod:payment quoteId:[SimiGlobalVar sharedInstance].quoteId];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSavePaymentMethod:) name:DidSavePaymentMethod object:self.order];
-}
-
-- (void)didSavePaymentMethod:(NSNotification *)noti{
-    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
-    if ([responder.status isEqualToString:@"SUCCESS"]) {
-        [self setOrderTotalData:self.order];
-        [self reloadData];
-    }else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
-        [alertView show];
-    }
-    [self stopLoadingData];
-    [self removeObserverForNotification:noti];
-}
-
-#pragma mark Add Address for quote
-- (void)addShippingAddressForQuote{
-    if (self.shippingCollection == nil) {
-        self.shippingCollection = [[SimiShippingModelCollection alloc] init];
-    }
-    if(self.shippingAddress != nil)
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddShippingAddress:) name:DidGetShippingMethod object:self.shippingCollection];
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setValue:self.shippingAddress forKey:@"shipping_address"];
-        if([SimiGlobalVar sharedInstance].quoteId != nil)
-            [self.shippingCollection addShippingAddressForQuote:[SimiGlobalVar sharedInstance].quoteId withParams:params];
-    }
-}
-
-- (void)addBillingAddressForQuote{
-    if (self.paymentCollection == nil) {
-        self.paymentCollection = [[SimiPaymentModelCollection alloc] init];
-    }
-    if(self.billingAddress != nil)
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddBillingAddress:) name:DidGetPaymentMethod object:self.paymentCollection];
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setValue:self.shippingAddress forKey:@"billing_address"];
-        if([SimiGlobalVar sharedInstance].quoteId != nil)
-            [self.paymentCollection addBillingAddressForQuote:[SimiGlobalVar sharedInstance].quoteId withParams:params];
-        [self startLoadingData];
-    }
-}
-
-- (void)didAddShippingAddress:(NSNotification *)noti{
-    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
-    if ([responder.status isEqualToString:@"SUCCESS"]) {
-        if (self.shippingCollection.count == 0) {
-            self.selectedShippingMedthod = 0;
-            self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"NO",ORDER_SHIPMENT_SECTION, nil];
-        }else{
-            self.selectedShippingMedthod = [self getSelectedShippingMedthodId];
-            [self didSelectShippingMethodAtIndex:self.selectedShippingMedthod];
-        }
-    }else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
-        [alertView show];
-    }
-    [self getOrderConfig];
-    [self removeObserverForNotification:noti];
-}
-
-- (void)didAddBillingAddress:(NSNotification *)noti{
-    [self stopLoadingData];
-    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
-    if ([responder.status isEqualToString:@"SUCCESS"]) {
-    }else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
-        [alertView show];
-    }
-    [self removeObserverForNotification:noti];
-}
-
 #pragma mark Get & Did Get Order Configure
 - (void)getOrderConfig{
     if (self.order == nil) {
@@ -1010,18 +1049,6 @@
     if(self.shippingAddress != nil && self.billingAddress != nil)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetOrderConfig:) name:DidGetOrderConfig object:self.order];
-//        [params setValue:self.shippingAddress forKey:@"shippingAddress"];
-//        [params setValue:self.billingAddress forKey:@"billingAddress"];
-//        if (self.isNewCustomer) {
-//            [params setValue:[self.billingAddress valueForKey:@"customer_password"] forKey:@"customer_password"];
-//            [params setValue:[self.billingAddress valueForKey:@"confirm_password"] forKey:@"confirm_password"];
-//            if(self.selectedPayment>=0 && self.selectedPayment<self.paymentCollection.count)
-//            {
-//                SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
-//                NSDictionary *userInfo = payment ? @{@"data": payment} : nil;
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSelectPaymentMethod" object:payment userInfo:userInfo];
-//            }
-//        }
         if([SimiGlobalVar sharedInstance].quoteId != nil)
             [self.order getOrderConfigWithParams:nil quoteId:[SimiGlobalVar sharedInstance].quoteId];
     }
@@ -1033,16 +1060,12 @@
     [self stopLoadingData];
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
-        self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"NO",ORDER_PAYMENT_SECTION,@"YES",ORDER_SHIPMENT_SECTION, nil];
+        self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"YES",ORDER_SHIPMENT_SECTION, nil];
         if (self.shippingCollection.count == 0) {
             self.selectedShippingMedthod = 0;
             self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"NO",ORDER_SHIPMENT_SECTION, nil];
-        }else{
-            self.selectedShippingMedthod = [self getSelectedShippingMedthodId];
-            [self didSelectShippingMethodAtIndex:self.selectedShippingMedthod];
         }
         
-        //  Liam Update Credit Card
         if (self.paymentCollection.count > 0) {
             if (self.creditCards == nil) {
                 self.creditCards = [NSMutableArray new];
@@ -1070,7 +1093,6 @@
                 }
             }
         }
-        //  End Update Credit Card
         
         // Term and conditions
         if (![[self.order valueForKey:@"condition"] isKindOfClass:[NSNull class]]) {
@@ -1115,18 +1137,6 @@
     [self removeObserverForNotification:noti];
 }
 
-- (int)getSelectedShippingMedthodId
-{
-    for (int i=0; i< self.shippingCollection.count; i++){
-        NSArray *shippingMethods = [self.shippingCollection objectAtIndex:i];
-        NSInteger selectedId = [[shippingMethods valueForKey:@"s_method_selected"] integerValue];
-        if(selectedId == 1){
-            return i;
-        }
-    }
-    return 0;
-}
-
 #pragma mark Notification Action
 - (void)didReloadShoppingCart:(NSNotification *)noti
 {
@@ -1150,7 +1160,6 @@
             self.currentCouponCode = @"";
             message = SCLocalizedString(@"Couponcode was removed");
         }
-//        self.paymentCollection = [[SimiProductModelCollection alloc] initWithArray:[self.order valueForKey:@"payment_method_list"]];
         [self reloadData];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"SUCCESS") message:message delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
         [alertView show];
@@ -1179,7 +1188,7 @@
         [self.cartPrices setValue:[order_ valueForKey:@"discount_amount"] forKey:@"discount_amount"];
 }
 
-- (void)didReceiveNotification:(NSNotification *)noti{
+- (void)didPlaceOrder:(NSNotification *)noti{
     [self stopLoadingData];
     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
@@ -1203,23 +1212,14 @@
             if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeRedirect) {
                 [self.navigationController popToRootViewControllerAnimated:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"DidPlaceOrder-Before" object:self.order userInfo:@{@"data": self.order, @"payment": [self.order valueForKey:@"payment"], @"controller": self, @"responder":responder, @"cart":self.cart, @"shipping":shippingModel}];
+                [[SimiGlobalVar sharedInstance]resetQuote];
             }else if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] != PaymentShowTypeSDK){
-                //  Liam UPDATE 150401
+               [[SimiGlobalVar sharedInstance]resetQuote];
                 if ([self.order valueForKey:@"notification"]) {
                     [self.navigationController popToRootViewControllerAnimated:YES];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"DidCheckOut-Success" object:self.order];
                 }else
                 {
-                    //Axe edited
-                    //delete current quote
-                    [[SimiGlobalVar sharedInstance] setQuoteId:nil];
-                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                    if ([userDefaults valueForKey:@"quoteId"]) {
-                        [userDefaults setValue:@"" forKey:@"quoteId"];
-                        [userDefaults synchronize];
-                    }
-
-                    //Gin edit
                     if (SIMI_SYSTEM_IOS >= 8) {
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     }else
@@ -1257,7 +1257,7 @@
                     }
                 }
             }
-            NSLog(@"%@",self.navigationController);
+            NSLog(@"%@",self.navigationController.viewControllers);
             [[NSNotificationCenter defaultCenter] postNotificationName:DidPlaceOrderAfter object:self.order userInfo:@{@"data": self.order, @"payment": [self.order valueForKey:@"payment"], @"controller": self, @"responder":responder, @"cart":self.cart, @"shipping":shippingModel}];
         }else{
             //Fail
@@ -1265,6 +1265,23 @@
             [alertView show];
             [self.tableViewOrder deselectRowAtIndexPath:[self.tableViewOrder indexPathForSelectedRow] animated:YES];
         }
+    }
+    if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeSDK) {
+        if (self.isDiscontinue) {
+            self.isDiscontinue = NO;
+        }else
+        {
+            [[SimiGlobalVar sharedInstance]resetQuote];
+            if (SIMI_SYSTEM_IOS >= 8) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else
+            {
+                [self.navigationController popToRootViewControllerAnimated:NO];
+            }
+        }
+    }
+    if (![[SimiGlobalVar sharedInstance]isLogin] && !self.isNewCustomer) {
+        [SimiGlobalVar sharedInstance].addressBookCollection = nil;
     }
     [self removeObserverForNotification:noti];
 }
@@ -1318,10 +1335,8 @@
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if ([textField isEqual: self.textFieldCouponCode]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSetCouponCode:) name:@"DidSetCouponCode" object:order];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSetCouponCode:) name:DidSetCouponCode object:order];
         if([SimiGlobalVar sharedInstance].quoteId != nil){
-//            NSLog(@"%@", self.textFieldCouponCode.text);
-//            NSLog(@"%@", currentCouponCode);
             if(![currentCouponCode isEqualToString:@""] && [self.textFieldCouponCode.text isEqualToString:@""]){
                 [self.order removeCouponCode:currentCouponCode quoteId:[SimiGlobalVar sharedInstance].quoteId];
             }else{
@@ -1413,16 +1428,18 @@
                 if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
                     NSRange stringRange = {0, MIN([userLabel.text length], 68)};
                     stringRange = [userLabel.text rangeOfComposedCharacterSequencesForRange:stringRange];
-                    addressLabel.text = [addressLabel.text substringWithRange:stringRange];
+//                    if ([addressLabel.text length] > stringRange.length) {
+//                        addressLabel.text = [addressLabel.text substringWithRange:stringRange];
+//                    }
                     if([userLabel.text length] > 68){
                         userLabel.text = [userLabel.text stringByAppendingString:@"..."];
                     }
                 }
                 addressLabel.textColor = THEME_TEXT_COLOR;
                 addressLabel.font = [UIFont fontWithName:THEME_FONT_NAME size:16.0];
-                labelHeight = [userLabel.text sizeWithFont:userLabel.font].height;
+                labelHeight = [addressLabel.text sizeWithFont:addressLabel.font].height;
                 [addressLabel resizLabelToFit];
-                CGRect frame = userLabel.frame;
+                CGRect frame = addressLabel.frame;
                 if(frame.size.height > 22){
                     frame.size.height = 40;
                     userLabel.numberOfLines = 2;

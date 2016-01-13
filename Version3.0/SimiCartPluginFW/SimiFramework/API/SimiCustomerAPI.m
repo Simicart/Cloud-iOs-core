@@ -36,7 +36,8 @@
 }
 
 - (void)getForgotPasswordWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector{
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@",kBaseURL, kSimiGetForgotPassword];
+    [self requestWithMethod:POST URL:url params:params target:target selector:selector header:nil];
 }
 
 - (void)getAddressCollectionWithUrl:(NSString *)extendsUrl target:(id)target selector:(SEL)selector{

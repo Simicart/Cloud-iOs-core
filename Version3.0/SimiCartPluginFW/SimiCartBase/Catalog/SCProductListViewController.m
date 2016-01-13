@@ -643,6 +643,7 @@
     if (self.productListGetProductType == ProductListGetProductTypeFromSearch) {
         [self.productCollection removeAllObjects];
         self.productCollectionViewController.isSearchOnAllProducts = self.isSearchOnAllProducts;
+        self.productCollectionViewController.keySearchProduct = _keySearchProduct;
         self.maxNumberProduct = 1000;
         if (_isProductShowGrid) {
             [self.productCollectionViewController.collectionView reloadData];

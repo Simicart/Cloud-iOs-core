@@ -169,6 +169,7 @@ typedef NS_ENUM(NSInteger, CurrentVersionPhoneUsing)
 - (UIColor *)colorWithHex:(UInt32)col;
 - (UIColor *)darkerColorForColor:(UIColor *)c;
 - (UIColor *)themeColor;
+- (void)resetQuote;
 + (UIColor *)getThemeColor:(SEL)themeSelector;
 + (BOOL)getThemeConfig:(SEL)themeSelector;
 + (NSString *)getThemeName;

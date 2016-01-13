@@ -51,6 +51,7 @@ static NSString *TABLE_LOGIN = @"TABLE_LOGIN";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"DidGetStoreCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrLogout:) name:@"DidLogin" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginOrLogout:) name:@"DidLogout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidChangeUserInfo object:nil];
 }
 
 - (void)viewWillAppearBefore:(BOOL)animated
@@ -131,6 +132,8 @@ static NSString *TABLE_LOGIN = @"TABLE_LOGIN";
     if ([responder.status isEqualToString:@"SUCCESS"]) {
         if ([noti.name isEqualToString:DidGetCMSPages]) {
             [self removeObserverForNotification:noti];
+            [self setCells:nil];
+        }else if([noti.name isEqualToString:DidChangeUserInfo]){
             [self setCells:nil];
         }
     }

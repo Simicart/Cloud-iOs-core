@@ -273,6 +273,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>ZTHEME_ENABLE</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

@@ -69,10 +69,25 @@
 }
 
 - (void)didClickSendButton{
-    SimiCustomerModel *customer = [[SimiCustomerModel alloc] init];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidGetForgotPassword object:customer];
-    [customer getForgotPasswordWithUserEmail:textFieldEmail.text];
-    [self startLoadingData];
+    if([self NSStringIsValidEmail: textFieldEmail.text]){
+        SimiCustomerModel *customer = [[SimiCustomerModel alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidGetForgotPassword object:customer];
+        [customer getForgotPasswordWithUserEmail:textFieldEmail.text];
+        [self startLoadingData];
+    }else{
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your email address is not valid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 
 - (void)didReceiveNotification:(NSNotification *)noti{

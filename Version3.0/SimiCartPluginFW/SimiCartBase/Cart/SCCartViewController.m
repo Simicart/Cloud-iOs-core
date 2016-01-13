@@ -24,7 +24,6 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 @implementation SCCartViewController
 {
     NSString* orderWebURL;
-    BOOL isEnableGuestCheckout;
 }
 @synthesize cartCells = _cartCells;
 @synthesize tableViewCart, cart, isPresentingKeyboard, heightRow, cartPrices, currentQtyButton, currentItemIndex;
@@ -91,6 +90,9 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 }
 
 - (void)viewWillAppearBefore:(BOOL)animated{
+    if ([SimiGlobalVar sharedInstance].cart.count < 1) {
+        [btnCheckout setHidden:YES];
+    }
     if ([SimiGlobalVar sharedInstance].needGetCart) {
         [SimiGlobalVar sharedInstance].needGetCart = NO;
         [self getCart];
@@ -126,7 +128,6 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 
 #pragma mark Get Cart Data
 - (void)getCart{
-    NSLog(@"%d,%@",[SimiGlobalVar sharedInstance].isGettingCart,[SimiGlobalVar sharedInstance].quoteId);
     if (![SimiGlobalVar sharedInstance].isGettingCart && [SimiGlobalVar sharedInstance].quoteId != nil) {
         [SimiGlobalVar sharedInstance].isGettingCart = YES;
         tableViewCart.hidden = YES;
@@ -134,7 +135,7 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
         if (self.cartQuote == nil) {
             self.cartQuote = [[SimiCartModel alloc] init];
         }
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetCart:) name:DidGetCart object:self.cartQuote];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetCart:) name:DidGetCart object:nil];
         [self startLoadingData];
         [self.cartQuote getCartItemsWithParams:nil cartId:[SimiGlobalVar sharedInstance].quoteId];
     }
@@ -148,9 +149,9 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
     if ([responder.status isEqualToString:@"SUCCESS"]) {
         if([self.quotes count] > 0){
             SimiCartModel *quote = quotes[0];
-            if([SimiGlobalVar sharedInstance].quoteId != nil && ![[SimiGlobalVar sharedInstance].quoteId isEqualToString:@""]
-               && ![[SimiGlobalVar sharedInstance].quoteId isEqualToString:[quote valueForKey:@"_id"]]){
-                [self mergeQuote:[quote valueForKey:@"_id"] withQuote:[SimiGlobalVar sharedInstance].quoteId];
+            if([SimiGlobalVar sharedInstance].quoteId != nil && ![[SimiGlobalVar sharedInstance].quoteId isEqualToString:@""] && ![[SimiGlobalVar sharedInstance].quoteId isEqualToString:[quote valueForKey:@"_id"]]){
+                [self mergeQuote:[SimiGlobalVar sharedInstance].quoteId withQuote:[quote valueForKey:@"_id"]];
+                [[SimiGlobalVar sharedInstance] setQuoteId:[quote valueForKey:@"_id"]];
             }else{
                 [[SimiGlobalVar sharedInstance] setQuoteId:[quote valueForKey:@"_id"]];
                 [self setDataForCart:quote];
@@ -174,12 +175,14 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 {
     tableViewCart.hidden = NO;
     [SimiGlobalVar sharedInstance].isGettingCart = NO;
+    [self removeObserverForNotification:noti];
     [self changeCartData:noti];
 }
 
 - (void)didEditItemQty:(NSNotification*)noti
 {
     [self changeCartData:noti];
+    [self removeObserverForNotification:noti];
 }
 
 
@@ -242,8 +245,8 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 - (void)clearCart{
     [qtyButtonList removeAllObjects];
     [self.cart removeAllObjects];
-    [self reloadData];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:DidPlaceOrderAfter object:nil];
+    [SimiGlobalVar sharedInstance].cart = nil;
+    [self setDataForCart:[SimiCartModel new]];
     [[NSNotificationCenter defaultCenter] postNotificationName:DidChangeCart object:cart];
 }
 //  Liam Update Select Address on Cart 150622
@@ -325,7 +328,6 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if ([(NSString*)actionSheet.simiObjectIdentifier isEqualToString:actionSheetCustomer]) {
         if (isEnableGuestCheckout) {
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
                 switch (buttonIndex) {
                     case 0: //Checkout as existing customer
                     {
@@ -361,44 +363,8 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
                         
                         break;
                 }
-            }else
-            {
-                switch (buttonIndex) {
-                    case 0: //Checkout as existing customer
-                    {
-                        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLoginOnCheckout:) name:PushLoginInCheckout object:nil];
-                        self.isNewCustomer = NO;
-                        SCLoginViewController *nextController = [[SCLoginViewController alloc] init];
-                        nextController.isLoginInCheckout = YES;
-                        [self.navigationController pushViewController:nextController animated:YES];
-                    }
-                        break;
-                    case 1: //Checkout as new customer
-                    {
-                        self.isNewCustomer = YES;
-                        SCNewAddressViewController *nextController = [[SCNewAddressViewController alloc]init];
-                        nextController.isNewCustomer = YES;
-                        nextController.delegate = self;
-                        [self.navigationController pushViewController:nextController animated:YES];
-                    }
-                        break;
-                    case 2: //Checkout as guest
-                    {
-                        self.isNewCustomer = NO;
-                        SCNewAddressViewController *nextController = [[SCNewAddressViewController alloc]init];
-                        nextController.delegate = self;
-                        [self.navigationController pushViewController:nextController animated:YES];
-                    }
-                        
-                        break;
-                    default: //Cancel
-                        
-                        break;
-                }
-            }
         }else
         {
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
                 switch (buttonIndex) {
                     case 0: //Checkout as existing customer
                     {
@@ -423,32 +389,7 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
                         
                         break;
                 }
-            }else
-            {
-                switch (buttonIndex) {
-                    case 0: //Checkout as existing customer
-                    {
-                        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLoginOnCheckout:) name:PushLoginInCheckout object:nil];
-                        self.isNewCustomer = NO;
-                        SCLoginViewController *nextController = [[SCLoginViewController alloc] init];
-                        nextController.isLoginInCheckout = YES;
-                        [self.navigationController pushViewController:nextController animated:YES];
-                    }
-                        break;
-                    case 1: //Checkout as new customer
-                    {
-                        self.isNewCustomer = YES;
-                        SCNewAddressViewController *nextController = [[SCNewAddressViewController alloc]init];
-                        nextController.isNewCustomer = YES;
-                        nextController.delegate = self;
-                        [self.navigationController pushViewController:nextController animated:YES];
-                    }
-                        break;
-                    default: //Cancel
-                        
-                        break;
-                }
-            }
+            
         }
     }
 }

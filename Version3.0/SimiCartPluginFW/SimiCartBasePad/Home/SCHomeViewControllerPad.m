@@ -100,8 +100,7 @@
             row.identifier = HOME_LOADING_CELL;
             row.height = 290;
             [section addRow:row];
-        }else
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"DidGetAllDataAtHome" object:nil];
+        }
         [_cells addObject:section];
     }
     [self.tableViewHome reloadData];
@@ -348,13 +347,14 @@
 {
     id banner = [_arrayBannerModel objectAtIndex:index];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"DidClickBanner" object:banner];
-    if ([[banner valueForKey:@"type"] isEqualToString:@"2"]) {
+    NSString* bannerType = [NSString stringWithFormat:@"%@",[banner valueForKey:@"type"]];
+    if ([bannerType isEqualToString:@"2"]) {
         SCProductListViewControllerPad* nextController = [SCProductListViewControllerPad new];
-        nextController.categoryID = [banner valueForKey:@"categoryID"];
+        nextController.categoryID = [banner valueForKey:@"category_id"];
         [self.navigationController pushViewController:nextController animated:YES];
-    }else if([[banner valueForKey:@"type"] isEqualToString:@"1"]){
+    }else if([bannerType isEqualToString:@"1"]){
         SCProductViewControllerPad *nextController = [SCProductViewControllerPad new];
-        [nextController setProductId:[banner valueForKey:@"productID"]];
+        [nextController setProductId:[banner valueForKey:@"product_id"]];
         [self.navigationController pushViewController:nextController animated:YES];
     }else{
         if (![[banner valueForKey:@"url"] isKindOfClass:[NSNull class]] && [banner valueForKey:@"url"] != nil){

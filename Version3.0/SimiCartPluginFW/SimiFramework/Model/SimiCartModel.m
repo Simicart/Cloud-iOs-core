@@ -90,22 +90,12 @@
     [(SimiCartAPI *)[self getAPI] addCustomerToQuote:params extendUrl:[NSString stringWithFormat:@"/%@",[SimiGlobalVar sharedInstance].quoteId] target:self selector:@selector(didFinishRequest:responder:)];
 }
 
-//- (void)editQtyInCartWithData:(NSArray *)data{
-//    currentNotificationName = @"DidEditQty";
-//    [self preDoRequest];
-//    modelActionType = ModelActionTypeEdit;
-//    [(SimiCartAPI *)[self getAPI] editCartItemsWithParams:@{@"cart_items": data} target:self selector:@selector(didFinishRequest:responder:)];
-//}
-
-//- (NSInteger)indexOfObject:(SimiCartModel *)cartItem{
-//    for (int i = 0; i < self.count; i++) {
-//        SimiCartModel *item = [self objectAtIndex:i];
-//        if ([[item valueForKey:@"cart_item_id"] isEqualToString:[cartItem valueForKey:@"cart_item_id"]]) {
-//            return i;
-//        }
-//    }
-//    return -1;
-//}
+- (void)addNewCustomerToQuote:(NSMutableDictionary*)params
+{
+    currentNotificationName = DidAddNewCustomerToQuote;
+    [self preDoRequest];
+    [(SimiCartAPI *)[self getAPI] addCustomerToQuote:params extendUrl:[NSString stringWithFormat:@"/%@/customer",[SimiGlobalVar sharedInstance].quoteId] target:self selector:@selector(didFinishRequest:responder:)];
+}
 
 - (NSString *)cartQty{
     NSInteger badge = 0;
@@ -117,7 +107,7 @@
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder
 {
-    if ([currentNotificationName isEqualToString:DidGetCart] || [currentNotificationName isEqualToString:DidCreateNewQuote] || [currentNotificationName isEqualToString:DidEditQty] || [currentNotificationName isEqualToString:DidAddToCart]) {
+    if ([currentNotificationName isEqualToString:DidGetCart] || [currentNotificationName isEqualToString:DidCreateNewQuote] || [currentNotificationName isEqualToString:DidEditQty] || [currentNotificationName isEqualToString:DidAddToCart] || [currentNotificationName isEqualToString:DidAddNewCustomerToQuote] ||[currentNotificationName isEqualToString:DidMergeQuote]) {
         if (responder.simiObjectName) {
             currentNotificationName = responder.simiObjectName;
         }

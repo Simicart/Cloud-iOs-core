@@ -26,7 +26,7 @@ NSString *const kSimiChangeUserPassword = @"customer-account/change-password";
 NSString *const kSimiLogout             = @"customer/sign_out";
 NSString *const kSimiCustomers          = @"customers";
 NSString *const kSimiCheckLoginStatus   = @"customer/check_login_status";
-NSString *const kSimiGetForgotPassword  = @"customer/forgot_password";
+NSString *const kSimiGetForgotPassword  = @"customer-account/forget-password";
 
 //SimiCart Quotes
 NSString *const kSimiQuotes             = @"quotes";

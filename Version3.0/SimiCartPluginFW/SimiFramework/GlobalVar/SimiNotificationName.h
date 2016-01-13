@@ -52,6 +52,7 @@ static NSString *InitializedCartCellAfter = @"InitializedCartCell-After";
 static NSString *DidMergeQuote = @"DidMergeQuote";
 static NSString *DidCreateNewQuote = @"DidCreateNewQuote";
 static NSString *DidAddCustomerToQuote = @"DidAddCustomerToQuote";
+static NSString *DidAddNewCustomerToQuote = @"DidAddNewCustomerToQuote";
 
 #pragma mark Customer
 static NSString *DidLogin = @"DidLogin";

@@ -131,12 +131,7 @@
                 [self addSubview:lblChoice];
             }
             btnCate = [[UIButton alloc]initWithFrame:self.bounds];
-
-            //Axe updated
             [btnCate addTarget:self action:@selector(didSelectCategory) forControlEvents:UIControlEventTouchUpInside];
-//            UITapGestureRecognizer* tapCateButton = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectCategory)];
-//            [btnCate addGestureRecognizer:tapCateButton];
-//            [self addSubview:btnCate];
             [self addSubview:btnCate];
         }
     }
@@ -150,6 +145,10 @@
     if ([[self.cateModel valueForKey:@"isFake"]boolValue]) {
         self.slideShow.useImages = YES;
         [self.slideShow addImage:[UIImage imageNamed:[self.cateModel valueForKey:@"image"]]];
+        [lblChoice setHidden:YES];
+        [lblViewMore setHidden:YES];
+        [imgCateBackGround setHidden:YES];
+        [imgChoice setHidden:YES];
     }else
     {
         NSMutableArray * array = [self.cateModel valueForKey:@"images"];

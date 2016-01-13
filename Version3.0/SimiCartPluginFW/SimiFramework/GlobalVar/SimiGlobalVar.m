@@ -83,6 +83,17 @@
     return image;
 }
 
+- (void)resetQuote
+{
+    [[SimiGlobalVar sharedInstance] setQuoteId:nil];
+    [SimiGlobalVar sharedInstance].cart = nil;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults valueForKey:@"quoteId"]) {
+        [userDefaults setValue:@"" forKey:@"quoteId"];
+        [userDefaults synchronize];
+    }
+}
+
 #pragma mark - Theme method
 - (UIColor *)themeColor{
     UIColor *color = [self colorWithHexString: kThemeColorHex];

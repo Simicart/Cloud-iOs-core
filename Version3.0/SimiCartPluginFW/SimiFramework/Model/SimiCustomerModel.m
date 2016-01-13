@@ -104,7 +104,7 @@
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder
 {
-    if ([currentNotificationName isEqualToString:DidLogin] || [currentNotificationName isEqualToString:DidGetProfile] ||[currentNotificationName isEqualToString:DidGetAddressCollection]) {
+    if ([currentNotificationName isEqualToString:DidLogin] || [currentNotificationName isEqualToString:DidGetProfile] ||[currentNotificationName isEqualToString:DidGetAddressCollection] || [currentNotificationName isEqualToString:DidGetForgotPassword] || [currentNotificationName isEqualToString:DidChangeUserInfo]) {
         if (responder.simiObjectName) {
             currentNotificationName = responder.simiObjectName;
         }

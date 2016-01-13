@@ -105,7 +105,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout:) name:DidLogout object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetProfile:) name:DidGetProfile object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetAllDataAtHome:) name:@"DidGetAllDataAtHome" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationDidFinishLaunching" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationDidRegisterForRemote" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationDidReceiveNotificationFromServer" object:nil];
@@ -245,9 +244,7 @@
         if (activePlugins == nil) {
             activePlugins = [[SimiPluginModelCollection alloc] init];
         }
-        if ([SimiGlobalVar sharedInstance].themeUsing == ThemeShowZTheme) {
-            [self getCountryCollection];
-        }
+        [self getCountryCollection];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidInit" object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetPlugins:) name:DidGetActivePlugins object:activePlugins];
 //        [activePlugins getActivePluginsWithParams:nil];
@@ -352,9 +349,6 @@
         [self stoploadingViewFade];
         [self initializeRootController];
         [self initializePlugins];
-        if ([SimiGlobalVar sharedInstance].themeUsing == ThemeShowZTheme) {
-            [self getCountryCollection];
-        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"InitializedRootController" object:_rootController];
         window.rootViewController = _rootController;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidInit" object:nil];
@@ -409,13 +403,8 @@
     [wrapper resetKeychainItem];
     [[SimiGlobalVar sharedInstance] setCustomer:nil];
     [[SimiGlobalVar sharedInstance] setIsLogin: NO];
-    [[SimiGlobalVar sharedInstance] setQuoteId:nil];
-    [SimiGlobalVar sharedInstance].cart = nil;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults valueForKey:@"quoteId"]) {
-        [userDefaults setValue:@"" forKey:@"quoteId"];
-        [userDefaults synchronize];
-    }
+    [[SimiGlobalVar sharedInstance] setAddressBookCollection:nil];
+    [[SimiGlobalVar sharedInstance]resetQuote];
     [[SimiCacheData sharedInstance] renewData];
 }
 

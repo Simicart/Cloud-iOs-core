@@ -48,6 +48,11 @@
 - (void)addCustomerToQuote:(NSMutableDictionary*)params;
 
 /*
+ Notification name: DidAddCustomerToQuote
+ */
+- (void)addNewCustomerToQuote:(NSMutableDictionary*)params;
+
+/*
  Notification name: DidEditQty
  */
 - (void)deleteCartItemWithCartId:(NSString *)cartId itemId:(NSString *)itemId;

@@ -93,8 +93,7 @@
         if (!(self.isDidGetBanner && self.isDidGetCategory && self.isDidGetSpotProduct)) {
             SimiRow *row04 = [[SimiRow alloc]initWithIdentifier:HOME_LOADING_CELL height:100];
             [section addObject:row04];
-        }else
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"DidGetAllDataAtHome" object:nil];
+        }
         [_cells addObject:section];
         [tableViewHome reloadData];
     }

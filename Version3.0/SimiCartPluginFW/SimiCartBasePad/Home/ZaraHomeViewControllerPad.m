@@ -116,10 +116,10 @@ static float WIDTH_TABLEVIEW = 1024;
     }else
     {
         SCProductListViewControllerPad *productListViewController = [SCProductListViewControllerPad new];
-        if ([[zThemeSection.zThemeSectionContent valueForKey:@"ztype"] isEqualToString:@"cat"]) {
+        if ([[zThemeSection.zThemeSectionContent valueForKey:@"type"] isEqualToString:@"cat"]) {
             productListViewController.productListGetProductType = ProductListGetProductTypeFromCategory;
             productListViewController.categoryID = zThemeSection.identifier;
-        }else if([[zThemeSection.zThemeSectionContent valueForKey:@"ztype"] isEqualToString:@"spot"])
+        }else if([[zThemeSection.zThemeSectionContent valueForKey:@"type"] isEqualToString:@"spot"])
         {
             productListViewController.productListGetProductType = ProductListGetProductTypeFromSpot;
             productListViewController.spotModel = zThemeSection.zThemeSectionContent;

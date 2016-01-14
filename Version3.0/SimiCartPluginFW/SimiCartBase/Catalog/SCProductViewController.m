@@ -494,7 +494,7 @@
                     priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                 }
                 [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, 250, 20)];
-                [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+                [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
                 [lblRegularPrice setHidden:NO];
             }
         }
@@ -511,7 +511,7 @@
                                 priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                             }
                             priceRegular += [[variant valueForKey:@"price_include_tax"] floatValue];
-                            [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+                            [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
                             [lblRegularPrice setHidden:NO];
                             
                             if ([product valueForKey:@"sale_price_include_tax"]) {
@@ -527,7 +527,7 @@
                                     }
                                     
                                     priceSpecial += [[variant valueForKey:@"sale_price_include_tax"] floatValue];
-                                    [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                                    [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
                                     [lblSpecialPrice setHidden:NO];
                                 }
                             }
@@ -545,7 +545,7 @@
                                 priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                             }
                             priceRegular += [[variant valueForKey:@"price"] floatValue];
-                            [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+                            [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
                             [lblRegularPrice setHidden:NO];
                             
                             if ([variant valueForKey:@"sale_price"]) {
@@ -561,7 +561,7 @@
                                     }
                                     
                                     priceSpecial += [[variant valueForKey:@"sale_price"] floatValue];
-                                    [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                                    [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
                                     [lblSpecialPrice setHidden:NO];
                                 }
                             }
@@ -613,7 +613,7 @@
             priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
         }
         priceRegular += [[product valueForKey:@"price_include_tax"] floatValue];
-        [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+        [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
         [lblRegularPrice setHidden:NO];
         
         if ([product valueForKey:@"sale_price_include_tax"]) {
@@ -629,7 +629,7 @@
                 }
                 
                 priceSpecial += [[product valueForKey:@"sale_price_include_tax"] floatValue];
-                [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
                 [lblSpecialPrice setHidden:NO];
             }
         }
@@ -647,7 +647,7 @@
             priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
         }
         priceRegular += [[product valueForKey:@"price"] floatValue];
-        [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+        [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
         [lblRegularPrice setHidden:NO];
         
         if ([product valueForKey:@"sale_price"]) {
@@ -663,7 +663,7 @@
                 }
                 
                 priceSpecial += [[product valueForKey:@"sale_price"] floatValue];
-                [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
                 [lblSpecialPrice setHidden:NO];
             }
         }

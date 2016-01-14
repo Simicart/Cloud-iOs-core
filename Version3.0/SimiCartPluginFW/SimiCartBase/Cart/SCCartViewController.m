@@ -32,6 +32,13 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 
 #pragma mark Init
 
+-(id) init{
+    if(self = [super init]){
+        
+    }
+    return self;
+}
+
 + (instancetype)sharedInstance{
     static SCCartViewController *_sharedInstance = nil;
     static dispatch_once_t onceToken;

@@ -66,12 +66,12 @@
 {
     NSString *priceWithCurrency = @"";
      NSString *orderPrice = [NSString stringWithFormat:@"%0.2f", [price floatValue]];
-    if([currencyPosition isEqualToString:@"after"]){
+    if([currencyPosition isEqualToString:@"right"]){
         priceWithCurrency = [NSString stringWithFormat:@"%2@ %@", orderPrice, currencySymbol];
-    }else if([currencyPosition isEqualToString:@"before"]){
+    }else if([currencyPosition isEqualToString:@"left"]){
         priceWithCurrency = [NSString stringWithFormat:@"%@%2@",currencySymbol,orderPrice];
     }else{
-        priceWithCurrency = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[price floatValue]]];
+        priceWithCurrency = [[SimiFormatter sharedInstance] priceWithPrice:price];
     }
     return priceWithCurrency;
 }

@@ -11,8 +11,5 @@
 @interface SimiFormatter : NSObject
 
 + (instancetype)sharedInstance;
-
-- (NSString *)priceByLocalizeNumber:(NSNumber *)number;
-- (NSString *)priceByLocalizeNumber:(NSNumber *)number locale:(NSLocale *)locale;
-
+- (NSString *) priceWithPrice:(NSString *) price;
 @end

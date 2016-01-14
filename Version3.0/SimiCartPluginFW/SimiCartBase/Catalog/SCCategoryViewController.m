@@ -477,7 +477,7 @@
 -(void)setPrice:(NSString *)p{
     if (![price isEqualToString:p]) {
         price = [p copy];
-        priceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[price floatValue]]];
+        priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:price];
         [UIFont fontWithName:THEME_FONT_NAME size:THEME_FONT_SIZE - 4];
     }
 }

@@ -70,7 +70,7 @@
 - (void)setPrice:(NSString *)price{
     if (![_price isEqual:price]) {
         _price = [price copy];
-        priceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_price floatValue]]];
+        priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_price];
         priceLabel.textColor = THEME_PRICE_COLOR;
     }
 }

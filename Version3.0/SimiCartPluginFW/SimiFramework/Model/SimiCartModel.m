@@ -78,7 +78,7 @@
     [params setValue:[SimiGlobalVar sharedInstance].currencyCode forKey:@"quote_currency_code"];
     [params setValue:[SimiGlobalVar sharedInstance].currencyCode forKey:@"base_currency_code"];
     [params setValue:[SimiGlobalVar sharedInstance].currencyCode forKey:@"store_currency_code"];
-    [params setValue:[[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:1000]] forKey:@"currency_template"];
+    [params setValue:[[SimiFormatter sharedInstance] priceWithPrice:@"1000"] forKey:@"currency_template"];
     [self preDoRequest];
     [(SimiCartAPI *)[self getAPI] createNewQuoteWithParams:params target:self selector:@selector(didFinishRequest:responder:)];
 }

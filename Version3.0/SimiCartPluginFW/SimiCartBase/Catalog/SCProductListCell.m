@@ -86,7 +86,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
 {
     _regularPrice = regularPrice;
     _regularPriceLabel = [UILabel new];
-    _regularPriceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_regularPrice floatValue]]];
+    _regularPriceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_regularPrice];
     _regularPriceLabel.simiObjectName = PRODUCTLISTCELL_PRICE;
 }
 
@@ -94,7 +94,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
 {
     _specialPrice = specialPrice;
     _specialPriceLabel = [UILabel new];
-    _specialPriceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_specialPrice floatValue]]];
+    _specialPriceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_specialPrice];
     _specialPriceLabel.simiObjectName = PRODUCTLISTCELL_PRICE;
 }
 
@@ -154,7 +154,6 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
         [_lblStockStatus setTransform:CGAffineTransformMakeRotation(- M_PI_4)];
         [_lblStockStatus setTextAlignment:NSTextAlignmentCenter];
         [_productImageView addSubview:_lblStockStatus];
-        
     }
     
     [_productNameLabel setFrame:CGRectMake(labelTitleX, imageOrigionY - 2, SCREEN_WIDTH - labelTitleX - 15 , heightLabel)];

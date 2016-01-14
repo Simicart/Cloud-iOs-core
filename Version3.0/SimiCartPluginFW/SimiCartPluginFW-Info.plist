@@ -13,7 +13,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>com.simicart.cloud</string>
+	<string>com.simicart.demo</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,6 +26,14 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.simicart.demo.payments</string>
+			</array>
+		</dict>
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
@@ -44,6 +52,9 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbauth2</string>
+		<string>com.paypal.ppclient.touch.v1</string>
+		<string>com.paypal.ppclient.touch.v2</string>
+		<string>org-appextension-feature-password-management</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -97,11 +108,11 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>SIMI_DEBUG_ENABLE</key>
-	<false/>
+	<true/>
 	<key>SIMI_DEVELOPMENT_ENABLE</key>
 	<true/>
 	<key>SIMI_THEME_ENABLE</key>
-	<false/>
+	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Mark Simonson - Proxima Nova Light.ttf</string>
@@ -273,6 +284,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>ZTHEME_ENABLE</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

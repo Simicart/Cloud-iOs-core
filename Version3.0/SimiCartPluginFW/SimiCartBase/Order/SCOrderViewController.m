@@ -1,4 +1,5 @@
- //
+
+//
 //  SCOrderViewController.m
 //  SimiCartPluginFW
 //
@@ -599,7 +600,7 @@
             [priceLabel setFont:[UIFont fontWithName:THEME_FONT_NAME size:THEME_FONT_SIZE_REGULAR]];
             priceLabel.backgroundColor = [UIColor clearColor];
             priceLabel.textColor = THEME_PRICE_COLOR;
-            priceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[[simiRow.data valueForKey:@"price"] floatValue]]];
+            priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[simiRow.data valueForKey:@"price"]]];
             float widthPrice = [priceLabel.text sizeWithFont:priceLabel.font].width;
             [priceLabel setFrame:[SimiGlobalVar scaleFrame:CGRectMake(cell.frame.size.width - widthPrice -14, 0,widthPrice, cell.frame.size.height)]];
             if ([[SimiGlobalVar sharedInstance] isReverseLanguage]) {
@@ -1266,20 +1267,20 @@
             [self.tableViewOrder deselectRowAtIndexPath:[self.tableViewOrder indexPathForSelectedRow] animated:YES];
         }
     }
-    if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeSDK) {
-        if (self.isDiscontinue) {
-            self.isDiscontinue = NO;
-        }else
-        {
-            [[SimiGlobalVar sharedInstance]resetQuote];
-            if (SIMI_SYSTEM_IOS >= 8) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }else
-            {
-                [self.navigationController popToRootViewControllerAnimated:NO];
-            }
-        }
-    }
+//    if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeSDK) {
+//        if (self.isDiscontinue) {
+//            self.isDiscontinue = NO;
+//        }else
+//        {
+//            [[SimiGlobalVar sharedInstance]resetQuote];
+//            if (SIMI_SYSTEM_IOS >= 8) {
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+//            }else
+//            {
+//                [self.navigationController popToRootViewControllerAnimated:NO];
+//            }
+//        }
+//    }
     if (![[SimiGlobalVar sharedInstance]isLogin] && !self.isNewCustomer) {
         [SimiGlobalVar sharedInstance].addressBookCollection = nil;
     }

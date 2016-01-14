@@ -56,6 +56,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [super viewDidLoadBefore];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
 }
 
 - (void)viewWillAppearBefore:(BOOL)animated
@@ -157,7 +159,7 @@
             }
         }
     }else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Invalid username or password") message:SCLocalizedString(responder.responseMessage) delegate:nil cancelButtonTitle:SCLocalizedString(@"OK" ) otherButtonTitles: nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:SCLocalizedString(responder.responseMessage) delegate:nil cancelButtonTitle:SCLocalizedString(@"OK" ) otherButtonTitles: nil];
         textFieldPassword.text = @"";
         [alertView show];
     }
@@ -184,7 +186,6 @@
     [self.textFieldPassword resignFirstResponder];
     [self.textFieldEmail resignFirstResponder];
     customer = [[SimiCustomerModel alloc] init];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
     [customer loginWithUserMail:self.textFieldEmail.text password:self.textFieldPassword.text];
     [self startLoadingData];
     [self hideKeyboard];

@@ -166,7 +166,7 @@
         if (homeCategoryModelCollection.count > 0 && spotCollection.count > 0) {
             for (int i = 0; i < homeCategoryModelCollection.count; i++) {
                 SimiModel *homeModel = [homeCategoryModelCollection objectAtIndex:i];
-                [homeModel setValue:@"cat" forKey:@"ztype"];
+                [homeModel setValue:@"cat" forKey:@"type"];
                 ZaraHomeViewSection *section = [[ZaraHomeViewSection alloc]initWithHeaderTitle:[homeModel valueForKey:@"name"] footerTitle:@""];
                 section.identifier = [NSString stringWithFormat:@"%@",[homeModel valueForKey:@"category_id"]];
                 section.isSelected = NO;
@@ -195,7 +195,7 @@
             }
             for (int i = 0; i < spotCollection.count; i++) {
                 SimiModel *homeModel = [spotCollection objectAtIndex:i];
-                [homeModel setValue:@"spot" forKey:@"ztype"];
+                [homeModel setValue:@"spot" forKey:@"type"];
                 ZaraHomeViewSection *section = [[ZaraHomeViewSection alloc]initWithHeaderTitle:[homeModel valueForKey:@"name"] footerTitle:@""];
                 section.identifier = [NSString stringWithFormat:@"%@",[homeModel valueForKey:@"_id"]];
                 section.isSelected = NO;
@@ -379,7 +379,7 @@
     {
         //  if section hasn't no child, it will be redirect list product screen
         SCProductListViewController *productListViewController = [SCProductListViewController new];
-        if ([[zThemeSection.zThemeSectionContent valueForKey:@"ztype"] isEqualToString:@"cat"]) {
+        if ([[zThemeSection.zThemeSectionContent valueForKey:@"type"] isEqualToString:@"cat"]) {
             productListViewController.productListGetProductType = ProductListGetProductTypeFromCategory;
             productListViewController.categoryID = zThemeSection.identifier;
         }else

@@ -92,7 +92,7 @@
     if (stringRegularPrice_ != nil) {
         _stringRegularPrice = stringRegularPrice_;
         _lblRegularPrice = [[UILabel alloc]init];
-        _lblRegularPrice.text = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[_stringRegularPrice floatValue]]];
+        _lblRegularPrice.text = [[SimiFormatter sharedInstance]priceWithPrice:_stringRegularPrice];
     }
 }
 
@@ -101,7 +101,7 @@
     if (stringSpecialPrice_ != nil) {
         _stringSpecialPrice = stringSpecialPrice_;
         _lblSpecialPrice = [[UILabel alloc]init];
-        _lblSpecialPrice.text = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[_stringSpecialPrice floatValue]]];
+        _lblSpecialPrice.text = [[SimiFormatter sharedInstance] priceWithPrice:_stringSpecialPrice];
     }
 }
 

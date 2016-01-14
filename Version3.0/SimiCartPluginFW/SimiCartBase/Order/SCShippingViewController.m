@@ -82,7 +82,7 @@
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width - 60, 0, 40, cell.frame.size.height)];
     priceLabel.backgroundColor = [UIColor clearColor];
     priceLabel.textColor = THEME_PRICE_COLOR;
-    priceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[[[self.methodCollection objectAtIndex:indexPath.row] valueForKey:@"s_method_fee"] floatValue]]];
+    priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[[self.methodCollection objectAtIndex:indexPath.row] valueForKey:@"s_method_fee"]]];
     CGRect frame = priceLabel.frame;
     frame.origin.x = cell.frame.size.width - 30 - [priceLabel.text sizeWithFont:priceLabel.font].width;
     frame.size.width = [priceLabel.text sizeWithFont:priceLabel.font].width;

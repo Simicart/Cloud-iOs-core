@@ -168,7 +168,7 @@
         [self.lblExcl setFont:[UIFont fontWithName:THEME_FONT_NAME size:sizeFontPrice]];
         self.lblExcl.textColor = THEME_PRICE_COLOR;
         self.stringPriceRegular = stringPriceRegular_;
-        self.lblExcl.text = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[self.stringPriceRegular floatValue]]];
+        self.lblExcl.text = [[SimiFormatter sharedInstance]priceWithPrice:self.stringPriceRegular];
     }
 }
 
@@ -179,7 +179,7 @@
         [self.lblIncl setFont:[UIFont fontWithName:THEME_FONT_NAME size:sizeFontPrice]];
         self.lblIncl.textColor = THEME_PRICE_COLOR;
         self.stringPriceSpecial = stringPriceSpecial_;
-        self.lblIncl.text = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[self.stringPriceSpecial floatValue]]];
+        self.lblIncl.text = [[SimiFormatter sharedInstance] priceWithPrice:self.stringPriceSpecial];
     }
 }
 

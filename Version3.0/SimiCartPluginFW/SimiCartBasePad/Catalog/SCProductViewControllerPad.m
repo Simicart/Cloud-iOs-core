@@ -323,7 +323,7 @@
                 if ([self.product valueForKey:@"total_option_price"]) {
                     priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                 }
-                [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+                [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceRegular]]];
                 [self.lblRegularPrice setFrame:frame];
                 [self.lblRegularPrice setTextAlignment:NSTextAlignmentCenter];
                 [self.lblRegularPrice setHidden:NO];
@@ -341,7 +341,7 @@
                                 priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                             }
                             priceRegular += [[variant valueForKey:@"price_include_tax"] floatValue];
-                            [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+                            [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceRegular]]];
                             [self.lblRegularPrice setFrame:frame];
                             [self.lblRegularPrice setTextAlignment:NSTextAlignmentCenter];
                             [self.lblRegularPrice setHidden:NO];
@@ -362,7 +362,7 @@
                                     }
                                     
                                     priceSpecial += [[variant valueForKey:@"sale_price_include_tax"] floatValue];
-                                    [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                                    [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceSpecial]]];
                                     [self.lblSpecialPrice setHidden:NO];
                                     frame = self.labelProductName.frame;
                                     frame.origin.y = paddingTop;
@@ -385,7 +385,7 @@
                                 priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                             }
                             priceRegular += [[variant valueForKey:@"price"] floatValue];
-                            [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+                            [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceRegular]]];
                             [self.lblRegularPrice setFrame:frame];
                             [self.lblRegularPrice setTextAlignment:NSTextAlignmentCenter];
                             [self.lblRegularPrice setHidden:NO];
@@ -405,7 +405,7 @@
                                     }
                                     
                                     priceSpecial += [[variant valueForKey:@"sale_price"] floatValue];
-                                    [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                                    [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceSpecial]]];
                                     [self.lblSpecialPrice setHidden:NO];
                                     frame = self.labelProductName.frame;
                                     frame.origin.y = paddingTop;
@@ -463,7 +463,7 @@
             priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
         }
         priceRegular += [[self.product valueForKey:@"price_include_tax"] floatValue];
-        [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+        [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceRegular]]];
         [self.lblRegularPrice setFrame:frame];
         [self.lblRegularPrice setTextAlignment:NSTextAlignmentCenter];
         [self.lblRegularPrice setHidden:NO];
@@ -483,7 +483,7 @@
                 }
                 
                 priceSpecial += [[self.product valueForKey:@"sale_price_include_tax"] floatValue];
-                [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceSpecial]]];
                 [self.lblSpecialPrice setHidden:NO];
                 frame = self.labelProductName.frame;
                 frame.origin.y = paddingTop;
@@ -506,7 +506,7 @@
             priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
         }
         priceRegular += [[self.product valueForKey:@"price"] floatValue];
-        [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceRegular]]];
+        [self.lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceRegular]]];
         [self.lblRegularPrice setFrame:frame];
         [self.lblRegularPrice setTextAlignment:NSTextAlignmentCenter];
         [self.lblRegularPrice setHidden:NO];
@@ -526,7 +526,7 @@
                 }
                 
                 priceSpecial += [[self.product valueForKey:@"sale_price"] floatValue];
-                [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:priceSpecial]]];
+                [self.lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f", priceSpecial]]];
                 [self.lblSpecialPrice setHidden:NO];
                 frame = self.labelProductName.frame;
                 frame.origin.y = paddingTop;

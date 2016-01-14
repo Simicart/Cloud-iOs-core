@@ -10,6 +10,8 @@
 #import "SimiSection.h"
 #import "SCOrderDetailViewController.h"
 #import "SCOrderViewController.h"
+#import "SKPSMTPMessage.h"
+
 NSString * THANK_YOU = @"THANK_YOU";
 NSString * NUMBER = @"NUMBER";
 NSString * DESCRIBLE = @"DESCRIBLE";
@@ -38,7 +40,6 @@ NSString * BUTTON = @"BUTTON";
     paddingButton = [SimiGlobalVar scaleValue:65];
     heightButton = 44;
     des = SCLocalizedString(@"You have placed an order successfully");
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         oriYButton = [SimiGlobalVar scaleValue:170];
     }else
@@ -190,4 +191,5 @@ NSString * BUTTON = @"BUTTON";
         [self.navigationController pushViewController:placeOderNumber animated:YES];
     }
 }
+
 @end

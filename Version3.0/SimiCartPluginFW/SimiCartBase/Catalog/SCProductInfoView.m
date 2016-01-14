@@ -118,7 +118,7 @@
 {
     _specialPriceIncludeTax = specialPriceIncludeTax;
     self.specialPriceIncludeTaxLabel = [UILabel new];
-    self.specialPriceIncludeTaxLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_specialPriceIncludeTax floatValue]]];
+    self.specialPriceIncludeTaxLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_specialPriceIncludeTax];
     self.specialPriceIncludeTaxLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:sizeFontPrice];
     self.specialPriceIncludeTaxLabel.textColor = THEME_SPECIAL_PRICE_COLOR;
 }
@@ -127,7 +127,7 @@
 {
     _regularPriceIncludeTax = regularPriceIncludeTax;
     self.regularPriceIncludeTaxLabel = [UILabel new];
-    self.regularPriceIncludeTaxLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_regularPriceIncludeTax floatValue]]];
+    self.regularPriceIncludeTaxLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_regularPriceIncludeTax];
     self.regularPriceIncludeTaxLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:sizeFontPrice];
     self.regularPriceIncludeTaxLabel.textColor = THEME_PRICE_COLOR;
 
@@ -137,7 +137,7 @@
 {
     _regularPrice = regularPrice;
     self.regularPriceLabel = [UILabel new];
-    self.regularPriceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_regularPrice floatValue]]];
+    self.regularPriceLabel.text = [[SimiFormatter sharedInstance]priceWithPrice:_regularPrice];
     self.regularPriceLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:sizeFontPrice];
     self.regularPriceLabel.textColor = THEME_PRICE_COLOR;
 }
@@ -146,7 +146,7 @@
 {
     _specialPrice = specialPrice;
     self.specialPriceLabel = [UILabel new];
-    self.specialPriceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[_specialPrice floatValue]]];
+    self.specialPriceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_specialPrice];
     self.specialPriceLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:sizeFontPrice];
     self.specialPriceLabel.textColor = THEME_SPECIAL_PRICE_COLOR;
 }

@@ -680,7 +680,7 @@ static NSString *isHighLight = @"is_highlight";
             [viewHeader addSubview:lblHeader];
             
             [lblPrice setFrame:CGRectMake(self.widthTable - widthValue - 26, 0, widthValue - 10, heightHeader)];
-            lblPrice.text = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[self.selectedOptionPrice valueForKey:simiSection.identifier] floatValue]]];
+            lblPrice.text = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%@",[self.selectedOptionPrice valueForKey:simiSection.identifier]]];
             if ([[self.selectedOptionPrice valueForKey:simiSection.identifier] floatValue] == 0) {
                 [lblPrice setHidden:YES];
             }
@@ -702,7 +702,7 @@ static NSString *isHighLight = @"is_highlight";
             [viewHeader addSubview:lblHeader];
             
             [lblPrice setFrame:CGRectMake(self.widthTable - widthValue - 26, 0, widthValue - 10, heightHeader)];
-            lblPrice.text = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[self.selectedOptionPrice valueForKey:simiSection.identifier] floatValue]]];
+            lblPrice.text = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%@",[self.selectedOptionPrice valueForKey:simiSection.identifier]]];
             if ([[self.selectedOptionPrice valueForKey:simiSection.identifier] floatValue] == 0) {
                 [lblPrice setHidden:YES];
             }
@@ -1300,24 +1300,24 @@ static NSString *isHighLight = @"is_highlight";
         NSString *priceInclTax = @"";
         if ([[self.product valueForKey:@"sale_price_type"]boolValue]) {
             if (DISPLAY_PRICES_INSHOP) {
-                priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"ex_price_include_tax"]] floatValue]]];
+                priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"ex_price_include_tax"]]];
             }else
             {
-                priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"ex_price"]] floatValue]]];
+                priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"ex_price"]]];
             }
         }else
         {
             if ([dataCell valueForKey:@"price_include_tax"]&& DISPLAY_PRICES_INSHOP) {
                 if ([dataCell valueForKey:@"sale_price_include_tax"]) {
-                     priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"sale_price_include_tax"]] floatValue]]];
+                    priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"sale_price_include_tax"]]];
                 }else
-                     priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price_include_tax"]] floatValue]]];
+                    priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price_include_tax"]]];
             }else
             {
                 if ([dataCell valueForKey:@"sale_price"]) {
-                    priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"sale_price"]] floatValue]]];
+                    priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"sale_price"]]];
                 }else
-                    priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price"]] floatValue]]];
+                    priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price"]]];
             }
         }
         [lblPriceInclTax setFrame:CGRectMake(paddingLeft + widthName + spaceNamePrice, 0, widthPrice, cellHeight)];
@@ -1327,12 +1327,12 @@ static NSString *isHighLight = @"is_highlight";
         if([dataCell valueForKey:@"price_include_tax"] && DISPLAY_PRICES_INSHOP)
         {
             [lblPriceInclTax setFrame:CGRectMake(paddingLeft + widthName + spaceNamePrice, 0, widthPrice, cellHeight)];
-            NSString *priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price_include_tax"]] floatValue]]];;
+            NSString* priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price_include_tax"]]];
             [lblPriceInclTax setText:[NSString stringWithFormat:@"%@",priceInclTax]];
         }else if([dataCell valueForKey:@"price"])
         {
             [lblPriceInclTax setFrame:CGRectMake(paddingLeft + widthName + spaceNamePrice, 0, widthPrice, cellHeight)];
-            NSString *priceInclTax = [[SimiFormatter sharedInstance]priceByLocalizeNumber:[NSNumber numberWithFloat:[[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price"]] floatValue]]];
+            NSString* priceInclTax = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[dataCell valueForKey:@"price"]]];
             [lblPriceInclTax setText:[NSString stringWithFormat:@"%@",priceInclTax]];
         }
     }

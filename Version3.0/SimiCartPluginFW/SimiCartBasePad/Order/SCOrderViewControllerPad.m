@@ -715,7 +715,7 @@
             [priceLabel setFont:[UIFont fontWithName:THEME_FONT_NAME size:THEME_FONT_SIZE_REGULAR]];
             priceLabel.backgroundColor = [UIColor clearColor];
             priceLabel.textColor = THEME_PRICE_COLOR;
-            priceLabel.text = [[SimiFormatter sharedInstance] priceByLocalizeNumber:[NSNumber numberWithFloat:[[simiRow.data valueForKey:@"price"] floatValue]]];
+            priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:[simiRow.data valueForKey:@"price"]];
             [cell addSubview:priceLabel];
             float widthPrice = [priceLabel.text sizeWithFont:priceLabel.font].width;
             [priceLabel setFrame:[SimiGlobalVar scaleFrame:CGRectMake(cell.frame.size.width - widthPrice -10, 0,widthPrice, cell.frame.size.height)]];
@@ -774,7 +774,7 @@
         navi.navigationBar.tintColor = THEME_COLOR;
         navi.navigationBar.barTintColor = THEME_COLOR;
         if (SIMI_SYSTEM_IOS >= 8) {
-            navi.navigationBar.tintColor = [UIColor whiteColor];
+            navi.navigationBar.tintColor = THEME_APP_BACKGROUND_COLOR;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [_popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
             });

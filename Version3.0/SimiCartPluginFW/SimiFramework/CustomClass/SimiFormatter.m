@@ -28,6 +28,36 @@
         return [NSString stringWithFormat:@" %.2f %@ ", [price floatValue], currencySymbol];
     }
 }
+- (NSString *)priceByLocalizeNumber:(NSNumber *)number locale:(NSLocale *)locale{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.locale = locale;
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setCurrencyCode:[[SimiGlobalVar sharedInstance] currencyCode]];
+    if (![[[SimiGlobalVar sharedInstance] currencySymbol] isEqualToString:@""]) {
+        [formatter setCurrencySymbol:[[SimiGlobalVar sharedInstance] currencySymbol]];
+    }
+    NSString *groupingSeparator = [formatter.locale objectForKey:NSLocaleGroupingSeparator];
+    
+    [formatter setGroupingSeparator:groupingSeparator];
+    [formatter setGroupingSize:3];
+    
+    [formatter setMaximumFractionDigits:2];
+    
+    [formatter setAlwaysShowsDecimalSeparator:NO];
+    [formatter setUsesGroupingSeparator:YES];
+    
+    NSString *formattedString = [formatter stringFromNumber:number];
+    return formattedString;
+}
+
+- (NSString *)priceByLocalizeNumber:(NSNumber *)number{
+    NSString *localeIdentifier = LOCALE_IDENTIFIER;
+    if (localeIdentifier == nil || [localeIdentifier isEqualToString:@""]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SimiFormatter-MissLocale" object:nil];
+    }
+    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:localeIdentifier];
+    return [self priceByLocalizeNumber:number locale:locale];
+}
 
 
 @end

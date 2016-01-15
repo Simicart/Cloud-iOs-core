@@ -685,48 +685,5 @@
         }
     }
 }
--(void)sendEmail {
-    
-    
-    // create soft wait overlay so the user knows whats going on in the background.
-    //    [self createWaitOverlay];
-    
-    //the guts of the message.
-    SKPSMTPMessage *testMsg = [[SKPSMTPMessage alloc] init];
-    testMsg.fromEmail = @"itpro1211@gmail.com";
-    testMsg.toEmail = @"axe@simicart.com";
-    testMsg.relayHost = @"smtp.gmail.com";
-    testMsg.requiresAuth = YES;
-    testMsg.login = @"itpro1211@gmail.com";
-    testMsg.pass = @"trung1211";
-    testMsg.subject = @"This is the email subject line";
-    testMsg.wantsSecure = YES; // smtp.gmail.com doesn't work without TLS!
-    
-    
-    
-    // Only do this for self-signed certs!
-    // testMsg.validateSSLChain = NO;
-    testMsg.delegate = self;
-    
-    //email contents
-    NSString * bodyMessage = [NSString stringWithFormat:@"This is the body of the email. You can put anything in here that you want."];
-    
-    
-    NSDictionary *plainPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain",kSKPSMTPPartContentTypeKey,
-                               bodyMessage ,kSKPSMTPPartMessageKey,@"8bit",kSKPSMTPPartContentTransferEncodingKey,nil];
-    
-    testMsg.parts = [NSArray arrayWithObjects:plainPart,nil];
-    
-    [testMsg send];
-    
-}
-#pragma mark SKPSMTPMessage Delegate
--(void)messageSent:(SKPSMTPMessage *)message{
-    NSLog(@"sent");
-}
--(void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error{
-    NSLog(@"fault: %@",error);
-}
-
 
 @end

@@ -10,7 +10,6 @@
 #import "SimiSection.h"
 #import "SCOrderDetailViewController.h"
 #import "SCOrderViewController.h"
-#import "SKPSMTPMessage.h"
 
 NSString * THANK_YOU = @"THANK_YOU";
 NSString * NUMBER = @"NUMBER";
@@ -156,7 +155,7 @@ NSString * BUTTON = @"BUTTON";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UILabel *lbNumber = [[UILabel alloc]initWithFrame:CGRectMake(padding, 0, SCREEN_WIDTH - 20, heightLabel)];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            lbNumber.text = [NSString stringWithFormat:@"%@: #%@",SCLocalizedString(@"View detail of your order"),[self.order valueForKey:@"_id"]];
+            lbNumber.text = [NSString stringWithFormat:@"%@: #%@",SCLocalizedString(@"View detail of your order"),[self.order valueForKey:@"seq_no"]];
             [lbNumber setFont:[UIFont fontWithName:THEME_FONT_NAME size:15]];
             [cell addSubview:lbNumber];
         }

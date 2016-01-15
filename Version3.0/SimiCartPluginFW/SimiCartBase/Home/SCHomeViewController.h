@@ -18,7 +18,6 @@
 #import "SimiSpotModelCollection.h"
 #import "SimiCategoryModelCollection.h"
 #import "SimiCategoryModel.h"
-#import "SKPSMTPMessage.h"
 
 static NSString *isFake = @"isFake";
 static NSString *HOME_BANNER_CELL   = @"HomeCellBanner";
@@ -33,7 +32,7 @@ static NSString *HOME_CATEGORY_COLLECTION_VIEW_CELL = @"HomeCategoryCollectionVi
 static NSString *HOME_SPOT_PRODUCT_COLLECTION_VIEW = @"HomeSpotProductCollectionView";
 static NSString *HOME_SPOT_PRODUCT_COLLECTION_CELL = @"HomeSpotProductCollectionViewCell";
 
-@interface SCHomeViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, SKPSMTPMessageDelegate>
+@interface SCHomeViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate>
 {
     int countNumberSpotDidGetData;
 }

@@ -14,5 +14,6 @@
  Notification name: DidGetActivePlugins
  */
 - (void)getActivePluginsWithParams:(NSDictionary *)params;
+- (void)getSitePluginsWithParams:(NSDictionary *)params;
 
 @end

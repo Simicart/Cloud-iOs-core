@@ -12,6 +12,7 @@
 static NSString *ApplicationWillResignActive = @"ApplicationWillResignActive";
 static NSString *ApplicationDidBecomeActive = @"ApplicationDidBecomeActive";
 static NSString *DidGetActivePlugins = @"DidGetActivePlugins";
+static NSString *DidGetSitePlugins = @"DidGetSitePlugins";
 static NSString *SCLeftMenuDidSelectRow = @"SCLeftMenuDidSelectRow";
 static NSString *DidRegisterDevice = @"DidRegisterDevice";
 

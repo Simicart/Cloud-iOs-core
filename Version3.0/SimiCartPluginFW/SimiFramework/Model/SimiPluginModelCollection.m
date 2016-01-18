@@ -22,9 +22,16 @@
     [(SimiPluginAPI *)[self getAPI] getActivePluginsWithParams:params target:self selector:@selector(didFinishRequest:responder:)];
 }
 
+- (void)getSitePluginsWithParams:(NSDictionary *)params
+{
+    currentNotificationName = DidGetSitePlugins;
+    [self preDoRequest];
+    [(SimiPluginAPI *)[self getAPI] getSitePluginsWithParams:params target:self selector:@selector(didFinishRequest:responder:)];
+}
+
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder
 {
-    if ([currentNotificationName isEqualToString:DidGetCategoryCollection]) {
+    if ([currentNotificationName isEqualToString:DidGetActivePlugins]) {
         if (responder.simiObjectName) {
             currentNotificationName = responder.simiObjectName;
         }
@@ -33,11 +40,33 @@
             NSMutableDictionary *responseObjectData = [[SimiMutableDictionary alloc]initWithDictionary:(NSMutableDictionary*)responseObject];
             switch (modelActionType) {
                 case ModelActionTypeInsert:{
-                    [self addData:[responseObjectData valueForKey:@"plugins"]];
+                    [self addData:[responseObjectData valueForKey:@"public_plugins"]];
                 }
                     break;
                 default:{
-                    [self setData:[responseObjectData valueForKey:@"plugins"]];
+                    [self setData:[responseObjectData valueForKey:@"public_plugins"]];
+                }
+                    break;
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:currentNotificationName object:self userInfo:@{@"responder":responder}];
+        }else if (responseObject == nil){
+            [[NSNotificationCenter defaultCenter] postNotificationName:currentNotificationName object:self userInfo:@{@"responder":responder}];
+        }
+    }else if ([currentNotificationName isEqualToString:DidGetSitePlugins])
+    {
+        if (responder.simiObjectName) {
+            currentNotificationName = responder.simiObjectName;
+        }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"TimeLoaderStop" object:DidGetSitePlugins];
+        if ([responseObject isKindOfClass:[SimiMutableDictionary class]]) {
+            NSMutableDictionary *responseObjectData = [[SimiMutableDictionary alloc]initWithDictionary:(NSMutableDictionary*)responseObject];
+            switch (modelActionType) {
+                case ModelActionTypeInsert:{
+                    [self addData:[responseObjectData valueForKey:@"site_plugins"]];
+                }
+                    break;
+                default:{
+                    [self setData:[responseObjectData valueForKey:@"site_plugins"]];
                 }
                     break;
             }

@@ -12,4 +12,6 @@
 
 - (void)getActivePluginsWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector;
 
+- (void)getSitePluginsWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector;
+
 @end

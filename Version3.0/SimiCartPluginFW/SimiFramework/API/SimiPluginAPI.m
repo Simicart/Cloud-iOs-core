@@ -11,7 +11,13 @@
 @implementation SimiPluginAPI
 
 - (void)getActivePluginsWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector{
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kActivePlugins];
+    [self requestWithMethod:GET URL:url params:params target:target selector:selector header:nil];
+}
+
+- (void)getSitePluginsWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector{
+    NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kSitePlugins];
+    [self requestWithMethod:GET URL:url params:params target:target selector:selector header:nil];
 }
 
 @end

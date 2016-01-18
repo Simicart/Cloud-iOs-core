@@ -41,6 +41,9 @@ NSString *const kSimiGetBanner          = @"banners";
 NSString *const kSimiSettings           = @"settings";
 NSString *const kSimiRegisterDevice     = @"devices";
 NSString *const kThemeConfigure         = @"app-configs";
+NSString *const kSitePlugins         = @"site-plugins";
+NSString *const kActivePlugins         = @"public_plugins";
+
 
 //SimiCart Address API
 NSString *const kSimiCountries          = @"countries";

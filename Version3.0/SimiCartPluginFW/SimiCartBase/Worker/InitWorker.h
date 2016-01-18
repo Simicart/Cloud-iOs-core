@@ -30,7 +30,8 @@
 - (UIViewController *)initializeRootController;
 
 - (void)addInitWorkerObservers;
-- (void)getPlugins;
+- (void)getSitePlugins;
+- (void)getActivePlugins:(NSString*)Ids;
 - (void)setAppSettings;
 - (NSMutableArray *)observers;
 - (void)getStoreConfig;

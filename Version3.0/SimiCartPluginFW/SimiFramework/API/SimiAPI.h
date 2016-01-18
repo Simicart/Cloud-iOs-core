@@ -36,6 +36,8 @@ extern NSString *const kSimiGetBanner;
 extern NSString *const kSimiSettings;
 extern NSString *const kSimiRegisterDevice;
 extern NSString *const kThemeConfigure;
+extern NSString *const kSitePlugins;
+extern NSString *const kActivePlugins;
 
 //SimiCart Address API
 extern NSString *const kSimiCountries;

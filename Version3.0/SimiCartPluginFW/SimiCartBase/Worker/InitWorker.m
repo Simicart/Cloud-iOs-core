@@ -36,6 +36,8 @@
 
 @implementation InitWorker{
     SimiPluginModelCollection *activePlugins;
+    SimiPluginModelCollection *sitePlugins;
+    NSString *activePluginIds;
     NSMutableArray *observers;
     UIImageView *loadingView;
     UIWindow *window;
@@ -66,6 +68,9 @@
         [self setAppSettings];
         [self loadingViewFade];
         [self initLogin];
+        [self getSitePlugins];
+        [self getStoreConfig];
+        [self getAppConfig];
         
         clLocationManager = [CLLocationManager new];
         clLocationManager.delegate = self;
@@ -136,22 +141,11 @@
     KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:bundleIdentifier accessGroup:nil];
     NSString *email = [wrapper objectForKey:(__bridge id)(kSecAttrAccount)];
     NSString *password = [wrapper objectForKey:(__bridge id)(kSecAttrDescription)];
-    NSString *stateLogin = [wrapper objectForKey:(__bridge id)(kSecAttrLabel)];
-    NSString *name = [wrapper objectForKey:(__bridge id)(kSecAttrComment)];
-    if (email.length > 0) {
+    if (email.length > 0 && password.length > 0) {
         SimiCustomerModel *customer = [[SimiCustomerModel alloc] init];
-        if ([stateLogin isEqualToString:@"loginwithfacebook"] && name) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"AutoLoginWithFacebook" object:email userInfo:@{@"name":name}];
-            [self getPlugins];
-            [self saveCurrency];
-        }else
-        {
-            self.isFirstGetActivePlugins = YES;
-            [customer loginWithUserMail:email password:password];
-        }
+        self.isFirstGetActivePlugins = YES;
+        [customer loginWithUserMail:email password:password];
     }else{
-        [self getPlugins];
-        [self saveCurrency];
         [[SimiGlobalVar sharedInstance] setIsLogin:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         if ([userDefaults valueForKey:@"quoteId"]) {
@@ -238,16 +232,25 @@
 }
 
 #pragma mark Get Data
-- (void)getPlugins{
+
+- (void)getSitePlugins
+{
+    if (sitePlugins == nil) {
+        sitePlugins = [[SimiPluginModelCollection alloc] init];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetSitePlugins:) name:DidGetSitePlugins object:sitePlugins];
+    [sitePlugins getSitePluginsWithParams:nil];
+}
+- (void)getActivePlugins:(NSString*)Ids{
     if (!self.isGetPlugins) {
         self.isGetPlugins = YES;
         if (activePlugins == nil) {
             activePlugins = [[SimiPluginModelCollection alloc] init];
         }
-        [self getCountryCollection];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidInit" object:nil];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetPlugins:) name:DidGetActivePlugins object:activePlugins];
-//        [activePlugins getActivePluginsWithParams:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetPlugins:) name:DidGetActivePlugins object:activePlugins];
+        [activePlugins getActivePluginsWithParams:@{@"ids":Ids}];
+        [self getCountryCollection];
     }
 }
 
@@ -304,6 +307,41 @@
     [self removeObserverForNotification:noti];
 }
 
+- (void)didGetSitePlugins:(NSNotification*)noti
+{
+    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
+    if ([responder.status isEqualToString:@"SUCCESS"]) {
+        if (sitePlugins.count > 0) {
+            NSMutableArray *actives = [NSMutableArray new];
+            for (int i = 0; i < sitePlugins.count; i++) {
+                SimiModel *model = [sitePlugins objectAtIndex:i];
+                if ([[[model valueForKey:@"config"]valueForKey:@"enable"]boolValue]) {
+                    [actives addObject:model];
+                }
+            }
+            if (actives.count > 0) {
+                for (int i = 0; i < actives.count; i++) {
+                    SimiModel *model = [actives objectAtIndex:i];
+                    if (i == 0) {
+                        activePluginIds = [NSString stringWithFormat:@"%@,",[model valueForKey:@"plugin_id"]];
+                    }else
+                        activePluginIds = [NSString stringWithFormat:@"%@,%@",activePluginIds,[model valueForKey:@"plugin_id"]];
+                }
+                [self getActivePlugins:activePluginIds];
+            }else
+            {
+                self.didGetPlugins = YES;
+                [self gotoHome];
+            }
+        }else
+        {
+            self.didGetPlugins = YES;
+            [self gotoHome];
+        }
+    }
+    [self removeObserverForNotification:noti];
+}
+
 - (void)didGetStoreConfig:(NSNotification*)noti
 {
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
@@ -345,7 +383,7 @@
 
 - (void)gotoHome
 {
-    if (self.didGetStoreConfig && self.didGetAppConfig) {
+    if (self.didGetStoreConfig && self.didGetAppConfig && self.didGetPlugins) {
         [self stoploadingViewFade];
         [self initializeRootController];
         [self initializePlugins];
@@ -385,11 +423,6 @@
         KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:bundleIdentifier accessGroup:nil];
         [wrapper setObject:@"SimiCart" forKey:(__bridge id)(kSecAttrService)];
         [wrapper setObject:[customer valueForKey:@"email"] forKey:(__bridge id)(kSecAttrAccount)];
-    }
-    if (self.isFirstGetActivePlugins) {
-        [self getPlugins];
-        [self saveCurrency];
-        self.isFirstGetActivePlugins = NO;
     }
 }
 
@@ -463,7 +496,6 @@
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AFNetworkingReachabilityDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ApplicationDidBecomeActive" object:nil];
-    [self getPlugins];
 }
 
 - (void)loadingViewFade{

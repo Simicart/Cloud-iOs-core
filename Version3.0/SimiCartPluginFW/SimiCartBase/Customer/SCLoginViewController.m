@@ -57,7 +57,7 @@
         [super viewDidLoadBefore];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
+    
 }
 
 - (void)viewWillAppearBefore:(BOOL)animated
@@ -186,6 +186,7 @@
     [self.textFieldPassword resignFirstResponder];
     [self.textFieldEmail resignFirstResponder];
     customer = [[SimiCustomerModel alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
     [customer loginWithUserMail:self.textFieldEmail.text password:self.textFieldPassword.text];
     [self startLoadingData];
     [self hideKeyboard];

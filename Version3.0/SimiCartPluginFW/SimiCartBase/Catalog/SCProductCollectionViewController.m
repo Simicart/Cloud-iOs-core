@@ -146,7 +146,7 @@ static NSString * const reuseIdentifier = @"CellTable";
     }
     
     NSInteger offset = self.productCollection.count;
-    if (offset == self.totalNumberProduct && offset > 0) {
+    if (offset >= self.totalNumberProduct && offset > 0) {
         [self.collectionView.infiniteScrollingView stopAnimating];
         return;
     }

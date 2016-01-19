@@ -19,8 +19,6 @@
 
 @property (strong, nonatomic) SimiTableView *tableViewProfile;
 @property (strong, nonatomic) SimiCustomerModel *customer;
-@property (nonatomic) BOOL isChangePassword;
-@property (nonatomic) BOOL isChangeProfile;
 // New Form Pattern
 @property (strong, nonatomic) SimiFormBlock *form;
 @property (strong, nonatomic) SimiModel *customerInfo;

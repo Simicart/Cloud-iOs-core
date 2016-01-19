@@ -122,6 +122,8 @@
         [self.lblExcl setFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, maximumImageSize + heightLabel, maximumImageSize/2, heightLabel)]];
         [self.lblIncl setFrame:[SimiGlobalVar scaleFrame:CGRectMake(maximumImageSize/2, maximumImageSize + heightLabel, maximumImageSize/2, heightLabel)]];
         CGFloat priceWidth = [self.lblExcl.text sizeWithAttributes:@{NSFontAttributeName:[self.lblExcl font]}].width;
+        if(priceWidth > maximumImageSize/2)
+            priceWidth = maximumImageSize/2;
         self.viewLine = [[UIView alloc]initWithFrame:CGRectMake(0, [SimiGlobalVar scaleValue:heightLabel/2], priceWidth, 1)];
         self.viewLine.backgroundColor = THEME_PRICE_COLOR;
         //  gin edit RTL

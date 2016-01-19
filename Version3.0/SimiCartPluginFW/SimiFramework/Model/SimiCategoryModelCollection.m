@@ -25,6 +25,7 @@ NSString *const scDefaultGetHomeCategory = @"category-widgets";
     [parameters setValue:@"50" forKey:@"limit"];
     [parameters setValue:@"0" forKey:@"offset"];
     [parameters setValue:@"1" forKey:@"filter[status]"];
+    [parameters setValue:@"position" forKey:@"order"];
     [(SimiCategoryAPI *)[self getAPI] getCategoryCollectionWithParams:parameters extendsUrl:extendsUrl target:self selector:@selector(didFinishRequest:responder:)];
 }
 
@@ -37,6 +38,7 @@ NSString *const scDefaultGetHomeCategory = @"category-widgets";
     [parameters setValue:@"50" forKey:@"limit"];
     [parameters setValue:@"0" forKey:@"offset"];
     [parameters setValue:@"1" forKey:@"filter[status]"];
+    [parameters setValue:@"position" forKey:@"order"];
     [[self getAPI] requestWithMethod:GET URL:urlPath params:parameters target:self selector:@selector(didFinishRequest:responder:) header:nil];
 }
 

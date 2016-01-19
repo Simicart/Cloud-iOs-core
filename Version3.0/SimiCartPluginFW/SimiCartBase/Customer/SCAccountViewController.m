@@ -10,6 +10,7 @@
 #import "SCOrderHistoryViewController.h"
 #import "SCAddressViewController.h"
 #import "SCProfileViewController.h"
+#import "SCChangePasswordViewController.h"
 #import "SimiRow.h"
 #import "SimiSection.h"
 
@@ -62,25 +63,32 @@
         profile.sortOrder = 100;
         [section addObject:profile];
         
+        SimiRow *password = [[SimiRow alloc] initWithIdentifier:ACCOUNT_CHANGE_PASSWORD_ROW height:55];
+        password.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        password.title = SCLocalizedString(@"Change your password");
+        password.image = [UIImage imageNamed:@"ic_password"];
+        password.sortOrder = 200;
+        [section addObject:password];
+        
         SimiRow *address = [[SimiRow alloc]initWithIdentifier:ACCOUNT_ADDRESS_ROW height:55];
         address.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         address.title = SCLocalizedString(@"Address Book");
         address.image = [UIImage imageNamed:@"ic_address_book"];
-        address.sortOrder = 200;
+        address.sortOrder = 300;
         [section addObject:address];
         
         SimiRow *oderHistory  = [[SimiRow alloc]initWithIdentifier:ACCOUNT_ORDERS_ROW height:55];
         oderHistory.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         oderHistory.title = SCLocalizedString(@"Order History");
         oderHistory.image = [UIImage imageNamed:@"ic_history_den"];
-        oderHistory.sortOrder = 300;
+        oderHistory.sortOrder = 400;
         [section addObject:oderHistory];
         
         SimiRow *signOut = [[SimiRow alloc]initWithIdentifier:ACCOUNT_SIGNOUT_ROW height:55];
         signOut.accessoryType = UITableViewCellAccessoryNone;
         signOut.title = SCLocalizedString(@"Sign Out");
         signOut.image = [UIImage imageNamed:@"ic_log_out"];
-        signOut.sortOrder = 400;
+        signOut.sortOrder = 500;
         [section addObject:signOut];
         
         [_cells addObject:section];
@@ -229,7 +237,11 @@
     if ([row.identifier isEqualToString:ACCOUNT_PROFILE_ROW]) {
         SCProfileViewController *profileController = [[SCProfileViewController alloc] init];
         [self.navigationController pushViewController:profileController animated:YES];
-    } else if ([row.identifier isEqualToString:ACCOUNT_ADDRESS_ROW]) {
+    }else if([row.identifier isEqualToString:ACCOUNT_CHANGE_PASSWORD_ROW]){
+        SCChangePasswordViewController* changePasswordVC = [SCChangePasswordViewController new];
+        [self.navigationController pushViewController:changePasswordVC animated:YES];
+    }
+    else if ([row.identifier isEqualToString:ACCOUNT_ADDRESS_ROW]) {
         SCAddressViewController *addressController = [[SCAddressViewController alloc] init];
         addressController.isGetOrderAddress = NO;
         addressController.enableEditing = YES;

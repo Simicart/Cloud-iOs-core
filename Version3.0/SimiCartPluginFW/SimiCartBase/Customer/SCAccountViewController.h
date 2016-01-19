@@ -12,6 +12,7 @@
 
 static NSString *ACCOUNT_MAIN_SECTION   = @"mainsection";
 static NSString *ACCOUNT_PROFILE_ROW    = @"profile";
+static NSString *ACCOUNT_CHANGE_PASSWORD_ROW = @"changepassword";
 static NSString *ACCOUNT_ADDRESS_ROW    = @"address";
 static NSString *ACCOUNT_ORDERS_ROW     = @"orders";
 static NSString *ACCOUNT_SIGNOUT_ROW    = @"signout";

@@ -40,6 +40,7 @@ static NSString *CATEGORY_LOADING_CELL  = @"CATEGORY_LOADING_CELL";
 
 - (void)getCategoryProducts;
 - (void)getCategoryCollection;
+
 @end
 
 

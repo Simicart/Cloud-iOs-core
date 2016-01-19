@@ -18,7 +18,7 @@
 
 @implementation SCProfileViewController
 
-@synthesize tableViewProfile, customer, form, isChangePassword, isChangeProfile;
+@synthesize tableViewProfile, customer, form;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -163,27 +163,7 @@
     }
         
     
-    [form addField:@"Password"
-            config:@{
-                     @"name": @"password",
-                     @"title": SCLocalizedString(@"Current Password"),
-                     @"required": @0
-                     }];
-    [form addField:@"Password"
-            config:@{
-                     @"name": @"newpassword",
-                     @"title": SCLocalizedString(@"New Password"),
-                     @"required": @0
-                     }];
-    [form addField:@"Password"
-            config:@{
-                     @"name": @"conpassword",
-                     @"title": SCLocalizedString(@"Confirm Password"),
-                     @"required": @0
-                     }];
-    [customer removeObjectForKey:@"oldpassword"];
-    [customer removeObjectForKey:@"newpassword"];
-    [customer removeObjectForKey:@"conpassword"];
+    
     [form setFormData:customer];
     
     [super viewDidLoad];
@@ -232,40 +212,12 @@
             [((SimiFormText*)field).inputText resignFirstResponder];
         }
     }
-    isChangePassword = NO;
-    NSString *curPass = @"";
-    NSString *newPass = @"";
-    NSString *confirmPass = @"";
-    if([form valueForKey:@"password"])
-        curPass = [form valueForKey:@"password"];
-    if([form valueForKey:@"newpassword"])
-        newPass = [form valueForKey:@"newpassword"];
-    if([form valueForKey:@"conpassword"])
-        confirmPass = [form valueForKey:@"conpassword"];
     
-    if (curPass.length > 0 || newPass.length > 0 || confirmPass.length > 0) {
-        if (![newPass isEqualToString:confirmPass]) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:SCLocalizedString(@"Password and Confirm password don't match.") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
-            [alertView show];
-            return;
-        }else if(newPass.length < 6){
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:SCLocalizedString(@"Password must be least 6 characters") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
-            [alertView show];
-            return;
-        }else{
-            isChangePassword = YES;
-            [customer setValue:@"1" forKey:@"change_password"];
-        }
-    }
     //Set data to customer model
     [customer addData:form];
     //POST data to server
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSaveProfile:) name:DidChangeUserInfo object:customer];
     [customer changeUserProfile];
-    if(isChangePassword){
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSaveProfile:) name:DidChangeUserPassword object:customer];
-        [customer changeUserPassword];
-    }
     [self startLoadingData];
 
 }
@@ -273,22 +225,12 @@
 - (void)didSaveProfile:(NSNotification *)noti
 {
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Change password" message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
         NSString *message = SCLocalizedString(@"The account information has been saved.");
         if ([noti.name isEqualToString:DidChangeUserInfo]) {
             alertView.message = message;
             
-        }
-        if ([noti.name isEqualToString:DidChangeUserPassword]) {
-            if (isChangePassword) {
-                [form removeObjectForKey:@"oldpassword"];
-                [form removeObjectForKey:@"newpassword"];
-                [form removeObjectForKey:@"conpassword"];
-                [tableViewProfile reloadData];
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }
-            isChangePassword = NO;
         }
     }
     if(![alertView.message isEqualToString:@""] && alertView.message != nil)

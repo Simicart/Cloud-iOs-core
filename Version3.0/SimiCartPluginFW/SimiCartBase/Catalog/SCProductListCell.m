@@ -182,10 +182,15 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
         [_specialPriceLabel setFrame:CGRectMake(labelTitleX, self.heightCell, labelValueWidth, heightLabel)];
         [self addSubview:_specialPriceLabel];
         CGFloat regularTextWidth = [_regularPriceLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:THEME_FONT_NAME size:15]}].width;
-        UIImageView *imageLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, heightLabel/2, regularTextWidth, 1)];
+        float imageLineWidth;
+        if(regularTextWidth < labelValueWidth)
+            imageLineWidth = regularTextWidth;
+        else
+            imageLineWidth = labelValueWidth;
+        UIImageView *imageLine = [[UIImageView alloc]initWithFrame:CGRectMake(0, heightLabel/2, imageLineWidth, 1)];
         //gin edit
         if([[SimiGlobalVar sharedInstance] isReverseLanguage]){
-            [imageLine setFrame:CGRectMake(labelTitleX +labelValueWidth - regularTextWidth - padding, heightLabel/2, regularTextWidth, 1)];
+            [imageLine setFrame:CGRectMake(labelTitleX +labelValueWidth - regularTextWidth - padding, heightLabel/2, imageLineWidth, 1)];
         }
         //end
         [imageLine setBackgroundColor:THEME_PRICE_COLOR];

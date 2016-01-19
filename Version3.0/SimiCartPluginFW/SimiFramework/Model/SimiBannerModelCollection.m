@@ -17,7 +17,7 @@
 - (void)getBannerCollection{
     currentNotificationName = DidGetBanner;
     [self preDoRequest];
-    [(SimiBannerAPI *)[self getAPI] getBannerCollectionWithParams:nil target:self selector:@selector(didFinishRequest:responder:)];
+    [(SimiBannerAPI *)[self getAPI] getBannerCollectionWithParams:@{@"order":@"position"} target:self selector:@selector(didFinishRequest:responder:)];
 }
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder

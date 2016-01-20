@@ -319,7 +319,7 @@
                 }
             }
         }
-    }else if ([_product valueForKey:@"price_include_tax"] && [_product valueForKey:@"sale_price_include_tax"] && [[_product valueForKey:@"sale_price_include_tax"]floatValue] < [[_product valueForKey:@"price_include_tax"]floatValue]) {
+    }else if ([_product valueForKey:@"price_include_tax"] && [_product valueForKey:@"sale_price_include_tax"] && [[_product valueForKey:@"sale_price_include_tax"]floatValue] < [[_product valueForKey:@"price_include_tax"]floatValue] && [[_product valueForKey:@"sale_price_include_tax"]floatValue] > [[_product valueForKey:@"sale_price"]floatValue]) {
         self.regularTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
         self.regularTitleLabel.text = [NSString stringWithFormat:@"%@: ", SCLocalizedString(@"Regular Price")];
         self.regularTitleLabel.font = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:sizeFontPrice];

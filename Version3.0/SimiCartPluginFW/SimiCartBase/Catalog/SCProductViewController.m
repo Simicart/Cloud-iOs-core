@@ -329,12 +329,12 @@
                     }
                 }
             }
-            [self configSelectedOption];
         }
             break;
         default:
             break;
     }
+    [self configSelectedOption];
 }
 
 - (NSMutableArray *)sortOptionByPosition:(NSMutableArray*)options
@@ -770,7 +770,7 @@
     switch (self.product.productType) {
         case ProductTypeBundle:
         {
-            if ((self.bundleOptions.count > 0 && [self isCheckedAllRequiredOptions])) {
+            if ((self.bundleOptions.count > 0 && [self isCheckedAllRequiredOptions]) || self.bundleOptions.count == 0) {
                 canCheckOut = YES;
             }
         }
@@ -784,7 +784,9 @@
                         count += [[groupItem valueForKey:@"option_qty"]intValue];
                     }
                 }
-            }
+            }else
+                canCheckOut = YES;
+            
             if (count > 0) {
                 canCheckOut = YES;
             }

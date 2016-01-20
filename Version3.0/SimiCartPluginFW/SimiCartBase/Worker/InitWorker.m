@@ -250,7 +250,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidInit" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetPlugins:) name:DidGetActivePlugins object:activePlugins];
         [activePlugins getActivePluginsWithParams:@{@"ids":Ids}];
-        [self getCountryCollection];
     }
 }
 
@@ -339,6 +338,7 @@
             [self gotoHome];
         }
     }
+    [self getCountryCollection];
     [self removeObserverForNotification:noti];
 }
 
@@ -391,14 +391,6 @@
         window.rootViewController = _rootController;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidInit" object:nil];
     }
-}
-
-- (void)didGetAllDataAtHome:(NSNotification*)noti
-{
-    if ([SimiGlobalVar sharedInstance].themeUsing != ThemeShowZTheme) {
-        [self getCountryCollection];
-    }
-    [self removeObserverForNotification:noti];
 }
 
 - (void)didLogin:(NSNotification*)noti

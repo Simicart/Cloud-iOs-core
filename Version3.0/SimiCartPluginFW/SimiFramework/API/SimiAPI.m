@@ -42,7 +42,7 @@ NSString *const kSimiSettings           = @"settings";
 NSString *const kSimiRegisterDevice     = @"devices";
 NSString *const kThemeConfigure         = @"app-configs";
 NSString *const kSitePlugins         = @"site-plugins";
-NSString *const kActivePlugins         = @"public_plugins";
+NSString *const kActivePlugins         = @"public-plugins";
 
 
 //SimiCart Address API

@@ -77,7 +77,7 @@
         [self.productCollectionViewControllerPad.collectionView reloadData];
         [self.viewToolBar setHidden:NO];
     }
-    if (_productCollectionViewControllerPad.productCollection == nil) {
+    if (_productCollectionViewControllerPad.productCollection == nil || _productCollectionViewControllerPad.productCollection.count == 0) {
         [_productCollectionViewControllerPad getProducts];
         self.isFirstTimeGetData = YES;
     }

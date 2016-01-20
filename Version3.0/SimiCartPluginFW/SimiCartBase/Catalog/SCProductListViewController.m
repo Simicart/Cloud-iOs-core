@@ -62,6 +62,10 @@
     _productCollectionViewController = [[SCProductCollectionViewController alloc]initWithCollectionViewLayout:layOut];
     _productCollectionViewController.collectionGetProductType = self.productListGetProductType;
     _productCollectionViewController.isSearchOnAllProducts = self.isSearchOnAllProducts;
+    if (self.productCollection == nil) {
+        self.productCollection = [SimiProductModelCollection new];
+    }
+    self.productCollectionViewController.productCollection = self.productCollection;
     
     if(_spotModel){
         _productCollectionViewController.spotModel = _spotModel;
@@ -156,7 +160,7 @@
             self.productCollectionViewController.productCollection = self.productCollection;
             [tableViewProductCollection reloadData];
         }
-        if (self.productCollection == nil) {
+        if (self.productCollection == nil || self.productCollection.count == 0) {
             self.isFirstTimeGetData = YES;
             [self getProducts];
         }

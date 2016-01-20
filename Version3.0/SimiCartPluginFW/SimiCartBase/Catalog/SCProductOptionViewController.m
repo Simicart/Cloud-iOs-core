@@ -415,7 +415,10 @@ static NSString *isHighLight = @"is_highlight";
                     [aCell addSubview:aCell.textOption];
                     cell = aCell;
                 }
-                ((ProductOptionTextCell*)cell).textOption.placeholder = [simiRow.contentRow objectForKey:@"title"];
+                if ([[simiRow.contentRow objectForKey:@"title"] isEqualToString:@""]) {
+                    ((ProductOptionTextCell*)cell).textOption.placeholder = SCLocalizedString(@"Enter text in here");
+                }else
+                    ((ProductOptionTextCell*)cell).textOption.placeholder = [simiRow.contentRow objectForKey:@"title"];
                 ((ProductOptionTextCell*)cell).textOption.text = [simiRow.contentRow objectForKey:@"option_value"];
                 return cell;
             }

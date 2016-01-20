@@ -216,7 +216,6 @@
 #pragma mark Configure Interface
 - (void)configureProductViewWithStatus:(BOOL)isStatus // Yes: had ProductModel
 {
-    [self.product setValue:@"YES" forKey:@"manage_stock"];
     if (isStatus) {
         [self changeStateActionButtonWithState:YES];
         self.hadCurrentProductModel = YES;

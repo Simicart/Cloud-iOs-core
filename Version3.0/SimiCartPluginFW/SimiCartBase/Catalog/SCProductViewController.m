@@ -266,6 +266,7 @@
                     self.hasOption = YES;
                     for (int i = 0; i < self.customs.count; i++) {
                         NSMutableDictionary *custom = [self.customs objectAtIndex:i];
+                        [custom setValue:@"NO" forKey:@"is_selected"];
                         if ([custom valueForKey:@"values"]) {
                             NSMutableArray *values = [[NSMutableArray alloc]initWithArray:[custom valueForKey:@"values"]];
                             NSMutableArray *options = [NSMutableArray new];
@@ -286,14 +287,14 @@
         case ProductTypeBundle:
         {
             if ([self.product valueForKey:@"bundle_items"]) {
-                self.bundleItems = [[NSMutableArray alloc]initWithArray:[product valueForKey:@"bundle_items"]];
+                self.bundleItems = [self sortOptionByPosition:[[NSMutableArray alloc]initWithArray:[product valueForKey:@"bundle_items"]]];
                 self.bundleOptions = [NSMutableDictionary new];
                 if (self.bundleItems.count > 0) {
                     self.hasOption = YES;
                     for (int i = 0; i < self.bundleItems.count; i++) {
                         NSMutableDictionary *bundleItem = [self.bundleItems objectAtIndex:i];
                         if ([bundleItem valueForKey:@"values"]) {
-                            NSMutableArray *values = [[NSMutableArray alloc]initWithArray:[bundleItem valueForKey:@"values"]];
+                            NSMutableArray *values = [self sortOptionByPosition:[[NSMutableArray alloc]initWithArray:[bundleItem valueForKey:@"values"]]];
                             NSMutableArray *options = [NSMutableArray new];
                             if (values.count > 0) {
                                 for (int j = 0; j < values.count; j++) {
@@ -312,7 +313,7 @@
         case ProductTypeGrouped:
         {
             if ([self.product valueForKey:@"group_items"]) {
-                self.groupItems = [[NSMutableArray alloc]initWithArray:[product valueForKey:@"group_items"]];
+                self.groupItems = [self sortOptionByPosition:[[NSMutableArray alloc]initWithArray:[product valueForKey:@"group_items"]]];
                 self.groupOptions = [NSMutableArray new];
                 if (self.groupItems.count > 0) {
                     self.hasOption = YES;
@@ -334,6 +335,23 @@
         default:
             break;
     }
+}
+
+- (NSMutableArray *)sortOptionByPosition:(NSMutableArray*)options
+{
+    if (options.count > 1 ) {
+        for (int i = 0; i < options.count - 1; i++) {
+            for (int j = i+1; j < options.count; j++) {
+                NSDictionary *dict1 = [[NSDictionary alloc]initWithDictionary:[options objectAtIndex:i]];
+                NSDictionary *dict2 = [[NSDictionary alloc]initWithDictionary:[options objectAtIndex:j]];
+                if ([[dict2 valueForKey:@"position"]intValue] < [[dict1 valueForKey:@"position"]intValue]) {
+                    [options replaceObjectAtIndex:i withObject:dict2];
+                    [options replaceObjectAtIndex:j withObject:dict1];
+                }
+            }
+        }
+    }
+    return options;
 }
 
 - (NSInteger)countNumberOfRequired{
@@ -679,7 +697,6 @@
 #pragma mark Configure Interface
 - (void)configureProductViewWithStatus:(BOOL)isStatus // Yes: had ProductModel
 {
-    [self.product setValue:@"YES" forKey:@"manage_stock"];
     if (isStatus) {
         [self changeStateActionButtonWithState:YES];
         self.hadCurrentProductModel = YES;
@@ -845,7 +862,7 @@
     _optionViewController.groupOptions = self.groupOptions;
     
     NSInteger count = self.variantsAllKey.count + self.customs.count + self. bundleItems.count + self.groupOptions.count;
-    float heightPopup = count * 50 + 200;
+    float heightPopup = count * 50 + 300;
     if (heightPopup > (SCREEN_HEIGHT - heightNavigation - heightViewAction - CGRectGetHeight(viewToolBar.frame) - 30)) {
         heightPopup = SCREEN_HEIGHT - heightNavigation - heightViewAction - CGRectGetHeight(self.viewAction.frame) - 30;
     }
@@ -917,7 +934,6 @@
     [self.buttonSelectOption setEnabled:YES];
     [self processingOptions];
     [self changeStateActionButtonWithState:YES];
-    [self.product removeObjectForKey:@"total_option_price"];
     [self setPrice];
     _isOpenOptionFromAddToCart = NO;
 }

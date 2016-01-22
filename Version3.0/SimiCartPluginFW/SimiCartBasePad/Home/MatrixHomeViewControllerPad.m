@@ -21,7 +21,7 @@
 @end
 
 @implementation MatrixHomeViewControllerPad
-@synthesize tableViewHome, bannerCollection,spotCollection, homeCategoryModelCollection;
+@synthesize tableViewHome;
 @synthesize cells = _cells, viewCate01 = _viewCate01, viewCate02 = _viewCate02, viewCate03 = _viewCate03, viewAllCate = _viewAllCate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,12 +80,12 @@
             [section addObject:row01];
         }
         
-        if (homeCategoryModelCollection.count > 0) {
+        if (self.homeCategoryModelCollection.count > 0) {
             SimiRow *row02 = [[SimiRow alloc]initWithIdentifier:HOME_CATEGORY_CELL height:166];
             [section addObject:row02];
         }
         
-        if (spotCollection.count > 0) {
+        if (self.spotCollection.count > 0) {
             SimiRow *row03  = [[SimiRow alloc]initWithIdentifier:HOME_SPOT_CELL height:186];
             [section addObject:row03];
         }
@@ -102,27 +102,27 @@
 #pragma mark Set Interface
 - (void)setViewCategory
 {
-    if (homeCategoryModelCollection.count > 0) {
+    if (self.homeCategoryModelCollection.count > 0) {
         
         _viewCate01 = [[MatrixCategoryProductCellPad alloc]initWithFrame:CGRectMake(0, 0, 166, 166) isAllCate:NO];
-        [_viewCate01 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:0]];
+        [_viewCate01 cusSetCateModel:[self.homeCategoryModelCollection objectAtIndex:0]];
         _viewCate01.delegate =self;
         
         _viewCate02 = [[MatrixCategoryProductCellPad alloc]initWithFrame:CGRectMake(175, 0, 332, 166) isAllCate:NO];
-        if (homeCategoryModelCollection.count > 1) {
-            [_viewCate02 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:1]];
+        if (self.homeCategoryModelCollection.count > 1) {
+            [_viewCate02 cusSetCateModel:[self.homeCategoryModelCollection objectAtIndex:1]];
         }
         _viewCate02.delegate =self;
         
         _viewCate03 = [[MatrixCategoryProductCellPad alloc]initWithFrame:CGRectMake(516, 0, 332, 166) isAllCate:NO];
-        if (homeCategoryModelCollection.count > 2) {
-            [_viewCate03 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:2]];
+        if (self.homeCategoryModelCollection.count > 2) {
+            [_viewCate03 cusSetCateModel:[self.homeCategoryModelCollection objectAtIndex:2]];
         }
         _viewCate03.delegate =self;
         
         _viewAllCate = [[MatrixCategoryProductCellPad alloc]initWithFrame:CGRectMake(857, 0, 167, 166) isAllCate:YES];
-        if (homeCategoryModelCollection.count > 3) {
-            [_viewAllCate cusSetCateModel:[homeCategoryModelCollection objectAtIndex:3]];
+        if (self.homeCategoryModelCollection.count > 3) {
+            [_viewAllCate cusSetCateModel:[self.homeCategoryModelCollection objectAtIndex:3]];
         }
         _viewAllCate.delegate =self;
     }
@@ -205,10 +205,10 @@
             int widthDistanceTwoCell = 9;
             float sizeCell = 167.7;
             int widthScrollViewContent = 0;
-            for (int i = 0; i < spotCollection.count; i++) {
+            for (int i = 0; i < self.spotCollection.count; i++) {
                 MatrixSpotProductCellPad *spotCell = [[MatrixSpotProductCellPad alloc]initWithFrame:CGRectMake(i*(sizeCell*2 + widthDistanceTwoCell), 0, sizeCell*2, sizeCell)];
                 spotCell.delegate = self;
-                [spotCell cusSetSpotModel:[spotCollection objectAtIndex:i]];
+                [spotCell cusSetSpotModel:[self.spotCollection objectAtIndex:i]];
                 widthScrollViewContent += (sizeCell*2 + widthDistanceTwoCell);
                 [spotCell.slideShow start];
                 [scrViewSpot addSubview:spotCell];
@@ -218,7 +218,7 @@
             [scrViewSpot setBackgroundColor:[UIColor clearColor]];
             [cell addSubview:scrViewSpot];
             // Gin edit Shaker  rung image
-            if( spotCollection.count > 0){
+            if( self.spotCollection.count > 0){
                 AFViewShaker * viewShaker = [[AFViewShaker alloc] initWithView:cell];
                 [viewShaker shakeWithDuration:1 completion:^{
                 }];

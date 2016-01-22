@@ -16,7 +16,8 @@
     [(SimiAddressAPI *)[self getAPI] getCountryCollectionWithParams:nil target:self selector:@selector(didFinishRequest:responder:)];
 }
 
-- (void)getStateCollectionWithCountryName:(NSString *)countryName countryCode:(NSString *)countryCode{
+- (void)getStateCollectionWithCountryName:(NSString *)countryName countryCode:(NSString *)countryCode
+{
     
 }
 

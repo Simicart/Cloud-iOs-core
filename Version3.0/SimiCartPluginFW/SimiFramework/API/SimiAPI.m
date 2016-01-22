@@ -95,7 +95,7 @@ NSString *const kSimiOrders             = @"orders";
         header = @{};
     }
     NSMutableDictionary *headerParams = [[NSMutableDictionary alloc]initWithDictionary:header];
-    if ([medthod isEqualToString:POST]) {
+    if ([medthod isEqualToString:POST] || [medthod isEqualToString:PUT]) {
         [headerParams setValue:@"application/json" forKey:@"Content-Type"];
     }
     [[SimiNetworkManager sharedInstance] requestWithMethod:medthod urlPath:url parameters:params target:self selector:@selector(convertData:) header:headerParams];

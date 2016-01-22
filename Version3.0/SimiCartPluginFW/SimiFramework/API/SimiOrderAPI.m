@@ -13,7 +13,7 @@
 - (void)getOrderDetailWithID:(NSString* )orderId target:(id)target selector:(SEL)selector{
     NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kSimiOrders];
     [url stringByAppendingString:[NSString stringWithFormat:@"/%@",orderId]];
-    [self requestWithMethod:@"GET" URL:url params:nil target:target selector:selector header:nil];
+    [self requestWithMethod:GET URL:url params:nil target:target selector:selector header:nil];
 }
 
 - (void)getOrderConfigWithParams:(NSDictionary *)params extendsUrl:(NSString *)extendsUrl target:(id)target selector:(SEL)selector{
@@ -23,7 +23,7 @@
 
 - (void)getCustomerOrderListWithParams:(NSDictionary *)params target:(id)target selector:(SEL)selector{
     NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kSimiOrders];
-    [self requestWithMethod:@"GET" URL:url params:params target:target selector:selector header:nil];
+    [self requestWithMethod:GET URL:url params:params target:target selector:selector header:nil];
 }
 
 - (void)selectShippingMethod:(NSDictionary *)params extendsUrl:(NSString *)extendsUrl target:(id)target selector:(SEL)selector{

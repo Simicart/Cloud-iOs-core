@@ -81,17 +81,17 @@
             self.didGetCategoryProducts = YES;
         };
     }
-    if (productCollection == nil || categoryCollection == nil) {
+    if (productCollection == nil || categoryCollection == nil || productCollection.count == 0 || categoryCollection.count == 0) {
         [self.tableViewCategory setHidden:YES];
         [self startLoadingData];
     }else
     {
         [self setCells:nil];
     }
-    if (categoryCollection == nil) {
+    if (categoryCollection == nil || categoryCollection.count == 0) {
         [self getCategoryCollection];
     }
-    if (productCollection == nil) {
+    if (productCollection == nil || productCollection.count == 0) {
         [self getCategoryProducts];
     }
     //  End Cache
@@ -188,8 +188,7 @@
     {
         self.didGetCategoryProducts = YES;
     }
-//    if (self.didGetCategoryProducts && self.didGetCategoryCollection) {
-    if (self.didGetCategoryCollection & self.didGetCategoryProducts) {
+    if (self.didGetCategoryCollection && self.didGetCategoryProducts) {
         [self stopLoadingData];
         [self.tableViewCategory setHidden:NO];
     }

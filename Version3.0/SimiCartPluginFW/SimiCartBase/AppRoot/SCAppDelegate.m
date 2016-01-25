@@ -92,7 +92,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ApplicationDidRegisterForRemote" object:nil userInfo:@{@"application":application, @"device_token":deviceToken}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationDidRegisterForRemote object:nil userInfo:@{@"application":application, @"device_token":deviceToken}];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
@@ -127,7 +127,7 @@
      
     }
      */
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ApplicationDidReceiveNotificationFromServer" object:nil userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationDidReceiveNotificationFromServer object:nil userInfo:userInfo];
 }
 
 @end

@@ -12,6 +12,8 @@
 static NSString *ApplicationWillResignActive = @"ApplicationWillResignActive";
 static NSString *ApplicationDidBecomeActive = @"ApplicationDidBecomeActive";
 static NSString *ApplicationDidFinishLaunching = @"ApplicationDidFinishLaunching";
+static NSString *ApplicationDidRegisterForRemote = @"ApplicationDidRegisterForRemote";
+static NSString *ApplicationDidReceiveNotificationFromServer = @"ApplicationDidReceiveNotificationFromServer";
 
 static NSString *DidGetActivePlugins = @"DidGetActivePlugins";
 static NSString *DidGetSitePlugins = @"DidGetSitePlugins";

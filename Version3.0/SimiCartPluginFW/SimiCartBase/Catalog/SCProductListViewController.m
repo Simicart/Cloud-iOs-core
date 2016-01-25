@@ -303,9 +303,9 @@
         [tableViewProductCollection reloadData];
         if (self.isFirstTimeGetData && self.productListGetProductType != ProductListGetProductTypeFromSearch) {
             self.isFirstTimeGetData = NO;
-            [[SimiCacheData sharedInstance].dataListProducts setObject:productCollection forKey:self.keyCacheData];
+            [[SimiCacheData sharedInstance].dataListProducts setObject:[productCollection mutableCopy] forKey:self.keyCacheData];
             if (self.arrayProductsID) {
-                [[SimiCacheData sharedInstance].dataListProductIDs setObject:self.arrayProductsID forKey:self.keyCacheData];
+                [[SimiCacheData sharedInstance].dataListProductIDs setObject:[self.arrayProductsID mutableCopy] forKey:self.keyCacheData];
             }
         }
         // Show toat number products

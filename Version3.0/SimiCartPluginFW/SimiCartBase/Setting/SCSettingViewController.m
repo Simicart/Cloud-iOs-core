@@ -19,7 +19,7 @@
 @implementation SCSettingViewController
 {
     SimiStoreModelCollection *stores;
-    SimiStoreModel *currentStore;
+    SimiModel *currentStore;
     SimiCurrencyModelCollection *currencies;
     SimiCurrencyModel *currentCurrency;
 }
@@ -44,16 +44,10 @@
     _tableViewSetting.dataSource = self;
     [self.view addSubview:_tableViewSetting];
     stores = [SimiGlobalVar sharedInstance].storeModelCollection;
-    if (stores == nil) {
-        [self getStoreCollection];
-    }
-    if (currencies == nil) {
-        [self getCurrencyCollection];
-    }
    
     [self setCells:nil];
     if (currentStore == nil) {
-        currentStore = [[SimiGlobalVar sharedInstance] store];
+        currentStore = [[SimiGlobalVar sharedInstance] currentLocale];
     }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [super viewDidLoadBefore];
@@ -76,8 +70,8 @@
         [storeViewController setDataType:@"store"];
         [storeViewController setFixedData: stores];
         storeViewController.navigationItem.title = SCLocalizedString(@"Language");
-        [storeViewController setSelectedName:[[currentStore valueForKey:@"store_config"] valueForKey:@"store_name"]];
-        [storeViewController setSelectedId:[[currentStore valueForKey:@"store_config"] valueForKey:@"store_id"]];
+        [storeViewController setSelectedName:[currentStore valueForKey:@"name"]];
+        [storeViewController setSelectedId:[currentStore valueForKey:@"code"]];
         storeViewController.delegate = self;
         [self.navigationController pushViewController:storeViewController animated:YES];
     }else if ([row.identifier isEqualToString:APP_SETTING_CELL])
@@ -168,26 +162,10 @@
 
 #pragma mark SCStoreViewDelegate
 
-- (void)didSelectDataWithID:(NSString *)dataID dataCode:(NSString *)dataCode dataName:(NSString *)dataName dataType:(NSString *)dataType
+- (void)didSelectDataWithCode:(NSString *)dataCode dataName:(NSString *)dataName
 {
-    if ([dataType isEqualToString:@"store"]) {
-        if (![dataID isEqualToString:[[currentStore valueForKey:@"store_config"] valueForKey:@"store_id"]]) {
-            [[SimiStoreModel new]saveToLocal:dataID];
-            [(SCAppDelegate *)[[UIApplication sharedApplication] delegate] switchLanguage];
-        }
-        return;
-    }
-    
-    if ([dataType isEqualToString:@"currency"]) {
-        if (![dataCode isEqualToString:[[currentStore valueForKey:@"store_config"] valueForKey:@"currency_code"]]) {
-            if (currentCurrency == nil) {
-                currentCurrency = [SimiCurrencyModel new];
-            }
-            [currentCurrency saveToLocal:dataCode];
-            [(SCAppDelegate *)[[UIApplication sharedApplication] delegate] switchLanguage];
-            [self startLoadingData];
-        }
-    }
+    [self.popover dismissPopoverAnimated:NO];
+    [[NSNotificationCenter defaultCenter]postNotificationName:ChangeAppLanguage object:nil];
 }
 
 #pragma mark Get Store Collection

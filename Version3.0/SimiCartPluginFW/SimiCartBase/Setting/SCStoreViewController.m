@@ -61,8 +61,7 @@
     //Convert Data Array to Dictionary
     allData = [[NSMutableDictionary alloc] init];
     for (id obj in fixedData) {
-//        NSLog(@"%@",[obj valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]]);
-        NSString *key = [[obj valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]] substringToIndex:1];
+        NSString *key = [[obj valueForKey:@"code"] substringToIndex:1];
         NSMutableArray *temp = [allData valueForKey:key];
         if (temp == nil) {
             temp = [[NSMutableArray alloc] initWithObjects:obj, nil];
@@ -77,8 +76,8 @@
     for (NSString *key in keys) {
         NSArray *values = [allData valueForKey:key];
         NSArray *sortedValue = [values sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
-            NSString *name1 = [obj1 valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]];
-            NSString *name2 = [obj2 valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]];
+            NSString *name1 = [obj1 valueForKey:@"name"];
+            NSString *name2 = [obj2 valueForKey:@"name"];
             return [name1 compare:name2];
         }];
         [allData setValue:sortedValue forKey:key];
@@ -122,7 +121,7 @@
         NSMutableArray *dataList = [data valueForKey:key];
         NSMutableArray *toRemove = [[NSMutableArray alloc] init];
         for (id object in dataList) {
-            NSString *name = [object valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]];
+            NSString *name = [object valueForKey:@"name"];
             if ([[name uppercaseString] rangeOfString:[searchTerm uppercaseString]].location == NSNotFound) {
                 [toRemove addObject:object];
             }
@@ -195,7 +194,7 @@
     }
     NSString *key = [keys objectAtIndex:indexPath.section];
     NSArray *objects = [data objectForKey:key];
-    cell.textLabel.text = [[objects objectAtIndex:indexPath.row] valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]];
+    cell.textLabel.text = [[objects objectAtIndex:indexPath.row] valueForKey:@"name"];
     if ([cell.textLabel.text isEqualToString:_selectedName]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }else{
@@ -217,10 +216,10 @@
     }
     NSString *key = [keys objectAtIndex:indexPath.section];
     NSArray *objects = [data objectForKey:key];
-    _selectedName = [[objects objectAtIndex:indexPath.row] valueForKey:[NSString stringWithFormat:@"%@_name", _dataType]];
-    _selectedCode = [[objects objectAtIndex:indexPath.row] valueForKey:[NSString stringWithFormat:@"%@_code", _dataType]];
-    _selectedId = [[objects objectAtIndex:indexPath.row] valueForKey:[NSString stringWithFormat:@"%@_id", _dataType]];
-    [self.delegate didSelectDataWithID:_selectedId dataCode:_selectedCode dataName:_selectedName dataType:_dataType];
+    [SimiGlobalVar sharedInstance].currentLocale = [[SimiModel alloc]initWithDictionary:[objects objectAtIndex:indexPath.row]];
+    _selectedName = [[objects objectAtIndex:indexPath.row] valueForKey:@"name"];
+    _selectedCode = [[objects objectAtIndex:indexPath.row] valueForKey:@"code"];
+    [self.delegate didSelectDataWithCode:_selectedCode dataName:_selectedName];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

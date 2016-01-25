@@ -215,6 +215,7 @@ static NSString *FOGIMAGE = @"FOGIMAGE";
             self.popController = [[UIPopoverController alloc]initWithContentViewController:navi];
             settingViewController.isInPopover = YES;
             self.popController.delegate =  self;
+            settingViewController.popover = self.popController;
             [self.popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:currentVC.view permittedArrowDirections:0 animated:YES];
         }else if([row.identifier isEqualToString:LEFTMENU_ROW_ORDERHISTORY])
         {
@@ -244,6 +245,7 @@ static NSString *FOGIMAGE = @"FOGIMAGE";
             UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:settingViewController];
             self.popController = [[UIPopoverController alloc]initWithContentViewController:navi];
             settingViewController.isInPopover = YES;
+            settingViewController.popover = self.popController;
             self.popController.delegate =  self;
             [self.popController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:currentVC.view permittedArrowDirections:0 animated:YES];
         }else if ([row.identifier isEqualToString:LEFTMENU_ROW_CMS])

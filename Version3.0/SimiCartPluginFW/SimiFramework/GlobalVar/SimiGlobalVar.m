@@ -505,7 +505,7 @@
 }
 
 - (NSString *)localeIdentifier{
-    return [[self.store valueForKey:@"store_config"] valueForKey:@"locale_identifier"] ? [[self.store valueForKey:@"store_config"] valueForKey:@"locale_identifier"] : @"";
+    return [self.currentLocale valueForKey:@"code"] ? [self.currentLocale valueForKey:@"code"] : @"";
 }
 
 - (NSString *)countryCode{

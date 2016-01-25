@@ -11,7 +11,7 @@
 
 @protocol SCStoreViewDelegate <NSObject>
 @optional
-- (void)didSelectDataWithID:(NSString *)dataID dataCode:(NSString *)dataCode dataName:(NSString *)dataName dataType:(NSString*)dataType;
+- (void)didSelectDataWithCode:(NSString *)dataCode dataName:(NSString *)dataName;
 @end
 
 @interface SCStoreViewController : SimiViewController<UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate>{

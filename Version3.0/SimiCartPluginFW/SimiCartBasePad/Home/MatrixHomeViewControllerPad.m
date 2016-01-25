@@ -120,7 +120,7 @@
         }
         _viewCate03.delegate =self;
         
-        _viewAllCate = [[MatrixCategoryProductCellPad alloc]initWithFrame:CGRectMake(857, 0, 167, 166) isAllCate:YES];
+        _viewAllCate = [[MatrixCategoryProductCellPad alloc]initWithFrame:CGRectMake(857, 0, 167, 166) isAllCate:NO];
         if (self.homeCategoryModelCollection.count > 3) {
             [_viewAllCate cusSetCateModel:[self.homeCategoryModelCollection objectAtIndex:3]];
         }

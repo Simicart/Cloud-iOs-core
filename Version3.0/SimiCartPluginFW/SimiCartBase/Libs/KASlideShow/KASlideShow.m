@@ -131,15 +131,19 @@ typedef NS_ENUM(NSInteger, KASlideShowSlideMode) {
 - (void)addImagePath:(NSString *)imagePath{
     [self.imagePaths addObject:imagePath];
     NSURL *url = [NSURL URLWithString:imagePath];
+    
+    if([self.imagePaths count] == 1){
+        [_topImageView sd_setImageWithURL:url];
+    }
+//    else if([self.imagePaths count] == 2){
+//        [_bottomImageView sd_setImageWithURL:url];
+//    }
     UIImageView *imageView = [UIImageView new];
     [imageView sd_setImageWithURL:url];
     [self.arrayImageView addObject:imageView];
-    if([self.imagePaths count] == 1){
-        [_topImageView sd_setImageWithURL:url];
-    }else if([self.imagePaths count] == 2){
-        [_bottomImageView sd_setImageWithURL:url];
-    }
 }
+
+
 
 - (void) emptyAndAddImagesFromResources:(NSArray *)names
 {

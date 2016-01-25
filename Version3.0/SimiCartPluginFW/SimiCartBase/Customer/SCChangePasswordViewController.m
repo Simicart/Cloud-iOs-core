@@ -27,7 +27,10 @@
 }
 
 -(void) viewWillAppearBefore:(BOOL)animated{
-    [super viewWillAppearBefore:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [super viewWillAppearBefore:YES];
+    }
+        
     //Add Save button
     UIBarButtonItem *button = [[UIBarButtonItem alloc]initWithTitle:SCLocalizedString(@"Save") style:UIBarButtonItemStyleDone target:self action:@selector(changePassword)];
     self.navigationItem.rightBarButtonItem = button;

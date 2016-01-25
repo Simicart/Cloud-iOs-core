@@ -778,7 +778,7 @@
         case ProductTypeGrouped:
         {
             int count = 0;
-            if (self.groupOptions > 0) {
+            if (self.groupOptions.count > 0) {
                 for (ProductOptionModel *groupItem in self.groupOptions) {
                     if (groupItem.isSelected) {
                         count += [[groupItem valueForKey:@"option_qty"]intValue];

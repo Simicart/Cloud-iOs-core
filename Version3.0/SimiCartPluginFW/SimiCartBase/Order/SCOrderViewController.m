@@ -862,6 +862,7 @@
         if (self.shippingCollection.count == 0) {
             self.selectedShippingMedthod = 0;
             self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"NO",ORDER_SHIPMENT_SECTION, nil];
+            didSaveShipping = YES;
             [self getOrderConfig];
         }else{
             self.selectedShippingMedthod = [self getSelectedShippingMedthodId];

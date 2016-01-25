@@ -315,6 +315,9 @@
     if ([form objectForKey:@"name"]) {
         [address setValue:[[form objectForKey:@"name"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"name"];
     }
+    if ([[SimiGlobalVar sharedInstance]isLogin] && ![address valueForKey:@"email"]) {
+        [address setValue:[[[SimiGlobalVar sharedInstance]customer] valueForKey:@"email"] forKey:@"email"];
+    }
     // POST data to server
     if (isEditing || [[SimiGlobalVar sharedInstance] isLogin]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSaveCustomerAddress:) name:DidSaveAddress object:address];

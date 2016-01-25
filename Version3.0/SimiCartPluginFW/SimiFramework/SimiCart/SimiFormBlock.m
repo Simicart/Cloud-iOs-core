@@ -231,7 +231,6 @@ NSString *const SimiFormFieldDataChangedNotification    = @"SimiFormFieldDataCha
         return [field cellForSubRowAtIndex:subIndex inTable:tableView];
     }
     NSString *CellID = field.simiObjectName ? field.simiObjectName : [[field class] description];
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
@@ -327,6 +326,12 @@ NSString *const SimiFormFieldDataChangedNotification    = @"SimiFormFieldDataCha
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    for (SimiFormAbstract *field in self.fields) {
+        if (field.inputText && [field.inputText isFirstResponder]) {
+            [field.inputText resignFirstResponder];
+            break;
+        }
+    }
     NSUInteger subIndex;
     SimiFormAbstract *field = [self getFieldAtIndex:[indexPath row] subIndex:&subIndex];
     if (subIndex != NSNotFound) {

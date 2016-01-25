@@ -333,6 +333,10 @@ NSString *const SimiFormFieldDataChangedNotification    = @"SimiFormFieldDataCha
         [field selectSubRowAtIndex:subIndex inTable:tableView indexPath:indexPath];
         [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([indexPath row] - subIndex - 1) inSection:[indexPath section]]] withRowAnimation:UITableViewRowAnimationNone];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        // Hide subrows
+        NSUInteger numberOfSubRows = [field numberOfSubRows];
+        [field toggleShowSubRows];
+        [tableView deleteRowsAtIndexPaths:[self subRowIndexPaths:numberOfSubRows inSection:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         return;
     }
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

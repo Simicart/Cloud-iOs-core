@@ -130,10 +130,10 @@
     float padding = [SimiGlobalVar scaleValue:16];;
     float imageX = [SimiGlobalVar scaleValue:16];
     float imageWidth = [SimiGlobalVar scaleValue:75];
-    float deleteButtonWidth = 30;
+    float deleteButtonWidth = 44;
     float deleteButtonX = cellWidth - deleteButtonWidth;
     float labelX = imageWidth + imageX + padding ;
-    float labelWidth = cellWidth - labelX - padding - deleteButtonWidth;
+    float labelWidth = cellWidth - labelX - deleteButtonWidth;
     float heightLabel = 25;
     float optionWidth = labelWidth/2;
     float optionValueWidth = labelWidth/2 - padding;
@@ -170,8 +170,8 @@
     [deleteButton setImage:[UIImage imageNamed:@"ic_delete"] forState:UIControlStateNormal];
     deleteButton.imageView.clipsToBounds = YES;
     deleteButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.deleteButton setImageEdgeInsets:UIEdgeInsetsMake(10, 20, 20, 10)];
     [self.deleteButton setFrame:CGRectMake(deleteButtonX, 0, deleteButtonWidth, deleteButtonWidth)];
-    [self.deleteButton setImageEdgeInsets:UIEdgeInsetsMake(15, 0, 0, 10)];
     [self.deleteButton addTarget:self action:@selector(deleteButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.deleteButton];
     //Gin edit

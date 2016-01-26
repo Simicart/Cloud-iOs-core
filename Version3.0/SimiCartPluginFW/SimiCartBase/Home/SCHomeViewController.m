@@ -186,8 +186,7 @@
     bestSellerProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
     bestSellerProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
     [spotArray addObject:bestSellerProductModelCollection];
-//    [bestSellerProductModelCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
-    [bestSellerProductModelCollection getAllProductsWithOffset:0 limit:100 sortType:ProductCollectionSortNone otherParams:@{@"filter[type]":@"configurable"}];
+    [bestSellerProductModelCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
 }
 - (void)getNewlyUpdatedProducts:(SimiModel*) spotModel
 {

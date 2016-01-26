@@ -63,7 +63,6 @@
     [params setValue:key forKey:@"filter[keywords]"];
     [params setValue:[NSString stringWithFormat:@"%ld", (long)offset] forKey:@"offset"];
     [params setValue:[NSString stringWithFormat:@"%ld", (long)limit] forKey:@"limit"];
-    [params setValue:@"position" forKey:@"order"];
     switch (sortType) {
         case ProductCollectionSortNone:
             break;
@@ -154,7 +153,6 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:otherParams];
     [params setValue:[NSString stringWithFormat:@"%ld", (long)offset] forKey:@"offset"];
     [params setValue:[NSString stringWithFormat:@"%ld", (long)limit] forKey:@"limit"];
-    [params setValue:@"position" forKey:@"order"];
     switch (sortType) {
         case ProductCollectionSortNone:
             break;

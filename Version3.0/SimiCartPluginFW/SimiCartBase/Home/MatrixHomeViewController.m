@@ -18,7 +18,7 @@
 @end
 
 @implementation MatrixHomeViewController
-@synthesize tableViewHome, bannerCollection, themeBannerSlider,spotCollection, homeCategoryModelCollection, cells = _cells, categoryModel, searchBarHome, searchBarBackground;
+@synthesize tableViewHome, bannerCollection, themeBannerSlider,spotCollection, cells = _cells, categoryModel, searchBarHome, searchBarBackground;
 @synthesize isDidGetBanner, isDidGetCategory, isDidGetSpotProduct;
 
 
@@ -131,7 +131,7 @@
             [section addObject:row01];
         }
         
-        if (homeCategoryModelCollection.count > 0) {
+        if (_homeCategoryModelCollection.count > 0) {
             SimiRow *row02 = [[SimiRow alloc]initWithIdentifier:HOME_CATEGORY_CELL height:[SimiGlobalVar scaleValue: 220]];
             [section addObject:row02];
         }
@@ -171,39 +171,39 @@
 }
 
 - (void)getHomeCategories{
-    if (homeCategoryModelCollection ==nil) {
-        homeCategoryModelCollection = [[SimiCategoryModelCollection alloc]init];
+    if (_homeCategoryModelCollection ==nil) {
+        _homeCategoryModelCollection = [[SimiCategoryModelCollection alloc]init];
     }
-    [homeCategoryModelCollection removeAllObjects];
-    [homeCategoryModelCollection getHomeDefaultCategories];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHomeCategories:) name:DidGetHomeCategories object:homeCategoryModelCollection];
+    [_homeCategoryModelCollection removeAllObjects];
+    [_homeCategoryModelCollection getHomeDefaultCategories];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHomeCategories:) name:DidGetHomeCategories object:_homeCategoryModelCollection];
     self.isDidGetCategory = NO;
 }
 
 #pragma mark Set Interface
 - (void)setViewCategory
 {
-    if (homeCategoryModelCollection.count > 0) {
+    if (_homeCategoryModelCollection.count > 0) {
         
         _viewCate01 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 5, 105, 105)] isAllCate:NO];
-        [_viewCate01 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:0]];
+        [_viewCate01 cusSetCateModel:[_homeCategoryModelCollection objectAtIndex:0]];
         _viewCate01.delegate =self;
         
-        if (homeCategoryModelCollection.count >1) {
+        if (_homeCategoryModelCollection.count >1) {
         _viewCate02 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(110, 5, 210, 105)]  isAllCate:NO];
-            [_viewCate02 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:1]];
+            [_viewCate02 cusSetCateModel:[_homeCategoryModelCollection objectAtIndex:1]];
         }
         _viewCate02.delegate =self;
         
-        if (homeCategoryModelCollection.count > 2) {
+        if (_homeCategoryModelCollection.count > 2) {
         _viewCate03 = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 115, 210, 105)] isAllCate:NO];
-            [_viewCate03 cusSetCateModel:[homeCategoryModelCollection objectAtIndex:2]];
+            [_viewCate03 cusSetCateModel:[_homeCategoryModelCollection objectAtIndex:2]];
         }
         _viewCate03.delegate =self;
         
-        if (homeCategoryModelCollection.count > 3) {
+        if (_homeCategoryModelCollection.count > 3) {
         _viewAllCate = [[MatrixCategoryProductCell alloc]initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(215, 115, 105, 105)] isAllCate:NO];
-            [_viewAllCate cusSetCateModel:[homeCategoryModelCollection objectAtIndex:3]];
+            [_viewAllCate cusSetCateModel:[_homeCategoryModelCollection objectAtIndex:3]];
         }
         _viewAllCate.delegate =self;
     }

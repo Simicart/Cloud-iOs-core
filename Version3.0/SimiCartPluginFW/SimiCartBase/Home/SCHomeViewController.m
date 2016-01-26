@@ -373,14 +373,9 @@
             if (bannerCollection.count > 0) {
                 [bannerSlider addGesture:KASlideShowGestureSwipe];
             }
-            for (SimiModel *model in bannerCollection) {
-                if (![[model valueForKey:isFake]boolValue]) {
-                    [bannerSlider addImagePath:[[model valueForKey:@"image"]valueForKey:@"url"]];
-                }else
-                {
-                    bannerSlider.useImages = YES;
-                    [bannerSlider addImage:[UIImage imageNamed:@"default_banner"]];
-                }
+            for (int i =0;i<bannerCollection.count;i++) {
+                NSDictionary* model = [bannerCollection objectAtIndex:i];
+                [bannerSlider addImagePath:[[model valueForKey:@"image"]valueForKey:@"url"]];
             }
             [bannerSlider start];
         }

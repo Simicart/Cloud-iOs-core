@@ -223,4 +223,9 @@ typedef NS_ENUM(NSInteger, CurrentVersionPhoneUsing)
 - (NSString *)genderShow;
 - (BOOL) isShowZeroPrice;
 - (BOOL) displayPricesInShop;
+//Axe added
+- (NSString* )thousandSeparator;
+- (NSString* )decimalSeparator;
+-(NSString *) numberOfDecimals;
+
 @end

@@ -498,6 +498,9 @@
     float priceSpecial = 0.00;
     float paddingLeft = 10;
     float paddingTop = 25;
+    float maxRegularPriceWidth = 115;
+    float maxSpecialPriceWidth = 115;
+    
     switch (product.productType) {
 #pragma mark Bundle
         case ProductTypeBundle:
@@ -511,8 +514,12 @@
                 if ([self.product valueForKey:@"total_option_price"]) {
                     priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                 }
-                [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, 250, 20)];
-                [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
+                NSString* priceRegularString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]];
+                CGFloat regularPriceWidth = [priceRegularString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                if(regularPriceWidth > maxRegularPriceWidth)
+                    regularPriceWidth = maxRegularPriceWidth;
+                [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, regularPriceWidth, 20)];
+                [lblRegularPrice setText: priceRegularString];
                 [lblRegularPrice setHidden:NO];
             }
         }
@@ -524,28 +531,35 @@
                 for (NSMutableDictionary *variant in self.variants) {
                     if ([[variant valueForKey:@"_id"] isEqualToString:self.variantSelectedKey]) {
                         if ([variant valueForKey:@"price_include_tax"] && DISPLAY_PRICES_INSHOP) {
-                            [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, 250, 20)];
                             if ([self.product valueForKey:@"total_option_price"]) {
                                 priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                             }
                             priceRegular += [[variant valueForKey:@"price_include_tax"] floatValue];
-                            [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
+                            NSString* priceRegularString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]];
+                            CGFloat regularPriceWidth = [priceRegularString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                            if(regularPriceWidth > maxRegularPriceWidth)
+                                regularPriceWidth = maxRegularPriceWidth;
+                            [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, regularPriceWidth, 20)];
+                            [lblRegularPrice setText: priceRegularString];
                             [lblRegularPrice setHidden:NO];
                             
                             if ([product valueForKey:@"sale_price_include_tax"]) {
                                 NSString *salePriceInclude = [NSString stringWithFormat:@"%@",[variant valueForKey:@"sale_price_include_tax"]];
                                 if (!([salePriceInclude floatValue] == [[variant valueForKey:@"price_include_tax"] floatValue])) {
-                                    CGFloat priceWidth = [self.lblRegularPrice.text sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
-                                    [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, priceWidth, 1)];
+                                    [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, regularPriceWidth, 1)];
                                     [self.crossLine setHidden:NO];
                                     
-                                    [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:85], paddingTop,[SimiGlobalVar scaleValue:80], 20)];
                                     if ([self.product valueForKey:@"total_option_price"]) {
                                         priceSpecial += [[self.product valueForKey:@"total_option_price"] floatValue];
                                     }
                                     
                                     priceSpecial += [[variant valueForKey:@"sale_price_include_tax"] floatValue];
-                                    [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
+                                    NSString* priceSpecialString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]];
+                                    CGFloat specialPriceWidth = [priceSpecialString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                                    if(specialPriceWidth > maxSpecialPriceWidth)
+                                        specialPriceWidth = maxSpecialPriceWidth;
+                                    [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:(paddingLeft + regularPriceWidth)], paddingTop,[SimiGlobalVar scaleValue:specialPriceWidth], 20)];
+                                    [lblSpecialPrice setText:priceSpecialString];
                                     [lblSpecialPrice setHidden:NO];
                                 }
                             }
@@ -558,28 +572,36 @@
                         }
                         
                         if ([variant valueForKey:@"price"]) {
-                            [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, 250, 20)];
                             if ([self.product valueForKey:@"total_option_price"]) {
                                 priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
                             }
                             priceRegular += [[variant valueForKey:@"price"] floatValue];
-                            [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
+                            NSString* priceRegularString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]];
+                            CGFloat regularPriceWidth = [priceRegularString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                            if(regularPriceWidth > maxRegularPriceWidth)
+                                regularPriceWidth = maxRegularPriceWidth;
+                            [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, regularPriceWidth, 20)];
+                            [lblRegularPrice setText: priceRegularString];
                             [lblRegularPrice setHidden:NO];
                             
                             if ([variant valueForKey:@"sale_price"]) {
                                 NSString *salePriceInclude = [NSString stringWithFormat:@"%@",[variant valueForKey:@"sale_price"]];
                                 if (!([salePriceInclude floatValue] == [[variant valueForKey:@"price"] floatValue])) {
-                                    CGFloat priceWidth = [self.lblRegularPrice.text sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
-                                    [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, priceWidth, 1)];
+                                    
+                                    [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, regularPriceWidth, 1)];
                                     [self.crossLine setHidden:NO];
                                     
-                                    [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:85], paddingTop,[SimiGlobalVar scaleValue:80], 20)];
                                     if ([self.product valueForKey:@"total_option_price"]) {
                                         priceSpecial += [[self.product valueForKey:@"total_option_price"] floatValue];
                                     }
                                     
                                     priceSpecial += [[variant valueForKey:@"sale_price"] floatValue];
-                                    [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
+                                    NSString* priceSpecialString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]];
+                                    CGFloat specialPriceWidth = [priceSpecialString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                                    if(specialPriceWidth > maxSpecialPriceWidth)
+                                        specialPriceWidth = maxSpecialPriceWidth;
+                                    [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:(paddingLeft + regularPriceWidth)], paddingTop,[SimiGlobalVar scaleValue:specialPriceWidth], 20)];
+                                    [lblSpecialPrice setText: priceSpecialString];
                                     [lblSpecialPrice setHidden:NO];
                                 }
                             }
@@ -624,30 +646,38 @@
     float priceSpecial = 0.00;
     float paddingLeft = 10;
     float paddingTop = 25;
+    float maxRegularPriceWidth = 115;
+    float maxSpecialPriceWidth = 115;
     
     if ([product valueForKey:@"price_include_tax"] && DISPLAY_PRICES_INSHOP) {
-        [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, 250, 20)];
         if ([self.product valueForKey:@"total_option_price"]) {
             priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
         }
         priceRegular += [[product valueForKey:@"price_include_tax"] floatValue];
-        [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
+        NSString* priceRegularString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]];
+        CGFloat regularPriceWidth = [priceRegularString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+        if(regularPriceWidth > maxRegularPriceWidth)
+            regularPriceWidth = maxRegularPriceWidth;
+        [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, regularPriceWidth, 20)];
+        [lblRegularPrice setText: priceRegularString];
         [lblRegularPrice setHidden:NO];
         
         if ([product valueForKey:@"sale_price_include_tax"]) {
             NSString *salePriceInclude = [NSString stringWithFormat:@"%@",[product valueForKey:@"sale_price_include_tax"]];
             if (!([salePriceInclude floatValue] == [[product valueForKey:@"price_include_tax"] floatValue])) {
-                CGFloat priceWidth = [self.lblRegularPrice.text sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
-                [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, priceWidth, 1)];
+                [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, regularPriceWidth, 1)];
                 [self.crossLine setHidden:NO];
-                
-                [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:85], paddingTop,[SimiGlobalVar scaleValue:80], 20)];
                 if ([self.product valueForKey:@"total_option_price"]) {
                     priceSpecial += [[self.product valueForKey:@"total_option_price"] floatValue];
                 }
                 
                 priceSpecial += [[product valueForKey:@"sale_price_include_tax"] floatValue];
-                [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
+                NSString* priceSpecialString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]];
+                CGFloat specialPriceWidth = [priceSpecialString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                if(specialPriceWidth > maxSpecialPriceWidth)
+                    specialPriceWidth = maxSpecialPriceWidth;
+                [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:(paddingLeft + regularPriceWidth)], paddingTop,[SimiGlobalVar scaleValue:specialPriceWidth], 20)];
+                [lblSpecialPrice setText: priceSpecialString];
                 [lblSpecialPrice setHidden:NO];
             }
         }
@@ -660,28 +690,35 @@
     }
     
     if ([product valueForKey:@"price"]) {
-        [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, 250, 20)];
         if ([self.product valueForKey:@"total_option_price"]) {
             priceRegular += [[self.product valueForKey:@"total_option_price"] floatValue];
         }
         priceRegular += [[product valueForKey:@"price"] floatValue];
-        [lblRegularPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]]];
+        NSString* priceRegularString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceRegular]];
+        CGFloat regularPriceWidth = [priceRegularString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+        if(regularPriceWidth > maxRegularPriceWidth)
+            regularPriceWidth = maxRegularPriceWidth;
+        [lblRegularPrice setFrame:CGRectMake(paddingLeft, paddingTop, regularPriceWidth, 20)];
+        [lblRegularPrice setText:priceRegularString];
         [lblRegularPrice setHidden:NO];
         
         if ([product valueForKey:@"sale_price"]) {
             NSString *salePriceInclude = [NSString stringWithFormat:@"%@",[product valueForKey:@"sale_price"]];
             if (!([salePriceInclude floatValue] == [[product valueForKey:@"price"] floatValue])) {
-                CGFloat priceWidth = [self.lblRegularPrice.text sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
-                [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, priceWidth, 1)];
+                [self.crossLine setFrame:CGRectMake(0, CGRectGetHeight(lblRegularPrice.frame)/2, regularPriceWidth, 1)];
                 [self.crossLine setHidden:NO];
                 
-                [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:85], paddingTop,[SimiGlobalVar scaleValue:80], 20)];
                 if ([self.product valueForKey:@"total_option_price"]) {
                     priceSpecial += [[self.product valueForKey:@"total_option_price"] floatValue];
                 }
                 
                 priceSpecial += [[product valueForKey:@"sale_price"] floatValue];
-                [lblSpecialPrice setText:[[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]]];
+                NSString* priceSpecialString = [[SimiFormatter sharedInstance]priceWithPrice:[NSString stringWithFormat:@"%f",priceSpecial]];
+                CGFloat specialPriceWidth = [priceSpecialString sizeWithAttributes:@{NSFontAttributeName:[self.lblRegularPrice font]}].width;
+                if(specialPriceWidth > maxSpecialPriceWidth)
+                    specialPriceWidth = maxSpecialPriceWidth;
+                [lblSpecialPrice setFrame:CGRectMake([SimiGlobalVar scaleValue:(paddingLeft + regularPriceWidth)], paddingTop,[SimiGlobalVar scaleValue:specialPriceWidth], 20)];
+                [lblSpecialPrice setText: priceSpecialString];
                 [lblSpecialPrice setHidden:NO];
             }
         }

@@ -298,7 +298,7 @@ static NSString *FOGIMAGE = @"FOGIMAGE";
     _isShowSearchBar = YES;
     UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication] delegate] window] rootViewController] selectedViewController];
     SimiViewController *viewPad = (SimiViewController *)[[(UINavigationController*)currentVC viewControllers]lastObject];
-    viewPad.navigationItem.leftItemsSupplementBackButton = NO;
+    viewPad.navigationItem.leftItemsSupplementBackButton = YES;
     if (_fogImageView == nil) {
         _fogImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [_fogImageView setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.9]];

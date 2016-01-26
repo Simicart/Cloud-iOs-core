@@ -18,7 +18,7 @@
 #import "SCHomeViewController.h"
 #import "SimiCategoryModelCollection.h"
 
-@interface MatrixHomeViewController:SimiViewController <UITableViewDataSource, UITableViewDelegate, MatrixCategoryProductCell_Delegate, MatrixSpotProductCell_Delegate, UISearchBarDelegate>
+@interface MatrixHomeViewController:SimiViewController <UITableViewDataSource, UITableViewDelegate, MatrixCategoryProductCell_Delegate, MatrixSpotProductCell_Delegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 
 @property (strong, nonatomic) SimiSpotModelCollection *spotCollection;

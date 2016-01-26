@@ -32,13 +32,14 @@ NSString * BUTTON = @"BUTTON";
 @synthesize tableThank,btnContinue,number,des,isGuest;
 
 - (void)viewDidLoadBefore {
-    self.navigationItem.title = [self formatTitleString:SCLocalizedString(@"Thank You Page")];
+    self.navigationItem.title = [self formatTitleString:SCLocalizedString(@"Thank You")];
     
     heightLabel = 60;
     padding = 15;
     paddingButton = [SimiGlobalVar scaleValue:65];
     heightButton = 44;
-    des = SCLocalizedString(@"You have placed an order successfully");
+    NSString* description = [NSString stringWithFormat:@"Your order is %@", [_order valueForKey:@"status"]];
+    des = SCLocalizedString(description);
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         oriYButton = [SimiGlobalVar scaleValue:170];
     }else
@@ -77,6 +78,8 @@ NSString * BUTTON = @"BUTTON";
     [btnContinue setTitle:[SCLocalizedString(@"Continue Shopping") uppercaseString] forState:UIControlStateNormal];
     btnContinue.backgroundColor =THEME_COLOR;
     [btnContinue addTarget:self action:@selector(didContinueShopping) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.hidesBackButton = YES;
+    
     [self.view addSubview:btnContinue];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [super viewDidLoadBefore];

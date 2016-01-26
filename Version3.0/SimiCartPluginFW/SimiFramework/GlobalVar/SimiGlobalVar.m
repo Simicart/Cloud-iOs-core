@@ -511,10 +511,25 @@
 - (NSString *)countryCode{
     return [[self.store valueForKey:@"store_config"] valueForKey:@"country_code"] ? [[self.store valueForKey:@"store_config"] valueForKey:@"country_code"] : @"";
 }
+
 //Axe edited
 - (NSString *)currencyPosition{
     NSString* currency_position = [[[self.store valueForKey:@"format_options"] valueForKey:@"currency"]valueForKey:@"currency_position"];
     return currency_position? currency_position : @"";
+}
+
+-(NSString *) thousandSeparator{
+    return [[[self.store valueForKey:@"format_options"] valueForKey:@"currency"]valueForKey:@"thousand_separator"];
+}
+
+-(NSString *) decimalSeparator{
+   return [[[self.store valueForKey:@"format_options"] valueForKey:@"currency"]valueForKey:@"decimal_separator"];
+    
+}
+
+-(NSString* )numberOfDecimals{
+    return [[[self.store valueForKey:@"format_options"] valueForKey:@"currency"]valueForKey:@"number_of_decimals"];
+    
 }
 
 - (BOOL)isShowZeroPrice{

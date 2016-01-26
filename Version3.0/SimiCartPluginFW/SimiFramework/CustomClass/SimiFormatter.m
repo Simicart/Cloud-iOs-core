@@ -22,10 +22,28 @@
 -(NSString *) priceWithPrice:(NSString *)price{
     NSString* currencyPosition = [[SimiGlobalVar sharedInstance] currencyPosition];
     NSString* currencySymbol = [[SimiGlobalVar sharedInstance] currencySymbol];
+    NSString* thousandSeparator = [[SimiGlobalVar sharedInstance] thousandSeparator];
+    NSString* decimalSeparator = [[SimiGlobalVar sharedInstance] decimalSeparator];
+    int numberOfDecimals = [[[SimiGlobalVar sharedInstance] numberOfDecimals] intValue];
+    NSNumberFormatter * formatter =  [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMaximumFractionDigits:numberOfDecimals];
+    [formatter setGroupingSeparator:thousandSeparator];
+    [formatter setGroupingSize:3];
+    [formatter setUsesGroupingSeparator:YES];
+    [formatter setDecimalSeparator:decimalSeparator];
+    [formatter setLocale:[NSLocale currentLocale]];
+    price = [formatter stringFromNumber:[NSNumber numberWithFloat:[price floatValue]]];
     if([currencyPosition isEqualToString:@"left"]){
-        return [NSString stringWithFormat:@" %@ %.2f ", currencySymbol, [price floatValue]];
-    }else{
-        return [NSString stringWithFormat:@" %.2f %@ ", [price floatValue], currencySymbol];
+        return [NSString stringWithFormat:@"%@ %@", currencySymbol, price];
+    }else if([currencyPosition isEqualToString:@"right"]){
+        return [NSString stringWithFormat:@"%@ %@", price, currencySymbol];
+    }else if([currencyPosition isEqualToString:@"left_space"]){
+        return [NSString stringWithFormat:@" %@ %@", currencySymbol, price];
+    }else if([currencyPosition isEqualToString:@"right_space"]){
+        return [NSString stringWithFormat:@"%@ %@ ", price, currencySymbol];
+    }else {
+        return [NSString stringWithFormat:@"%@ %@", price, currencySymbol];
     }
 }
 - (NSString *)priceByLocalizeNumber:(NSNumber *)number locale:(NSLocale *)locale{

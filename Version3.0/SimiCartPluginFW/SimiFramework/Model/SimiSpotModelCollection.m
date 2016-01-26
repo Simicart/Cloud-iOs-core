@@ -14,7 +14,7 @@
     [self preDoRequest];
     modelActionType = ModelActionTypeGet;
     NSString *urlPath = [NSString stringWithFormat:@"%@%@", kBaseURL,kSimiGetSpots];
-    [[self getAPI] requestWithMethod:GET URL:urlPath params:@{@"order":@"position",@"status":@"1"} target:self selector:@selector(didFinishRequest:responder:) header:nil];
+    [[self getAPI] requestWithMethod:GET URL:urlPath params:@{@"order":@"position",@"filter[status]":@"1"} target:self selector:@selector(didFinishRequest:responder:) header:nil];
 }
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder

@@ -40,7 +40,17 @@
     tableViewForgotPass.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tableViewForgotPass];
     [self setCells:nil];
-    [super viewDidLoadBefore];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [super viewDidLoadBefore];
+    }else
+        [self configureNavigationBarOnViewDidLoad];
+}
+
+- (void)viewWillAppearBefore:(BOOL)animated
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [super viewWillAppearBefore:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -145,6 +155,7 @@
             textFieldEmail.autocapitalizationType = UITextAutocapitalizationTypeNone;
             textFieldEmail.autocorrectionType = UITextAutocorrectionTypeNo;
             textFieldEmail.delegate = self;
+            textFieldEmail.clearButtonMode = UITextFieldViewModeWhileEditing;
             [cell addSubview:textFieldEmail];
             //  Liam Update RTL
             if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {

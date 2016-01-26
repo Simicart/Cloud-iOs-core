@@ -187,19 +187,19 @@ static NSString * const reuseIdentifier = @"CellTable";
 #pragma mark  Best Seller
                 case 1:
                 {
-                    [self.productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
+                    [self.productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
                 }
                     break;
 #pragma mark Newly Update
                 case 2:
                 {
-                    [productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
+                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
                 }
                     break;
 #pragma mark Recently Added
                 case 3:
                 {
-                    [productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
+                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
                 }
                     break;
 #pragma mark Custom
@@ -216,7 +216,7 @@ static NSString * const reuseIdentifier = @"CellTable";
                         }
                     }
                     
-                    [productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
+                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
                 }
                     break;
                 default:

@@ -24,13 +24,13 @@
             break;
         case ProductCollectionSortPriceLowToHigh:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"asc" forKey:@"dir"];
         }
             break;
         case ProductCollectionSortPriceHighToLow:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"desc" forKey:@"dir"];
         }
             break;
@@ -69,13 +69,13 @@
             break;
         case ProductCollectionSortPriceLowToHigh:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"asc" forKey:@"dir"];
         }
             break;
         case ProductCollectionSortPriceHighToLow:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"desc" forKey:@"dir"];
         }
             break;
@@ -116,13 +116,13 @@
             break;
         case ProductCollectionSortPriceLowToHigh:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"asc" forKey:@"dir"];
         }
             break;
         case ProductCollectionSortPriceHighToLow:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"desc" forKey:@"dir"];
         }
             break;
@@ -160,13 +160,13 @@
             break;
         case ProductCollectionSortPriceLowToHigh:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"asc" forKey:@"dir"];
         }
             break;
         case ProductCollectionSortPriceHighToLow:
         {
-            [params setValue:@"price" forKey:@"order"];
+            [params setValue:@"sale_price" forKey:@"order"];
             [params setValue:@"desc" forKey:@"dir"];
         }
             break;

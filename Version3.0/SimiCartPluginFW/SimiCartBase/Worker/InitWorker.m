@@ -15,6 +15,7 @@
 #import "SimiAppModel.h"
 #import "SCWebViewController.h"
 #import "UIImageView+WebCache.h"
+#import "SimiNotificationName.h"
 
 #import "SCCategoryViewController.h"
 #import "SCProductListViewController.h"
@@ -110,13 +111,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout:) name:DidLogout object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetProfile:) name:DidGetProfile object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationDidFinishLaunching" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationDidRegisterForRemote" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationDidReceiveNotificationFromServer" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationWillSwitchLanguage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:ApplicationDidFinishLaunching object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:ApplicationDidRegisterForRemote object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:ApplicationDidReceiveNotificationFromServer object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAppLanguage:) name:ChangeAppLanguage object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"AskForLocationPermision" object:nil userInfo:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStoreConfig) name:@"SimiFormatter-MissLocale" object:nil];
 }
 
 - (void)applyTheme{
@@ -182,6 +181,11 @@
         }
     }
     return _rootController;
+}
+
+- (void)changeAppLanguage:(NSNotification*)noti
+{
+    [self gotoHome];
 }
 
 - (void)initializePlugins{
@@ -265,19 +269,14 @@
             SimiCurrencyModel *currencyModel = [SimiCurrencyModel new];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didSaveCurrency:) name:@"DidSaveCurrency" object:nil];
             [currencyModel saveCurrency:@{@"currency":[currencyConfig valueForKey:@"currency_code"]}];
-            return;
         }
     }
-    [self getStoreConfig];
-    [self getAppConfig];
 }
 
 - (void)didSaveCurrency:(NSNotification*)noti
 {
     if ([noti.name isEqualToString:@"DidSaveCurrency"]) {
         [self removeObserverForNotification:noti];
-        [self getStoreConfig];
-        [self getAppConfig];
     }
 }
 
@@ -351,6 +350,11 @@
         [[SimiGlobalVar sharedInstance] setStore:store];
         [[SimiGlobalVar sharedInstance] setIsReverseLanguage:[[[store valueForKey:@"store_config"] valueForKey:@"is_rtl"]boolValue]];
         [SimiGlobalVar sharedInstance].isCloudVersion = YES;
+        [SimiGlobalVar sharedInstance].storeModelCollection = [[SimiStoreModelCollection alloc]initWithArray:[[store valueForKey:@"general"]valueForKey:@"locale_app"]];
+        if ([SimiGlobalVar sharedInstance].currentLocale == nil) {
+            [SimiGlobalVar sharedInstance].currentLocale = [[SimiModel alloc]initWithDictionary:[[SimiGlobalVar sharedInstance].storeModelCollection objectAtIndex:0]];
+        }
+        
         NSString *useStore = @"0";
         useStore = [[store valueForKey:@"store_config"] valueForKey:@"use_store"];
         NSString *storeCode = [[store valueForKey:@"store_config"] valueForKey:@"store_code"];
@@ -421,7 +425,6 @@
 - (void)didLogout:(NSNotification*)noti
 {
     //Remove username and password in Keychain
-//    SimiCustomerModel *customer = noti.object;
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleIdentifier = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFBundleIdentifier"]];
     KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:bundleIdentifier accessGroup:nil];
@@ -440,7 +443,7 @@
 }
 
 - (void)didReceiveNotification:(NSNotification *)noti{
-    if ([noti.name isEqualToString:@"ApplicationDidFinishLaunching"]) {
+    if ([noti.name isEqualToString:ApplicationDidFinishLaunching]) {
 #pragma mark ApplicationDidFinishLaunching
         //Let the device know receive push notification
         if([[UIDevice currentDevice].systemVersion floatValue] >= 8)
@@ -456,7 +459,7 @@
         notiData = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         [self handleNotificationFromServer];
         [self removeObserverForNotification:noti];
-    }else if ([noti.name isEqualToString:@"ApplicationDidRegisterForRemote"]){
+    }else if ([noti.name isEqualToString:ApplicationDidRegisterForRemote]){
 #pragma mark ApplicationDidRegisterForRemote
         NSData *deviceToken = [noti.userInfo valueForKey:@"device_token"];
         token = deviceToken.description;
@@ -472,12 +475,10 @@
         if (SIMI_DEBUG_ENABLE) {
             NSLog(@"Register Device Responder: %@", responder.responseMessage);
         }
-    }else if ([noti.name isEqualToString:@"ApplicationDidReceiveNotificationFromServer"]){
+    }else if ([noti.name isEqualToString:ApplicationDidReceiveNotificationFromServer]){
 #pragma mark ApplicationDidReceiveNotificationFromServer
         notiData = [noti userInfo];
         [self handleNotificationFromServer];
-    }else if ([noti.name isEqualToString:@"ApplicationWillSwitchLanguage"]){
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }
 

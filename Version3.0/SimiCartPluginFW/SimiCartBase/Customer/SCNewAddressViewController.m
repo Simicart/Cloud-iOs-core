@@ -315,6 +315,9 @@
     if ([form objectForKey:@"name"]) {
         [address setValue:[[form objectForKey:@"name"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"name"];
     }
+    if ([[SimiGlobalVar sharedInstance]isLogin] && ![address valueForKey:@"email"]) {
+        [address setValue:[[[SimiGlobalVar sharedInstance]customer] valueForKey:@"email"] forKey:@"email"];
+    }
     // POST data to server
     if (isEditing || [[SimiGlobalVar sharedInstance] isLogin]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSaveCustomerAddress:) name:DidSaveAddress object:address];
@@ -368,9 +371,10 @@
     if (self.stateId == nil) {
         // NOTHING
     } else if (!isEditing) {
-        SimiAddressModel *defaultCountry = [countries objectAtIndex:0];
-        [self.country addSelected:defaultCountry];
-        states = [defaultCountry valueForKey:@"states"];
+        // delete country selected default is firse.
+//        SimiAddressModel *defaultCountry = [countries objectAtIndex:0];
+//        [self.country addSelected:defaultCountry];
+//        states = [defaultCountry valueForKey:@"states"];
         if ([states isKindOfClass:[NSNull class]] || states.count == 0) {
             // Show State Name
             [form.fields removeObject:self.stateId];

@@ -240,7 +240,13 @@ static int tagViewFog = 123456;
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItems = [[[SCThemeWorker sharedInstance]navigationBarPad] rightButtonItems];
     if ([[[SCThemeWorker sharedInstance]navigationBarPad] isShowSearchBar]) {
+        self.navigationItem.leftItemsSupplementBackButton = NO;
+        self.navigationItem.hidesBackButton = YES;
         [[[[SCThemeWorker sharedInstance]navigationBarPad] searchBar] becomeFirstResponder];
+    }else
+    {
+        self.navigationItem.leftItemsSupplementBackButton = YES;
+        self.navigationItem.hidesBackButton = NO;
     }
 }
 

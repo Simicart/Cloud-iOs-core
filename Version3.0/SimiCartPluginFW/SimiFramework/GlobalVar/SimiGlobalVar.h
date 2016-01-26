@@ -147,6 +147,7 @@ typedef NS_ENUM(NSInteger, CurrentVersionPhoneUsing)
 @property (strong, nonatomic) SimiStoreModelCollection *storeModelCollection;
 @property (strong, nonatomic) SimiCurrencyModelCollection *currencyModelCollection;
 @property (strong, nonatomic) DownloadModelCollection *downloadModelCollection;
+@property (strong, nonatomic) SimiModel *currentLocale;
 
 @property (nonatomic) BOOL isNeedReloadAddressBookCollection;
 @property (nonatomic) BOOL isReverseLanguage;

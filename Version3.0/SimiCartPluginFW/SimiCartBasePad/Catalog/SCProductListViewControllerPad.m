@@ -129,9 +129,9 @@
     [self.viewToolBar setHidden:NO];
     if (self.isFirstTimeGetData && self.productListGetProductType != ProductListGetProductTypeFromSearch) {
         self.isFirstTimeGetData = NO;
-        [[SimiCacheData sharedInstance].dataListProducts setObject:self.productCollectionViewControllerPad.productCollection forKey:self.keyCacheData];
+        [[SimiCacheData sharedInstance].dataListProducts setObject:[self.productCollectionViewControllerPad.productCollection mutableCopy]  forKey:self.keyCacheData];
         if (self.productCollectionViewControllerPad.arrayProductID) {            
-            [[SimiCacheData sharedInstance].dataListProductIDs setObject:self.productCollectionViewControllerPad.arrayProductID forKey:self.keyCacheData];
+            [[SimiCacheData sharedInstance].dataListProductIDs setObject:[self.productCollectionViewControllerPad.arrayProductID mutableCopy] forKey:self.keyCacheData];
         }
     }
 }

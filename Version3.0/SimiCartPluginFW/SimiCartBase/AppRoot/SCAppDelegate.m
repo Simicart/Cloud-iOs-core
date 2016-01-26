@@ -10,6 +10,7 @@
 #import "InitWorker.h"
 #import "SimiCustomerModel.h"
 #import "SimiCacheData.h"
+#import "SimiNotificationName.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioServices.h>
 
@@ -26,7 +27,7 @@
         launchOptions = @{};
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ApplicationDidFinishLaunching" object:nil userInfo:@{@"application": application, @"options": launchOptions}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationDidFinishLaunching object:nil userInfo:@{@"application": application, @"options": launchOptions}];
     return YES;
 
 }
@@ -91,7 +92,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ApplicationDidRegisterForRemote" object:nil userInfo:@{@"application":application, @"device_token":deviceToken}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationDidRegisterForRemote object:nil userInfo:@{@"application":application, @"device_token":deviceToken}];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
@@ -126,7 +127,7 @@
      
     }
      */
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ApplicationDidReceiveNotificationFromServer" object:nil userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationDidReceiveNotificationFromServer object:nil userInfo:userInfo];
 }
 
 @end

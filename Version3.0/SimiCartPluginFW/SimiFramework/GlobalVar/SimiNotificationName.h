@@ -11,10 +11,15 @@
 #pragma mark General
 static NSString *ApplicationWillResignActive = @"ApplicationWillResignActive";
 static NSString *ApplicationDidBecomeActive = @"ApplicationDidBecomeActive";
+static NSString *ApplicationDidFinishLaunching = @"ApplicationDidFinishLaunching";
+static NSString *ApplicationDidRegisterForRemote = @"ApplicationDidRegisterForRemote";
+static NSString *ApplicationDidReceiveNotificationFromServer = @"ApplicationDidReceiveNotificationFromServer";
+
 static NSString *DidGetActivePlugins = @"DidGetActivePlugins";
 static NSString *DidGetSitePlugins = @"DidGetSitePlugins";
 static NSString *SCLeftMenuDidSelectRow = @"SCLeftMenuDidSelectRow";
 static NSString *DidRegisterDevice = @"DidRegisterDevice";
+static NSString *ChangeAppLanguage = @"ChangeAppLanguage";
 
 #pragma mark Product ModelCollection
 static NSString *DidGetProductCollectionWithCategoryId = @"DidGetProductCollectionWithCategoryId";

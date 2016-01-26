@@ -231,7 +231,6 @@ NSString *const SimiFormFieldDataChangedNotification    = @"SimiFormFieldDataCha
         return [field cellForSubRowAtIndex:subIndex inTable:tableView];
     }
     NSString *CellID = field.simiObjectName ? field.simiObjectName : [[field class] description];
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellID];
@@ -327,12 +326,24 @@ NSString *const SimiFormFieldDataChangedNotification    = @"SimiFormFieldDataCha
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    for (SimiFormAbstract *field in self.fields) {
+        if (field.inputText && [field.inputText isFirstResponder]) {
+            [field.inputText resignFirstResponder];
+            break;
+        }
+    }
     NSUInteger subIndex;
     SimiFormAbstract *field = [self getFieldAtIndex:[indexPath row] subIndex:&subIndex];
     if (subIndex != NSNotFound) {
         [field selectSubRowAtIndex:subIndex inTable:tableView indexPath:indexPath];
         [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:([indexPath row] - subIndex - 1) inSection:[indexPath section]]] withRowAnimation:UITableViewRowAnimationNone];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        // Hide subrows
+        
+        NSUInteger numberOfSubRows = [field numberOfSubRows];
+        [field toggleShowSubRows];
+        [tableView deleteRowsAtIndexPaths:[self subRowIndexPaths:numberOfSubRows inSection:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+         
         return;
     }
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

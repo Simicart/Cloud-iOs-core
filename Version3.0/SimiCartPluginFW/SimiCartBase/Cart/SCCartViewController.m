@@ -251,9 +251,9 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 
 - (void)clearCart{
     [qtyButtonList removeAllObjects];
-    [self.cart removeAllObjects];
-    [SimiGlobalVar sharedInstance].cart = nil;
+    [[SimiGlobalVar sharedInstance]resetQuote];
     [self setDataForCart:[SimiCartModel new]];
+    [self.tableViewCart reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:DidChangeCart object:cart];
 }
 //  Liam Update Select Address on Cart 150622
@@ -292,7 +292,6 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 - (void)selectAddress:(SimiAddressModel *)address
 {
     _billingAddress = address;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearCart) name:DidPlaceOrderAfter object:nil];
     SCOrderViewController *orderController = [[SCOrderViewController alloc] init];
     [orderController setCart:self.cart];
     [orderController setCartPrices:[self.cartPrices mutableCopy]];

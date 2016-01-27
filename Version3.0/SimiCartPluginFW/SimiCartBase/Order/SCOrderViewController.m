@@ -1214,9 +1214,7 @@
             if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeRedirect) {
                 [self.navigationController popToRootViewControllerAnimated:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"DidPlaceOrder-Before" object:self.order userInfo:@{@"data": self.order, @"payment": [self.order valueForKey:@"payment"], @"controller": self, @"responder":responder, @"cart":self.cart, @"shipping":shippingModel}];
-                [[SimiGlobalVar sharedInstance]resetQuote];
             }else if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] != PaymentShowTypeSDK){
-               [[SimiGlobalVar sharedInstance]resetQuote];
                 if ([self.order valueForKey:@"notification"]) {
                     [self.navigationController popToRootViewControllerAnimated:YES];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"DidCheckOut-Success" object:self.order];

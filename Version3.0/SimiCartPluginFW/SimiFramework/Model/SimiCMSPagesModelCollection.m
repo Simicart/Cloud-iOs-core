@@ -15,8 +15,14 @@
     modelActionType = ModelActionTypeGet;
     [self preDoRequest];
     SimiAPI *api = [SimiAPI new];
+    NSMutableDictionary *currentParams;
+    if (params == nil) {
+        currentParams = [NSMutableDictionary new];
+    }else
+        currentParams = [[NSMutableDictionary alloc]initWithDictionary:params];
+    [currentParams setValue:@"filter[status]" forKey:@"1"];
     NSString *urlPath = [NSString stringWithFormat:@"%@pages", kBaseURL];
-    [api requestWithMethod:GET URL:urlPath params:params target:self selector:@selector(didFinishRequest:responder:) header:nil];
+    [api requestWithMethod:GET URL:urlPath params:currentParams target:self selector:@selector(didFinishRequest:responder:) header:nil];
 }
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder

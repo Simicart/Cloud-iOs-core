@@ -233,7 +233,7 @@
         if(![[SimiGlobalVar sharedInstance] isReverseLanguage]){
             heightRow = 26 * totalV2.count;
         }else{
-            heightRow = [SimiGlobalVar scaleValue:45] * totalV2.count;
+            heightRow = 50 * totalV2.count;
         }
 
     }

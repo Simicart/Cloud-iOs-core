@@ -24,21 +24,10 @@
         [super viewDidLoadBefore];
     }else
         [self configureNavigationBarOnViewDidLoad];
-}
-
--(void) viewWillAppearBefore:(BOOL)animated{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [super viewWillAppearBefore:YES];
-    }
-        
-    //Add Save button
-    UIBarButtonItem *button = [[UIBarButtonItem alloc]initWithTitle:SCLocalizedString(@"Save") style:UIBarButtonItemStyleDone target:self action:@selector(changePassword)];
-    self.navigationItem.rightBarButtonItem = button;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-}
-
--(void) viewDidLoad{
-    tableViewChangePassword = [[SimiTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    CGRect frame = self.view.bounds;
+    frame.size.width = 2*SCREEN_WIDTH/3;
+    frame.size.height = 2*SCREEN_HEIGHT/3;
+    tableViewChangePassword = [[SimiTableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [tableViewChangePassword setBackgroundColor:[UIColor clearColor]];
     [tableViewChangePassword setDelaysContentTouches:YES];
     
@@ -69,18 +58,27 @@
     
     [form setFormData:customer];
     
-    [super viewDidLoad];
+    [super viewDidLoadBefore];
     if(!self.isDiscontinue){
         form.view = tableViewChangePassword;
         [form showView];
         [self.view addSubview:tableViewChangePassword];
     }
     
-    
-    
     [customer getCustomerProfile];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetProfile:) name:DidGetProfile object:customer];
     [self startLoadingData];
+}
+
+-(void) viewWillAppearBefore:(BOOL)animated{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [super viewWillAppearBefore:YES];
+    }
+        
+    //Add Save button
+    UIBarButtonItem *button = [[UIBarButtonItem alloc]initWithTitle:SCLocalizedString(@"Save") style:UIBarButtonItemStyleDone target:self action:@selector(changePassword)];
+    self.navigationItem.rightBarButtonItem = button;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (void)didGetProfile: (NSNotification *)noti

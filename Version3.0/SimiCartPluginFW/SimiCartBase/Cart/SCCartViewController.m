@@ -525,7 +525,7 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
         if (![SimiGlobalVar sharedInstance].isReverseLanguage) {
             [sectionPrice addRowWithIdentifier:CART_TOTALS height:(27 * self.cartPrices.count)];
         }else
-            [sectionPrice addRowWithIdentifier:CART_TOTALS height:(45 * self.cartPrices.count)];
+            [sectionPrice addRowWithIdentifier:CART_TOTALS height:(50 * self.cartPrices.count)];
     } else {
         SimiSection *sectionEmpty = [_cartCells addSectionWithIdentifier:CART_EMPTY];
         [sectionEmpty addRowWithIdentifier:CART_EMPTY height:125];

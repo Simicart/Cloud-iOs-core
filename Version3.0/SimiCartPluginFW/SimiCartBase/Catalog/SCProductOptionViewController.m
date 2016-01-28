@@ -480,11 +480,6 @@ static NSString *isHighLight = @"is_highlight";
             [_minusButton setAdjustsImageWhenDisabled:YES];
             [_minusButton addTarget:self action:@selector(didSelectMinusButtonOptionQty:) forControlEvents:UIControlEventTouchUpInside];
             _minusButton.simiObjectIdentifier = simiSection.identifier;
-            if([[SimiGlobalVar sharedInstance] isReverseLanguage]){
-                [_plusButton setFrame:CGRectMake(40, (simiRow.height - 38)/2, 38, 38)];
-                [_minusButton setFrame:CGRectMake(100, (simiRow.height - 38)/2, 38, 38)];
-                [optionViewCell setFrame:CGRectMake(140 - paddingEdge, 0, self.widthTable - 140, simiRow.height)];
-            }
             for (UIView *subview in optionViewCell.subviews) {
                 [subview removeFromSuperview];
             }
@@ -532,13 +527,6 @@ static NSString *isHighLight = @"is_highlight";
             [_minusButton setAdjustsImageWhenDisabled:YES];
             [_minusButton addTarget:self action:@selector(didSelectMinusButtonOptionQty:) forControlEvents:UIControlEventTouchUpInside];
             _minusButton.simiObjectIdentifier = simiSection.identifier;
-            //Gin edit
-            if([[SimiGlobalVar sharedInstance] isReverseLanguage]){
-                [_plusButton setFrame:CGRectMake(40, (simiRow.height - 38)/2, 38, 38)];
-                [_minusButton setFrame:CGRectMake(100, (simiRow.height - 38)/2, 38, 38)];
-                [optionViewCell setFrame:CGRectMake(140 - paddingEdge, 0, self.widthTable - 140, simiRow.height)];
-            }
-            //end
             for (UIView *subview in optionViewCell.subviews) {
                 [subview removeFromSuperview];
             }
@@ -581,12 +569,6 @@ static NSString *isHighLight = @"is_highlight";
             [cell addSubview:((ProductOptionTextCell*)cell).textOption];
         }
         ((ProductOptionTextCell*)cell).textOption.placeholder = simiSection.identifier;
-        //Gin edit
-        if([[SimiGlobalVar sharedInstance] isReverseLanguage]){
-            [((ProductOptionTextCell*)cell).textOption setTextAlignment:NSTextAlignmentRight];
-            [((ProductOptionTextCell*)cell).textOption setFrame:CGRectMake(0, 0, self.widthTable - 10, simiRow.height)];
-        }
-        //end
         ((ProductOptionTextCell*)cell).textOption.text = [simiRow.contentRow objectForKey:@"option_value"];
         return cell;
     }
@@ -717,12 +699,6 @@ static NSString *isHighLight = @"is_highlight";
     {
         if ([simiSection.simiObjectName isEqualToString:Option_Group]) {
             stringHeaderTitle = [NSString stringWithFormat:@"%@ x %@", [simiSection.sectionContent valueForKey:@"option_qty"], [simiSection.sectionContent valueForKey:@"name"]];
-            //  Liam Update RTL
-            if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-                stringHeaderTitle = [NSString stringWithFormat:@"%@ x %@", simiSection.identifier, [simiRow.contentRow valueForKey:@"option_qty"]];
-                [lblHeader setTextAlignment:NSTextAlignmentRight];
-            }
-            //  End RTL
             lblHeader.text = stringHeaderTitle;
             [lblHeader setFrame:CGRectMake(paddingEdge, 0, self.widthTable - 2 * paddingEdge, heightHeader)];
             lblHeader.numberOfLines = 2;
@@ -730,10 +706,6 @@ static NSString *isHighLight = @"is_highlight";
         }
     }
     UIImageView *narrowImage = [[UIImageView alloc]initWithFrame:CGRectMake(self.tableViewOption.frame.size.width - 26, 15, 10, 10)];
-    
-    if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-        [narrowImage setFrame:CGRectMake(10, 15, 10, 10)];
-    }
     
     if ([(NSString *)[self.expendSections objectForKey:[allKeys objectAtIndex:section]] boolValue]) {
         [narrowImage setImage:[UIImage imageNamed:@"ic_narrow_up"]];
@@ -1288,11 +1260,6 @@ static NSString *isHighLight = @"is_highlight";
     
     if (imageSelect == nil) {
         imageSelect = [[UIImageView alloc]initWithFrame:CGRectMake(imageSelectX, (cellHeight - imageSize)/2, imageSize, imageSize)];
-        //  Liam Update RTL
-        if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-            
-        }
-        //  End RTL
     }
     [lblNameOption setText:[dataCell valueForKey:@"title"]];
     if ([dataCell valueForKey:@"name"]) {

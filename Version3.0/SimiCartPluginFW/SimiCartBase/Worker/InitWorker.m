@@ -349,7 +349,6 @@
         SimiStoreModel *store = noti.object;
         [[SimiGlobalVar sharedInstance] setStore:store];
         [[SimiGlobalVar sharedInstance] setIsReverseLanguage:[[[store valueForKey:@"store_config"] valueForKey:@"is_rtl"]boolValue]];
-        [SimiGlobalVar sharedInstance].isCloudVersion = YES;
         [SimiGlobalVar sharedInstance].storeModelCollection = [[SimiStoreModelCollection alloc]initWithArray:[[store valueForKey:@"general"]valueForKey:@"locale_app"]];
         if ([SimiGlobalVar sharedInstance].currentLocale == nil) {
             [SimiGlobalVar sharedInstance].currentLocale = [[SimiModel alloc]initWithDictionary:[[SimiGlobalVar sharedInstance].storeModelCollection objectAtIndex:0]];

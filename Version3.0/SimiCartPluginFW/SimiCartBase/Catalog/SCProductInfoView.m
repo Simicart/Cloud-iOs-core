@@ -43,7 +43,8 @@
     sizeFontDescription = 16;
     self.productName = [_product valueForKey:@"name"];
     self.shortDescription = [_product valueForKey:@"short_description"]?[[self.product valueForKey:@"short_description"] stringByConvertingHTMLToPlainText] : @"";
-    self.stockStatus = [_product valueForKey:@"manage_stock"];
+//    self.stockStatus = [_product valueForKey:@"manage_stock"];
+    self.stockStatus = @"1";
     float total_option_price = 0;
     if ([_product valueForKey:@"total_option_price"]) {
         total_option_price = [[_product valueForKey:@"total_option_price"]floatValue];

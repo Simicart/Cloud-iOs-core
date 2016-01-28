@@ -57,8 +57,8 @@
         [self.lblNameProduct setText:[self.productModel valueForKey:@"name"]];
         [self.lblNameProduct setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.lblNameProduct];
-        
-        [self cusSetStockStatus:[[self.productModel valueForKey:@"manage_stock"] boolValue]];
+    
+        [self cusSetStockStatus:YES];
         [self setPrice];
         [self setInterfaceCell];
     }

@@ -787,13 +787,13 @@
         }
         
         [self.buttonAddToCart setTitle:SCLocalizedString(@"Add To Cart") forState:UIControlStateNormal];
-        if (![[product valueForKey:@"manage_stock"]boolValue]) {
-            [self.buttonAddToCart setTitle:SCLocalizedString(@"Out Stock") forState:UIControlStateNormal];
-            [self.buttonAddToCart setEnabled:NO];
-            [self.buttonAddToCart setAlpha:0.5];
-            self.imageShadowAddToCart.alpha = 0.5;
-            [self.buttonSelectOption setEnabled:NO];
-        }
+//        if (![[product valueForKey:@"manage_stock"]boolValue]) {
+//            [self.buttonAddToCart setTitle:SCLocalizedString(@"Out Stock") forState:UIControlStateNormal];
+//            [self.buttonAddToCart setEnabled:NO];
+//            [self.buttonAddToCart setAlpha:0.5];
+//            self.imageShadowAddToCart.alpha = 0.5;
+//            [self.buttonSelectOption setEnabled:NO];
+//        }
     }else
     {
         [self changeStateActionButtonWithState:NO];
@@ -1049,14 +1049,15 @@
     if (state) {
         [self.detailButon setEnabled:YES];
         self.detailButon.alpha = 1;
-        if ([[product valueForKey:@"manage_stock"] boolValue]) {
+//        if ([[product valueForKey:@"manage_stock"] boolValue]) {
             self.buttonAddToCart.alpha = 1;
             self.buttonSelectOption.alpha = 1;
             self.imageShadowSelectOption.alpha = 1;
             self.imageShadowAddToCart.alpha = 1;
             [self.buttonAddToCart setEnabled:YES];
             [self.buttonSelectOption setEnabled:YES];
-        }
+//        }
+        
     }else
     {
         [self.detailButon setEnabled:NO];

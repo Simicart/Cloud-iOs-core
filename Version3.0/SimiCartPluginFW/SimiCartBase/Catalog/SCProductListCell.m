@@ -39,7 +39,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
             _productImageView.layer.borderColor = THEME_IMAGE_BORDER_COLOR.CGColor;
             [self.productImageView setImage:[UIImage imageNamed:@"logo"]];
         }
-        self.stockStatus = [[_product valueForKey:@"manage_stock"] boolValue];
+        self.stockStatus = YES;
         if ([self.product valueForKey:@"price"]) {
             self.regularPrice = [NSString stringWithFormat:@"%@",[self.product valueForKey:@"price"]];
         }

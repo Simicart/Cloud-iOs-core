@@ -124,8 +124,6 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
    
     float sizeImage = [SimiGlobalVar scaleValue:75];
     float labelTitleX = [SimiGlobalVar scaleValue:5] + imageOrigionX + sizeImage;
-    float labelTitleWidth = 80;
-    float labelValueX = labelTitleX + labelTitleWidth + 15;
     float labelValueWidth = SCREEN_WIDTH - labelTitleX - [SimiGlobalVar scaleValue:25];
     float spaceLabel = 5;
     float heightLabel = 20;

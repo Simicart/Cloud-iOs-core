@@ -302,8 +302,8 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 #pragma mark Login When Check Out
 - (void)askCustomerRole{
     UIActionSheet *actionSheet;
-    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
     isEnableGuestCheckout = YES;
+//    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
 //    isEnableGuestCheckout = [[[store valueForKey:@"checkout_config"] valueForKey:@"enable_guest_checkout"] boolValue];
     if (isEnableGuestCheckout) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SCLocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:SCLocalizedString(@"Checkout as existing customer"), SCLocalizedString(@"Checkout as new customer"), SCLocalizedString(@"Checkout as guest"), nil];

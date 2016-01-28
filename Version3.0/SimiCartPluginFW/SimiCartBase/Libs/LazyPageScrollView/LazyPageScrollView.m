@@ -396,7 +396,7 @@
     }
 }
 
--(LazyPageTabItem*)getTabView:(NSInteger)index
+-(LazyPageTabItem*)getTabItem:(NSInteger)index
 {
     return arrData[index];
 }

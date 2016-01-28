@@ -324,9 +324,7 @@ NSString *currencyPosition, *currencySymbol;
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ORDER_DETAIL_SHIPPING_ADDRESS];
             cell.textLabel.text = [shippingAddress formatAddress];
-            CGSize labelSize = [cell.textLabel.text sizeWithFont:cell.textLabel.font
-                                               constrainedToSize:cell.textLabel.frame.size
-                                                   lineBreakMode:cell.textLabel.lineBreakMode];
+            CGSize labelSize = [cell.textLabel.text boundingRectWithSize:cell.textLabel.frame.size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:cell.textLabel.font} context:nil].size;
             cell.textLabel.frame = CGRectMake(
                                               cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y,
                                               cell.textLabel.frame.size.width, labelSize.height);
@@ -392,9 +390,7 @@ NSString *currencyPosition, *currencySymbol;
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ORDER_DETAIL_BILLING_ADDRESS];
             cell.textLabel.text = [billingAddress formatAddress];;
-            CGSize labelSize = [cell.textLabel.text sizeWithFont:cell.textLabel.font
-                                               constrainedToSize:cell.textLabel.frame.size
-                                                   lineBreakMode:cell.textLabel.lineBreakMode];
+            CGSize labelSize = [cell.textLabel.text boundingRectWithSize:cell.textLabel.frame.size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:cell.textLabel.font} context:nil].size;
             cell.textLabel.frame = CGRectMake(
                                               cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y,
                                               cell.textLabel.frame.size.width, labelSize.height);

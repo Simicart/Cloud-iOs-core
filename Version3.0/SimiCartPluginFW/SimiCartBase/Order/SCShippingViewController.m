@@ -84,8 +84,8 @@
     priceLabel.textColor = THEME_PRICE_COLOR;
     priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[[self.methodCollection objectAtIndex:indexPath.row] valueForKey:@"s_method_fee"]]];
     CGRect frame = priceLabel.frame;
-    frame.origin.x = cell.frame.size.width - 30 - [priceLabel.text sizeWithFont:priceLabel.font].width;
-    frame.size.width = [priceLabel.text sizeWithFont:priceLabel.font].width;
+    frame.origin.x = cell.frame.size.width - 30 - [priceLabel.text sizeWithAttributes:@{NSFontAttributeName:priceLabel.font}].width;
+    frame.size.width = [priceLabel.text sizeWithAttributes:@{NSFontAttributeName:priceLabel.font}].width;
     priceLabel.frame = frame;
     [cell addSubview:priceLabel];
     if (indexPath.row == self.selectedMethodRow) {

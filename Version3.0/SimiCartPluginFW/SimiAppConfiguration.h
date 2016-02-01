@@ -16,7 +16,6 @@ extern NSString *const kSimiKey;
 
 //Website's base url
 extern NSString *kBaseURL;
-extern NSString *kCloudBaseURL;
 
 //Theme Color
 extern NSString *kThemeColorHex;

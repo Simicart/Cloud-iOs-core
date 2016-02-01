@@ -242,7 +242,7 @@ static NSString *kOtherCell = @"OtherCell";
                     
                     NSDate *currentDate = [NSDate date];
                     NSCalendar* calendar = [NSCalendar currentCalendar];
-                    NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:currentDate];
+                    NSDateComponents* components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
                     selectedExpireYearRow = [[defaultCard valueForKey:@"expired_year"] intValue] - [components year];
                 }
                 
@@ -414,7 +414,7 @@ static NSString *kOtherCell = @"OtherCell";
             label.frame = CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, 30);
             NSDate *currentDate = [NSDate date];
             NSCalendar* calendar = [NSCalendar currentCalendar];
-            NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:currentDate];
+            NSDateComponents* components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
             [components year]; // gives you year
             [label setText:[NSString stringWithFormat:@"%d",(int)([components year]+row)]];
             [label setTextAlignment:NSTextAlignmentCenter];
@@ -442,7 +442,7 @@ static NSString *kOtherCell = @"OtherCell";
             selectedExpireYearRow = row;
         NSDate *currentDate = [NSDate date];
         NSCalendar* calendar = [NSCalendar currentCalendar];
-        NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:currentDate];
+        NSDateComponents* components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
         [components year];
         expireTimeTF.text = [NSString stringWithFormat:@"%02d / %@", (int)(selectedExpireMonthRow+1), [[NSString stringWithFormat:@"%d",(int)(selectedExpireYearRow+[components year])] substringFromIndex:2]];
         if (expireTimeTF.text.length == 7) {

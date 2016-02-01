@@ -201,7 +201,7 @@
                 if (i == self.selectedPayment){
                     NSString *content = [[self.paymentCollection objectAtIndex:i] valueForKey:@"content"];
                     CGSize maxSize = CGSizeMake(300, 9999);
-                    CGSize neededSize = [content sizeWithFont:[UIFont fontWithName:THEME_FONT_NAME size:15] constrainedToSize:maxSize lineBreakMode:NSLineBreakByTruncatingTail];
+                    CGSize neededSize = [content boundingRectWithSize:maxSize options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont fontWithName:THEME_FONT_NAME size:15]} context:nil].size;
                     neededSize.height = neededSize.height > 10 ? neededSize.height : 10;
                     heightRow = neededSize.height + 50;
                 }else{
@@ -233,7 +233,7 @@
         if(![[SimiGlobalVar sharedInstance] isReverseLanguage]){
             heightRow = 26 * totalV2.count;
         }else{
-            heightRow = [SimiGlobalVar scaleValue:45] * totalV2.count;
+            heightRow = 50 * totalV2.count;
         }
 
     }
@@ -601,7 +601,7 @@
             priceLabel.backgroundColor = [UIColor clearColor];
             priceLabel.textColor = THEME_PRICE_COLOR;
             priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:[NSString stringWithFormat:@"%@",[simiRow.data valueForKey:@"price"]]];
-            float widthPrice = [priceLabel.text sizeWithFont:priceLabel.font].width;
+            float widthPrice = [priceLabel.text sizeWithAttributes:@{NSFontAttributeName:priceLabel.font}].width;
             [priceLabel setFrame:[SimiGlobalVar scaleFrame:CGRectMake(cell.frame.size.width - widthPrice -14, 0,widthPrice, cell.frame.size.height)]];
             if ([[SimiGlobalVar sharedInstance] isReverseLanguage]) {
                 [priceLabel setFrame:[SimiGlobalVar scaleFrame:CGRectMake(10, 0,widthPrice, cell.frame.size.height)]];
@@ -1406,7 +1406,7 @@
             userLabel.text = [NSString stringWithFormat:@"%@%@%@", [addressModel valueForKey:@"first_name"], @" ", [addressModel valueForKey:@"last_name"]];
             userLabel.textColor =  THEME_TEXT_COLOR;
             userLabel.font = [UIFont fontWithName:THEME_FONT_NAME size:16.0];
-            CGFloat labelHeight = [userLabel.text sizeWithFont:userLabel.font].height;
+            CGFloat labelHeight = [userLabel.text sizeWithAttributes:@{NSFontAttributeName:userLabel.font}].height;
             [self addSubview:userImageView];
             [self addSubview:editImageView];
             [self addSubview:userLabel];
@@ -1438,7 +1438,7 @@
                 }
                 addressLabel.textColor = THEME_TEXT_COLOR;
                 addressLabel.font = [UIFont fontWithName:THEME_FONT_NAME size:16.0];
-                labelHeight = [addressLabel.text sizeWithFont:addressLabel.font].height;
+                labelHeight = [addressLabel.text sizeWithAttributes:@{NSFontAttributeName:addressLabel.font}].height;
                 [addressLabel resizLabelToFit];
                 CGRect frame = addressLabel.frame;
                 if(frame.size.height > 22){
@@ -1465,7 +1465,7 @@
             }
             addressLabel.textColor = THEME_TEXT_COLOR;
             addressLabel.font = [UIFont fontWithName:THEME_FONT_NAME size:16.0];
-            labelHeight = [addressLabel.text sizeWithFont:addressLabel.font].height;
+            labelHeight = [addressLabel.text sizeWithAttributes:@{NSFontAttributeName:addressLabel.font}].height;
             [self addSubview:addressLabel];
             heightCell += labelHeight + 5;
             // User Phone
@@ -1476,7 +1476,7 @@
                 userLabel.text = [NSString stringWithFormat:@"%@", [addressModel valueForKey:@"phone"]];
                 userLabel.textColor = THEME_TEXT_COLOR;
                 userLabel.font = [UIFont fontWithName:THEME_FONT_NAME size:16.0];
-                labelHeight = [userLabel.text sizeWithFont:userLabel.font].height;
+                labelHeight = [userLabel.text sizeWithAttributes:@{NSFontAttributeName:userLabel.font}].height;
                 [self addSubview:userImageView];
                 [self addSubview:userLabel];
                 heightCell += labelHeight + 5;
@@ -1489,7 +1489,7 @@
                 userLabel.text = [NSString stringWithFormat:@"%@", [addressModel valueForKey:@"email"]];
                 userLabel.textColor = THEME_TEXT_COLOR;
                 userLabel.font = [UIFont fontWithName:THEME_FONT_NAME size:16.0];
-                labelHeight = [userLabel.text sizeWithFont:userLabel.font].height;
+                labelHeight = [userLabel.text sizeWithAttributes:@{NSFontAttributeName:userLabel.font}].height;
                 [self addSubview:userImageView];
                 [self addSubview:userLabel];
                 heightCell += labelHeight + 5;

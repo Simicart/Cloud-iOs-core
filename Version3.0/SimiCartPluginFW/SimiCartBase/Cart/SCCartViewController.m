@@ -302,8 +302,8 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
 #pragma mark Login When Check Out
 - (void)askCustomerRole{
     UIActionSheet *actionSheet;
-    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
     isEnableGuestCheckout = YES;
+//    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
 //    isEnableGuestCheckout = [[[store valueForKey:@"checkout_config"] valueForKey:@"enable_guest_checkout"] boolValue];
     if (isEnableGuestCheckout) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:SCLocalizedString(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:SCLocalizedString(@"Checkout as existing customer"), SCLocalizedString(@"Checkout as new customer"), SCLocalizedString(@"Checkout as guest"), nil];
@@ -525,7 +525,7 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
         if (![SimiGlobalVar sharedInstance].isReverseLanguage) {
             [sectionPrice addRowWithIdentifier:CART_TOTALS height:(27 * self.cartPrices.count)];
         }else
-            [sectionPrice addRowWithIdentifier:CART_TOTALS height:(45 * self.cartPrices.count)];
+            [sectionPrice addRowWithIdentifier:CART_TOTALS height:(50 * self.cartPrices.count)];
     } else {
         SimiSection *sectionEmpty = [_cartCells addSectionWithIdentifier:CART_EMPTY];
         [sectionEmpty addRowWithIdentifier:CART_EMPTY height:125];

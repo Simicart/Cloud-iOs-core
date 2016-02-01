@@ -262,8 +262,8 @@
 
 - (CGSize)reloadContentSize
 {
-    self.contentSizeForViewInPopover = CGSizeMake(320, 480);
-    return self.contentSizeForViewInPopover;
+    self.preferredContentSize = CGSizeMake(320, 480);
+    return self.preferredContentSize;
 }
 
 - (void)doneEditing

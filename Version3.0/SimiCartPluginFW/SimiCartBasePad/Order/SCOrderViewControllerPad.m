@@ -187,7 +187,8 @@
                 if (i == self.selectedPayment){
                     NSString *content = [[self.paymentCollection objectAtIndex:i] valueForKey:@"description"];
                     CGSize maxSize = CGSizeMake(300, 9999);
-                    CGSize neededSize = [content sizeWithFont:[UIFont fontWithName:THEME_FONT_NAME size:15] constrainedToSize:maxSize lineBreakMode:NSLineBreakByTruncatingTail];
+                    CGSize neededSize = [content boundingRectWithSize:maxSize options:NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:THEME_FONT_NAME size:15]} context:nil].size;
+                    
                     neededSize.height = neededSize.height > 10 ? neededSize.height : 10;
                     heightRow = neededSize.height + 50;
                 }else{
@@ -717,7 +718,7 @@
             priceLabel.textColor = THEME_PRICE_COLOR;
             priceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:[simiRow.data valueForKey:@"price"]];
             [cell addSubview:priceLabel];
-            float widthPrice = [priceLabel.text sizeWithFont:priceLabel.font].width;
+            float widthPrice = [priceLabel.text sizeWithAttributes:@{NSFontAttributeName:priceLabel.font}].width;
             [priceLabel setFrame:[SimiGlobalVar scaleFrame:CGRectMake(cell.frame.size.width - widthPrice -10, 0,widthPrice, cell.frame.size.height)]];
             if ([[SimiGlobalVar sharedInstance] isReverseLanguage]) {
                 [priceLabel setFrame:[SimiGlobalVar scaleFrame:CGRectMake(10, 0,widthPrice, cell.frame.size.height)]];

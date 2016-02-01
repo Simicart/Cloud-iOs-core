@@ -313,7 +313,8 @@
             NSMutableArray *actives = [NSMutableArray new];
             for (int i = 0; i < sitePlugins.count; i++) {
                 SimiModel *model = [sitePlugins objectAtIndex:i];
-                if ([[[model valueForKey:@"config"]valueForKey:@"enable"]boolValue]) {
+                
+                if ([[model valueForKey:@"config"] isKindOfClass:[NSDictionary class]]&&[[[model valueForKey:@"config"]valueForKey:@"enable"]boolValue]) {
                     [actives addObject:model];
                 }
             }
@@ -348,11 +349,13 @@
     if ([responder.status isEqualToString:@"SUCCESS"]) {
         SimiStoreModel *store = noti.object;
         [[SimiGlobalVar sharedInstance] setStore:store];
-        [[SimiGlobalVar sharedInstance] setIsReverseLanguage:[[[store valueForKey:@"store_config"] valueForKey:@"is_rtl"]boolValue]];
-        [SimiGlobalVar sharedInstance].isCloudVersion = YES;
         [SimiGlobalVar sharedInstance].storeModelCollection = [[SimiStoreModelCollection alloc]initWithArray:[[store valueForKey:@"general"]valueForKey:@"locale_app"]];
         if ([SimiGlobalVar sharedInstance].currentLocale == nil) {
             [SimiGlobalVar sharedInstance].currentLocale = [[SimiModel alloc]initWithDictionary:[[SimiGlobalVar sharedInstance].storeModelCollection objectAtIndex:0]];
+        }
+        NSArray *arrayRTLLocale = @[@"ps_AF",@"prs_AF",@"ar_DZ",@"az_AZ",@"ar_BH",@"ms_BN",@"ar_EG",@"fa_IR",@"ar_IQ",@"he_IL",@"ar_JO",@"kk_KZ",@"ar_KW",@"ar_LB",@"ar_LY",@"ar_MA",@"ar_MO",@"ar_QA",@"ur_PK",@"ar_SA",@"ar_SY",@"ar_TN",@"ar_AE",@"tk_TM",@"ar_YE"];
+        if ([arrayRTLLocale containsObject:[SimiGlobalVar sharedInstance].localeIdentifier]) {
+            [[SimiGlobalVar sharedInstance] setIsReverseLanguage:YES];
         }
         
         NSString *useStore = @"0";

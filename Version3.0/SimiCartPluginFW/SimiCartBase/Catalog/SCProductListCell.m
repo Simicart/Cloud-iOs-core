@@ -39,7 +39,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
             _productImageView.layer.borderColor = THEME_IMAGE_BORDER_COLOR.CGColor;
             [self.productImageView setImage:[UIImage imageNamed:@"logo"]];
         }
-        self.stockStatus = [[_product valueForKey:@"manage_stock"] boolValue];
+        self.stockStatus = YES;
         if ([self.product valueForKey:@"price"]) {
             self.regularPrice = [NSString stringWithFormat:@"%@",[self.product valueForKey:@"price"]];
         }
@@ -124,8 +124,6 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
    
     float sizeImage = [SimiGlobalVar scaleValue:75];
     float labelTitleX = [SimiGlobalVar scaleValue:5] + imageOrigionX + sizeImage;
-    float labelTitleWidth = 80;
-    float labelValueX = labelTitleX + labelTitleWidth + 15;
     float labelValueWidth = SCREEN_WIDTH - labelTitleX - [SimiGlobalVar scaleValue:25];
     float spaceLabel = 5;
     float heightLabel = 20;

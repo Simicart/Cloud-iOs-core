@@ -269,12 +269,12 @@
         }
         
         [self.buttonAddToCart setTitle:SCLocalizedString(@"Add To Cart") forState:UIControlStateNormal];
-        if (![[self.product valueForKey:@"manage_stock"] boolValue]) {
-            [self.buttonAddToCart setTitle:SCLocalizedString(@"Out Stock") forState:UIControlStateNormal];
-            [self.buttonAddToCart setEnabled:NO];
-            [self.buttonAddToCart setAlpha:0.5];
-            self.imageShadowAddToCart.alpha = 0.5;
-        }
+//        if (![[self.product valueForKey:@"manage_stock"] boolValue]) {
+//            [self.buttonAddToCart setTitle:SCLocalizedString(@"Out Stock") forState:UIControlStateNormal];
+//            [self.buttonAddToCart setEnabled:NO];
+//            [self.buttonAddToCart setAlpha:0.5];
+//            self.imageShadowAddToCart.alpha = 0.5;
+//        }
     }else
     {
         [self changeStateActionButtonWithState:NO];

@@ -43,7 +43,8 @@
     sizeFontDescription = 16;
     self.productName = [_product valueForKey:@"name"];
     self.shortDescription = [_product valueForKey:@"short_description"]?[[self.product valueForKey:@"short_description"] stringByConvertingHTMLToPlainText] : @"";
-    self.stockStatus = [_product valueForKey:@"manage_stock"];
+//    self.stockStatus = [_product valueForKey:@"manage_stock"];
+    self.stockStatus = @"1";
     float total_option_price = 0;
     if ([_product valueForKey:@"total_option_price"]) {
         total_option_price = [[_product valueForKey:@"total_option_price"]floatValue];
@@ -163,25 +164,15 @@
     float widthTitle = 120;
     float origionValueX = origionTitleX + widthTitle;
     float widthValue = widthSize - origionValueX - 15;
-    float simpleOrigionValueX = 130;
     float heightLabel = 20;
     float heightLabelWithDistance = 20;
     float widthText = widthSize - 30;
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-            widthText = SCREEN_WIDTH *2/3- 30;
-            origionTitleX = SCREEN_WIDTH*2/3 - widthTitle - 30;
-            widthValue = [SimiGlobalVar scaleValue:340];
-            origionValueX = [SimiGlobalVar scaleValue:300] - widthValue;
-        }
-    }else
-    {
-        if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-            origionTitleX = SCREEN_WIDTH - widthTitle - 30;
-            widthValue = [SimiGlobalVar scaleValue:170];
-            origionValueX = [SimiGlobalVar scaleValue:130] - widthValue;
-        }
+    if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
+        widthTitle = 200;
+        origionTitleX = widthSize - widthTitle - 30;
+        origionValueX = 15;
+        widthValue = origionTitleX - origionValueX;
     }
     
     for (UIView *subview in self.subviews) {
@@ -193,11 +184,9 @@
     
     if(self.productName){
         self.productNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(origionTitleX, self.heightCell, widthText, heightLabel)];
-        //  Liam Update RTL
         if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
             [self.productNameLabel setFrame:CGRectMake(0, self.heightCell, widthText, heightLabel)];
         }
-        //  End RTL
         self.productNameLabel.text = self.productName;
         self.productNameLabel.font = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:sizeFontName];
         self.productNameLabel.textColor = THEME_CONTENT_COLOR;
@@ -216,13 +205,12 @@
         self.stockStatusLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:sizeFontPrice];
         self.stockStatusLabel.textColor = THEME_TEXT_COLOR;
         [self addSubview:self.stockStatusLabel];
-        //  Liam Update RTL
         if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
             [self.stockStatusLabel setFrame:CGRectMake(0, self.heightCell, widthText, heightLabel)];
         }
-        //  End RTL
         self.heightCell += heightLabelWithDistance + 3;
     }
+    
     if (![self.variantSelectedKey isEqualToString:@""] && self.variantSelectedKey != nil) {
         for (NSMutableDictionary *variant in self.variants) {
             if ([[variant valueForKey:@"_id"] isEqualToString:self.variantSelectedKey]) {
@@ -232,12 +220,15 @@
                     self.regularTitleLabel.font = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:sizeFontPrice];
                     self.regularTitleLabel.textColor = THEME_TEXT_COLOR;
                     [self addSubview:self.regularTitleLabel];
-                    [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(simpleOrigionValueX, self.heightCell, widthValue, heightLabel)];
+                    [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionValueX, self.heightCell, widthValue, heightLabel)];
                     [self addSubview:self.regularPriceIncludeTaxLabel];
                     
                     //Set Strike Through for Regular Price
                     CGFloat priceWidth = [self.regularPriceIncludeTaxLabel.text sizeWithAttributes:@{NSFontAttributeName:self.regularPriceIncludeTaxLabel.font}].width;
                     UIView *throughLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+                    if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
+                        [throughLine setFrame:CGRectMake(CGRectGetWidth(self.regularPriceIncludeTaxLabel.frame) - priceWidth, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+                    }
                     throughLine.backgroundColor = THEME_PRICE_COLOR;
                     CGRect frame = throughLine.frame;
                     frame.origin.y = frame.size.height/2;
@@ -300,6 +291,9 @@
                     //Set Strike Through for Regular Price
                     CGFloat priceWidth = [self.regularPriceIncludeTaxLabel.text sizeWithAttributes:@{NSFontAttributeName:self.regularPriceIncludeTaxLabel.font}].width;
                     UIView *throughLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+                    if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
+                        [throughLine setFrame:CGRectMake(CGRectGetWidth(self.regularPriceIncludeTaxLabel.frame) - priceWidth, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+                    }
                     throughLine.backgroundColor = THEME_PRICE_COLOR;
                     CGRect frame = throughLine.frame;
                     frame.origin.y = frame.size.height/2;
@@ -320,12 +314,13 @@
             }
         }
     }else if ([_product valueForKey:@"price_include_tax"] && [_product valueForKey:@"sale_price_include_tax"] && [[_product valueForKey:@"sale_price_include_tax"]floatValue] < [[_product valueForKey:@"price_include_tax"]floatValue] && [[_product valueForKey:@"sale_price_include_tax"]floatValue] > [[_product valueForKey:@"sale_price"]floatValue]) {
+        
         self.regularTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
         self.regularTitleLabel.text = [NSString stringWithFormat:@"%@: ", SCLocalizedString(@"Regular Price")];
         self.regularTitleLabel.font = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:sizeFontPrice];
         self.regularTitleLabel.textColor = THEME_TEXT_COLOR;
         [self addSubview:self.regularTitleLabel];
-        [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(simpleOrigionValueX, self.heightCell, widthValue, heightLabel)];
+        [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionValueX, self.heightCell, widthValue, heightLabel)];
         [self addSubview:self.regularPriceIncludeTaxLabel];
         
         //Set Strike Through for Regular Price
@@ -336,6 +331,9 @@
         frame.origin.y = frame.size.height/2;
         frame.size.height = 1;
         [self.regularPriceIncludeTaxLabel addSubview:throughLine];
+        if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
+            [throughLine setFrame:CGRectMake(CGRectGetWidth(self.regularPriceIncludeTaxLabel.frame) - priceWidth, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+        }
         self.heightCell += heightLabelWithDistance;
         
         self.specialTitlelabel = [[UILabel alloc]initWithFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
@@ -387,12 +385,15 @@
         self.heightCell += heightLabelWithDistance;
     }else if ([_product valueForKey:@"sale_price"] && [[_product valueForKey:@"sale_price"] floatValue] < [[_product valueForKey:@"price"]floatValue])
     {
-         [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthValue, heightLabel)];
+         [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
         [self addSubview:self.regularPriceIncludeTaxLabel];
         
         //Set Strike Through for Regular Price
         CGFloat priceWidth = [self.regularPriceIncludeTaxLabel.text sizeWithAttributes:@{NSFontAttributeName:self.regularPriceIncludeTaxLabel.font}].width;
         UIView *throughLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+        if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
+            [throughLine setFrame:CGRectMake(CGRectGetWidth(self.regularPriceIncludeTaxLabel.frame) - priceWidth, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+        }
         throughLine.backgroundColor = THEME_PRICE_COLOR;
         CGRect frame = throughLine.frame;
         frame.origin.y = frame.size.height/2;
@@ -400,13 +401,13 @@
         [self.regularPriceIncludeTaxLabel addSubview:throughLine];
         self.heightCell += heightLabelWithDistance;
         
-        [self.specialPriceLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthValue, heightLabel)];
+        [self.specialPriceLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
         [self addSubview:self.specialPriceLabel];
         self.heightCell += heightLabelWithDistance;
         
     }else
     {
-        [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthValue, heightLabel)];
+        [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
         [self addSubview:self.regularPriceIncludeTaxLabel];
         self.heightCell += heightLabelWithDistance;
     }

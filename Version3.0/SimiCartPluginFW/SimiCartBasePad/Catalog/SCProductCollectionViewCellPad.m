@@ -62,6 +62,7 @@
         if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
             [self.lblExcl setTextAlignment:NSTextAlignmentRight];
             [self.lblIncl setTextAlignment:NSTextAlignmentRight];
+            [self.viewLine setFrame:CGRectMake(CGRectGetWidth(self.lblExcl.frame) - priceWidth,[SimiGlobalVar scaleValue:heightLabel/2], priceWidth, 1)];
         }
         return;
     }

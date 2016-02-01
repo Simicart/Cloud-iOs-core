@@ -215,9 +215,7 @@
         SimiAddressModel *address = (SimiAddressModel *)[addressCollection objectAtIndex:indexPath.row];
         cell.textLabel.text = [address formatAddress];
         cell.textLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:THEME_FONT_SIZE];
-        CGSize labelSize = [cell.textLabel.text sizeWithFont:cell.textLabel.font
-                                           constrainedToSize:cell.textLabel.frame.size
-                                               lineBreakMode:cell.textLabel.lineBreakMode];
+        CGSize labelSize = [cell.textLabel.text boundingRectWithSize:cell.textLabel.frame.size options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:cell.textLabel.font} context:nil].size;
         cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, 320.0f, labelSize.height);
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.textColor = THEME_CONTENT_COLOR;

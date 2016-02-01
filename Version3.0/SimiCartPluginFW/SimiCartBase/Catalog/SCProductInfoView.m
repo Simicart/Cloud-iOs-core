@@ -385,20 +385,20 @@
         self.heightCell += heightLabelWithDistance;
     }else if ([_product valueForKey:@"sale_price"] && [[_product valueForKey:@"sale_price"] floatValue] < [[_product valueForKey:@"price"]floatValue])
     {
-         [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
-        [self addSubview:self.regularPriceIncludeTaxLabel];
+         [self.regularPriceLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
+        [self addSubview:self.regularPriceLabel];
         
         //Set Strike Through for Regular Price
-        CGFloat priceWidth = [self.regularPriceIncludeTaxLabel.text sizeWithAttributes:@{NSFontAttributeName:self.regularPriceIncludeTaxLabel.font}].width;
-        UIView *throughLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+        CGFloat priceWidth = [self.regularPriceLabel.text sizeWithAttributes:@{NSFontAttributeName:self.regularPriceLabel.font}].width;
+        UIView *throughLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.regularPriceLabel.frame.size.height/2, priceWidth, 1)];
         if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-            [throughLine setFrame:CGRectMake(CGRectGetWidth(self.regularPriceIncludeTaxLabel.frame) - priceWidth, self.regularPriceIncludeTaxLabel.frame.size.height/2, priceWidth, 1)];
+            [throughLine setFrame:CGRectMake(CGRectGetWidth(self.regularPriceLabel.frame) - priceWidth, self.regularPriceLabel.frame.size.height/2, priceWidth, 1)];
         }
         throughLine.backgroundColor = THEME_PRICE_COLOR;
         CGRect frame = throughLine.frame;
         frame.origin.y = frame.size.height/2;
         frame.size.height = 1;
-        [self.regularPriceIncludeTaxLabel addSubview:throughLine];
+        [self.regularPriceLabel addSubview:throughLine];
         self.heightCell += heightLabelWithDistance;
         
         [self.specialPriceLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
@@ -407,8 +407,8 @@
         
     }else
     {
-        [self.regularPriceIncludeTaxLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
-        [self addSubview:self.regularPriceIncludeTaxLabel];
+        [self.regularPriceLabel setFrame:CGRectMake(origionTitleX, self.heightCell, widthTitle, heightLabel)];
+        [self addSubview:self.regularPriceLabel];
         self.heightCell += heightLabelWithDistance;
     }
     

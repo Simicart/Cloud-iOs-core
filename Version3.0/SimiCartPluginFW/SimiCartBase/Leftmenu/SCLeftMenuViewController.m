@@ -123,7 +123,7 @@ static NSString *TABLE_LOGIN = @"TABLE_LOGIN";
 - (void)getCMSPages{
     _cmsPages = [[SimiCMSPagesModelCollection alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidGetCMSPages object:_cmsPages];
-    [_cmsPages getCMSPagesWithParams:@{}];
+    [_cmsPages getCMSPagesWithParams:@{@"filter[status]":@"1"}];
 }
 
 - (void)didReceiveNotification:(NSNotification *)noti
@@ -158,8 +158,11 @@ static NSString *TABLE_LOGIN = @"TABLE_LOGIN";
                 cell.rowIcon.image = [row.image imageWithColor:THEME_MENU_ICON_COLOR];
             }else if(row.data)
             {
-                if ([[row.data valueForKey:@"icon"] isKindOfClass:[NSString class]]) {
-                    [cell.rowIcon sd_setImageWithURL:[NSURL URLWithString:[row.data valueForKey:@"icon"]]];
+                if([[row.data objectForKey:@"icon"] isKindOfClass:[NSDictionary class]]){
+                    NSString* iconURL = [[row.data objectForKey:@"icon"] valueForKey:@"url"];
+                    if (iconURL) {
+                        [cell.rowIcon sd_setImageWithURL:[NSURL URLWithString:iconURL]];
+                    }
                 }
             }
             cell.accessoryType = row.accessoryType;

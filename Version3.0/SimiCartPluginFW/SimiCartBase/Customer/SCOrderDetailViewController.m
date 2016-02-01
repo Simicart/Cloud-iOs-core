@@ -373,10 +373,11 @@ NSString *currencyPosition, *currencySymbol;
         cell = [tableView dequeueReusableCellWithIdentifier:ORDER_DETAIL_PAYMENT_METHOD];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ORDER_DETAIL_PAYMENT_METHOD];
-//            NSString *fourDigit = [order valueForKey:@"card_4digit"];
-            NSString *fourDigit = @"abcd";
+            
+            NSString *fourDigit = [order valueForKey:@"card_digit"];
+            
             NSString* paymentMethod = [[order valueForKey:@"payment"]valueForKey:@"title"];
-            if (fourDigit.length > 0) {
+            if (fourDigit && fourDigit.length > 0) {
                 cell.textLabel.text = [NSString stringWithFormat:@"%@ ***-%@", paymentMethod,fourDigit];
             }else{
                 cell.textLabel.text = [NSString stringWithFormat:@"%@", paymentMethod];

@@ -15,6 +15,6 @@
 /*
  Notification name: DidGetOrderCollection
  */
-- (void)getCustomerOrderCollectionWithOffset:(NSInteger)offset limit:(NSInteger)limit filters:(NSDictionary *)filters;
+- (void)getCustomerOrderCollectionWithParams:(NSDictionary* ) params;
 
 @end

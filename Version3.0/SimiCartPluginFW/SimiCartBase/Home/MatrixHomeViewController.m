@@ -346,14 +346,23 @@
         } else if ([simiRow.identifier isEqualToString:HOME_CATEGORY_CELL])
         {
             [self setViewCategory];
-            [cell addSubview:_viewCate01];
-            [cell addSubview:_viewCate02];
-            [cell addSubview:_viewCate03];
-            [cell addSubview:_viewAllCate];
-            [_viewCate01.slideShow start];
-            [_viewCate02.slideShow start];
-            [_viewCate03.slideShow start];
-            [_viewAllCate.slideShow start];
+            if(_viewCate01){
+                [cell addSubview:_viewCate01];
+                [_viewCate01.slideShow start];
+            }
+            if(_viewCate02){
+                [cell addSubview:_viewCate02];
+                [_viewCate02.slideShow start];
+            }
+            if(_viewCate03){
+                [cell addSubview:_viewCate03];
+                [_viewCate03.slideShow start];
+            }
+            if(_viewAllCate){
+                [cell addSubview:_viewAllCate];
+                [_viewAllCate.slideShow start];
+            }
+            
         } else if ([simiRow.identifier isEqualToString:HOME_SPOT_CELL])
         {
             UIScrollView *scrViewSpot = [[UIScrollView alloc]initWithFrame:CGRectMake(0, [SimiGlobalVar scaleValue:5], SCREEN_WIDTH, [SimiGlobalVar scaleValue:104])];

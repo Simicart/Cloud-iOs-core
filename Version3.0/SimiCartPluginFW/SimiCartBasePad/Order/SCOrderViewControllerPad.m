@@ -290,7 +290,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrder:) name:DidPlaceOrder object:self.order];
         // Liam Update Credit Card
         SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
-        [[NSNotificationCenter defaultCenter]postNotificationName:SCOrderViewControllerBeforePlaceOrder object:self userInfo:@{@"order":self.order,@"payment":payment}];
+        [[NSNotificationCenter defaultCenter]postNotificationName:PlaceOrderBefore object:self userInfo:@{@"order":self.order,@"payment":payment}];
         if (self.isDiscontinue) {
             self.isDiscontinue = NO;
             return;

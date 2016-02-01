@@ -10,13 +10,10 @@
 
 @implementation SimiOrderModelCollection
 
-- (void)getCustomerOrderCollectionWithOffset:(NSInteger)offset limit:(NSInteger)limit filters:(NSDictionary *)filters{
+- (void)getCustomerOrderCollectionWithParams:(NSDictionary* )params{
     currentNotificationName = @"DidGetOrderCollection";
     [self preDoRequest];
     modelActionType = ModelActionTypeInsert;
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:filters];
-    [params setValue:[NSString stringWithFormat:@"%ld", (long)offset] forKey:@"offset"];
-    [params setValue:[NSString stringWithFormat:@"%ld", (long)limit] forKey:@"limit"];
     [(SimiOrderAPI *)[self getAPI] getCustomerOrderListWithParams:params target:self selector:@selector(didFinishRequest:responder:)];
 }
 

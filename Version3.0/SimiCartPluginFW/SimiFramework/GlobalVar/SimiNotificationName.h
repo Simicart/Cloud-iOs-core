@@ -43,6 +43,7 @@ static NSString *DidGetCategory = @"DidGetCategory";
 static NSString *DidGetCart = @"DidGetCart";
 static NSString *DidAddToCart = @"DidAddToCart";
 static NSString *DidChangeCart = @"DidChangeCart";
+static NSString *DidPlaceOrderBefore = @"DidPlaceOrder-Before";
 static NSString *DidPlaceOrderAfter = @"DidPlaceOrder-After";
 static NSString *DidEditQty = @"DidEditQty";
 static NSString *DidSelectCartCellAtIndexPath = @"DidSelectCartCellAtIndexPath";
@@ -89,7 +90,7 @@ static NSString *DidGetOrderConfig = @"DidGetOrderConfig";
 static NSString *DidSetCouponCode = @"DidSetCouponCode";
 static NSString *DidPlaceOrder = @"DidPlaceOrder";
 static NSString *DidCompleteReOrder = @"DidCompleteReOrder";
-static NSString *SCOrderViewControllerBeforePlaceOrder = @"SCOrderViewControllerBeforePlaceOrder";
+static NSString *PlaceOrderBefore = @"SCOrderViewControllerBeforePlaceOrder";
 static NSString *DidUpdatePaymentStatus = @"DidUpdatePaymentStatus";
 #pragma mark Orders Model Collection
 static NSString *DidGetOrderCollection = @"DidGetOrderCollection";

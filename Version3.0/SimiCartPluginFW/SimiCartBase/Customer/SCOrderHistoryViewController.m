@@ -80,10 +80,8 @@
     NSString* customerID;
     if([[SimiGlobalVar sharedInstance] isLogin]){
         SimiCustomerModel * customer = [[SimiGlobalVar sharedInstance] customer];
-        customerID = [customer valueForKey:@"_id"];
-        NSMutableDictionary* filters = [NSMutableDictionary new];
-        [filters setValue:customerID forKey:@"filter[customer|customer_id]"];
-        [orderCollection getCustomerOrderCollectionWithOffset:orderCollection.count limit:6 filters:filters];
+        customerID = [NSString stringWithFormat:@"%@",[customer objectForKey:@"_id"]];
+        [orderCollection getCustomerOrderCollectionWithParams:@{@"filter[customer|customer_id]":customerID, @"offset":[NSString stringWithFormat:@"%ld",orderCollection.count] , @"limit":@"6", @"dir":@"desc", @"order":@"updated_at"}];
     }
 }
 

@@ -949,12 +949,13 @@
             }
             self.accept = YES;
         }
+        
+        SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
+        [[NSNotificationCenter defaultCenter]postNotificationName:PlaceOrderBefore  object:self userInfo:@{@"order":self.order,@"payment":payment}];
         if (self.isDiscontinue) {
             self.isDiscontinue = NO;
             return;
         }
-        SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
-        [[NSNotificationCenter defaultCenter]postNotificationName:SCOrderViewControllerBeforePlaceOrder object:self userInfo:@{@"order":self.order,@"payment":payment}];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrder:) name:DidPlaceOrder object:self.order];
         [self startLoadingData];
@@ -1212,8 +1213,8 @@
             }
             //Success
             if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeRedirect) {
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"DidPlaceOrder-Before" object:self.order userInfo:@{@"data": self.order, @"payment": [self.order valueForKey:@"payment"], @"controller": self, @"responder":responder, @"cart":self.cart, @"shipping":shippingModel}];
+//                [self.navigationController popToRootViewControllerAnimated:NO];
+                [[NSNotificationCenter defaultCenter] postNotificationName:DidPlaceOrderBefore object:self.order userInfo:@{@"data": self.order, @"payment": [self.order valueForKey:@"payment"], @"controller": self, @"responder":responder, @"cart":self.cart, @"shipping":shippingModel}];
             }else if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] != PaymentShowTypeSDK){
                 if ([self.order valueForKey:@"notification"]) {
                     [self.navigationController popToRootViewControllerAnimated:YES];

@@ -40,8 +40,8 @@
         [request addValue:@"YES" forHTTPHeaderField:@"Mobile-App"];
         [_webView loadRequest:request];
     }else{
-        NSString *htmlString =[NSString stringWithFormat:@"<style type=\"text/css\">*{font-family: %@; font-size: %i !important;}</style>%@", @"ProximaNova-Light",20,content];
-        [_webView loadHTMLString:htmlString baseURL:nil];
+//        NSString *htmlString =[NSString stringWithFormat:@"<style type=\"text/css\">*{font-family: %@; font-size: %i !important;}</style>%@", @"ProximaNova-Light",20,content];
+        [_webView loadHTMLString:content baseURL:nil];
     }
 }
 

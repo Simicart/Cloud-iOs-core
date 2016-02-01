@@ -581,6 +581,10 @@
 		8969A3471C10206C0050D0EA /* SimiNotificationName.m in Sources */ = {isa = PBXBuildFile; fileRef = 8969A3461C10206C0050D0EA /* SimiNotificationName.m */; };
 		8969A34A1C10375C0050D0EA /* SimiSpotModelCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8969A3491C10375C0050D0EA /* SimiSpotModelCollection.m */; };
 		896FB1041B871F57009B8006 /* SCHomeCategoryCollectionViewCellPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 896FB1031B871F57009B8006 /* SCHomeCategoryCollectionViewCellPad.m */; };
+		897CBF2F1C4E1BB00029B0B3 /* SCChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897CBF2E1C4E1BB00029B0B3 /* SCChangePasswordViewController.m */; };
+		897CBF331C4E1BF80029B0B3 /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 897CBF301C4E1BF80029B0B3 /* ic_password.png */; };
+		897CBF341C4E1BF80029B0B3 /* ic_password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 897CBF311C4E1BF80029B0B3 /* ic_password@2x.png */; };
+		897CBF351C4E1BF80029B0B3 /* ic_password@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 897CBF321C4E1BF80029B0B3 /* ic_password@3x.png */; };
 		89886F401B7C8D0300CAB52C /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89886F2F1B7C8D0300CAB52C /* AbstractActionSheetPicker.m */; };
 		89886F411B7C8D0300CAB52C /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89886F311B7C8D0300CAB52C /* ActionSheetCustomPicker.m */; };
 		89886F421B7C8D0300CAB52C /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89886F341B7C8D0300CAB52C /* ActionSheetDatePicker.m */; };
@@ -865,8 +869,6 @@
 		89B48D361B7DCB6B00E46EC7 /* ZaraSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B48D341B7DCB6B00E46EC7 /* ZaraSection.m */; };
 		89BF387E1C2799D700ECDAE5 /* SimiShippingAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BF387D1C2799D700ECDAE5 /* SimiShippingAPI.m */; };
 		89BF38811C279A0E00ECDAE5 /* SimiPaymentAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BF38801C279A0E00ECDAE5 /* SimiPaymentAPI.m */; };
-		89BF38851C27AD5100ECDAE5 /* MatrixThemeAvailable.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BF38841C27AD5100ECDAE5 /* MatrixThemeAvailable.m */; };
-		89BF38891C27D65800ECDAE5 /* ZaraThemeAvailable.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BF38881C27D65800ECDAE5 /* ZaraThemeAvailable.m */; };
 		89BF388A1C27FE9200ECDAE5 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E113F01BFDBF6100093A23 /* MGSwipeButton.m */; };
 		89BF388B1C27FE9200ECDAE5 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E113F21BFDBF6100093A23 /* MGSwipeTableCell.m */; };
 		89BF388C1C27FE9200ECDAE5 /* DownloadWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E113EC1BFD529500093A23 /* DownloadWorker.m */; };
@@ -926,6 +928,11 @@
 		89CA95FA1BFABCAA0062CCD3 /* ic_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CA95F91BFABCAA0062CCD3 /* ic_down.png */; };
 		89CFE39A1C02AFC2001E4318 /* ic_delete_download_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CFE3991C02AFC2001E4318 /* ic_delete_download_item.png */; };
 		89D2085B1BC659020075480A /* SCThankYouPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D2085A1BC659020075480A /* SCThankYouPageViewController.m */; };
+		89D2FD7C1C4F42F5007ADEE9 /* SCChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897CBF2E1C4E1BB00029B0B3 /* SCChangePasswordViewController.m */; };
+		89D2FD7D1C4F42FD007ADEE9 /* SCChangePasswordViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 897CBF2D1C4E1BB00029B0B3 /* SCChangePasswordViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		89D2FD7E1C4F4316007ADEE9 /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 897CBF301C4E1BF80029B0B3 /* ic_password.png */; };
+		89D2FD7F1C4F4316007ADEE9 /* ic_password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 897CBF311C4E1BF80029B0B3 /* ic_password@2x.png */; };
+		89D2FD801C4F4316007ADEE9 /* ic_password@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 897CBF321C4E1BF80029B0B3 /* ic_password@3x.png */; };
 		89DCA9AB1BF2FEA600880F83 /* OpenZipFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DCA9AA1BF2FEA600880F83 /* OpenZipFileViewController.m */; };
 		89E089C91B8DDF06008E66D9 /* SCSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3581F2B1B783DC600A93728 /* SCSettingCell.m */; };
 		89E089CA1B8DDF06008E66D9 /* SCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3581F2D1B783DC600A93728 /* SCSettingViewController.m */; };
@@ -1534,6 +1541,11 @@
 		8969A3491C10375C0050D0EA /* SimiSpotModelCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiSpotModelCollection.m; sourceTree = "<group>"; };
 		896FB1021B871F57009B8006 /* SCHomeCategoryCollectionViewCellPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCHomeCategoryCollectionViewCellPad.h; sourceTree = "<group>"; };
 		896FB1031B871F57009B8006 /* SCHomeCategoryCollectionViewCellPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCHomeCategoryCollectionViewCellPad.m; sourceTree = "<group>"; };
+		897CBF2D1C4E1BB00029B0B3 /* SCChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChangePasswordViewController.h; sourceTree = "<group>"; };
+		897CBF2E1C4E1BB00029B0B3 /* SCChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChangePasswordViewController.m; sourceTree = "<group>"; };
+		897CBF301C4E1BF80029B0B3 /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
+		897CBF311C4E1BF80029B0B3 /* ic_password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password@2x.png"; sourceTree = "<group>"; };
+		897CBF321C4E1BF80029B0B3 /* ic_password@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_password@3x.png"; sourceTree = "<group>"; };
 		89886F2E1B7C8D0300CAB52C /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
 		89886F2F1B7C8D0300CAB52C /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
 		89886F301B7C8D0300CAB52C /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
@@ -1716,10 +1728,6 @@
 		89BF387D1C2799D700ECDAE5 /* SimiShippingAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiShippingAPI.m; sourceTree = "<group>"; };
 		89BF387F1C279A0E00ECDAE5 /* SimiPaymentAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimiPaymentAPI.h; sourceTree = "<group>"; };
 		89BF38801C279A0E00ECDAE5 /* SimiPaymentAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiPaymentAPI.m; sourceTree = "<group>"; };
-		89BF38831C27AD5100ECDAE5 /* MatrixThemeAvailable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixThemeAvailable.h; sourceTree = "<group>"; };
-		89BF38841C27AD5100ECDAE5 /* MatrixThemeAvailable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixThemeAvailable.m; sourceTree = "<group>"; };
-		89BF38871C27D65800ECDAE5 /* ZaraThemeAvailable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZaraThemeAvailable.h; sourceTree = "<group>"; };
-		89BF38881C27D65800ECDAE5 /* ZaraThemeAvailable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZaraThemeAvailable.m; sourceTree = "<group>"; };
 		89CA95F91BFABCAA0062CCD3 /* ic_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_down.png; sourceTree = "<group>"; };
 		89CFE3991C02AFC2001E4318 /* ic_delete_download_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete_download_item.png; sourceTree = "<group>"; };
 		89D208591BC659020075480A /* SCThankYouPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCThankYouPageViewController.h; sourceTree = "<group>"; };
@@ -1956,6 +1964,8 @@
 		3779576518B43E6200102C66 /* Customer */ = {
 			isa = PBXGroup;
 			children = (
+				897CBF2D1C4E1BB00029B0B3 /* SCChangePasswordViewController.h */,
+				897CBF2E1C4E1BB00029B0B3 /* SCChangePasswordViewController.m */,
 				3783A17E18C5C4420061067F /* OrderListCell.h */,
 				3783A17F18C5C4420061067F /* OrderListCell.m */,
 				373870DB18C4681700AE3C3F /* SCAccountViewController.h */,
@@ -2590,8 +2600,6 @@
 		80A30EE819C3FA9E00821AD2 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				89BF38861C27D65800ECDAE5 /* ZaraTheme */,
-				89BF38821C27AD5100ECDAE5 /* Theme01 */,
 			);
 			name = Plugins;
 			path = ../../Plugins;
@@ -2837,6 +2845,9 @@
 		899BDAA51BC4FA3500A6AA91 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				897CBF301C4E1BF80029B0B3 /* ic_password.png */,
+				897CBF311C4E1BF80029B0B3 /* ic_password@2x.png */,
+				897CBF321C4E1BF80029B0B3 /* ic_password@3x.png */,
 				899BDAA61BC4FA3500A6AA91 /* alarm.mp3 */,
 				899BDAA71BC4FA3500A6AA91 /* card_amex.png */,
 				899BDAA81BC4FA3500A6AA91 /* card_diners.png */,
@@ -2969,26 +2980,6 @@
 				899BDBAC1BC5137000A6AA91 /* AFViewShaker.m */,
 			);
 			path = AFViewShaker;
-			sourceTree = "<group>";
-		};
-		89BF38821C27AD5100ECDAE5 /* Theme01 */ = {
-			isa = PBXGroup;
-			children = (
-				89BF38831C27AD5100ECDAE5 /* MatrixThemeAvailable.h */,
-				89BF38841C27AD5100ECDAE5 /* MatrixThemeAvailable.m */,
-			);
-			name = Theme01;
-			path = ../../Developing_Plugins/Theme01;
-			sourceTree = "<group>";
-		};
-		89BF38861C27D65800ECDAE5 /* ZaraTheme */ = {
-			isa = PBXGroup;
-			children = (
-				89BF38871C27D65800ECDAE5 /* ZaraThemeAvailable.h */,
-				89BF38881C27D65800ECDAE5 /* ZaraThemeAvailable.m */,
-			);
-			name = ZaraTheme;
-			path = ../../Developing_Plugins/ZaraTheme;
 			sourceTree = "<group>";
 		};
 		C347234F1B748E5200DA7B12 /* Leftmenu */ = {
@@ -3457,6 +3448,7 @@
 				89BF38BB1C27FEB800ECDAE5 /* DownloadAPI.h in Headers */,
 				89BF38BC1C27FEB800ECDAE5 /* SimiShippingAPI.h in Headers */,
 				89BF38BD1C27FEB800ECDAE5 /* SimiPaymentAPI.h in Headers */,
+				89D2FD7D1C4F42FD007ADEE9 /* SCChangePasswordViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3519,6 +3511,26 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				da,
+				de,
+				en_AU,
+				en_CA,
+				en_GB,
+				es,
+				es_ES,
+				fr,
+				fr_CA,
+				fr_FR,
+				he,
+				it,
+				nb,
+				nl,
+				pl,
+				pt,
+				ru,
+				sv,
+				tr,
+				"zh-Hans",
 			);
 			mainGroup = 37813D541876943700A9371B;
 			productRefGroup = 37813D5E1876943800A9371B /* Products */;
@@ -3537,6 +3549,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89D2FD7E1C4F4316007ADEE9 /* ic_password.png in Resources */,
+				89D2FD7F1C4F4316007ADEE9 /* ic_password@2x.png in Resources */,
+				89D2FD801C4F4316007ADEE9 /* ic_password@3x.png in Resources */,
 				89BF38C01C27FFF700ECDAE5 /* plugin-simi_simidownload.plist in Resources */,
 				89BF38C11C27FFF700ECDAE5 /* SimiCartBundle-Info.plist in Resources */,
 				89BF38BE1C27FFD400ECDAE5 /* ic_delete_download_item.png in Resources */,
@@ -3695,6 +3710,7 @@
 				893F4C761BEC3C8F00082A59 /* matrix_spot.png in Resources */,
 				899BDB7E1BC4FA3500A6AA91 /* ic_pass.png in Resources */,
 				899BDB8F1BC4FA3500A6AA91 /* ic_star@2x.png in Resources */,
+				897CBF351C4E1BF80029B0B3 /* ic_password@3x.png in Resources */,
 				899BDB7D1BC4FA3500A6AA91 /* ic_pagecontrolnochoice.png in Resources */,
 				899BDB781BC4FA3500A6AA91 /* ic_narrow_up.png in Resources */,
 				899BDB1D1BC4FA3500A6AA91 /* Default-568h@2x.png in Resources */,
@@ -3796,6 +3812,7 @@
 				899BDB341BC4FA3500A6AA91 /* card_mastercard.png in Resources */,
 				899BDB281BC4FA3500A6AA91 /* Default@2x.png in Resources */,
 				899BDB1F1BC4FA3500A6AA91 /* Default-736h@3x.png in Resources */,
+				897CBF341C4E1BF80029B0B3 /* ic_password@2x.png in Resources */,
 				899BDB6D1BC4FA3500A6AA91 /* ic_login.png in Resources */,
 				899BDB301BC4FA3500A6AA91 /* card_amex.png in Resources */,
 				899BDB5E1BC4FA3500A6AA91 /* ic_home.png in Resources */,
@@ -3822,6 +3839,7 @@
 				899BDB391BC4FA3500A6AA91 /* delete@2x.png in Resources */,
 				899BDB3D1BC4FA3500A6AA91 /* ic_address_book.png in Resources */,
 				899BDB871BC4FA3500A6AA91 /* ic_share.png in Resources */,
+				897CBF331C4E1BF80029B0B3 /* ic_password.png in Resources */,
 				899BDB8B1BC4FA3500A6AA91 /* ic_star.png in Resources */,
 				899BDB9F1BC4FA3500A6AA91 /* plus.png in Resources */,
 				899BDB261BC4FA3500A6AA91 /* Default-Portrait~ipad.png in Resources */,
@@ -3870,6 +3888,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89D2FD7C1C4F42F5007ADEE9 /* SCChangePasswordViewController.m in Sources */,
 				89BF389F1C27FE9C00ECDAE5 /* ioapi.c in Sources */,
 				89BF38A01C27FE9C00ECDAE5 /* mztools.c in Sources */,
 				89BF38A11C27FE9C00ECDAE5 /* unzip.c in Sources */,
@@ -4191,7 +4210,6 @@
 				37899F5818ACAA750020C1EE /* SimiModelCollection.m in Sources */,
 				895B674B1BF0502B0009746A /* zip.c in Sources */,
 				C3D1AF4C1AFA0CC100750892 /* ILTranslucentView.m in Sources */,
-				89BF38851C27AD5100ECDAE5 /* MatrixThemeAvailable.m in Sources */,
 				37899F5518ACAA750020C1EE /* SimiCategoryModelCollection.m in Sources */,
 				376E192618E5344D004DE7DC /* SimiCartModelCollection.m in Sources */,
 				372CEA6218D6EE7200C17EFA /* SimiStoreModelCollection.m in Sources */,
@@ -4214,6 +4232,7 @@
 				374096D718B2E8AA000F2B07 /* SCOrderViewController.m in Sources */,
 				C3D290541B79D5CA006FE4CE /* SCLeftMenuViewControllerPad.m in Sources */,
 				37EFC44E193839B5002EDE08 /* SimiModelCollection+CMS.m in Sources */,
+				897CBF2F1C4E1BB00029B0B3 /* SCChangePasswordViewController.m in Sources */,
 				891D4EB11B82CAE1001B0880 /* SCProductRelateViewController.m in Sources */,
 				3772D2AF18C5BDF200BA2F2C /* SCOrderHistoryViewController.m in Sources */,
 				372CEA6518D6EF4E00C17EFA /* SimiStoreAPI.m in Sources */,
@@ -4235,7 +4254,6 @@
 				37899F4C18ACAA750020C1EE /* SimiMutableArray.m in Sources */,
 				3779577E18B4472500102C66 /* SimiOrderModel.m in Sources */,
 				6120D4F91A13132E00CDBB26 /* SimiFormBlock.m in Sources */,
-				89BF38891C27D65800ECDAE5 /* ZaraThemeAvailable.m in Sources */,
 				80AF3D3F19D3A44A0077AFED /* SDWebImageDownloader.m in Sources */,
 				37899F4318ACAA750020C1EE /* InitWorker.m in Sources */,
 				C3581F3E1B784BB700A93728 /* MatrixHomeViewControllerPad.m in Sources */,
@@ -4559,19 +4577,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Volumes/DATA/01.SimiCart/Trunk/Developing_Plugins/**",
+					"/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimiCartPluginFW/SimiCartPluginFW-Prefix.pch";
 				INFOPLIST_FILE = "SimiCartPluginFW/SimiCartPluginFW-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Volumes/DATA/01.SimiCart/Trunk/Developing_Plugins/**",
+					"/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/**",
 					"$(SDKROOT)/usr/lib/system/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -4579,10 +4600,12 @@
 					"-lc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.cloud;
+				PRODUCT_MODULE_NAME = SimiCartPluginFW;
 				PRODUCT_NAME = Cloud;
 				PROVISIONING_PROFILE = "d9d872d4-9478-459f-862a-bd2b7299bb3d";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/Checkout.com/SimiCartPluginFW-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -4595,20 +4618,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "$(SRCROOT)/OptimizationProfiles/$(PROJECT_NAME).profdata";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: TRUEPLUS VIETNAM JOINT STOCK COMPANY";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Volumes/DATA/01.SimiCart/Trunk/Developing_Plugins/**",
+					"/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimiCartPluginFW/SimiCartPluginFW-Prefix.pch";
 				INFOPLIST_FILE = "SimiCartPluginFW/SimiCartPluginFW-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Volumes/DATA/01.SimiCart/Trunk/Developing_Plugins/**",
+					"/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/**",
 					"$(SDKROOT)/usr/lib/system/**",
 				);
 				ONLY_ACTIVE_ARCH = NO;
@@ -4616,10 +4642,12 @@
 					"-lc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.cloud;
+				PRODUCT_MODULE_NAME = SimiCartPluginFW;
 				PRODUCT_NAME = Cloud;
 				PROVISIONING_PROFILE = "9d1e96a6-5c97-4db6-8e36-4651e863d1f2";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/Checkout.com/SimiCartPluginFW-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;

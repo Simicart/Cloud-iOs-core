@@ -98,6 +98,10 @@
         if (self.isNewCustomer) {
             [params setValue:[shippingAddress valueForKey:@"customer_password"] forKey:@"password"];
             [params setValue:@"1" forKey:@"create_new_customer"];
+        }else
+        {
+            [params setValue:@"" forKey:@"password"];
+            [params setValue:@"0" forKey:@"create_new_customer"];
         }
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didAddNewCustomerToQuote:) name:DidAddNewCustomerToQuote object:cartModel];
         [cartModel addNewCustomerToQuote:params];

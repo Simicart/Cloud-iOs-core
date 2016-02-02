@@ -159,11 +159,9 @@
         id obj = nil;
         obj = [SCThemeWorker sharedInstance];
         if (SIMI_DEVELOPMENT_ENABLE) {
-            id zaraThemeAvailable = NSClassFromString(@"ZaraThemeAvailable");
-            id matrixThemeAvailable = NSClassFromString(@"MatrixThemeAvailable");
-            if (ZTHEME_ENABLE && zaraThemeAvailable != nil) {
+            if (ZTHEME_ENABLE) {
                 [SimiGlobalVar sharedInstance].themeUsing = ThemeShowZTheme;
-            }else if (SIMI_THEME_ENABLE && matrixThemeAvailable) {
+            }else if (SIMI_THEME_ENABLE) {
                 [SimiGlobalVar sharedInstance].themeUsing = ThemeShowMatrixTheme;
             }else
             {

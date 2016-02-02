@@ -171,7 +171,16 @@
                 section.identifier = [NSString stringWithFormat:@"%@",[homeModel valueForKey:@"category_id"]];
                 section.isSelected = NO;
                 section.hasChild = [[homeModel valueForKey:@"has_children"] boolValue];
-                section.bannerCategoryURL = [[homeModel valueForKey:@"image"] valueForKey:@"url"];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                    if ([homeModel valueForKey:@"phone_image"] && [[homeModel valueForKey:@"phone_image"]isKindOfClass:[NSDictionary class]]) {
+                        section.bannerCategoryURL = [[homeModel valueForKey:@"phone_image"] valueForKey:@"url"];
+                    }
+                }else
+                {
+                    if ([homeModel valueForKey:@"tablet_image"] && [[homeModel valueForKey:@"tablet_image"]isKindOfClass:[NSDictionary class]]) {
+                        section.bannerCategoryURL = [[homeModel valueForKey:@"tablet_image"] valueForKey:@"url"];
+                    }
+                }
                 section.zThemeSectionContent = homeModel;
                 if (section.hasChild) {
                     NSMutableArray *listCateChild = [[NSMutableArray alloc]initWithArray:[homeModel valueForKey:@"children_cat"]];

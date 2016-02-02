@@ -110,7 +110,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(orderCollection.count>0)
     {
-        NSString *orderCellIdentifier = [NSString stringWithFormat: @"%@_%@", @"OrderListCellIdentifier", [[orderCollection objectAtIndex:indexPath.row] valueForKey:@"order_id"]];
+        NSString *orderCellIdentifier = [NSString stringWithFormat: @"%@_%@", @"OrderListCellIdentifier", [[orderCollection objectAtIndex:indexPath.row] valueForKey:@"_id"]];
         OrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:orderCellIdentifier];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"InitializedOrderHistoryCell-Before" object:cell];
         if (self.isDiscontinue) {

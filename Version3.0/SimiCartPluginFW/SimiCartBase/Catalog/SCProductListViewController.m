@@ -165,6 +165,7 @@
             [self getProducts];
         }
     }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -228,23 +229,30 @@
         case ProductListGetProductTypeFromSpot:
         {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetProducts:) name:DidGetAllProducts object:productCollection];
+            NSInteger limit = [[self.spotModel valueForKey:@"limit"] intValue];
+            if(limit == 0)
+                limit = 10;
+            if(offset > 0){
+                [tableViewProductCollection.infiniteScrollingView stopAnimating];
+                return;
+            }
             switch ([[self.spotModel valueForKey:@"type"] integerValue]) {
 #pragma mark  Best Seller
                 case 1:
                 {
-                     [self.productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
+                     [self.productCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
                 }
                     break;
 #pragma mark Newly Update
                 case 2:
                 {
-                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
+                    [productCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
                 }
                     break;
 #pragma mark Recently Added
                 case 3:
                 {
-                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
+                    [productCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
                 }
                     break;
 #pragma mark Custom
@@ -261,7 +269,7 @@
                         }
                     }
                                         
-                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
+                    [productCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
                 }
                     break;
                 default:
@@ -282,9 +290,9 @@
         }
             break;
     }
-    
     [_btnChangeLayout setEnabled:NO];
     [tableViewProductCollection.infiniteScrollingView startAnimating];
+        
 }
 
 - (void)didGetProducts:(NSNotification *)noti{
@@ -316,7 +324,6 @@
         hud.margin = 10.f;
         hud.yOffset = -(CGRectGetHeight(self.view.bounds)/2 - 20 - [SimiGlobalVar scaleValue:100]);
         hud.removeFromSuperViewOnHide = YES;
-        
         [hud hide:YES afterDelay:0.5];
     }
     [tableViewProductCollection.infiniteScrollingView stopAnimating];
@@ -749,50 +756,6 @@
             [self getProducts];
         }
     }
-        
-}
-
-#pragma mark Get Spot Product
-//Axe copy from home default
-- (void)getBestSellerProducts
-{
-   
-}
-- (void)getMostViewProducts
-{
-//    SimiProductModelCollection *newlyUpdatedProductModelCollection = [SimiProductModelCollection new];
-//    newlyUpdatedProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
-//    newlyUpdatedProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
-    //    [spotArray addObject:newlyUpdatedProductModelCollection];
-    
-}
-- (void)getRecentAddedProducts
-{
-//    SimiProductModelCollection *recentAddedProductModelCollection = [SimiProductModelCollection new];
-//    recentAddedProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
-//    recentAddedProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
-    //    [spotArray addObject:recentAddedProductModelCollection];
-    [productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc",@"filter[status]":@"1"}];
-}
-- (void)getFeatureProducts
-{
-    
-    NSString *stringIds = @"";
-//    for (int i = 0;i < self.spotProductsCollection.count; i++) {
-//        SimiModel *model = [self.spotProductsCollection objectAtIndex:i];
-        if ([[self.spotModel valueForKey:@"type"]intValue] == 4) {
-            if ([[self.spotModel valueForKey:@"products"] isKindOfClass:[NSMutableArray class]]) {
-                NSMutableArray *arrayIds = [[NSMutableArray alloc]initWithArray:[self.spotModel valueForKey:@"products"]];
-                for (int j =0; j < arrayIds.count; j++) {
-                    if (j!= 0) {
-                        stringIds = [NSString stringWithFormat:@"%@,%@",stringIds,[arrayIds objectAtIndex:j]];
-                    }else
-                        stringIds = [NSString stringWithFormat:@"%@",[arrayIds objectAtIndex:j]];
-                }
-            }
-        }
-//    }
-    [productCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds,@"filter[status]":@"1"}];
 }
 
 

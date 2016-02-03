@@ -194,19 +194,22 @@ NSString *currencyPosition, *currencySymbol;
         //Add shipping section
         //Axe fixed by edit paramaters and values returned
        
-        SimiSection *shippingSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Shipping") footerTitle:nil];
-        if([order objectForKey:@"shipping_address"]){
-            SimiRow *shippingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_SHIPPING_ADDRESS height:130];
-            shippingAddressRow.title = SCLocalizedString(@"Shipping address");
-            [shippingSection addRow:shippingAddressRow];
-        }
+        
+        
         if([order objectForKey:@"shipping"]){
+            SimiSection *shippingSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Shipping") footerTitle:nil];
             NSDictionary* shipping  = [order objectForKey:@"shipping"];
             SimiRow *shippingMethodRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_SHIPPING_METHOD height:40];
             shippingMethodRow.title = SCLocalizedString([shipping valueForKey:@"title"]);
             [shippingSection addRow:shippingMethodRow];
+            
+            if([order objectForKey:@"shipping_address"]){
+                SimiRow *shippingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_SHIPPING_ADDRESS height:130];
+                shippingAddressRow.title = SCLocalizedString(@"Shipping address");
+                [shippingSection addRow:shippingAddressRow];
+            }
+            [_cells addObject:shippingSection];
         }
-        [_cells addObject:shippingSection];
         
         //Add cart item section
         SimiSection *cartSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Items") footerTitle:nil];
@@ -220,23 +223,27 @@ NSString *currencyPosition, *currencySymbol;
         
         //Add billing & payment & coupon section
         //Axe fixed
-        SimiSection *paymentSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Payment") footerTitle:nil];
+        
         if([order objectForKey:@"payment"]){
+            SimiSection *paymentSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Payment") footerTitle:nil];
             SimiRow *paymentRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_PAYMENT_METHOD height:40];
             paymentRow.title = SCLocalizedString(@"Payment method");
             [paymentSection addRow:paymentRow];
+            
+            if([order objectForKey:@"billing_address"]){
+                SimiRow *billingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_BILLING_ADDRESS height:130];
+                billingAddressRow.title = SCLocalizedString(@"Billing address");
+                [paymentSection addRow:billingAddressRow];
+            }
+            if([order objectForKey:@"coupon"]){
+                SimiRow *couponcode = [[SimiRow alloc]initWithIdentifier:ORDER_DETAIL_COUPONCODE height:40];
+                [paymentSection addRow:couponcode];
+                couponcode.title = SCLocalizedString(@"Coupon");
+            }
+            [_cells addObject:paymentSection];
+            
         }
-        if([order objectForKey:@"billing_address"]){
-            SimiRow *billingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_BILLING_ADDRESS height:130];
-            billingAddressRow.title = SCLocalizedString(@"Billing address");
-            [paymentSection addRow:billingAddressRow];
-        }
-        if([order objectForKey:@"coupon"]){
-        SimiRow *couponcode = [[SimiRow alloc]initWithIdentifier:ORDER_DETAIL_COUPONCODE height:40];
-            [paymentSection addRow:couponcode];
-            couponcode.title = SCLocalizedString(@"Coupon");
-        }
-        [_cells addObject:paymentSection];
+        
         
         //Add order total section
         SimiSection *orderTotalSection = [[SimiSection alloc]initWithHeaderTitle:SCLocalizedString(@"Fee Detail") footerTitle:nil];

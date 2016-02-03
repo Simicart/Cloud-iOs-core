@@ -81,7 +81,7 @@
     if([[SimiGlobalVar sharedInstance] isLogin]){
         SimiCustomerModel * customer = [[SimiGlobalVar sharedInstance] customer];
         customerID = [NSString stringWithFormat:@"%@",[customer objectForKey:@"_id"]];
-        [orderCollection getCustomerOrderCollectionWithParams:@{@"filter[customer|customer_id]":customerID, @"offset":[NSString stringWithFormat:@"%ld",orderCollection.count] , @"limit":@"6", @"dir":@"desc", @"order":@"updated_at"}];
+        [orderCollection getCustomerOrderCollectionWithParams:@{@"filter[customer|customer_id]":customerID, @"offset":[NSString stringWithFormat:@"%ld",(unsigned long)orderCollection.count] , @"limit":@"6", @"dir":@"desc", @"order":@"updated_at"}];
     }
 }
 
@@ -110,7 +110,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(orderCollection.count>0)
     {
-        NSString *orderCellIdentifier = [NSString stringWithFormat: @"%@_%@", @"OrderListCellIdentifier", [[orderCollection objectAtIndex:indexPath.row] valueForKey:@"order_id"]];
+        NSString *orderCellIdentifier = [NSString stringWithFormat: @"%@_%@", @"OrderListCellIdentifier", [[orderCollection objectAtIndex:indexPath.row] valueForKey:@"_id"]];
         OrderListCell *cell = [tableView dequeueReusableCellWithIdentifier:orderCellIdentifier];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"InitializedOrderHistoryCell-Before" object:cell];
         if (self.isDiscontinue) {

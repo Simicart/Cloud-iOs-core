@@ -192,17 +192,21 @@ NSString *currencyPosition, *currencySymbol;
         [_cells addObject:summarySection];
         
         //Add shipping section
-        if([order valueForKey:@"shipping_method"]){
-            SimiSection *shippingSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Ship To") footerTitle:nil];
-        
+        //Axe fixed by edit paramaters and values returned
+       
+        SimiSection *shippingSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Shipping") footerTitle:nil];
+        if([order objectForKey:@"shipping_address"]){
             SimiRow *shippingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_SHIPPING_ADDRESS height:130];
+            shippingAddressRow.title = SCLocalizedString(@"Shipping address");
             [shippingSection addRow:shippingAddressRow];
-            
-            SimiRow *shippingMethodRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_SHIPPING_METHOD height:40];
-            shippingMethodRow.title = [order valueForKey:@"shipping_method"];
-            [shippingSection addRow:shippingMethodRow];
-            [_cells addObject:shippingSection];
         }
+        if([order objectForKey:@"shipping"]){
+            NSDictionary* shipping  = [order objectForKey:@"shipping"];
+            SimiRow *shippingMethodRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_SHIPPING_METHOD height:40];
+            shippingMethodRow.title = SCLocalizedString([shipping valueForKey:@"title"]);
+            [shippingSection addRow:shippingMethodRow];
+        }
+        [_cells addObject:shippingSection];
         
         //Add cart item section
         SimiSection *cartSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Items") footerTitle:nil];
@@ -215,14 +219,24 @@ NSString *currencyPosition, *currencySymbol;
         [_cells addObject:cartSection];
         
         //Add billing & payment & coupon section
-        SimiSection *billingSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Payment") footerTitle:nil];
-        SimiRow *paymentRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_PAYMENT_METHOD height:40];
-        [billingSection addRow:paymentRow];
-        SimiRow *billingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_BILLING_ADDRESS height:130];
-        [billingSection addRow:billingAddressRow];
+        //Axe fixed
+        SimiSection *paymentSection = [[SimiSection alloc] initWithHeaderTitle:SCLocalizedString(@"Payment") footerTitle:nil];
+        if([order objectForKey:@"payment"]){
+            SimiRow *paymentRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_PAYMENT_METHOD height:40];
+            paymentRow.title = SCLocalizedString(@"Payment method");
+            [paymentSection addRow:paymentRow];
+        }
+        if([order objectForKey:@"billing_address"]){
+            SimiRow *billingAddressRow = [[SimiRow alloc] initWithIdentifier:ORDER_DETAIL_BILLING_ADDRESS height:130];
+            billingAddressRow.title = SCLocalizedString(@"Billing address");
+            [paymentSection addRow:billingAddressRow];
+        }
+        if([order objectForKey:@"coupon"]){
         SimiRow *couponcode = [[SimiRow alloc]initWithIdentifier:ORDER_DETAIL_COUPONCODE height:40];
-        [billingSection addRow:couponcode];
-        [_cells addObject:billingSection];
+            [paymentSection addRow:couponcode];
+            couponcode.title = SCLocalizedString(@"Coupon");
+        }
+        [_cells addObject:paymentSection];
         
         //Add order total section
         SimiSection *orderTotalSection = [[SimiSection alloc]initWithHeaderTitle:SCLocalizedString(@"Fee Detail") footerTitle:nil];
@@ -273,7 +287,6 @@ NSString *currencyPosition, *currencySymbol;
         [lblHeader setTextColor:[UIColor lightGrayColor]];
         [lblHeader setTextAlignment:NSTextAlignmentRight];
         [view addSubview:lblHeader];
-        
         return view;
     }
     return nil;
@@ -375,10 +388,12 @@ NSString *currencyPosition, *currencySymbol;
             NSString *fourDigit = [order valueForKey:@"card_digit"];
             
             NSString* paymentMethod = [[order valueForKey:@"payment"]valueForKey:@"title"];
-            if (fourDigit && fourDigit.length > 0) {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ ***-%@", paymentMethod,fourDigit];
-            }else{
-                cell.textLabel.text = [NSString stringWithFormat:@"%@", paymentMethod];
+            if(paymentMethod){
+                if (fourDigit && fourDigit.length > 0) {
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@ ***-%@", paymentMethod,fourDigit];
+                }else{
+                    cell.textLabel.text = [NSString stringWithFormat:@"%@", paymentMethod];
+                }
             }
             //  Liam Update RTL
             if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
@@ -406,13 +421,14 @@ NSString *currencyPosition, *currencySymbol;
         cell = [tableView dequeueReusableCellWithIdentifier:ORDER_DETAIL_COUPONCODE];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ORDER_DETAIL_COUPONCODE];
-            NSString *couponCode = [order valueForKey:@"coupon_code"];
-           
-            if (couponCode == (id)[NSNull null] || couponCode.length == 0) {
-                cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", SCLocalizedString(@"Coupon code"), SCLocalizedString(@"NONE")];
-            }else{
-                cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", SCLocalizedString(@"Coupon code"), couponCode];
+            NSArray* coupons = [order objectForKey:@"coupon"];
+            NSString* couponCode = @"";
+            if(coupons && coupons.count > 0){
+                for(NSDictionary* coupon in coupons){
+                    couponCode = [NSString stringWithFormat:@"%@ %@", couponCode, [coupon valueForKey:@"code"] ];
+                }
             }
+            cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", SCLocalizedString(@"Coupon code"), couponCode];
             //  Liam Update RTL
             if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
                 [cell.textLabel setTextAlignment:NSTextAlignmentRight];

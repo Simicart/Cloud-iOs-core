@@ -182,31 +182,42 @@
 
 - (void)getBestSellerProducts:(SimiModel*) spotModel
 {
+    NSInteger limit = [[spotModel valueForKey:@"limit"] integerValue];
+    if(limit == 0)
+        limit = 20;
     SimiProductModelCollection* bestSellerProductModelCollection = [SimiProductModelCollection new];
     bestSellerProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
     bestSellerProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
     [spotArray addObject:bestSellerProductModelCollection];
-    [bestSellerProductModelCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
+    [bestSellerProductModelCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
 }
 - (void)getNewlyUpdatedProducts:(SimiModel*) spotModel
 {
+    NSInteger limit = [[spotModel valueForKey:@"limit"] integerValue];
+    if(limit == 0)
+        limit = 20;
     SimiProductModelCollection *newlyUpdatedProductModelCollection = [SimiProductModelCollection new];
     newlyUpdatedProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
     newlyUpdatedProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
     [spotArray addObject:newlyUpdatedProductModelCollection];
-    [newlyUpdatedProductModelCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
+    [newlyUpdatedProductModelCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
 }
 - (void)getRecentAddedProducts:(SimiModel*) spotModel
 {
+    NSInteger limit = [[spotModel valueForKey:@"limit"] integerValue];
+    if(limit == 0)
+        limit = 20;
     SimiProductModelCollection *recentAddedProductModelCollection = [SimiProductModelCollection new];
     recentAddedProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
     recentAddedProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
     [spotArray addObject:recentAddedProductModelCollection];
-    [recentAddedProductModelCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
+    [recentAddedProductModelCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
 }
 - (void)getFeatureProducts:(SimiModel*) spotModel
 {
-  
+    NSInteger limit = [[spotModel valueForKey:@"limit"] integerValue];
+    if(limit == 0)
+        limit = 20;
     SimiProductModelCollection *featureProductModelCollection = [SimiProductModelCollection new];
     featureProductModelCollection.simiObjectIdentifier = [spotModel valueForKey:@"_id"];
     featureProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
@@ -226,7 +237,7 @@
             }
         }
     }
-    [featureProductModelCollection getAllProductsWithOffset:0 limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
+    [featureProductModelCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
 }
 
 

@@ -183,23 +183,32 @@ static NSString * const reuseIdentifier = @"CellTable";
         case ProductListGetProductTypeFromSpot:
         {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetProducts:) name:DidGetAllProducts object:productCollection];
+            NSInteger limit = [[self.spotModel valueForKey:@"limit"] intValue];
+            if(limit == 0){
+                limit = 20;
+            }else{
+                if(offset > 0){
+                    [self.collectionView.infiniteScrollingView stopAnimating];
+                    return;
+                }
+            }
             switch ([[self.spotModel valueForKey:@"type"] integerValue]) {
 #pragma mark  Best Seller
                 case 1:
                 {
-                    [self.productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
+                    [self.productCollection getAllProductsWithOffset:offset limit:limit sortType:ProductCollectionSortNone otherParams:@{@"group-type":@"best-sellers"}];
                 }
                     break;
 #pragma mark Newly Update
                 case 2:
                 {
-                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
+                    [productCollection getAllProductsWithOffset:offset limit:limit sortType:ProductCollectionSortNone otherParams:@{@"order":@"updated_at",@"dir":@"desc"}];
                 }
                     break;
 #pragma mark Recently Added
                 case 3:
                 {
-                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
+                    [productCollection getAllProductsWithOffset:offset limit:limit sortType:ProductCollectionSortNone otherParams:@{@"order":@"created_at",@"dir":@"desc"}];
                 }
                     break;
 #pragma mark Custom
@@ -216,7 +225,7 @@ static NSString * const reuseIdentifier = @"CellTable";
                         }
                     }
                     
-                    [productCollection getAllProductsWithOffset:offset limit:20 sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
+                    [productCollection getAllProductsWithOffset:offset limit:limit sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];
                 }
                     break;
                 default:

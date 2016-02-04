@@ -286,7 +286,7 @@
         //end
     }
     else if ([simiRow.identifier isEqualToString:CATEGORY_ROW_CHILD]){
-        NSString *childCategoryIdentifier = [NSString stringWithFormat:@"%@_%@",simiRow.identifier, [simiRow.data valueForKey:@"category_id"]];
+        NSString *childCategoryIdentifier = [NSString stringWithFormat:@"%@_%@",simiRow.identifier, [simiRow.data valueForKey:@"_id"]];
         cell = [tableView dequeueReusableCellWithIdentifier:childCategoryIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:childCategoryIdentifier];

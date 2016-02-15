@@ -1130,11 +1130,11 @@ static NSString *isHighLight = @"is_highlight";
             }
         }
         if (isSelected) {
-            [custom setValue:@"YES" forKey:is_selected];
+            [[custom mutableCopy] setValue:@"YES" forKey:is_selected];
             [self.selectedOptionPrice setValue:[NSString stringWithFormat:@"%.2f", optionPrice] forKey:tempKey];
         }else{
             [self.selectedOptionPrice removeObjectForKey:tempKey];
-            [custom setValue:@"NO" forKey:is_selected];
+            [[custom mutableCopy] setValue:@"NO" forKey:is_selected];
         }
     }
 #pragma mark Bundle Option
@@ -1176,11 +1176,11 @@ static NSString *isHighLight = @"is_highlight";
             }
         }
         if (isSelected) {
-            [bundleItem setValue:@"YES" forKey:is_selected];
+            [[bundleItem mutableCopy] setValue:@"YES" forKey:is_selected];
             [self.selectedOptionPrice setValue:[NSString stringWithFormat:@"%.2f", optionPrice] forKey:tempKey];
         }else{
             [self.selectedOptionPrice removeObjectForKey:tempKey];
-            [bundleItem setValue:@"NO" forKey:is_selected];
+            [[bundleItem mutableCopy] setValue:@"NO" forKey:is_selected];
         }
     }
 #pragma mark Group Option

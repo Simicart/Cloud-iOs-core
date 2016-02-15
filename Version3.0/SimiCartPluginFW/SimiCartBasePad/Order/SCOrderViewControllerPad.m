@@ -928,7 +928,7 @@
 - (void)keyboardWasShown
 {
     UIEdgeInsets contentInsets = self.tableViewOrder.contentInset;
-    contentInsets.bottom = 400;
+    contentInsets.bottom = 360;
     self.tableLeft.contentInset = contentInsets;
     self.tableLeft.scrollIndicatorInsets = contentInsets;
     self.tableRight.contentInset = contentInsets;

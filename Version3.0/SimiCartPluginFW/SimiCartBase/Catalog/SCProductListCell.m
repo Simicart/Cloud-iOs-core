@@ -70,6 +70,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
     _productNameLabel = [UILabel new];
     [_productNameLabel setFont:[UIFont fontWithName:THEME_FONT_NAME_REGULAR size:15]];
     [_productNameLabel setText:_productName];
+    [_productNameLabel setTextColor:THEME_CONTENT_COLOR];
 }
 
 - (void)setImagePath:(NSString *)imagePath
@@ -87,6 +88,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
     _regularPrice = regularPrice;
     _regularPriceLabel = [UILabel new];
     _regularPriceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_regularPrice];
+    [_regularPriceLabel setTextColor:THEME_PRICE_COLOR];
     _regularPriceLabel.simiObjectName = PRODUCTLISTCELL_PRICE;
 }
 
@@ -95,6 +97,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
     _specialPrice = specialPrice;
     _specialPriceLabel = [UILabel new];
     _specialPriceLabel.text = [[SimiFormatter sharedInstance] priceWithPrice:_specialPrice];
+    [_specialPriceLabel setTextColor:THEME_SPECIAL_PRICE_COLOR];
     _specialPriceLabel.simiObjectName = PRODUCTLISTCELL_PRICE;
 }
 

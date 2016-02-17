@@ -1325,9 +1325,7 @@
 
 #pragma mark Text Field Delegates
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self keyboardWasShown];
-    }
+    [self keyboardWasShown];
     return YES;
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField{

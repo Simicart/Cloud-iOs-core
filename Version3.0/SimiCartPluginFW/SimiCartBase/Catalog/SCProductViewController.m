@@ -787,6 +787,31 @@
         }
         
         [self.buttonAddToCart setTitle:SCLocalizedString(@"Add To Cart") forState:UIControlStateNormal];
+        BOOL isHiddenAddToCartButton = NO;
+        switch (product.productType) {
+            case ProductTypeBundle:
+                if (self.bundleOptions.count == 0) {
+                    isHiddenAddToCartButton = YES;
+                }
+                break;
+            case ProductTypeGrouped:
+                if (self.groupOptions.count == 0) {
+                    isHiddenAddToCartButton = YES;
+                }
+                break;
+            case ProductTypeConfigurable:
+                if (self.variantOptions.count == 0) {
+                    isHiddenAddToCartButton = YES;
+                }
+                break;
+            default:
+                break;
+        }
+        if (isHiddenAddToCartButton) {
+            [self.buttonAddToCart setEnabled:NO];
+            [self.buttonAddToCart setAlpha:0.5];
+            self.imageShadowAddToCart.alpha = 0.5;
+        }
 //        if (![[product valueForKey:@"manage_stock"]boolValue]) {
 //            [self.buttonAddToCart setTitle:SCLocalizedString(@"Out Stock") forState:UIControlStateNormal];
 //            [self.buttonAddToCart setEnabled:NO];
@@ -1049,15 +1074,12 @@
     if (state) {
         [self.detailButon setEnabled:YES];
         self.detailButon.alpha = 1;
-//        if ([[product valueForKey:@"manage_stock"] boolValue]) {
-            self.buttonAddToCart.alpha = 1;
-            self.buttonSelectOption.alpha = 1;
-            self.imageShadowSelectOption.alpha = 1;
-            self.imageShadowAddToCart.alpha = 1;
-            [self.buttonAddToCart setEnabled:YES];
-            [self.buttonSelectOption setEnabled:YES];
-//        }
-        
+        self.buttonAddToCart.alpha = 1;
+        self.buttonSelectOption.alpha = 1;
+        self.imageShadowSelectOption.alpha = 1;
+        self.imageShadowAddToCart.alpha = 1;
+        [self.buttonAddToCart setEnabled:YES];
+        [self.buttonSelectOption setEnabled:YES];
     }else
     {
         [self.detailButon setEnabled:NO];

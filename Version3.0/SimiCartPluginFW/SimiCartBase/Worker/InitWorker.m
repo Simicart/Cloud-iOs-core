@@ -549,7 +549,7 @@
 
 - (void)handleNotificationFromServer{
     if ([[[notiData valueForKey:@"aps"] objectForKey:@"show_popup"] boolValue]) {
-        if (_rootController != nil) {
+        if ([_rootController isKindOfClass:[UITabBarController class]]) {
             if (!isShowPopup) {
                 [self showPopupWhenReceiveRemoteNotification];
             }

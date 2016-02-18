@@ -122,6 +122,7 @@ NSString *currencyPosition, *currencySymbol;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         frameButon = CGRectMake(0, SCREEN_HEIGHT*2/3 - 40, SCREEN_WIDTH *2/3, 40);
     }
+    /*
     UIButton *btReoder = [[UIButton alloc] initWithFrame:frameButon];
     [btReoder setTitle:SCLocalizedString(@"Reorder") forState:UIControlStateNormal];
     [btReoder setTitleColor:THEME_BUTTON_TEXT_COLOR forState:UIControlStateNormal];
@@ -132,6 +133,7 @@ NSString *currencyPosition, *currencySymbol;
     
     [btReoder addTarget:self action:@selector(reOrder:) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btReoder];
+    */
 }
 
 

@@ -342,8 +342,8 @@
     if (options.count > 1 ) {
         for (int i = 0; i < options.count - 1; i++) {
             for (int j = i+1; j < options.count; j++) {
-                NSDictionary *dict1 = [[NSDictionary alloc]initWithDictionary:[options objectAtIndex:i]];
-                NSDictionary *dict2 = [[NSDictionary alloc]initWithDictionary:[options objectAtIndex:j]];
+                NSMutableDictionary *dict1 = [[NSMutableDictionary alloc]initWithDictionary:[options objectAtIndex:i]];
+                NSMutableDictionary *dict2 = [[NSMutableDictionary alloc]initWithDictionary:[options objectAtIndex:j]];
                 if ([[dict2 valueForKey:@"position"]intValue] < [[dict1 valueForKey:@"position"]intValue]) {
                     [options replaceObjectAtIndex:i withObject:dict2];
                     [options replaceObjectAtIndex:j withObject:dict1];

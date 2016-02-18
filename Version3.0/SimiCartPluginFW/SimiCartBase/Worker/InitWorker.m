@@ -576,23 +576,25 @@
     UINavigationController *recentNaviCon = (UINavigationController *)rootController.selectedViewController;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if ([stringNotiType isEqualToString:@"2"]) {
-            if ([[[notiData valueForKey:@"aps"] valueForKey:@"has_child"]boolValue]) {
-                SCCategoryViewController* nextController = [SCCategoryViewController new];
-                nextController.categoryId = [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"];
-                nextController.categoryRealName = [[notiData valueForKey:@"aps"] valueForKey:@"categoryName"];
-                [recentNaviCon pushViewController:nextController animated:YES];
-            }else
-            {
-                SCProductListViewController *nextController = [[SCProductListViewController alloc]init];;
-                [nextController setCategoryID: [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"]];
-                nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
-                [recentNaviCon pushViewController:nextController animated:YES];
+            if ([[notiData valueForKey:@"aps"] valueForKey:@"category"] && [[[notiData valueForKey:@"aps"] valueForKey:@"category"] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *category = [[notiData valueForKey:@"aps"] valueForKey:@"category"];
+                if ([[category valueForKey:@"has_children"]boolValue]) {
+                    SCCategoryViewController* nextController = [SCCategoryViewController new];
+                    nextController.categoryId = [category valueForKey:@"category_id"];
+                    nextController.categoryRealName = [category valueForKey:@"name"];
+                    [recentNaviCon pushViewController:nextController animated:YES];
+                }else
+                {
+                    SCProductListViewController *nextController = [[SCProductListViewController alloc]init];;
+                    [nextController setCategoryID: [category valueForKey:@"category_id"]];
+                    nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
+                    [recentNaviCon pushViewController:nextController animated:YES];
+                }
             }
-            
         }else if([stringNotiType isEqualToString:@"1"])
         {
             SCProductViewController *nextController = [SCProductViewController new];
-            [nextController setProductId:[[notiData valueForKey:@"aps"] valueForKey:@"productID"]];
+            [nextController setProductId:[[notiData valueForKey:@"aps"] valueForKey:@"product_id"]];
             [recentNaviCon pushViewController:nextController animated:YES];
         }else if([stringNotiType isEqualToString:@"3"])
         {
@@ -604,14 +606,18 @@
     }else
     {
         if ([stringNotiType isEqualToString:@"2"]) {
-            SCProductListViewControllerPad *nextController = [[SCProductListViewControllerPad alloc]init];;
-            [nextController setCategoryID: [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"]];
-            nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
-            [recentNaviCon pushViewController:nextController animated:YES];
+            if ([[notiData valueForKey:@"aps"] valueForKey:@"category"] && [[[notiData valueForKey:@"aps"] valueForKey:@"category"] isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary *category = [[notiData valueForKey:@"aps"] valueForKey:@"category"];
+                SCProductListViewControllerPad *nextController = [[SCProductListViewControllerPad alloc]init];;
+                [nextController setCategoryID: [category valueForKey:@"category_id"]];
+                nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
+                [recentNaviCon pushViewController:nextController animated:YES];
+            }
         }else if([stringNotiType isEqualToString:@"1"])
         {
             SCProductViewControllerPad *nextController = [SCProductViewControllerPad new];
-            [nextController setProductId:[[notiData valueForKey:@"aps"] valueForKey:@"productID"]];
+            [nextController setProductId:[[notiData valueForKey:@"aps"] valueForKey:@"product_id"]];
             [recentNaviCon pushViewController:nextController animated:YES];
         }else if([stringNotiType isEqualToString:@"3"])
         {

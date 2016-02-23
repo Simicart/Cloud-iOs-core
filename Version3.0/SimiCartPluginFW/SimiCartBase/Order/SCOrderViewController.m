@@ -703,8 +703,11 @@
                 //  End Update Credit Card
                 [self.navigationController pushViewController:nextController animated:YES];
             }
+        }else if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeSDK){
+            NSLog(@"zzzz");
+        }else{
+                [self savePaymentMethod:payment];
         }
-        [self savePaymentMethod:payment];
         _orderTable = nil;
        [simiSection setHeaderTitle:[payment valueForKey:@"payment_method"]];
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:[self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION]] withRowAnimation:UITableViewRowAnimationNone];

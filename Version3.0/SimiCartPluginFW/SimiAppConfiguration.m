@@ -24,7 +24,7 @@
 NSString *const DEMO_MODE               = @"YES";
 
 
-NSString *const kSimiKey                = @"ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0";
+NSString *const kSimiKey                = @"5ed6a808a6142d936196cb4f69a781f7af02fb3a";
 NSString *kBaseURL                      = @"http://dev-api.jajahub.com/rest/";
 
 //NSString *const kSimiKey                = @"f4fb6d3ab442ed57b3d0b73b0aee31f3";

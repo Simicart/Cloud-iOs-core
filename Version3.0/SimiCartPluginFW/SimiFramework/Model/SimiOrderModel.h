@@ -47,6 +47,10 @@
  */
 - (void)selectPaymentMethod:(SimiModel *)paymentmethod quoteId:(NSString *)quoteId;
 - (void)reOrder:(NSString *)orderId;
+/*
+ Cancel an order : VuThanhDo
+*/
+- (void)cancelAnOrder:(NSString *)orderId;
 //end editing
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder;
 @end

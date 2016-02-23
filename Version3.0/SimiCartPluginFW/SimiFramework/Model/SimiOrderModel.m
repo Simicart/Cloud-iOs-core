@@ -17,6 +17,12 @@
     [(SimiOrderAPI *)[self getAPI] getOrderDetailWithID:orderId target:self selector:@selector(didFinishRequest:responder:)];
 }
 
+- (void)cancelAnOrder:(NSString *)orderId{
+//    currentNotificationName = DidGetOrder;
+    [self preDoRequest];
+    [(SimiOrderAPI *)[self getAPI] cancelAnOrderWithOrderId:orderId];
+}
+
 - (void)getOrderConfigWithParams:(NSDictionary *)params quoteId:(NSString *)quoteId{
     modelActionType = ModelActionTypeGet;
     currentNotificationName = DidGetOrderConfig;

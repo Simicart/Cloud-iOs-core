@@ -65,7 +65,7 @@
 {
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([[responder.status uppercaseString] isEqualToString:@"SUCCESS"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushLoginNormal" object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushLoginNormal" object:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];

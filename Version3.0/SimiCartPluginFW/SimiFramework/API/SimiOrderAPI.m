@@ -55,4 +55,10 @@
      [self requestWithMethod:PUT URL:url params:params target:target selector:selector header:nil];
 }
 
+- (void)cancelAnOrderWithOrderId:(NSString *)orderId {
+    NSString *url = [NSString stringWithFormat:@"%@%@/%@%@", kBaseURL, kSimiOrders, orderId, @"/cancel"];
+    NSLog(@"url: %@", url);
+    [self requestWithMethod:GET URL:url params:nil target:nil selector:nil header:nil];
+//    [self requestWithMethod:GET URL:url params:params target:target selector:selector header:nil];
+}
 @end

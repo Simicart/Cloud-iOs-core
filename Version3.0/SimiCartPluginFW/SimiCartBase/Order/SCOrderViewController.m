@@ -440,6 +440,9 @@
                         }
                     }
                 }
+                ((SCOrderMethodCell *)cell).isCreditCard = YES;
+                ((SCOrderMethodCell *)cell).paymentIndex = (int)indexPath.row;
+                ((SCOrderMethodCell *)cell).delegate = self;
             }else{
                 cell = [[SCOrderMethodCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PaymentShowTypeSDKCell];
                 paymentTitle = [payment valueForKey:@"title"];
@@ -1191,6 +1194,31 @@
         [self.cartPrices setValue:[order_ valueForKey:@"tax_amount"] forKey:@"tax_amount"];
     if([order_ valueForKey:@"discount_amount"] && [order_ valueForKey:@"discount_amount"] > 0)
         [self.cartPrices setValue:[order_ valueForKey:@"discount_amount"] forKey:@"discount_amount"];
+}
+
+- (void)editCreditCard:(int)paymentIndex
+{
+    SCCreditCardViewController *nextController = [[SCCreditCardViewController alloc] init];
+    nextController.delegate = self;
+    for (int i = 0; i < self.creditCards.count; i++) {
+        self.selectedPayment  = paymentIndex;
+        SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
+        SimiModel *creditCard = [self.creditCards objectAtIndex:i];
+        if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"payment_method"]]) {
+            if ([[creditCard valueForKey:hasData]boolValue]) {
+                nextController.defaultCard = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                              [creditCard valueForKey:@"card_type"],@"card_type",
+                                              [creditCard valueForKey:@"card_number"],@"card_number",
+                                              [creditCard valueForKey:@"expired_month"], @"expired_month",
+                                              [creditCard valueForKey:@"expired_year"], @"expired_year",
+                                              [creditCard valueForKey:@"cc_id"] , @"cc_id", nil];
+            }
+            nextController.creditCardList = [payment valueForKey:@"cc_types"];
+            nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
+        }
+    }
+    //  End Update Credit Card
+    [self.navigationController pushViewController:nextController animated:YES];
 }
 
 - (void)didPlaceOrder:(NSNotification *)noti{

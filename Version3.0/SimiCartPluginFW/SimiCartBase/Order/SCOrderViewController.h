@@ -44,7 +44,7 @@ static NSString *ORDER_SHIPPING_METHOD_SECTION   = @"ShippingMethod";
 static NSString *hasData = @"hasData";
 static NSString *saveCreditCardsToLocal = @"saveCreditCardsToLocal";
 
-@interface SCOrderViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SCAddressDelegate, SimiToolbarDelegate, UIAlertViewDelegate, SCCreditCardViewDelegates, UITabBarControllerDelegate,UIPopoverControllerDelegate>
+@interface SCOrderViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, SCAddressDelegate, SimiToolbarDelegate, UIAlertViewDelegate, SCCreditCardViewDelegates, UITabBarControllerDelegate,UIPopoverControllerDelegate, SCOrderMethodCellDelegate>
 {
     SimiCartModel *cartModel;
     BOOL didAddBilling;

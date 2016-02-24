@@ -695,38 +695,12 @@
                             nextController.creditCardList = [payment valueForKey:@"card_type"];
                             nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
                             [self.navigationController pushViewController:nextController animated:YES];
-                        } else {
-                            
                         }
                     }
                 }
-                /*
-                for (int i = 0; i < self.creditCards.count; i++) {
-                    SimiModel *creditCard = [self.creditCards objectAtIndex:i];
-                    if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"payment_method"]]) {
-                        if ([[creditCard valueForKey:hasData]boolValue]) {
-                            nextController.defaultCard = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                                          [creditCard valueForKey:@"card_type"],@"card_type",
-                                                          [creditCard valueForKey:@"card_number"],@"card_number",
-                                                          [creditCard valueForKey:@"expired_month"], @"expired_month",
-                                                          [creditCard valueForKey:@"expired_year"], @"expired_year",
-                                                          [creditCard valueForKey:@"cc_id"] , @"cc_id", nil];
-                        }
-                        nextController.creditCardList = [payment valueForKey:@"cc_types"];
-                        nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
-                    }
-                }
-                 */
-                //  End Update Credit Card
-//                [self.navigationController pushViewController:nextController animated:YES];
             }
-            
         }
-        if([self.isReloadPayment isEqualToString:@"1"]){
-            [self savePaymentMethod:payment];
-        }
-//        [self savePaymentMethod:payment];
-        
+        [self savePaymentMethod:payment];
         _orderTable = nil;
        [simiSection setHeaderTitle:[payment valueForKey:@"payment_method"]];
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:[self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION]] withRowAnimation:UITableViewRowAnimationNone];

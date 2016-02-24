@@ -1088,6 +1088,7 @@
                 }
                 NSMutableArray *localCrediCardsData = [[NSUserDefaults standardUserDefaults]valueForKey:saveCreditCardsToLocal];
                 if (localCrediCardsData != nil) {
+                    localCrediCardsData = [localCrediCardsData valueForKey:[shippingAddress valueForKey:@"email"]];
                     for (int i = 0; i < localCrediCardsData.count; i++) {
                         SimiModel *localModel = [localCrediCardsData objectAtIndex:i];
                         for (int j = 0; j < self.creditCards.count; j++) {

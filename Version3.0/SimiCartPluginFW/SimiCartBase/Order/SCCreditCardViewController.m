@@ -372,16 +372,16 @@ static NSString *kOtherCell = @"OtherCell";
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     if(pickerView.tag == CARD_TYPE && isSelectingCreditCardType)
     {
-        NSString *creditCardCode = [[creditCardList objectAtIndex:row] valueForKey:@"cc_code"];
+        NSString *creditCardCode = [[creditCardList objectAtIndex:row] valueForKey:@"code"];
         UIView *creditCardView = [[UIView alloc] init];
         UIImageView *imageView = [[UIImageView alloc] init];
-        if ([creditCardCode isEqualToString:@"AE"]) {
+        if ([creditCardCode isEqualToString:@"american_express"]) {
             imageView.image = [UIImage imageNamed:@"card_amex.png"];
-        }else if ([creditCardCode isEqualToString:@"VI"]){
+        }else if ([creditCardCode isEqualToString:@"visa"]){
             imageView.image = [UIImage imageNamed:@"card_visa.png"];
-        }else if ([creditCardCode isEqualToString:@"MC"]){
+        }else if ([creditCardCode isEqualToString:@"masterCard"]){
             imageView.image = [UIImage imageNamed:@"card_mastercard.png"];
-        }else if ([creditCardCode isEqualToString:@"DI"]){
+        }else if ([creditCardCode isEqualToString:@"discover"]){
             imageView.image = [UIImage imageNamed:@"card_discover.png"];
         }
         
@@ -430,8 +430,8 @@ static NSString *kOtherCell = @"OtherCell";
     if(pickerView.tag == CARD_TYPE)
     {
         selectedCardTypeRow = row;
-        cardTypeTF.text = [[creditCardList objectAtIndex:row] valueForKey:@"cc_name"];
-        cardType = [[creditCardList objectAtIndex:row] valueForKey:@"cc_code"];
+        cardTypeTF.text = [[creditCardList objectAtIndex:row] valueForKey:@"title"];
+        cardType = [[creditCardList objectAtIndex:row] valueForKey:@"code"];
         [self checkIsCompletedText];
     }
     else if(pickerView.tag == EXPIRED_DATE)

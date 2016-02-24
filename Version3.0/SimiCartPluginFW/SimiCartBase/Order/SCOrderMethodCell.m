@@ -73,5 +73,22 @@
     //End
     [self addSubview:self.optionImageView];
     self.accessoryType = UITableViewCellAccessoryNone;
+    if (self.isCreditCard) {
+        _btnEditCard = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 100, 0, 100, 40)];
+        [_btnEditCard setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_btnEditCard setImage:[UIImage imageNamed:@"ic_address_edit"] forState:UIControlStateNormal];
+        [_btnEditCard setImageEdgeInsets:UIEdgeInsetsMake(10, 60, 10, 20)];
+        if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
+            [_btnEditCard setFrame:CGRectMake(0, 0, 100, 40)];
+            [_btnEditCard setImageEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 60)];
+        }
+        [_btnEditCard addTarget:self action:@selector(editCreditCard:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_btnEditCard];
+    }
+}
+
+- (void)editCreditCard:(id)sender
+{
+    [self.delegate editCreditCard:self.paymentIndex];
 }
 @end

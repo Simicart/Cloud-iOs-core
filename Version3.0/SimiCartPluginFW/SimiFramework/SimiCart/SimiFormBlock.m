@@ -294,8 +294,8 @@ NSString *const SimiFormFieldDataChangedNotification    = @"SimiFormFieldDataCha
     if (self.actionBtn == nil && self.actionTitle) {
         self.actionBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 22, tableView.frame.size.width - 30, self.height)];
         [self.actionBtn setTitle:self.actionTitle forState:UIControlStateNormal];
-        [self.actionBtn setBackgroundImage:[[SimiGlobalVar sharedInstance] imageFromColor:THEME_COLOR] forState:UIControlStateNormal];
-        [self.actionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.actionBtn setBackgroundImage:[[SimiGlobalVar sharedInstance] imageFromColor:THEME_BUTTON_BACKGROUND_COLOR] forState:UIControlStateNormal];
+        [self.actionBtn setTitleColor:THEME_BUTTON_TEXT_COLOR forState:UIControlStateNormal];
         [self.actionBtn.layer setCornerRadius:3.0f];
         [self.actionBtn.layer setMasksToBounds:YES];
         [self.actionBtn setAdjustsImageWhenHighlighted:YES];

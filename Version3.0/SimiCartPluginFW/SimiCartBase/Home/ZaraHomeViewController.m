@@ -163,7 +163,7 @@
     }else
     {
         _cellTables = [[SimiTable alloc]init];
-        if (homeCategoryModelCollection.count > 0 && spotCollection.count > 0) {
+        if (homeCategoryModelCollection.count > 0) {
             for (int i = 0; i < homeCategoryModelCollection.count; i++) {
                 SimiModel *homeModel = [homeCategoryModelCollection objectAtIndex:i];
                 [homeModel setValue:@"cat" forKey:@"type"];
@@ -202,6 +202,8 @@
                 }
                 [_cellTables addObject:section];
             }
+        }
+        if (spotCollection.count > 0) {            
             for (int i = 0; i < spotCollection.count; i++) {
                 SimiModel *homeModel = [spotCollection objectAtIndex:i];
                 [homeModel setValue:@"spot" forKey:@"type"];

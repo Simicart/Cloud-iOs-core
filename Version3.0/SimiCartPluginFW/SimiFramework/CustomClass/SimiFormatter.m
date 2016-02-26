@@ -28,6 +28,7 @@
     NSNumberFormatter * formatter =  [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [formatter setMaximumFractionDigits:numberOfDecimals];
+    [formatter setMinimumFractionDigits:numberOfDecimals];
     [formatter setGroupingSeparator:thousandSeparator];
     [formatter setGroupingSize:3];
     [formatter setUsesGroupingSeparator:YES];

@@ -18,7 +18,7 @@
 }
 
 - (void)cancelAnOrder:(NSString *)orderId{
-//    currentNotificationName = DidGetOrder;
+    currentNotificationName = DidCancelOrder;
     [self preDoRequest];
     [(SimiOrderAPI *)[self getAPI] cancelAnOrderWithOrderId:orderId];
 }
@@ -113,7 +113,7 @@
         }else if (responseObject == nil){
             [[NSNotificationCenter defaultCenter] postNotificationName:currentNotificationName object:self userInfo:@{@"responder":responder}];
         }
-    }else if ([currentNotificationName isEqualToString:DidGetOrder] || [currentNotificationName isEqualToString:DidPlaceOrder]) {
+    }else if ([currentNotificationName isEqualToString:DidGetOrder] || [currentNotificationName isEqualToString:DidPlaceOrder] || [currentNotificationName isEqualToString:DidCancelOrder]) {
         if (responder.simiObjectName) {
             currentNotificationName = responder.simiObjectName;
         }

@@ -86,6 +86,7 @@ static NSString *DidGetPaymentMethod = @"DidGetPaymentMethod";
 static NSString *DidSavePaymentMethod = @"DidSavePaymentMethod";
 static NSString *DidSaveShippingMethod = @"DidSaveShippingMethod";
 static NSString *DidGetOrder = @"DidGetOrder";
+static NSString *DidCancelOrder = @"DidCancelOrder";
 static NSString *DidGetOrderConfig = @"DidGetOrderConfig";
 static NSString *DidSetCouponCode = @"DidSetCouponCode";
 static NSString *DidPlaceOrder = @"DidPlaceOrder";

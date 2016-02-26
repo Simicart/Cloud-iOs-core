@@ -55,8 +55,8 @@
      [self requestWithMethod:PUT URL:url params:params target:target selector:selector header:nil];
 }
 
-- (void)cancelAnOrderWithOrderId:(NSString *)orderId {
+- (void)cancelAnOrderWithOrderId:(NSString *)orderId target:(id) target selector: (SEL) selector{
     NSString *url = [NSString stringWithFormat:@"%@%@/%@%@", kBaseURL, kSimiOrders, orderId, @"/cancel"];
-    [self requestWithMethod:GET URL:url params:nil target:nil selector:nil header:nil];
+    [self requestWithMethod:GET URL:url params:nil target:target selector:selector header:nil];
 }
 @end

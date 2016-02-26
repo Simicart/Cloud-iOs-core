@@ -20,7 +20,7 @@
 - (void)cancelAnOrder:(NSString *)orderId{
     currentNotificationName = DidCancelOrder;
     [self preDoRequest];
-    [(SimiOrderAPI *)[self getAPI] cancelAnOrderWithOrderId:orderId];
+    [(SimiOrderAPI *)[self getAPI] cancelAnOrderWithOrderId:orderId target:self selector:@selector(didFinishRequest:responder:)];
 }
 
 - (void)getOrderConfigWithParams:(NSDictionary *)params quoteId:(NSString *)quoteId{

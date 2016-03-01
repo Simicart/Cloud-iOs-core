@@ -43,7 +43,6 @@ NSString *currencyPosition, *currencySymbol;
     [self.tableViewOrder setContentInset:UIEdgeInsetsMake(0, 0, 50, 0)];
     [self.tableViewOrder setHidden:YES];
     [self.view addSubview:self.tableViewOrder];
-    [self viewReoder];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [super viewDidLoadBefore];
     }
@@ -117,7 +116,6 @@ NSString *currencyPosition, *currencySymbol;
 }
 //Gin 030815
 -(void)viewReoder{
-    
     CGRect frameButon = CGRectMake(0, SCREEN_HEIGHT - 64 - 40, SCREEN_WIDTH, 40);
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         frameButon = CGRectMake(0, SCREEN_HEIGHT*2/3 - 40, SCREEN_WIDTH *2/3, 40);

@@ -91,7 +91,7 @@ static NSString *saveCreditCardsToLocal = @"saveCreditCardsToLocal";
 @property (nonatomic) BOOL accept;
 //Gin edit
 @property (nonatomic) BOOL checkoutGuest;
-@property (strong, nonatomic) UIPopoverController * popThankController;
+@property (strong, nonatomic) UIPopoverController *popThankController;
 //end
 @property (nonatomic) NSInteger selectedShippingMedthod;
 @property (nonatomic) NSInteger selectedPayment;

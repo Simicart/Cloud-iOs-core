@@ -63,6 +63,9 @@ static NSString *kOtherCell = @"OtherCell";
     self.navigationItem.rightBarButtonItem = rightBarButton;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     selectedCardTypeRow = -1;
+    if (SIMI_SYSTEM_IOS >= 9) {
+        cardInfoTableView.cellLayoutMarginsFollowReadableWidth = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning

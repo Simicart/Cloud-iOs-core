@@ -7,7 +7,10 @@
 //
 
 #import <SimiCartBundle/SimiCartBundle.h>
+#import "SimiOrderModel.h"
 
-@interface SCPaymentViewController : SimiViewController
+@interface SCPaymentViewController : SimiViewController<UIAlertViewDelegate>
+
+@property (strong, nonatomic) SimiOrderModel* order;
 
 @end

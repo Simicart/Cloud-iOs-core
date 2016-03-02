@@ -7,7 +7,73 @@
 //
 
 #import "SCPaymentViewController.h"
+#import "SCThankYouPageViewController.h"
+#import "SCAppDelegate.h"
 
 @implementation SCPaymentViewController
+
+-(void) configureNavigationBarOnViewWillAppear{
+    self.navigationItem.hidesBackButton = YES;
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPayment:)];
+    backButton.title = SCLocalizedString(@"Cancel");
+    NSMutableArray* leftBarButtons = [NSMutableArray arrayWithArray:self.navigationController.navigationItem.leftBarButtonItems];
+    [leftBarButtons addObjectsFromArray:@[backButton]];
+    self.navigationItem.leftBarButtonItems = leftBarButtons;
+}
+
+-(void) cancelPayment:(id) sender{
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Confirmation") message:SCLocalizedString(@"Are you sure that you want to cancel the order?") delegate:self cancelButtonTitle:SCLocalizedString(@"Cancel") otherButtonTitles:SCLocalizedString(@"OK"), nil];
+    [alertView show];
+    alertView.tag = 0;
+}
+
+-(void) didReceiveNotification:(NSNotification *)noti{
+    SimiResponder* responder = [noti.userInfo valueForKey:@"responder"];
+    if([responder.status isEqualToString:@"SUCCESS"]){
+        if([noti.name isEqualToString:DidCancelOrder]){
+            SCThankYouPageViewController* thankyouPage = [SCThankYouPageViewController new];
+            thankyouPage.order = self.order;
+            [thankyouPage.navigationItem setHidesBackButton:YES];
+            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+                [self.navigationController pushViewController:thankyouPage animated:YES];
+            else{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];
+                UIViewController *viewController = [[(UINavigationController *)currentVC viewControllers] lastObject];
+                UINavigationController* nvThankyou = [[UINavigationController alloc] initWithRootViewController:thankyouPage];
+                UIPopoverController* tkPopover = [[UIPopoverController alloc] initWithContentViewController:nvThankyou];
+                thankyouPage.popOver = tkPopover;
+                [tkPopover  presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:viewController.view permittedArrowDirections:0 animated:YES];
+            }
+        }
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Error") message: SCLocalizedString(responder.message) delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    [super didReceiveNotification:noti];
+
+}
+
+//UIAlertViewDelegate
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == 0){
+        if(buttonIndex == 0){
+            
+        }else if(buttonIndex == 1){
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidCancelOrder object:nil];
+            [self startLoadingData];
+            if(self.order)
+                [self.order cancelAnOrder:[self.order valueForKey:@"_id"]];
+            else{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Thank you") message:SCLocalizedString(@"Your order is cancelled.") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+        }
+    }
+}
+
+
 
 @end

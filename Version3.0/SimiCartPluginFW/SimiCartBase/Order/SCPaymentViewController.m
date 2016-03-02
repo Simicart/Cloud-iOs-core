@@ -27,11 +27,13 @@
     alertView.tag = 0;
 }
 
+
+
 -(void) moveToThankyouPageWithNotification:(NSNotification *)noti{
     SimiResponder* responder = [noti.userInfo valueForKey:@"responder"];
     if([responder.status isEqualToString:@"SUCCESS"]){
         SCThankYouPageViewController* thankyouPage = [SCThankYouPageViewController new];
-        thankyouPage.order = self.order;
+        thankyouPage.order = noti.object;
         [thankyouPage.navigationItem setHidesBackButton:YES];
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             [self.navigationController pushViewController:thankyouPage animated:YES];

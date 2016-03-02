@@ -15,7 +15,7 @@
 - (void)didEnterCreditCardWithCardType:(NSString *)cardType cardNumber:(NSString *)number expiredMonth:(NSString *)expiredMonth expiredYear:(NSString *)expiredYear cvv:(NSString *)CVV;
 @end
 
-@interface SCCreditCardViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface SCCreditCardViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 
 @property (strong, nonatomic) SimiTable *cardCells;
 
@@ -27,6 +27,7 @@
 @property (strong, nonatomic) UITextField *cardTypeTF;
 @property (strong, nonatomic) NSString *cardType;
 @property (nonatomic) BOOL isCompletedText;
+@property (strong, nonatomic) UIPopoverController * popThankController;
 @property (strong, nonatomic) id<SCCreditCardViewDelegates> delegate;
 @property (strong, nonatomic) UIImageView *creditCardImageView;
 @property (strong, nonatomic) NSMutableArray *creditCardList;

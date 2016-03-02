@@ -74,7 +74,11 @@
     [self addSubview:self.optionImageView];
     self.accessoryType = UITableViewCellAccessoryNone;
     if (self.isCreditCard) {
-        _btnEditCard = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 100, 0, 100, 40)];
+        CGFloat xOrigin = SCREEN_WIDTH;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            xOrigin = SCREEN_WIDTH / 2;
+        }
+        _btnEditCard = [[UIButton alloc]initWithFrame:CGRectMake(xOrigin - 100, 0, 100, 40)];
         [_btnEditCard setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_btnEditCard setImage:[UIImage imageNamed:@"ic_address_edit"] forState:UIControlStateNormal];
         [_btnEditCard setImageEdgeInsets:UIEdgeInsetsMake(10, 60, 10, 20)];

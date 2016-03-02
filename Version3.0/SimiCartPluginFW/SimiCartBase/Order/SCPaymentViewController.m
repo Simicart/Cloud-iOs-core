@@ -27,7 +27,7 @@
     alertView.tag = 0;
 }
 
--(void) didReceiveNotification:(NSNotification *)noti{
+-(void) moveToThankyouPageWithNotification:(NSNotification *)noti{
     SimiResponder* responder = [noti.userInfo valueForKey:@"responder"];
     if([responder.status isEqualToString:@"SUCCESS"]){
         if([noti.name isEqualToString:DidCancelOrder]){
@@ -61,7 +61,7 @@
         if(buttonIndex == 0){
             
         }else if(buttonIndex == 1){
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:DidCancelOrder object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToThankyouPageWithNotification:) name:DidCancelOrder object:nil];
             [self startLoadingData];
             if(self.order)
                 [self.order cancelAnOrder:[self.order valueForKey:@"_id"]];

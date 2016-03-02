@@ -13,4 +13,7 @@
 
 @property (strong, nonatomic) SimiOrderModel* order;
 
+
+-(void) moveToThankyouPageWithNotification:(NSNotification *)noti;
+
 @end

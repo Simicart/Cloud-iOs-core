@@ -269,6 +269,31 @@
         }
         
         [self.buttonAddToCart setTitle:SCLocalizedString(@"Add To Cart") forState:UIControlStateNormal];
+        BOOL isHiddenAddToCartButton = NO;
+        switch (self.product.productType) {
+            case ProductTypeBundle:
+                if (self.bundleOptions.count == 0) {
+                    isHiddenAddToCartButton = YES;
+                }
+                break;
+            case ProductTypeGrouped:
+                if (self.groupOptions.count == 0) {
+                    isHiddenAddToCartButton = YES;
+                }
+                break;
+            case ProductTypeConfigurable:
+                if (self.variantOptions.count == 0) {
+                    isHiddenAddToCartButton = YES;
+                }
+                break;
+            default:
+                break;
+        }
+        if (isHiddenAddToCartButton) {
+            [self.buttonAddToCart setEnabled:NO];
+            [self.buttonAddToCart setAlpha:0.5];
+            self.imageShadowAddToCart.alpha = 0.5;
+        }
 //        if (![[self.product valueForKey:@"manage_stock"] boolValue]) {
 //            [self.buttonAddToCart setTitle:SCLocalizedString(@"Out Stock") forState:UIControlStateNormal];
 //            [self.buttonAddToCart setEnabled:NO];

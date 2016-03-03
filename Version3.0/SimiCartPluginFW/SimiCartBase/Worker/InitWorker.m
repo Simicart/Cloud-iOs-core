@@ -549,7 +549,7 @@
 
 - (void)handleNotificationFromServer{
     if ([[[notiData valueForKey:@"aps"] objectForKey:@"show_popup"] boolValue]) {
-        if (_rootController != nil) {
+        if ([_rootController isKindOfClass:[UITabBarController class]]) {
             if (!isShowPopup) {
                 [self showPopupWhenReceiveRemoteNotification];
             }
@@ -571,32 +571,34 @@
 
 - (void)processAfterRecieveNotiFromServer
 {
-    NSString *stringNotiType = [[notiData valueForKey:@"aps"] valueForKey:@"type"];
+    NSString *stringNotiType = [NSString stringWithFormat:@"%@",[[notiData valueForKey:@"aps"] valueForKey:@"type"]];
     UITabBarController *rootController = (UITabBarController *)_rootController;
     UINavigationController *recentNaviCon = (UINavigationController *)rootController.selectedViewController;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         if ([stringNotiType isEqualToString:@"2"]) {
-            if ([[[notiData valueForKey:@"aps"] valueForKey:@"has_child"]boolValue]) {
-                SCCategoryViewController* nextController = [SCCategoryViewController new];
-                nextController.categoryId = [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"];
-                nextController.categoryRealName = [[notiData valueForKey:@"aps"] valueForKey:@"categoryName"];
-                [recentNaviCon pushViewController:nextController animated:YES];
-            }else
-            {
-                SCProductListViewController *nextController = [[SCProductListViewController alloc]init];;
-                [nextController setCategoryID: [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"]];
-                nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
-                [recentNaviCon pushViewController:nextController animated:YES];
+            if ([[notiData valueForKey:@"aps"] valueForKey:@"categoryID"] && [[[notiData valueForKey:@"aps"] valueForKey:@"categoryID"] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *category = [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"];
+                if ([[category valueForKey:@"has_children"]boolValue]) {
+                    SCCategoryViewController* nextController = [SCCategoryViewController new];
+                    nextController.categoryId = [NSString stringWithFormat:@"%@",[category valueForKey:@"category_id"]];
+                    nextController.categoryRealName = [NSString stringWithFormat:@"%@",[category valueForKey:@"name"]];
+                    [recentNaviCon pushViewController:nextController animated:YES];
+                }else
+                {
+                    SCProductListViewController *nextController = [[SCProductListViewController alloc]init];;
+                    [nextController setCategoryID: [NSString stringWithFormat:@"%@",[category valueForKey:@"category_id"]]];
+                    nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
+                    [recentNaviCon pushViewController:nextController animated:YES];
+                }
             }
-            
         }else if([stringNotiType isEqualToString:@"1"])
         {
             SCProductViewController *nextController = [SCProductViewController new];
-            [nextController setProductId:[[notiData valueForKey:@"aps"] valueForKey:@"productID"]];
+            [nextController setProductId:[NSString stringWithFormat:@"%@",[[notiData valueForKey:@"aps"] valueForKey:@"productID"]]];
             [recentNaviCon pushViewController:nextController animated:YES];
         }else if([stringNotiType isEqualToString:@"3"])
         {
-            url = [[notiData valueForKey:@"aps"] valueForKey:@"url"];
+            url = [NSString stringWithFormat:@"%@",[[notiData valueForKey:@"aps"] valueForKey:@"url"]];
             SCWebViewController *nextController = [[SCWebViewController alloc] init];
             [nextController setUrlPath:url];
             [recentNaviCon pushViewController:nextController animated:YES];
@@ -604,18 +606,22 @@
     }else
     {
         if ([stringNotiType isEqualToString:@"2"]) {
-            SCProductListViewControllerPad *nextController = [[SCProductListViewControllerPad alloc]init];;
-            [nextController setCategoryID: [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"]];
-            nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
-            [recentNaviCon pushViewController:nextController animated:YES];
+            if ([[notiData valueForKey:@"aps"] valueForKey:@"categoryID"] && [[[notiData valueForKey:@"aps"] valueForKey:@"categoryID"] isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary *category = [[notiData valueForKey:@"aps"] valueForKey:@"categoryID"];
+                SCProductListViewControllerPad *nextController = [[SCProductListViewControllerPad alloc]init];;
+                [nextController setCategoryID: [category valueForKey:@"category_id"]];
+                nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
+                [recentNaviCon pushViewController:nextController animated:YES];
+            }
         }else if([stringNotiType isEqualToString:@"1"])
         {
             SCProductViewControllerPad *nextController = [SCProductViewControllerPad new];
-            [nextController setProductId:[[notiData valueForKey:@"aps"] valueForKey:@"productID"]];
+            [nextController setProductId:[NSString stringWithFormat:@"%@",[[notiData valueForKey:@"aps"] valueForKey:@"productID"]]];
             [recentNaviCon pushViewController:nextController animated:YES];
         }else if([stringNotiType isEqualToString:@"3"])
         {
-            url = [[notiData valueForKey:@"aps"] valueForKey:@"url"];
+            url = [NSString stringWithFormat:@"%@",[[notiData valueForKey:@"aps"] valueForKey:@"url"]];
             SCWebViewController *nextController = [[SCWebViewController alloc] init];
             [nextController setUrlPath:url];
             [recentNaviCon pushViewController:nextController animated:YES];

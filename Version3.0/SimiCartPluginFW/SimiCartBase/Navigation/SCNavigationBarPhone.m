@@ -249,14 +249,13 @@ static NSString *TRANSLUCENTVIEW = @"LEFTMENU_TRANSLUCENTVIEW";
     [(UINavigationController *)currentVC popToRootViewControllerAnimated:YES];
     NSString *message = [NSString stringWithFormat:SCLocalizedString(@"Welcome %@! Start shopping now"),[[SimiGlobalVar sharedInstance].customer valueForKey:@"name"]];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    //Gin edit
     alert.tag = 100;
     alert.delegate = self;
-    //end
     [alert show];
 }
- //Gin edit
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    /*
     if(alertView.tag == 100)
         switch (buttonIndex) {
             case 0:
@@ -277,8 +276,9 @@ static NSString *TRANSLUCENTVIEW = @"LEFTMENU_TRANSLUCENTVIEW";
             }
                 break;
     }
+     */
 }
-//end
+
 - (void)didPushLogout:(NSNotification*)noti
 {
     UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];

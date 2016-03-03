@@ -543,6 +543,9 @@
                         }
                     }
                 }
+                ((SCOrderMethodCell *)cell).isCreditCard = YES;
+                ((SCOrderMethodCell *)cell).paymentIndex = (int)indexPath.row;
+                ((SCOrderMethodCell *)cell).delegate = self;
             }else{
                 cell = [[SCOrderMethodCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PaymentShowTypeSDKCell];
                 paymentTitle = [payment valueForKey:@"title"];

@@ -1242,49 +1242,42 @@
             }
             //Success
             if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] == PaymentShowTypeRedirect) {
-//                [self.navigationController popToRootViewControllerAnimated:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:DidPlaceOrderBefore object:self.order userInfo:@{@"data": self.order, @"payment": [self.order valueForKey:@"payment"], @"controller": self, @"responder":responder, @"cart":self.cart, @"shipping":shippingModel}];
             }else if ([[[self.paymentCollection objectAtIndex:self.selectedPayment] valueForKey:@"type"] integerValue] != PaymentShowTypeSDK){
-                if ([self.order valueForKey:@"notification"]) {
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"DidCheckOut-Success" object:self.order];
-                }else
-                {
-                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-                        if (!self.isNewCustomer) {
-                            SCThankYouPageViewController *thankVC = [[SCThankYouPageViewController alloc] init];
-                            thankVC.number = invoiceNumber;
-                            thankVC.order = self.order;
-                            if(self.checkoutGuest){
-                                thankVC.isGuest = YES;
-                            }else
-                                thankVC.isGuest = NO;
-                            [self.navigationController pushViewController:thankVC animated:YES];
-                        };
-                    }else{
-                        if (!self.isNewCustomer) {
-                            if (SIMI_SYSTEM_IOS >= 8) {
-                                [self.navigationController popToRootViewControllerAnimated:YES];
-                            }else
-                            {
-                                [self.navigationController popToRootViewControllerAnimated:NO];
-                            }
-                            UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];
-                            SCThankYouPageViewController *thankVC = [[SCThankYouPageViewController alloc] init];
-                            thankVC.number = invoiceNumber;
-                            thankVC.order = self.order;
-                            if(self.checkoutGuest){
-                                thankVC.isGuest = YES;
-                            }else
-                                thankVC.isGuest = NO;
-                            UINavigationController *navi;
-                            navi = [[UINavigationController alloc]initWithRootViewController:thankVC];
-                            _popThankController = [[UIPopoverController alloc] initWithContentViewController:navi];
-                            thankVC.popOver = _popThankController;
-                            dispatch_sync(dispatch_get_main_queue(), ^{
-                                [_popThankController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:currentVC.view permittedArrowDirections:0 animated:YES];
-                            });
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+                    if (!self.isNewCustomer) {
+                        SCThankYouPageViewController *thankVC = [[SCThankYouPageViewController alloc] init];
+                        thankVC.number = invoiceNumber;
+                        thankVC.order = self.order;
+                        if(self.checkoutGuest){
+                            thankVC.isGuest = YES;
+                        }else
+                            thankVC.isGuest = NO;
+                        [self.navigationController pushViewController:thankVC animated:YES];
+                    };
+                }else{
+                    if (!self.isNewCustomer) {
+                        if (SIMI_SYSTEM_IOS >= 8) {
+                            [self.navigationController popToRootViewControllerAnimated:YES];
+                        }else
+                        {
+                            [self.navigationController popToRootViewControllerAnimated:NO];
                         }
+                        UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];
+                        SCThankYouPageViewController *thankVC = [[SCThankYouPageViewController alloc] init];
+                        thankVC.number = invoiceNumber;
+                        thankVC.order = self.order;
+                        if(self.checkoutGuest){
+                            thankVC.isGuest = YES;
+                        }else
+                            thankVC.isGuest = NO;
+                        UINavigationController *navi;
+                        navi = [[UINavigationController alloc]initWithRootViewController:thankVC];
+                        _popThankController = [[UIPopoverController alloc] initWithContentViewController:navi];
+                        thankVC.popOver = _popThankController;
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [_popThankController presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:currentVC.view permittedArrowDirections:0 animated:YES];
+                        });
                     }
                 }
             }

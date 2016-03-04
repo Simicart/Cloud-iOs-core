@@ -29,7 +29,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"InitializedRootController" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:@"ApplicationWillSwitchLanguage" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlaceOrderWithNewCustomer:) name:DidPlaceOrderAfter object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotificationFromServer:) name:@"DidRecieveNotificationFromServer" object:nil];
     }
     return self;
 }
@@ -140,66 +139,8 @@
         if (SIMI_SYSTEM_IOS >= 7) {
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             [[UINavigationBar appearance] setBarTintColor:THEME_COLOR];
-            [[UIActivityIndicatorView appearance] setColor:THEME_COLOR];
+            [[UIActivityIndicatorView appearance] setColor:THEME_BUTTON_BACKGROUND_COLOR];
             [[UINavigationBar appearance] setTintColor:THEME_NAVIGATION_ICON_COLOR];
-        }
-    }
-}
-
-- (void)didReceiveNotificationFromServer:(NSNotification*)noti
-{
-    UINavigationController *recentNaviCon = (UINavigationController *)self.rootController.selectedViewController;
-    NSString *stringNotiType = [[noti.object valueForKey:@"aps"] valueForKey:@"type"];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if ([stringNotiType isEqualToString:@"2"]) {
-            if ([[[noti.object valueForKey:@"aps"] valueForKey:@"has_child"]boolValue]) {
-                SCCategoryViewController* nextController = [SCCategoryViewController new];
-                nextController.categoryId = [[noti.object valueForKey:@"aps"] valueForKey:@"categoryID"];
-                nextController.navigationItem.title = [[noti.object valueForKey:@"aps"] valueForKey:@"categoryName"];
-                [recentNaviCon pushViewController:nextController animated:YES];
-            }else
-            {
-                SCProductListViewController *nextController = [[SCProductListViewController alloc]init];
-                nextController.categoryID = [[noti.object valueForKey:@"aps"] valueForKey:@"categoryID"];
-                nextController.productListGetProductType = ProductListGetProductTypeFromCategory;
-                nextController.navigationItem.title = [[[noti.object valueForKey:@"aps"] valueForKey:@"categoryName"] uppercaseString];
-                [recentNaviCon pushViewController:nextController animated:YES];
-            }
-        }else if([stringNotiType isEqualToString:@"1"])
-        {
-            SCProductViewController *nextController = [SCProductViewController new];
-            nextController.firstProductID = [[noti.object valueForKey:@"aps"] valueForKey:@"productID"];
-            nextController.arrayProductsID = [[NSMutableArray alloc]initWithArray:@[nextController.firstProductID]];
-            [recentNaviCon pushViewController:nextController animated:YES];
-        }else if([stringNotiType isEqualToString:@"3"])
-        {
-            SCWebViewController *nextController = [[SCWebViewController alloc] init];
-            [nextController setUrlPath:[[noti.object valueForKey:@"aps"] valueForKey:@"url"]];
-            nextController.title = [[noti.object valueForKey:@"aps"] valueForKey:@"title"];
-            [recentNaviCon pushViewController:nextController animated:YES];
-        }
-    }else
-    {
-        if ([stringNotiType isEqualToString:@"1"])
-        {
-            SCProductViewControllerPad *nextController = [SCProductViewControllerPad new];
-            nextController.firstProductID = [[noti.object valueForKey:@"aps"] valueForKey:@"productID"];
-            nextController.arrayProductsID = [[NSMutableArray alloc]initWithArray:@[nextController.firstProductID]];
-            [recentNaviCon pushViewController:nextController animated:YES];
-        }else if([stringNotiType isEqualToString:@"2"])
-        {
-            SCProductListViewControllerPad *gridViewController = [[SCProductListViewControllerPad alloc]init];
-            gridViewController.productListGetProductType = ProductListGetProductTypeFromCategory;
-            gridViewController.categoryID = [[noti.object valueForKey:@"aps"] valueForKey:@"categoryID"];
-            gridViewController.categoryName = [[[noti.object valueForKey:@"aps"] valueForKey:@"categoryName"] uppercaseString];
-            gridViewController.navigationItem.title = gridViewController.categoryName;
-            [recentNaviCon pushViewController:gridViewController animated:YES];
-        }else if([stringNotiType isEqualToString:@"3"])
-        {
-            SCWebViewController *nextController = [[SCWebViewController alloc] init];
-            [nextController setUrlPath:[[noti.object valueForKey:@"aps"] valueForKey:@"url"]];
-            nextController.title = [[noti.object valueForKey:@"aps"] valueForKey:@"title"];
-            [recentNaviCon pushViewController:nextController animated:YES];
         }
     }
 }

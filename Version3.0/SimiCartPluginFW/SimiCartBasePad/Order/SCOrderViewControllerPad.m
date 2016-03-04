@@ -532,12 +532,9 @@
                 if (indexPath.row == self.selectedPayment) {
                     for (int i = 0; i < self.creditCards.count; i++) {
                         SimiModel *creditCard = [self.creditCards objectAtIndex:i];
-                        if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"payment_method"]]) {
+                        if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
                             if ([[creditCard valueForKey:hasData]boolValue]) {
                                 paymentContent = [NSString stringWithFormat:@"****%@", [[creditCard valueForKey:@"card_number"] substringWithRange:NSMakeRange([[creditCard valueForKey:@"card_number"] length] - 4, 4)]];
-                                
-                                lblContentPayment.text = [NSString stringWithFormat:@"****%@", [[creditCard valueForKey:@"card_number"] substringWithRange:NSMakeRange([[creditCard valueForKey:@"card_number"] length] - 4, 4)]];
-                                [cell addSubview:lblContentPayment];
                             }
                             break;
                         }
@@ -749,6 +746,116 @@
     return cell;
 }
 
+- (void)didGetOrderConfig:(NSNotification *)noti{
+    [self.tableViewOrder setHidden:NO];
+    [btnPlaceNow setHidden:NO];
+    [self stopLoadingData];
+    SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
+    if ([responder.status isEqualToString:@"SUCCESS"]) {
+        self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"YES",ORDER_SHIPMENT_SECTION, nil];
+        if (self.shippingCollection.count == 0) {
+            self.selectedShippingMedthod = 0;
+            self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"NO",ORDER_SHIPMENT_SECTION, nil];
+        }
+        
+        if (self.paymentCollection.count > 0) {
+            if (self.creditCards == nil) {
+                self.creditCards = [NSMutableArray new];
+                for (int i = 0; i < self.paymentCollection.count; i++) {
+                    SimiModel *payment = [self.paymentCollection objectAtIndex:i];
+                    SimiModel *paymentModel = [SimiModel new];
+                    [paymentModel setValue:@"NO" forKey:@"hasData"];
+                    [paymentModel setValue:[payment valueForKey:@"method_code"] forKey:@"payment_method"];
+                    if ([[payment valueForKey:@"type"]intValue] == PaymentShowTypeCreditCard) {
+                        [self.creditCards addObject:paymentModel];
+                    }
+                }
+                NSMutableArray *localCrediCardsData = [[NSUserDefaults standardUserDefaults]valueForKey:saveCreditCardsToLocal];
+                if (localCrediCardsData != nil) {
+                    localCrediCardsData = [localCrediCardsData valueForKey:[[SimiGlobalVar sharedInstance].customer valueForKey:@"email"]];
+                    for (int i = 0; i < localCrediCardsData.count; i++) {
+                        SimiModel *localModel = [localCrediCardsData objectAtIndex:i];
+                        for (int j = 0; j < self.creditCards.count; j++) {
+                            SimiModel *currentData = [self.creditCards objectAtIndex:j];
+                            if ([[currentData valueForKey:@"payment_method"] isEqualToString:[localModel valueForKey:@"payment_method"]]) {
+                                [currentData setValuesForKeysWithDictionary:localModel];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Term and conditions
+        if (![[self.order valueForKey:@"condition"] isKindOfClass:[NSNull class]]) {
+            self.termAndConditions = [NSMutableArray new];
+            for (NSDictionary *data in [[self.order valueForKey:@"fee"] valueForKey:@"condition"]) {
+                [self.termAndConditions addObject:data];
+            }
+        } else {
+            self.termAndConditions = nil;
+        }
+        
+        if (self.paymentCollection.count == 0) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"FAIL") message:SCLocalizedString(@"") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+            alertView.message = SCLocalizedString(@"Couldn't get payment method information.");
+            [alertView show];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            
+            //  Liam Update for Default Payment Method
+            if ([[SimiGlobalVar sharedInstance]isDefaultPayment]) {
+                if (self.paymentCollection.count > 0 && self.selectedPayment < 0) {
+                    for (int i = 0; i < self.paymentCollection.count; i++) {
+                        SimiModel *payment = [self.paymentCollection objectAtIndex:i];
+                        if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeNone) {
+                            self.selectedPayment = i;
+                            if([self.isReloadPayment isEqualToString:@"1"]){
+                                [self savePaymentMethod:payment];
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            //  End
+        }
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+        [alertView show];
+    }
+    [self reloadData];
+    [self.tableViewOrder deselectRowAtIndexPath:[self.tableViewOrder indexPathForSelectedRow] animated:YES];
+    [self removeObserverForNotification:noti];
+}
+
+- (void)didEnterCreditCardWithCardType:(NSString *)cardType cardNumber:(NSString *)number expiredMonth:(NSString *)expiredMonth expiredYear:(NSString *)expiredYear cvv:(NSString *)CVV{
+    // Liam Update Credit Card
+    SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
+    for (int i = 0; i < self.creditCards.count; i ++) {
+        SimiModel *creditCard = [self.creditCards objectAtIndex:i];
+        if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
+            [creditCard setValue:@"YES" forKey:hasData];
+            [creditCard setValue:cardType forKey:@"card_type"];
+            [creditCard setValue:number forKey:@"card_number"];
+            [creditCard setValue:expiredMonth forKey:@"expired_month"];
+            [creditCard setValue:expiredYear forKey:@"expired_year"];
+            [creditCard setValue:CVV forKey:@"cc_id"];
+            break;
+        }
+    }
+    //  End Update Credit Card
+    if ([SimiGlobalVar sharedInstance].isLogin) {
+        
+        NSMutableDictionary *listCreditCardsData = [[NSMutableDictionary alloc] init];
+        [listCreditCardsData setValue:self.creditCards forKey:[[SimiGlobalVar sharedInstance].customer valueForKey:@"email"]];
+        [[NSUserDefaults standardUserDefaults] setValue:listCreditCardsData forKey:saveCreditCardsToLocal];
+    }
+    //    [[NSUserDefaults standardUserDefaults] setValue:self.creditCards forKey:saveCreditCardsToLocal];
+    [self reloadData];
+}
+
 #pragma mark Table View Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SimiSection *simiSection;
@@ -811,37 +918,36 @@
         self.selectedPayment  = indexPath.row;
         SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSelectPaymentMethod" object:payment userInfo:@{@"payment": payment}];
-        if ([[payment valueForKey:@"show_type"] integerValue] == PaymentShowTypeCreditCard) {
-            NSArray *creditCardTypes = [payment valueForKey:@"cc_types"];
+        if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeCreditCard) {
+            NSArray *creditCardTypes = [payment valueForKey:@"card_type"];
             if (creditCardTypes != nil) {
-                //   Liam Update Credit Card
+                //   Lionel Update Credit Card
                 SCCreditCardViewController *nextController = [[SCCreditCardViewController alloc] init];
                 nextController.delegate = self;
                 for (int i = 0; i < self.creditCards.count; i++) {
                     SimiModel *creditCard = [self.creditCards objectAtIndex:i];
-                    if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"payment_method"]]) {
-                        if ([[creditCard valueForKey:hasData]boolValue]) {
-                            nextController.defaultCard = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                                          [creditCard valueForKey:@"card_type"],@"card_type",
-                                                          [creditCard valueForKey:@"card_number"],@"card_number",
-                                                          [creditCard valueForKey:@"expired_month"], @"expired_month",
-                                                          [creditCard valueForKey:@"expired_year"], @"expired_year",
-                                                          [creditCard valueForKey:@"cc_id"] , @"cc_id", nil];
+                    if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
+                        if (![[creditCard valueForKey:@"hasData"]boolValue]) {
+                            nextController.creditCardList = [payment valueForKey:@"card_type"];
+                            nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
+                            [self.navigationController pushViewController:nextController animated:YES];
                         }
-                        nextController.creditCardList = [payment valueForKey:@"cc_types"];
-                        nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
                     }
                 }
-                //  End Update Credit Card
-                [self.navigationController pushViewController:nextController animated:YES];
             }
-        }else if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeSDK){
-            
-        }else{
-            [self savePaymentMethod:payment];
         }
-        [self reloadData];
+        [self savePaymentMethod:payment];
+//        _orderTable = nil;
+        [simiSection setHeaderTitle:[payment valueForKey:@"method_code"]];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:[self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION]] withRowAnimation:UITableViewRowAnimationNone];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if ((_selectedShippingMedthod != -1)){
+            [self.tableViewOrder scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.tableViewOrder numberOfRowsInSection:[self.orderTable getSectionIndexByIdentifier:ORDER_TOTALS_SECTION]] - 1) inSection:[self.orderTable getSectionIndexByIdentifier:ORDER_TOTALS_SECTION]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }else{
+            if ([self.orderTable getSectionIndexByIdentifier:ORDER_SHIPMENT_SECTION]) {
+                [self.tableViewOrder scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[self.orderTable getSectionIndexByIdentifier:ORDER_SHIPMENT_SECTION]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
+        }
     }else if(simiRow.identifier == ORDER_VIEW_SHIPPING_METHOD){
         [self didSelectShippingMethodAtIndex: indexPath.row];
     }else if(simiRow.identifier == ORDER_VIEW_TERM){
@@ -852,6 +958,30 @@
     }
 }
 
+- (void)editCreditCard:(int)paymentIndex
+{
+    SCCreditCardViewController *nextController = [[SCCreditCardViewController alloc] init];
+    nextController.delegate = self;
+    for (int i = 0; i < self.creditCards.count; i++) {
+        self.selectedPayment  = paymentIndex;
+        SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
+        SimiModel *creditCard = [self.creditCards objectAtIndex:i];
+        if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
+            if ([[creditCard valueForKey:hasData]boolValue]) {
+                nextController.defaultCard = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                              [creditCard valueForKey:@"card_type"],@"card_type",
+                                              [creditCard valueForKey:@"card_number"],@"card_number",
+                                              [creditCard valueForKey:@"expired_month"], @"expired_month",
+                                              [creditCard valueForKey:@"expired_year"], @"expired_year",
+                                              [creditCard valueForKey:@"cc_id"] , @"cc_id", nil];
+            }
+            nextController.creditCardList = [payment valueForKey:@"card_type"];
+            nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
+        }
+    }
+    //  End Update Credit Card
+    [self.navigationController pushViewController:nextController animated:YES];
+}
 
 #pragma mark Header Expanding
 

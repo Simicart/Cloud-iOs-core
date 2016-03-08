@@ -43,7 +43,7 @@ static NSString* PRODUCTLISTCELL_PRICE = @"PRODUCTLISTCELL_PRICE";
         if ([self.product valueForKey:@"price"]) {
             self.regularPrice = [NSString stringWithFormat:@"%@",[self.product valueForKey:@"price"]];
         }
-        if ([self.product valueForKey:@"sale_price"]) {
+        if ([self.product valueForKey:@"sale_price"] && [[self.product valueForKey:@"sale_price"] floatValue] <  [[self.product valueForKey:@"price"] floatValue]) {
             NSString *salePrice = [NSString stringWithFormat:@"%@",[self.product valueForKey:@"sale_price"]];
             if (![salePrice isEqualToString:@""] && ![salePrice isEqualToString:self.regularPrice]) {
                 self.specialPrice = salePrice;

@@ -69,7 +69,7 @@
     if ([self.productModel valueForKey:@"price"]) {
         [self cusSetStringPriceRegular: [NSString stringWithFormat:@"%@",[self.productModel valueForKey:@"price"]]];
     }
-    if ([self.productModel valueForKey:@"sale_price"]) {
+    if ([self.productModel valueForKey:@"sale_price"] && [[self.productModel valueForKey:@"sale_price"] floatValue] <  [[self.productModel valueForKey:@"price"] floatValue]) {
         NSString *salePrice = [NSString stringWithFormat:@"%@",[self.productModel valueForKey:@"sale_price"]];
         if (![salePrice isEqualToString:@""] && ![salePrice isEqualToString:self.stringPriceRegular]) {
             [self cusSetStringPriceSpecial:salePrice];

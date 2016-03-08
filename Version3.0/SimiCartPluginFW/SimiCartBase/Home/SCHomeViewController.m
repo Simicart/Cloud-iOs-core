@@ -223,18 +223,14 @@
     featureProductModelCollection.simiObjectName = [spotModel valueForKey:@"name"];
     [spotArray addObject:featureProductModelCollection];
     NSString *stringIds = @"";
-    for (int i = 0;i < self.spotCollection.count; i++) {
-        SimiModel *model = [self.spotCollection objectAtIndex:i];
-        if ([[model valueForKey:@"type"]intValue] == 4) {
-            if ([[model valueForKey:@"products"] isKindOfClass:[NSMutableArray class]]) {
-                NSMutableArray *arrayIds = [[NSMutableArray alloc]initWithArray:[model valueForKey:@"products"]];
-                for (int j =0; j < arrayIds.count; j++) {
-                    if (j!= 0) {
-                        stringIds = [NSString stringWithFormat:@"%@,%@",stringIds,[arrayIds objectAtIndex:j]];
-                    }else
-                        stringIds = [NSString stringWithFormat:@"%@",[arrayIds objectAtIndex:j]];
-                }
-            }
+    
+    if ([[spotModel valueForKey:@"products"] isKindOfClass:[NSMutableArray class]]) {
+        NSMutableArray *arrayIds = [[NSMutableArray alloc]initWithArray:[spotModel valueForKey:@"products"]];
+        for (int j =0; j < arrayIds.count; j++) {
+            if (j!= 0) {
+                stringIds = [NSString stringWithFormat:@"%@,%@",stringIds,[arrayIds objectAtIndex:j]];
+            }else
+                stringIds = [NSString stringWithFormat:@"%@",[arrayIds objectAtIndex:j]];
         }
     }
     [featureProductModelCollection getAllProductsWithOffset:0 limit:limit sortType:ProductCollectionSortNone otherParams:@{@"ids":stringIds}];

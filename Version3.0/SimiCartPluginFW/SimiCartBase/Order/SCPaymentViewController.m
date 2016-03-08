@@ -33,21 +33,27 @@
     SimiResponder* responder = [noti.userInfo valueForKey:@"responder"];
     if([responder.status isEqualToString:@"SUCCESS"]){
         SCThankYouPageViewController* thankyouPage = [SCThankYouPageViewController new];
-        thankyouPage.order = noti.object;
-        [thankyouPage.navigationItem setHidesBackButton:YES];
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            [self.navigationController pushViewController:thankyouPage animated:YES];
-        else{
+        NSDictionary* errors = [noti.object objectForKey:@"errors"];
+        if(errors){
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[errors valueForKey:@"code"] message:[errors valueForKey:@"message"] delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil, nil];
             [self.navigationController popToRootViewControllerAnimated:YES];
-            UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];
-            UIViewController *viewController = [[(UINavigationController *)currentVC viewControllers] lastObject];
-            UINavigationController* nvThankyou = [[UINavigationController alloc] initWithRootViewController:thankyouPage];
-            UIPopoverController* tkPopover = [[UIPopoverController alloc] initWithContentViewController:nvThankyou];
-            thankyouPage.popOver = tkPopover;
-            [tkPopover  presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:viewController.view permittedArrowDirections:0 animated:YES];
-            NSLog(@"%@", self.navigationController.viewControllers);
+            [alert show];
+        }else{
+            thankyouPage.order = noti.object;
+            [thankyouPage.navigationItem setHidesBackButton:YES];
+            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+                [self.navigationController pushViewController:thankyouPage animated:YES];
+            else{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];
+                UIViewController *viewController = [[(UINavigationController *)currentVC viewControllers] lastObject];
+                UINavigationController* nvThankyou = [[UINavigationController alloc] initWithRootViewController:thankyouPage];
+                UIPopoverController* tkPopover = [[UIPopoverController alloc] initWithContentViewController:nvThankyou];
+                thankyouPage.popOver = tkPopover;
+                [tkPopover  presentPopoverFromRect:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 1, 1) inView:viewController.view permittedArrowDirections:0 animated:YES];
+                NSLog(@"%@", self.navigationController.viewControllers);
+            }
         }
-        
     }else{
         [self.navigationController popToRootViewControllerAnimated:YES];
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Error") message: SCLocalizedString(responder.message) delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil, nil];

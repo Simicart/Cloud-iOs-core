@@ -158,7 +158,7 @@ NSString * BUTTON = @"BUTTON";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UILabel *lbNumber = [[UILabel alloc]initWithFrame:CGRectMake(padding, 0, SCREEN_WIDTH - 20, heightLabel)];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            lbNumber.text = [NSString stringWithFormat:@"%@: #%@",SCLocalizedString(@"View detail of your order"),[self.order valueForKey:@"seq_no"]];
+            lbNumber.text = [NSString stringWithFormat:@"%@: #%@",SCLocalizedString(@"View detail of your order"),[self.order valueForKey:@"order_seq"]?[self.order valueForKey:@"order_seq"]:[self.order valueForKey:@"seq_no"]];
             [lbNumber setFont:[UIFont fontWithName:THEME_FONT_NAME size:15]];
             [cell addSubview:lbNumber];
         }
@@ -187,10 +187,10 @@ NSString * BUTTON = @"BUTTON";
     SimiSection *simiSection = [_cells objectAtIndex:indexPath.section];
     SimiRow *simiRow = [simiSection.rows objectAtIndex:indexPath.row];
     if([simiRow.identifier isEqualToString:NUMBER]){
-        SCOrderDetailViewController *placeOderNumber = [[SCOrderDetailViewController alloc] init];
-        placeOderNumber.orderId = [self.order valueForKey:@"_id"];
-        placeOderNumber.order = self.order;
-        [self.navigationController pushViewController:placeOderNumber animated:YES];
+        SCOrderDetailViewController *orderDetailVC = [[SCOrderDetailViewController alloc] init];
+        orderDetailVC.orderId = [self.order valueForKey:@"_id"];
+        orderDetailVC.order = self.order;
+        [self.navigationController pushViewController:orderDetailVC animated:YES];
     }
 }
 

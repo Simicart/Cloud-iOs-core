@@ -693,7 +693,7 @@
                     if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
                         if (![[creditCard valueForKey:@"hasData"]boolValue]) {
                             nextController.creditCardList = [payment valueForKey:@"card_type"];
-                            nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
+                            nextController.isUseCVV = [[payment valueForKey:@"digit_card"] boolValue];
                             [self.navigationController pushViewController:nextController animated:YES];
                         }
                     }

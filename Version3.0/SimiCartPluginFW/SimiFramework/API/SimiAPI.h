@@ -44,6 +44,8 @@ extern NSString *const kSimiCountries;
 
 extern NSString *const kSimiOrders;
 
+extern NSString *const kSimiCreditCard;
+
 static NSString *POST = @"POST";
 static NSString *GET = @"GET";
 static NSString *DELETE = @"DELETE";

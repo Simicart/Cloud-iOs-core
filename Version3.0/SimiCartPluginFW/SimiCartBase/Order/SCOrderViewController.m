@@ -65,8 +65,6 @@
     self.selectedShippingMedthod = -1;
     self.selectedPayment = -1;
     
-    self.isReloadPayment = [NSString stringWithFormat:@"%@",[[[[SimiGlobalVar sharedInstance]store] valueForKey:@"store_config"]valueForKey:@"is_reload_payment_method"]];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderConfig) name:@"DidAddToCart" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidCreate2CheckoutPayment" object:nil userInfo:@{@"orderViewController": self}];
     [self.tableViewOrder setHidden:YES];
@@ -682,6 +680,7 @@
         self.selectedPayment  = indexPath.row;
         SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSelectPaymentMethod" object:payment userInfo:@{@"payment": payment}];
+        [self savePaymentMethod:payment];
         if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeCreditCard) {
             NSArray *creditCardTypes = [payment valueForKey:@"card_type"];
             if (creditCardTypes != nil) {
@@ -695,12 +694,21 @@
                             nextController.creditCardList = [payment valueForKey:@"card_type"];
                             nextController.isUseCVV = [[payment valueForKey:@"digit_card"] boolValue];
                             [self.navigationController pushViewController:nextController animated:YES];
+                        }else
+                        {
+                            NSMutableDictionary *creditCardInfoMation = [NSMutableDictionary new];
+                            [creditCardInfoMation setValue:[SimiGlobalVar sharedInstance].quoteId forKey:@"quote_id"];
+                            [creditCardInfoMation setValue:[creditCard valueForKey:@"card_type"] forKey:@"card_type"];
+                            [creditCardInfoMation setValue:[NSString stringWithFormat:@"%@/%@",[creditCard valueForKey:@"expired_month"], [creditCard valueForKey:@"expired_year"]] forKey:@"expiration_date"];
+                            [creditCardInfoMation setValue:[creditCard valueForKey:@"card_number"] forKey:@"card_number"];
+                            [creditCardInfoMation setValue:[creditCard valueForKey:@"card_name"] forKey:@"card_name"];
+                            [creditCardInfoMation setValue:[creditCard valueForKey:@"cc_id"] forKey:@"card_digit"];
+                            [self saveCreditCardToServer:creditCardInfoMation];
                         }
                     }
                 }
             }
         }
-        [self savePaymentMethod:payment];
         _orderTable = nil;
        [simiSection setHeaderTitle:[payment valueForKey:@"payment_method"]];
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:[self.orderTable getSectionIndexByIdentifier:ORDER_PAYMENT_SECTION]] withRowAnimation:UITableViewRowAnimationNone];
@@ -1021,18 +1029,19 @@
 }
 
 #pragma mark Credit Card View Delegate
-- (void)didEnterCreditCardWithCardType:(NSString *)cardType cardNumber:(NSString *)number expiredMonth:(NSString *)expiredMonth expiredYear:(NSString *)expiredYear cvv:(NSString *)CVV{
+- (void)didEnterCreditCardWithCardName:cardName cardType:(NSMutableDictionary *)cardType cardNumber:(NSString *)number expiredMonth:(NSString *)expiredMonth expiredYear:(NSString *)expiredYear cvv:(NSString *)CVV{
     // Liam Update Credit Card
     SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
     for (int i = 0; i < self.creditCards.count; i ++) {
         SimiModel *creditCard = [self.creditCards objectAtIndex:i];
         if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
             [creditCard setValue:@"YES" forKey:hasData];
-            [creditCard setValue:cardType forKey:@"card_type"];
+            [creditCard setObject:cardType forKey:@"card_type"];
             [creditCard setValue:number forKey:@"card_number"];
             [creditCard setValue:expiredMonth forKey:@"expired_month"];
             [creditCard setValue:expiredYear forKey:@"expired_year"];
             [creditCard setValue:CVV forKey:@"cc_id"];
+            [creditCard setValue:cardName forKey:@"card_name"];
             break;
         }
     }
@@ -1043,8 +1052,28 @@
         [listCreditCardsData setValue:self.creditCards forKey:[[SimiGlobalVar sharedInstance].customer valueForKey:@"email"]];
         [[NSUserDefaults standardUserDefaults] setValue:listCreditCardsData forKey:saveCreditCardsToLocal];
     }
-//    [[NSUserDefaults standardUserDefaults] setValue:self.creditCards forKey:saveCreditCardsToLocal];
+    NSMutableDictionary *creditCardInfoMation = [NSMutableDictionary new];
+    [creditCardInfoMation setValue:[SimiGlobalVar sharedInstance].quoteId forKey:@"quote_id"];
+    [creditCardInfoMation setValue:cardType forKey:@"card_type"];
+    [creditCardInfoMation setValue:[NSString stringWithFormat:@"%@/%@",expiredMonth, expiredYear] forKey:@"expiration_date"];
+    [creditCardInfoMation setValue:number forKey:@"card_number"];
+    [creditCardInfoMation setValue:cardName forKey:@"card_name"];
+    [creditCardInfoMation setValue:CVV forKey:@"card_digit"];
+    [self saveCreditCardToServer:creditCardInfoMation];
     [self reloadData];
+}
+
+-(void)saveCreditCardToServer:(NSDictionary*)cardInfo
+{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didSaveCreditCard:) name:DidSaveCreditCard object:self.order];
+    [self.order saveCreditCard:cardInfo];
+    [self startLoadingData];
+}
+
+- (void)didSaveCreditCard:(NSNotification*)noti
+{
+    [self stopLoadingData];
+    [self removeObserverForNotification:noti];
 }
 
 #pragma mark Get & Did Get Order Configure
@@ -1116,24 +1145,6 @@
             alertView.message = SCLocalizedString(@"Couldn't get payment method information.");
             [alertView show];
             [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            
-            //  Liam Update for Default Payment Method
-            if ([[SimiGlobalVar sharedInstance]isDefaultPayment]) {
-                if (self.paymentCollection.count > 0 && self.selectedPayment < 0) {
-                    for (int i = 0; i < self.paymentCollection.count; i++) {
-                        SimiModel *payment = [self.paymentCollection objectAtIndex:i];
-                        if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeNone) {
-                            self.selectedPayment = i;
-                            if([self.isReloadPayment isEqualToString:@"1"]){
-                                [self savePaymentMethod:payment];
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-            //  End
         }
     }else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
@@ -1199,9 +1210,10 @@
 {
     SCCreditCardViewController *nextController = [[SCCreditCardViewController alloc] init];
     nextController.delegate = self;
+    self.selectedPayment  = paymentIndex;
+    SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
+    [self savePaymentMethod:payment];
     for (int i = 0; i < self.creditCards.count; i++) {
-        self.selectedPayment  = paymentIndex;
-        SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
         SimiModel *creditCard = [self.creditCards objectAtIndex:i];
         if ([[creditCard valueForKey:@"payment_method"] isEqualToString:[payment valueForKey:@"method_code"]]) {
             if ([[creditCard valueForKey:hasData]boolValue]) {
@@ -1210,10 +1222,20 @@
                                               [creditCard valueForKey:@"card_number"],@"card_number",
                                               [creditCard valueForKey:@"expired_month"], @"expired_month",
                                               [creditCard valueForKey:@"expired_year"], @"expired_year",
-                                              [creditCard valueForKey:@"cc_id"] , @"cc_id", nil];
+                                              [creditCard valueForKey:@"cc_id"] , @"cc_id",
+                                              [creditCard valueForKey:@"card_name"], @"card_name",nil];
+                
+                NSMutableDictionary *creditCardInfoMation = [NSMutableDictionary new];
+                [creditCardInfoMation setValue:[SimiGlobalVar sharedInstance].quoteId forKey:@"quote_id"];
+                [creditCardInfoMation setValue:[creditCard valueForKey:@"card_type"] forKey:@"card_type"];
+                [creditCardInfoMation setValue:[NSString stringWithFormat:@"%@/%@",[creditCard valueForKey:@"expired_month"], [creditCard valueForKey:@"expired_year"]] forKey:@"expiration_date"];
+                [creditCardInfoMation setValue:[creditCard valueForKey:@"card_number"] forKey:@"card_number"];
+                [creditCardInfoMation setValue:[creditCard valueForKey:@"card_name"] forKey:@"card_name"];
+                [creditCardInfoMation setValue:[creditCard valueForKey:@"cc_id"] forKey:@"card_digit"];
+                [self saveCreditCardToServer:creditCardInfoMation];
             }
             nextController.creditCardList = [payment valueForKey:@"card_type"];
-            nextController.isUseCVV = [[payment valueForKey:@"useccv"] boolValue];
+            nextController.isUseCVV = [[payment valueForKey:@"digit_card"] boolValue];
         }
     }
     //  End Update Credit Card

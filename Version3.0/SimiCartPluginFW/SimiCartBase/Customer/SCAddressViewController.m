@@ -96,19 +96,6 @@
             [addressModelCollection addObject:addressModel];
         }
         addressCollection = [[SimiAddressModelCollection alloc] initWithArray:addressModelCollection];
-        if ([[SimiGlobalVar sharedInstance]isDefaultAddress] && self.isSelectAddressFromCartForCheckOut) {
-            if (addressCollection.count > 0) {
-                for (int i = 0; i < addressCollection.count; i++) {
-                    SimiAddressModel *addressModel = [addressCollection objectAtIndex:i];
-                    [addressModel setValue:[customer valueForKey:@"email"] forKey:@"email"];
-                    if ([[addressModel valueForKey:@"is_default"]boolValue]) {
-                        [self.navigationController popViewControllerAnimated:NO];
-                        [_delegate selectAddress:addressModel];
-                        return;
-                    }
-                }
-            }
-        }
         self.isGettingAddress = NO;
         [SimiGlobalVar sharedInstance].isNeedReloadAddressBookCollection = NO;
         [SimiGlobalVar sharedInstance].addressBookCollection = addressCollection;

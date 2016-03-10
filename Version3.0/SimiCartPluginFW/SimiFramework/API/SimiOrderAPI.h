@@ -21,4 +21,5 @@
 - (void)placeOrderWithParams:(NSDictionary *)params extendsUrl:(NSString *)extendsUrl target:(id)target selector:(SEL)selector;
 - (void)addAddressForQuote:(NSDictionary *)params extendsUrl:(NSString *)extendsUrl target:(id)target selector:(SEL)selector;
 - (void)cancelAnOrderWithOrderId:(NSString *)orderId target:(id) target selector: (SEL) selector;
+- (void)saveCreditCard:(NSDictionary *)params target:(id)target selector:(SEL)selector;
 @end

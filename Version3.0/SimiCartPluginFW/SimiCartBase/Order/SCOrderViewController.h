@@ -114,6 +114,7 @@ static NSString *saveCreditCardsToLocal = @"saveCreditCardsToLocal";
 - (void)addShippingAddressForQuote;
 - (void)addBillingAddressForQuote;
 - (void)didAddNewCustomerToQuote:(NSNotification*)noti;
+-(void)saveCreditCardToServer:(NSDictionary*)cardInfo
 
 @end
 

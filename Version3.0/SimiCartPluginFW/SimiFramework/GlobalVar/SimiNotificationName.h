@@ -120,6 +120,8 @@ static NSString *Theme01DidGetCategoryWidgets = @"Theme01DidGetCategoryWidgets";
 static NSString *ZaraThemeDidGetSpotProducts = @"ZTheme-GetSpotProducts";
 static NSString *ZaraThemeDidGetCategoryWidgets = @"ZTheme-GetListCategories";
 
+#pragma mark Save Credit Card
+static NSString *DidSaveCreditCard = @"DidSaveCreditCard";
 
 
 @interface SimiNotificationName : NSObject

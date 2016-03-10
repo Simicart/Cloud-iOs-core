@@ -59,4 +59,10 @@
     NSString *url = [NSString stringWithFormat:@"%@%@/%@%@", kBaseURL, kSimiOrders, orderId, @"/cancel"];
     [self requestWithMethod:GET URL:url params:nil target:target selector:selector header:nil];
 }
+
+- (void)saveCreditCard:(NSDictionary *)params  target:(id)target selector:(SEL)selector
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kSimiCreditCard];
+    [self requestWithMethod:PUT URL:url params:params target:target selector:selector header:nil];
+}
 @end

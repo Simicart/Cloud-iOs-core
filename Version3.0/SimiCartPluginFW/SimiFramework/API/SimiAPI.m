@@ -51,6 +51,9 @@ NSString *const kSimiCountries          = @"countries";
 //SimiCart Orders
 NSString *const kSimiOrders             = @"orders";
 
+//SimiCart Credit Card
+NSString *const kSimiCreditCard             = @"creditcard";
+
 @implementation SimiAPI
 
 - (void)requestWithURL:(NSString *)url params:(NSDictionary *)params target:(id)target selector:(SEL)selector header:(NSDictionary *)header{

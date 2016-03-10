@@ -151,8 +151,6 @@ typedef NS_ENUM(NSInteger, CurrentVersionPhoneUsing)
 
 @property (nonatomic) BOOL isNeedReloadAddressBookCollection;
 @property (nonatomic) BOOL isReverseLanguage;
-@property (nonatomic) BOOL isDefaultAddress;
-@property (nonatomic) BOOL isDefaultPayment;
 @property (nonatomic) BOOL isLogin;
 @property (nonatomic) BOOL isGettingCart;
 @property (nonatomic) BOOL needGetCart;

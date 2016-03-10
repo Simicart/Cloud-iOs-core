@@ -51,6 +51,10 @@
  Cancel an order : VuThanhDo
 */
 - (void)cancelAnOrder:(NSString *)orderId;
+
+// Save Credit Card
+- (void)saveCreditCard:(NSDictionary *)params;
+
 //end editing
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder;
 @end

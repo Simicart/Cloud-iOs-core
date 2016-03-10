@@ -12,7 +12,7 @@
 #import "SimiTable.h"
 
 @protocol SCCreditCardViewDelegates <NSObject>
-- (void)didEnterCreditCardWithCardType:(NSString *)cardType cardNumber:(NSString *)number expiredMonth:(NSString *)expiredMonth expiredYear:(NSString *)expiredYear cvv:(NSString *)CVV;
+- (void)didEnterCreditCardWithCardName:(NSString*)cardName cardType:(NSDictionary *)cardType cardNumber:(NSString *)number expiredMonth:(NSString *)expiredMonth expiredYear:(NSString *)expiredYear cvv:(NSString *)CVV;
 @end
 
 @interface SCCreditCardViewController : SimiViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
@@ -25,7 +25,8 @@
 @property (strong, nonatomic) UITextField *expireTimeTF;
 @property (strong, nonatomic) UITextField *CVVTF;
 @property (strong, nonatomic) UITextField *cardTypeTF;
-@property (strong, nonatomic) NSString *cardType;
+@property (strong, nonatomic) UITextField *cardName;
+@property (strong, nonatomic) NSMutableDictionary *cardType;
 @property (nonatomic) BOOL isCompletedText;
 @property (strong, nonatomic) UIPopoverController * popThankController;
 @property (strong, nonatomic) id<SCCreditCardViewDelegates> delegate;

@@ -89,6 +89,13 @@
     
 }
 
+- (void)saveCreditCard:(NSDictionary *)params
+{
+    currentNotificationName = DidSaveCreditCard;
+    [self preDoRequest];
+    [(SimiOrderAPI *)[self getAPI] saveCreditCard:params target:self selector:@selector(didFinishRequest:responder:)];
+}
+
 
 - (void)didFinishRequest:(NSObject *)responseObject responder:(SimiResponder *)responder
 {

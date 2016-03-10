@@ -12,6 +12,7 @@
 #define CARD_NUMBER 1
 #define EXPIRED_DATE 2
 #define CVV 3
+#define CART_NAME 4
 
 static NSString *CREDITCARD_SECTION = @"CreditCardSection";
 static NSString *kCardTypeCell = @"CreditCardTypeCell";
@@ -22,6 +23,7 @@ static NSString *kCardDateCell = @"CreditCardDateCell";
 static NSString *kCardDatePickerCell = @"CreditCardDatePickerCell";
 static NSString *kCardCvvCell = @"CreditCardCvvCell";
 static NSString *kOtherCell = @"OtherCell";
+static NSString *kCartNameCell = @"KCartNameCell";
 
 @interface SCCreditCardViewController ()
 
@@ -80,17 +82,18 @@ static NSString *kOtherCell = @"OtherCell";
 
 
 - (void)saveCardInfo{
+    NSString *cardNameString = _cardName.text;
     NSString *cardNumber = [cardNumberTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSArray *expiredTime = [expireTimeTF.text componentsSeparatedByString:@" / "];
     NSString *expiredMonth = [expiredTime objectAtIndex:0];
     NSString *expiredYear = [NSString stringWithFormat:@"20%@", [expiredTime objectAtIndex:1]];
     NSString *cvv = CVVTF.text;
-    [self.delegate didEnterCreditCardWithCardType:cardType cardNumber:cardNumber expiredMonth:expiredMonth expiredYear:expiredYear cvv:cvv];
+    [self.delegate didEnterCreditCardWithCardName:cardNameString cardType:cardType cardNumber:cardNumber expiredMonth:expiredMonth expiredYear:expiredYear cvv:cvv];
     [self.navigationController popToViewController:(UIViewController *)self.delegate animated:YES];
 }
 
 - (void)checkIsCompletedText{
-    if (cardTypeTF.text.length > 0 && cardNumberTF.text.length > 0 && isValidTime) {
+    if (cardTypeTF.text.length > 0 && cardNumberTF.text.length > 0 && isValidTime && _cardName.text.length > 0) {
         if (isUseCVV) {
             if (CVVTF.text.length > 0) {
                 isCompletedText = YES;
@@ -116,6 +119,8 @@ static NSString *kOtherCell = @"OtherCell";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"InitCreditCardCell-Before" object:_cardCells];
     
     SimiSection *cardSection = [_cardCells addSectionWithIdentifier:CREDITCARD_SECTION];
+    
+    [cardSection addRowWithIdentifier:kCardNameCell height:45];
     [cardSection addRowWithIdentifier:kCardTypeCell height:45];
     if(isSelectingCreditCardType){
         [cardSection addRowWithIdentifier:kCardTypePickerCell height:170];
@@ -163,7 +168,23 @@ static NSString *kOtherCell = @"OtherCell";
     frame.size.width -= 15;
     #pragma mark - Init Cart Cells
     if ([section.identifier isEqualToString:CREDITCARD_SECTION]) {
-        if ([row.identifier isEqualToString:kCardTypeCell]) {
+        if ([row.identifier isEqualToString:kCardNameCell]) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCardNameCell];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCardNameCell];
+                _cardName = [[UITextField alloc]initWithFrame:frame];
+                _cardName.placeholder = [NSString stringWithFormat:@"%@",SCLocalizedString(@"Card Name")];
+                _cardName.tag = CART_NAME;
+                _cardName.delegate = self;
+                _cardName.clearButtonMode = UITextFieldViewModeWhileEditing;
+                if(defaultCard != nil)
+                {
+                    _cardName.text = [defaultCard valueForKey:@"card_name"];
+                }
+                [cell addSubview:_cardName];
+            }
+            aCell = cell;
+        }else if ([row.identifier isEqualToString:kCardTypeCell]) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCardTypeCell];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCardTypeCell];
@@ -176,7 +197,7 @@ static NSString *kOtherCell = @"OtherCell";
                 cardTypeTF.userInteractionEnabled = NO;
                 if(defaultCard != nil)
                 {
-                    cardTypeTF.text = [defaultCard valueForKey:@"card_type"];
+                    cardTypeTF.text = [[defaultCard valueForKey:@"card_type"] valueForKey:@"title"];
                     
                     for (int i=0; i<creditCardList.count; i++) {
                         if([cardTypeTF.text isEqualToString:[[creditCardList objectAtIndex:i] valueForKey:@"cc_name"] ])
@@ -433,8 +454,8 @@ static NSString *kOtherCell = @"OtherCell";
     if(pickerView.tag == CARD_TYPE)
     {
         selectedCardTypeRow = row;
-        cardTypeTF.text = [[creditCardList objectAtIndex:row] valueForKey:@"title"];
-        cardType = [[creditCardList objectAtIndex:row] valueForKey:@"code"];
+        cardType = [[NSMutableDictionary alloc]initWithDictionary:[creditCardList objectAtIndex:row]];
+        cardTypeTF.text = [cardType valueForKey:@"title"];
         [self checkIsCompletedText];
     }
     else if(pickerView.tag == EXPIRED_DATE)
@@ -468,16 +489,16 @@ static NSString *kOtherCell = @"OtherCell";
 
 -(void)dissmissAllPickerView
 {
+    SimiSection *section = [self.cardCells objectAtIndex:0];
     if(isSelectingCreditCardType)
     {
         [cardInfoTableView beginUpdates];
         isSelectingCreditCardType =  NO;
         
         self.cardTypePickerIndexPath = nil;
-        NSInteger row = 1;
         [creditCardPickerView setHidden:YES];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        NSIndexPath *removeIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[section getRowIndexByIdentifier:kCardTypeCell] inSection:0];
+        NSIndexPath *removeIndexPath = [NSIndexPath indexPathForRow:[section getRowIndexByIdentifier:kCardTypePickerCell] inSection:0];
         [cardInfoTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:removeIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         [cardInfoTableView deselectRowAtIndexPath:indexPath animated:YES];
         _cardCells = nil;
@@ -490,10 +511,9 @@ static NSString *kOtherCell = @"OtherCell";
         isSelectingExpireDate =  NO;
         
         self.expireDatePickerIndexPath = nil;
-        NSInteger row = 3;
         [expireOption setHidden:YES];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        NSIndexPath *removeIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[section getRowIndexByIdentifier:kCardDateCell] inSection:0];
+        NSIndexPath *removeIndexPath = [NSIndexPath indexPathForRow:[section getRowIndexByIdentifier:kCardDatePickerCell] inSection:0];
         [cardInfoTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:removeIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         [cardInfoTableView deselectRowAtIndexPath:indexPath animated:YES];
         _cardCells = nil;
@@ -575,6 +595,11 @@ static NSString *kOtherCell = @"OtherCell";
         }
             break;
         case CVV:{
+            [self checkIsCompletedText];
+        }
+            break;
+        case CART_NAME:
+        {
             [self checkIsCompletedText];
         }
             break;

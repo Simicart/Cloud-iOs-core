@@ -24,7 +24,7 @@
 -(void) cancelPayment:(id) sender{
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Confirmation") message:SCLocalizedString(@"Are you sure that you want to cancel the order?") delegate:self cancelButtonTitle:SCLocalizedString(@"Cancel") otherButtonTitles:SCLocalizedString(@"OK"), nil];
     [alertView show];
-    alertView.tag = 0;
+//    alertView.tag = 0;
 }
 
 
@@ -65,10 +65,10 @@
 
 //UIAlertViewDelegate
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == 0){
-        if(buttonIndex == 0){
+//    if(alertView.tag == 0){
+        if(buttonIndex == alertView.cancelButtonIndex){
             
-        }else if(buttonIndex == 1){
+        }else {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToThankyouPageWithNotification:) name:DidCancelOrder object:nil];
             [self startLoadingData];
             if(self.order)
@@ -79,7 +79,7 @@
                 [alertView show];
             }
         }
-    }
+//    }
 }
 
 

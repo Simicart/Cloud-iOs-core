@@ -11,8 +11,8 @@
 @implementation SimiOrderAPI
 
 - (void)getOrderDetailWithID:(NSString* )orderId target:(id)target selector:(SEL)selector{
-    NSString *url = [NSString stringWithFormat:@"%@%@", kBaseURL, kSimiOrders];
-    [url stringByAppendingString:[NSString stringWithFormat:@"/%@",orderId]];
+    NSString *url = [NSString stringWithFormat:@"%@%@/%@", kBaseURL, kSimiOrders, orderId];
+//    [url stringByAppendingString:[NSString stringWithFormat:@"/%@",orderId]];
     [self requestWithMethod:GET URL:url params:nil target:target selector:selector header:nil];
 }
 

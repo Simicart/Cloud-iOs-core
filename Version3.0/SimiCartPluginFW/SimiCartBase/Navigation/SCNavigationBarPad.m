@@ -197,7 +197,7 @@ static NSString *FOGIMAGE = @"FOGIMAGE";
 - (void)menu:(SCLeftMenuViewController *)menu didSelectRow:(SimiRow *)row withIndexPath:(NSIndexPath *)indexPath
 {
     UIViewController *currentVC = [(UITabBarController *)[[(SCAppDelegate *)[[UIApplication sharedApplication]delegate] window] rootViewController] selectedViewController];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SCLeftMenu_DidSelectRow" object:self userInfo:@{@"simirow":row, @"indexPath":indexPath}];
+    [[NSNotificationCenter defaultCenter]postNotificationName:SCLeftMenuDidSelectRow object:self userInfo:@{@"simirow":row, @"indexPath":indexPath}];
     if (self.isDiscontinue) {
         self.isDiscontinue = NO;
         return;

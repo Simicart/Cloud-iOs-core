@@ -33,7 +33,7 @@
     self.navigationItem.title = [self formatTitleString:SCLocalizedString(@"Refine")];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:SCLocalizedString(@"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
-    sortTypeLabels = [[NSMutableArray alloc]initWithObjects:SCLocalizedString(@"None"), SCLocalizedString(@"Price: Low to High"), SCLocalizedString(@"Price: High to Low"), SCLocalizedString(@"Name: A -> Z"), SCLocalizedString(@"Name: Z -> A"), nil];
+    sortTypeLabels = [[NSMutableArray alloc]initWithObjects:SCLocalizedString(@"None"), SCLocalizedString(@"Price: Low to High"), SCLocalizedString(@"Price: High to Low"), SCLocalizedString(@"Name: A to Z"), SCLocalizedString(@"Name: Z to A"), nil];
     if (tableViewRefine == nil) {
         tableViewRefine = [[SimiTableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
         tableViewRefine.dataSource = self;

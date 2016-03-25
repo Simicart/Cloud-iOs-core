@@ -176,7 +176,6 @@ static NSString *TABLE_LOGIN = @"TABLE_LOGIN";
         SCLeftMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:LEFTMENU_ROW_LOGIN];
         if (cell == nil) {
             cell = [[SCLeftMenuCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LEFTMENU_ROW_LOGIN rowHeight:44];
-//            [cell.rowIcon setImage:[UIImage imageNamed:@"ic_login"]];
             [cell.rowIcon setImage:[[UIImage imageNamed:@"ic_login"] imageWithColor:THEME_MENU_ICON_COLOR]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

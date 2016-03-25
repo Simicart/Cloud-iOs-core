@@ -395,14 +395,14 @@
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         [cell.textLabel setFont:[UIFont fontWithName:THEME_FONT_NAME size:14]];
         if (indexPath.row == 0) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", SCLocalizedString(@"Search on"),self.categoryName];
+            cell.textLabel.text = self.categoryName;
             if (!_isSearchOnAllProducts) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }else
                 cell.accessoryType = UITableViewCellAccessoryNone;
         }else
         {
-            cell.textLabel.text = SCLocalizedString(@"Search on All Products");
+            cell.textLabel.text = SCLocalizedString(@"All Products");
             if (_isSearchOnAllProducts) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }else

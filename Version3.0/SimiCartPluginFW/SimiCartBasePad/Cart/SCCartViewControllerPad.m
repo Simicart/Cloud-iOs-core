@@ -294,7 +294,7 @@
 {
     if (emptyLabel == nil) {
         emptyLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 300, 824, 80)];
-        emptyLabel.text = SCLocalizedString(@"You have no items in your shopping cart.");
+        emptyLabel.text = SCLocalizedString(@"You have no items in your shopping cart");
         emptyLabel.textColor = THEME_CONTENT_COLOR;
         emptyLabel.font = [UIFont fontWithName:[NSString stringWithFormat:@"%@", THEME_FONT_NAME] size:THEME_FONT_SIZE+3];
         [emptyLabel setLineBreakMode:NSLineBreakByTruncatingTail];

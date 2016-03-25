@@ -642,7 +642,7 @@ static NSString *actionSheetCustomer = @"actionSheetCustomer";
             {
                 [emptyLabel setFrame:CGRectMake(40, 50, 600, cell.frame.size.height)];
             }
-            emptyLabel.text = SCLocalizedString(@"You have no items in your shopping cart.");
+            emptyLabel.text = SCLocalizedString(@"You have no items in your shopping cart");
             [emptyLabel setLineBreakMode:NSLineBreakByTruncatingTail];
             [emptyLabel setTextAlignment:NSTextAlignmentCenter];
             [emptyLabel setNumberOfLines:2];

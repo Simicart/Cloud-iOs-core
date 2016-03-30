@@ -75,7 +75,7 @@
                 [self.order cancelAnOrder:[self.order valueForKey:@"_id"]];
             else{
                 [self.navigationController popToRootViewControllerAnimated:YES];
-                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Thank you") message:SCLocalizedString(@"Your order is cancelled.") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil, nil];
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"Thank you") message:SCLocalizedString(@"Your order is cancelled") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil, nil];
                 [alertView show];
             }
         }

@@ -24,13 +24,13 @@
 NSString *const DEMO_MODE               = @"YES";
 
 
-//NSString *const kSimiKey                = @"5ed6a808a6142d936196cb4f69a781f7af02fb3a";
-//NSString *kBaseURL                      = @"http://dev-api.jajahub.com/rest/";
+NSString *const kSimiKey                = @"5ed6a808a6142d936196cb4f69a781f7af02fb3a";
+NSString *kBaseURL                      = @"http://dev-api.jajahub.com/rest/";
 //NSString *const kSimiKey                = @"43d4ba3f7c8ecbba2606233b82e237df67a4b361";
 
 
-NSString *const kSimiKey                = @"43d4ba3f7c8ecbba2606233b82e237df67a4b361";
-NSString *kBaseURL                      = @"http://api.jajahub.com/rest/";
+//NSString *const kSimiKey                = @"43d4ba3f7c8ecbba2606233b82e237df67a4b361";
+//NSString *kBaseURL                      = @"http://api.jajahub.com/rest/";
 
 
 //Theme Color

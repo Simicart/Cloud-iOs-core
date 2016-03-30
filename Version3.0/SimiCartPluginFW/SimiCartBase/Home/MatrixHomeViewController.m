@@ -38,12 +38,19 @@
     [self setToSimiView];
     
     tableViewHome = [[SimiTableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    CGRect frame = self.view.frame;
+    frame.origin.y += 38;
+    frame.size.height -= 38 + 64;
+    tableViewHome.frame = frame;
     tableViewHome.dataSource = self;
     tableViewHome.delegate = self;
     tableViewHome.bounces = YES;
     
+    tableViewHome.scrollEnabled = YES;
+    
+    
     if (SCREEN_HEIGHT >= 568) {
-        tableViewHome.scrollEnabled = NO;
+        tableViewHome.scrollEnabled = YES;
     }
     
     if (SCREEN_HEIGHT > 568)
@@ -51,13 +58,13 @@
     else
         [tableViewHome setContentInset:UIEdgeInsetsMake(0, 0, [SimiGlobalVar scaleValue:5], 0)];
     
-    tableViewHome.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    tableViewHome.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     tableViewHome.showsVerticalScrollIndicator = NO;
     tableViewHome.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [tableViewHome setContentSize:[SimiGlobalVar scaleSize:CGSizeMake(320, 495)]];
+    [tableViewHome setContentSize:[SimiGlobalVar scaleSize:CGSizeMake(320, 595)]];
     [self.view addSubview:tableViewHome];
     //AXe added
-    searchBarHome = [[UISearchBar alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(5, -33, 310, 28)]];
+    searchBarHome = [[UISearchBar alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(5, 5, 310, 28)]];
     searchBarHome.tintColor = THEME_SEARCH_TEXT_COLOR;
     searchBarHome.searchBarStyle = UIBarStyleBlackTranslucent;
     searchBarHome.placeholder = SCLocalizedString(@"Search on All Products");
@@ -96,8 +103,8 @@
     UISwipeGestureRecognizer* swipeUpTheView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeTableView:)];
     [swipeUpTheView setDirection:(UISwipeGestureRecognizerDirectionUp)];
     
-    [tableViewHome addGestureRecognizer:swipeDownTheView];
-    [tableViewHome addGestureRecognizer:swipeUpTheView];
+//    [tableViewHome addGestureRecognizer:swipeDownTheView];
+//    [tableViewHome addGestureRecognizer:swipeUpTheView];
     //End
     
     [self setCells:nil];

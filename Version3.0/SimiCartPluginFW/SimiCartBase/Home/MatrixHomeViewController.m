@@ -67,7 +67,7 @@
     searchBarHome = [[UISearchBar alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(5, 5, 310, 28)]];
     searchBarHome.tintColor = THEME_SEARCH_TEXT_COLOR;
     searchBarHome.searchBarStyle = UIBarStyleBlackTranslucent;
-    searchBarHome.placeholder = SCLocalizedString(@"Search on All Products");
+    searchBarHome.placeholder = SCLocalizedString(@"Search");
     searchBarHome.layer.backgroundColor = [UIColor clearColor].CGColor;
     searchBarHome.layer.borderColor = [UIColor clearColor].CGColor;
     searchBarHome.layer.borderWidth=1;

@@ -398,7 +398,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LOGIN_SIGNIN_BUTTON];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 buttonSignIn = [[UIButton alloc] initWithFrame:CGRectMake(paddingX, paddingY, widthCell, heightCell)];
-                [buttonSignIn setTitle:SCLocalizedString(@"Sign in") forState:UIControlStateNormal];
+                [buttonSignIn setTitle:SCLocalizedString(@"Sign In") forState:UIControlStateNormal];
                 [buttonSignIn titleLabel].font = font;
                 [buttonSignIn setTitleColor:THEME_BUTTON_TEXT_COLOR forState:UIControlStateNormal];
                 buttonSignIn.backgroundColor = THEME_BUTTON_BACKGROUND_COLOR;

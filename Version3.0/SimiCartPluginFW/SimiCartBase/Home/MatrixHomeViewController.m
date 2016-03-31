@@ -97,7 +97,7 @@
     [self.view addSubview:searchBarBackground];
     [self.view addSubview:searchBarHome];
     [searchBarBackground setAlpha:0.9f];
-    //    [searchBarHome setAlpha:0.0f];
+//    [searchBarHome setAlpha:0.0f];
     UISwipeGestureRecognizer* swipeDownTheView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeTableView:)];
     [swipeDownTheView setDirection:(UISwipeGestureRecognizerDirectionDown)];
     UISwipeGestureRecognizer* swipeUpTheView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeTableView:)];
@@ -497,7 +497,6 @@
 
 - (void)didTapImageFog
 {   CGRect searchBarFrame = searchBarHome.frame;
-    searchBarFrame.origin.y = [SimiGlobalVar scaleValue:-33];
     searchBarHome.frame = searchBarFrame;
     [UIView animateWithDuration:0.3 animations:^{
         searchBarBackground.frame = searchBarFrame;

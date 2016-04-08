@@ -244,6 +244,10 @@
             if(categoryRealName == nil){
                 categoryRealName = [SCLocalizedString(@"all categories") uppercaseString];
             }
+            //Axe fixed
+            NSString* viewAllText = SCLocalizedString(@"View all");
+            CGSize viewAllSize = [viewAllText sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:THEME_FONT_NAME size:14]}];
+            widthViewAll = viewAllSize.width + 30;
             
             lbcategoryFather = [[UILabel alloc]initWithFrame:CGRectMake(paddingLeft, 0, SCREEN_WIDTH - widthViewAll - paddingLeft, heightTopCell)];
             lbcategoryFather.text =[categoryRealName uppercaseString];
@@ -251,12 +255,14 @@
             [lbcategoryFather setFont: [UIFont fontWithName:THEME_FONT_NAME size:15]];
             [cell addSubview:lbcategoryFather];
             
-            btnViewAll = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - widthViewAll, 0, 50, heightTopCell)];
-            [btnViewAll setTitle:SCLocalizedString(@"View all") forState:UIControlStateNormal];
+            
+            btnViewAll = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - widthViewAll, 0, widthViewAll - 30, heightTopCell)];
+            [btnViewAll setTitle:viewAllText forState:UIControlStateNormal];
             [btnViewAll.titleLabel setFont: [UIFont fontWithName:THEME_FONT_NAME size:14]];
             [btnViewAll setTitleColor:THEME_CONTENT_COLOR forState:UIControlStateNormal];
             [btnViewAll addTarget:self action:@selector(didClickViewAll:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:btnViewAll];
+            //End
             
             UIImageView *imgViewAll = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 25, (heightTopCell - sizeImageViewAll)/2, sizeImageViewAll, sizeImageViewAll)];
             [imgViewAll setImage:[UIImage imageNamed:@"ic_view_all"]];

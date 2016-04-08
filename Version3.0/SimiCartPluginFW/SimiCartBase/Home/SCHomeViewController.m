@@ -397,10 +397,10 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simiRow.identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell setBackgroundColor:[UIColor clearColor]];
-            UILabel *label = [[UILabel alloc]initWithFrame: [SimiGlobalVar scaleFrame:CGRectMake(5, 10, cell.frame.size.width - 30, [SimiGlobalVar scaleValue:10])]];
+            UILabel *label = [[UILabel alloc]initWithFrame: [SimiGlobalVar scaleFrame:CGRectMake(5, 10, cell.frame.size.width - 30, [SimiGlobalVar scaleValue:20])]];
             //gin edit
             if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-                [label setFrame:[SimiGlobalVar scaleFrame:CGRectMake(25, 10, cell.frame.size.width - 30,[SimiGlobalVar scaleValue:10])]];
+                [label setFrame:[SimiGlobalVar scaleFrame:CGRectMake(25, 10, cell.frame.size.width - 30,[SimiGlobalVar scaleValue:20])]];
                 [label setTextAlignment:NSTextAlignmentRight];
             }
             //end
@@ -414,7 +414,7 @@
                 flowLayout.itemSize = [SimiGlobalVar scaleSize:CGSizeMake(110, 147)];
                 flowLayout.minimumLineSpacing = [SimiGlobalVar scaleValue:5];
                 flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-                categoryCollectionView = [[UICollectionView alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 30, 320, 147)] collectionViewLayout:flowLayout];
+                categoryCollectionView = [[UICollectionView alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 40, 320, 147)] collectionViewLayout:flowLayout];
                 [categoryCollectionView setCollectionViewLayout:flowLayout animated:YES];
                 [categoryCollectionView setBackgroundColor:[UIColor clearColor]];
                 categoryCollectionView.simiObjectName = HOME_CATEGORY_COLLECTION_VIEW;
@@ -443,10 +443,10 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell setBackgroundColor:[UIColor clearColor]];
-            UILabel *label = [[UILabel alloc]initWithFrame: [SimiGlobalVar scaleFrame:CGRectMake(5, 10, cell.frame.size.width - 30, [SimiGlobalVar scaleValue:10])]];
+            UILabel *label = [[UILabel alloc]initWithFrame: [SimiGlobalVar scaleFrame:CGRectMake(5, 10, cell.frame.size.width - 30, [SimiGlobalVar scaleValue:20])]];
             //gin edit
             if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
-                [label setFrame:[SimiGlobalVar scaleFrame:CGRectMake(25, 10, cell.frame.size.width - 30,[SimiGlobalVar scaleValue:10])]];
+                [label setFrame:[SimiGlobalVar scaleFrame:CGRectMake(25, 10, cell.frame.size.width - 30,[SimiGlobalVar scaleValue:20])]];
                 [label setTextAlignment:NSTextAlignmentRight];
             }
             //end
@@ -458,7 +458,7 @@
             flowLayout.itemSize = [SimiGlobalVar scaleSize:CGSizeMake(100, 147)];
             flowLayout.minimumLineSpacing = [SimiGlobalVar scaleValue:5];
             flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-            UICollectionView *spotProductCollectionView = [[UICollectionView alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 30, 320, 147)] collectionViewLayout:flowLayout];
+            UICollectionView *spotProductCollectionView = [[UICollectionView alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(0, 40, 320, 147)] collectionViewLayout:flowLayout];
             [spotProductCollectionView setCollectionViewLayout:flowLayout animated:YES];
             [spotProductCollectionView setBackgroundColor:[UIColor clearColor]];
             spotProductCollectionView.simiObjectName = HOME_SPOT_CELL;

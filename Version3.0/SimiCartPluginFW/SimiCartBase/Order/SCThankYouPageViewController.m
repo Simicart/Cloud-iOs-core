@@ -73,10 +73,10 @@ NSString * BUTTON = @"BUTTON";
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
         [btnContinue setFrame:CGRectMake(paddingButton,oriYButton , self.view.frame.size.width*2/3 - 2*paddingButton, heightButton)];
     }
-    [btnContinue setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btnContinue setTitleColor:THEME_BUTTON_TEXT_COLOR forState:UIControlStateNormal];
     [btnContinue.titleLabel setFont:[UIFont fontWithName:THEME_FONT_NAME_REGULAR size:18]];
     [btnContinue setTitle:[SCLocalizedString(@"Continue Shopping") uppercaseString] forState:UIControlStateNormal];
-    btnContinue.backgroundColor =THEME_COLOR;
+    btnContinue.backgroundColor = THEME_BUTTON_BACKGROUND_COLOR;
     [btnContinue addTarget:self action:@selector(didContinueShopping) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.hidesBackButton = YES;
     

@@ -13,7 +13,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>com.simicart.demo</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -108,11 +108,11 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>SIMI_DEBUG_ENABLE</key>
-	<true/>
+	<false/>
 	<key>SIMI_DEVELOPMENT_ENABLE</key>
 	<true/>
 	<key>SIMI_THEME_ENABLE</key>
-	<true/>
+	<false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Mark Simonson - Proxima Nova Light.ttf</string>
@@ -285,11 +285,5 @@
 	<false/>
 	<key>ZTHEME_ENABLE</key>
 	<false/>
-	<key>command</key>
-	<string>payment_related_details_for_mobile_sdk</string>
-	<key>key</key>
-	<string>gtKFFx</string>
-	<key>var1</key>
-	<string>default</string>
 </dict>
 </plist>

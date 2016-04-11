@@ -868,7 +868,9 @@
             self.selectedShippingMedthod = 0;
             self.expandableSections = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"YES",ORDER_PAYMENT_SECTION,@"NO",ORDER_SHIPMENT_SECTION, nil];
             didSaveShipping = YES;
-            [self getOrderConfig];
+            if (didAddBilling) {
+                [self getOrderConfig];
+            }
         }else{
             self.selectedShippingMedthod = [self getSelectedShippingMedthodId];
             [self didSelectShippingMethodAtIndex:self.selectedShippingMedthod];
@@ -886,6 +888,9 @@
     [self stopLoadingData];
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
+        if (didSaveShipping && self.shippingCollection.count == 0) {
+            [self getOrderConfig];
+        }
     }else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
         [alertView show];
@@ -1138,13 +1143,6 @@
             }
         } else {
             self.termAndConditions = nil;
-        }
-        
-        if (self.paymentCollection.count == 0) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"FAIL") message:SCLocalizedString(@"") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
-            alertView.message = SCLocalizedString(@"Couldn't get payment method information.");
-            [alertView show];
-            [self.navigationController popViewControllerAnimated:YES];
         }
     }else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(responder.status) message:responder.responseMessage delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];

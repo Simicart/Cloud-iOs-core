@@ -228,7 +228,7 @@ static int tagViewFog = 123456;
 
 - (void)configureLogo
 {
-    UIImageView *imageViewLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *imageViewLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 240, 44)];
     imageViewLogo.image = [UIImage imageNamed:@"logo"];
     imageViewLogo.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = imageViewLogo;

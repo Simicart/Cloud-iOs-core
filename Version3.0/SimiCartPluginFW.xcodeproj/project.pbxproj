@@ -537,6 +537,195 @@
 		892A36F61BFC83BC007EE4E3 /* plugin-simi_simidownload.plist in Resources */ = {isa = PBXBuildFile; fileRef = 892A36F51BFC83BC007EE4E3 /* plugin-simi_simidownload.plist */; };
 		89311F2A1B673E0000B30AC0 /* SCProductReviewShortCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 899B477F1B2832A8002C77DB /* SCProductReviewShortCell.m */; };
 		89311F2B1B673E1400B30AC0 /* CustomIOS7AlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D1AF7C1AFA0F2900750892 /* CustomIOS7AlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBEBE1C8ECDB600FFAEC9 /* AllPaymentOprionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD561C8ECDB500FFAEC9 /* AllPaymentOprionsView.xib */; };
+		893BBEBF1C8ECDB600FFAEC9 /* CardProcessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD571C8ECDB500FFAEC9 /* CardProcessView.xib */; };
+		893BBEC01C8ECDB600FFAEC9 /* CardValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD591C8ECDB500FFAEC9 /* CardValidation.m */; };
+		893BBEC11C8ECDB600FFAEC9 /* CashCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5A1C8ECDB500FFAEC9 /* CashCardView.xib */; };
+		893BBEC21C8ECDB600FFAEC9 /* l_icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5D1C8ECDB500FFAEC9 /* l_icon1.png */; };
+		893BBEC31C8ECDB600FFAEC9 /* l_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5E1C8ECDB500FFAEC9 /* l_icon2.png */; };
+		893BBEC41C8ECDB600FFAEC9 /* l_icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5F1C8ECDB500FFAEC9 /* l_icon3.png */; };
+		893BBEC51C8ECDB600FFAEC9 /* l_icon4.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD601C8ECDB500FFAEC9 /* l_icon4.png */; };
+		893BBEC61C8ECDB600FFAEC9 /* CustomActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD621C8ECDB500FFAEC9 /* CustomActivityIndicator.m */; };
+		893BBEC71C8ECDB600FFAEC9 /* CustomActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD631C8ECDB500FFAEC9 /* CustomActivityIndicator.xib */; };
+		893BBEC81C8ECDB600FFAEC9 /* PayU_iOS_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD651C8ECDB500FFAEC9 /* PayU_iOS_SDK.m */; };
+		893BBEC91C8ECDB600FFAEC9 /* PayUConnectionHandlerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD671C8ECDB500FFAEC9 /* PayUConnectionHandlerController.m */; };
+		893BBECA1C8ECDB600FFAEC9 /* PayUEMIOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD6A1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.m */; };
+		893BBECB1C8ECDB600FFAEC9 /* PayUEMIOptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD6B1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.xib */; };
+		893BBECC1C8ECDB600FFAEC9 /* PayUiOSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD6E1C8ECDB500FFAEC9 /* PayUiOSDevice.m */; };
+		893BBECD1C8ECDB600FFAEC9 /* PayUItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD701C8ECDB500FFAEC9 /* PayUItem.m */; };
+		893BBECE1C8ECDB600FFAEC9 /* PayUPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD731C8ECDB500FFAEC9 /* PayUPayment.m */; };
+		893BBECF1C8ECDB600FFAEC9 /* PayUPaymentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD751C8ECDB500FFAEC9 /* PayUPaymentDetails.m */; };
+		893BBED01C8ECDB600FFAEC9 /* PayUShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD771C8ECDB500FFAEC9 /* PayUShippingAddress.m */; };
+		893BBED11C8ECDB600FFAEC9 /* PayUStoredCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD791C8ECDB500FFAEC9 /* PayUStoredCardViewController.m */; };
+		893BBED21C8ECDB600FFAEC9 /* PayUStoredCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD7A1C8ECDB500FFAEC9 /* PayUStoredCardViewController.xib */; };
+		893BBED31C8ECDB600FFAEC9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD7C1C8ECDB500FFAEC9 /* Reachability.m */; };
+		893BBED41C8ECDB600FFAEC9 /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD7E1C8ECDB500FFAEC9 /* ReachabilityManager.m */; };
+		893BBED51C8ECDB600FFAEC9 /* amex.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD801C8ECDB500FFAEC9 /* amex.png */; };
+		893BBED61C8ECDB600FFAEC9 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD811C8ECDB500FFAEC9 /* arrow.png */; };
+		893BBED71C8ECDB600FFAEC9 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD821C8ECDB500FFAEC9 /* calendar.png */; };
+		893BBED81C8ECDB600FFAEC9 /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD831C8ECDB500FFAEC9 /* card.png */; };
+		893BBED91C8ECDB600FFAEC9 /* cash_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD841C8ECDB500FFAEC9 /* cash_card.png */; };
+		893BBEDA1C8ECDB600FFAEC9 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD851C8ECDB500FFAEC9 /* checkbox.png */; };
+		893BBEDB1C8ECDB600FFAEC9 /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD861C8ECDB500FFAEC9 /* checkbox@2x.png */; };
+		893BBEDC1C8ECDB600FFAEC9 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD871C8ECDB500FFAEC9 /* coin.png */; };
+		893BBEDD1C8ECDB600FFAEC9 /* diner.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD881C8ECDB500FFAEC9 /* diner.png */; };
+		893BBEDE1C8ECDB600FFAEC9 /* discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD891C8ECDB500FFAEC9 /* discover.png */; };
+		893BBEDF1C8ECDB600FFAEC9 /* dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8A1C8ECDB500FFAEC9 /* dropdown.png */; };
+		893BBEE01C8ECDB600FFAEC9 /* dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8B1C8ECDB500FFAEC9 /* dropdown@2x.png */; };
+		893BBEE11C8ECDB600FFAEC9 /* error_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8C1C8ECDB500FFAEC9 /* error_icon.png */; };
+		893BBEE21C8ECDB600FFAEC9 /* ic_action_add_person.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8D1C8ECDB500FFAEC9 /* ic_action_add_person.png */; };
+		893BBEE31C8ECDB600FFAEC9 /* jcb.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8E1C8ECDB500FFAEC9 /* jcb.png */; };
+		893BBEE41C8ECDB600FFAEC9 /* laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8F1C8ECDB500FFAEC9 /* laser.png */; };
+		893BBEE51C8ECDB600FFAEC9 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD901C8ECDB500FFAEC9 /* lock.png */; };
+		893BBEE61C8ECDB600FFAEC9 /* lock2.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD911C8ECDB500FFAEC9 /* lock2.png */; };
+		893BBEE71C8ECDB600FFAEC9 /* maestro.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD921C8ECDB500FFAEC9 /* maestro.png */; };
+		893BBEE81C8ECDB600FFAEC9 /* master.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD931C8ECDB500FFAEC9 /* master.png */; };
+		893BBEE91C8ECDB600FFAEC9 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD941C8ECDB500FFAEC9 /* next.png */; };
+		893BBEEA1C8ECDB600FFAEC9 /* next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD951C8ECDB500FFAEC9 /* next@2x.png */; };
+		893BBEEB1C8ECDB600FFAEC9 /* payu_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD961C8ECDB500FFAEC9 /* payu_money.png */; };
+		893BBEEC1C8ECDB600FFAEC9 /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD971C8ECDB500FFAEC9 /* prev.png */; };
+		893BBEED1C8ECDB600FFAEC9 /* prev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD981C8ECDB500FFAEC9 /* prev@2x.png */; };
+		893BBEEE1C8ECDB600FFAEC9 /* store_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD991C8ECDB500FFAEC9 /* store_card.png */; };
+		893BBEEF1C8ECDB600FFAEC9 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9A1C8ECDB500FFAEC9 /* unchecked.png */; };
+		893BBEF01C8ECDB600FFAEC9 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9B1C8ECDB500FFAEC9 /* unchecked@2x.png */; };
+		893BBEF11C8ECDB600FFAEC9 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9C1C8ECDB500FFAEC9 /* user.png */; };
+		893BBEF21C8ECDB600FFAEC9 /* visa.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9D1C8ECDB500FFAEC9 /* visa.png */; };
+		893BBEF31C8ECDB600FFAEC9 /* SharedDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD9F1C8ECDB500FFAEC9 /* SharedDataManager.m */; };
+		893BBEF41C8ECDB600FFAEC9 /* StoredCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDA01C8ECDB500FFAEC9 /* StoredCard.xib */; };
+		893BBEF51C8ECDB600FFAEC9 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDA31C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.m */; };
+		893BBEF61C8ECDB600FFAEC9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDA51C8ECDB500FFAEC9 /* Utils.m */; };
+		893BBEF71C8ECDB600FFAEC9 /* EMIOption5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDA71C8ECDB500FFAEC9 /* EMIOption5.xib */; };
+		893BBEF81C8ECDB600FFAEC9 /* EMIOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDA81C8ECDB500FFAEC9 /* EMIOptionView.xib */; };
+		893BBEF91C8ECDB600FFAEC9 /* PayUCardProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDAA1C8ECDB500FFAEC9 /* PayUCardProcessViewController.m */; };
+		893BBEFA1C8ECDB600FFAEC9 /* PayUCardProcessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDAB1C8ECDB500FFAEC9 /* PayUCardProcessViewController.xib */; };
+		893BBEFB1C8ECDB600FFAEC9 /* PayUCashCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDAD1C8ECDB500FFAEC9 /* PayUCashCardViewController.m */; };
+		893BBEFC1C8ECDB600FFAEC9 /* PayUCashCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDAE1C8ECDB500FFAEC9 /* PayUCashCardViewController.xib */; };
+		893BBEFD1C8ECDB600FFAEC9 /* PayUInternetBankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB01C8ECDB500FFAEC9 /* PayUInternetBankingViewController.m */; };
+		893BBEFE1C8ECDB600FFAEC9 /* PayUInternetBankingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDB11C8ECDB500FFAEC9 /* PayUInternetBankingViewController.xib */; };
+		893BBEFF1C8ECDB600FFAEC9 /* PayUPaymentOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB31C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.m */; };
+		893BBF001C8ECDB600FFAEC9 /* PayUPaymentOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDB41C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.xib */; };
+		893BBF011C8ECDB600FFAEC9 /* PayUPaymentResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB61C8ECDB500FFAEC9 /* PayUPaymentResultViewController.m */; };
+		893BBF021C8ECDB600FFAEC9 /* PayUPaymentResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDB71C8ECDB500FFAEC9 /* PayUPaymentResultViewController.xib */; };
+		893BBF031C8ECDB600FFAEC9 /* PreferredPaymentMethodCustomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB91C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.m */; };
+		893BBF041C8ECDB600FFAEC9 /* PreferredPaymentMethodCustomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDBA1C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.xib */; };
+		893BBF051C8ECDB600FFAEC9 /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDBD1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.js.txt */; };
+		893BBF061C8ECDB600FFAEC9 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDBE1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.m */; };
+		893BBF071C8ECDB600FFAEC9 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDC01C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.m */; };
+		893BBF0A1C8ECDB600FFAEC9 /* PayUIndianNote.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDC31C8ECDB500FFAEC9 /* PayUIndianNote.rtf */; };
+		893BBF0B1C8ECDB600FFAEC9 /* plugin-simi_payuindian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDC41C8ECDB500FFAEC9 /* plugin-simi_payuindian.plist */; };
+		893BBF4D1C8ECDB600FFAEC9 /* SimiGlobalVar+PayUIndian.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE081C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.m */; };
+		893BBF4E1C8ECDB600FFAEC9 /* SimiPayUIndianAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE0A1C8ECDB500FFAEC9 /* SimiPayUIndianAPI.m */; };
+		893BBF4F1C8ECDB600FFAEC9 /* SimiPayUIndianModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE0C1C8ECDB500FFAEC9 /* SimiPayUIndianModel.m */; };
+		893BBF501C8ECDB600FFAEC9 /* SimiPayUIndianWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE0E1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.m */; };
+		893BBF8E1C915DEF00FFAEC9 /* CardValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD591C8ECDB500FFAEC9 /* CardValidation.m */; };
+		893BBF8F1C915DEF00FFAEC9 /* CustomActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD621C8ECDB500FFAEC9 /* CustomActivityIndicator.m */; };
+		893BBF901C915DEF00FFAEC9 /* PayU_iOS_SDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD651C8ECDB500FFAEC9 /* PayU_iOS_SDK.m */; };
+		893BBF911C915DEF00FFAEC9 /* PayUConnectionHandlerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD671C8ECDB500FFAEC9 /* PayUConnectionHandlerController.m */; };
+		893BBF921C915DEF00FFAEC9 /* PayUEMIOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD6A1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.m */; };
+		893BBF931C915DEF00FFAEC9 /* PayUiOSDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD6E1C8ECDB500FFAEC9 /* PayUiOSDevice.m */; };
+		893BBF941C915DEF00FFAEC9 /* PayUItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD701C8ECDB500FFAEC9 /* PayUItem.m */; };
+		893BBF951C915DEF00FFAEC9 /* PayUPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD731C8ECDB500FFAEC9 /* PayUPayment.m */; };
+		893BBF961C915DEF00FFAEC9 /* PayUPaymentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD751C8ECDB500FFAEC9 /* PayUPaymentDetails.m */; };
+		893BBF971C915DF000FFAEC9 /* PayUShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD771C8ECDB500FFAEC9 /* PayUShippingAddress.m */; };
+		893BBF981C915DF000FFAEC9 /* PayUStoredCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD791C8ECDB500FFAEC9 /* PayUStoredCardViewController.m */; };
+		893BBF991C915DF000FFAEC9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD7C1C8ECDB500FFAEC9 /* Reachability.m */; };
+		893BBF9A1C915DF000FFAEC9 /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD7E1C8ECDB500FFAEC9 /* ReachabilityManager.m */; };
+		893BBF9B1C915DF000FFAEC9 /* SharedDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBD9F1C8ECDB500FFAEC9 /* SharedDataManager.m */; };
+		893BBF9C1C915DF000FFAEC9 /* UIViewController+BackButtonHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDA31C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.m */; };
+		893BBF9D1C915DF000FFAEC9 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDA51C8ECDB500FFAEC9 /* Utils.m */; };
+		893BBF9E1C915DF000FFAEC9 /* PayUCardProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDAA1C8ECDB500FFAEC9 /* PayUCardProcessViewController.m */; };
+		893BBF9F1C915DF000FFAEC9 /* PayUCashCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDAD1C8ECDB500FFAEC9 /* PayUCashCardViewController.m */; };
+		893BBFA01C915DF000FFAEC9 /* PayUInternetBankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB01C8ECDB500FFAEC9 /* PayUInternetBankingViewController.m */; };
+		893BBFA11C915DF000FFAEC9 /* PayUPaymentOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB31C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.m */; };
+		893BBFA21C915DF000FFAEC9 /* PayUPaymentResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB61C8ECDB500FFAEC9 /* PayUPaymentResultViewController.m */; };
+		893BBFA31C915DF000FFAEC9 /* PreferredPaymentMethodCustomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDB91C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.m */; };
+		893BBFA41C915DF000FFAEC9 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDBE1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.m */; };
+		893BBFA51C915DF000FFAEC9 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBDC01C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.m */; };
+		893BBFA61C915DF000FFAEC9 /* SimiGlobalVar+PayUIndian.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE081C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.m */; };
+		893BBFA71C915DF000FFAEC9 /* SimiPayUIndianAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE0A1C8ECDB500FFAEC9 /* SimiPayUIndianAPI.m */; };
+		893BBFA81C915DF000FFAEC9 /* SimiPayUIndianModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE0C1C8ECDB500FFAEC9 /* SimiPayUIndianModel.m */; };
+		893BBFA91C915DF000FFAEC9 /* SimiPayUIndianWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 893BBE0E1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.m */; };
+		893BBFAA1C915E0F00FFAEC9 /* CardValidation.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD581C8ECDB500FFAEC9 /* CardValidation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFAB1C915E0F00FFAEC9 /* CustomActivityIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD611C8ECDB500FFAEC9 /* CustomActivityIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFAC1C915E0F00FFAEC9 /* PayU_iOS_SDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD641C8ECDB500FFAEC9 /* PayU_iOS_SDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFAD1C915E0F00FFAEC9 /* PayUConnectionHandlerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD661C8ECDB500FFAEC9 /* PayUConnectionHandlerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFAE1C915E0F00FFAEC9 /* PayUConstant.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD681C8ECDB500FFAEC9 /* PayUConstant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFAF1C915E0F00FFAEC9 /* PayUEMIOptionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD691C8ECDB500FFAEC9 /* PayUEMIOptionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB01C915E0F00FFAEC9 /* PayUErrorConstant.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD6C1C8ECDB500FFAEC9 /* PayUErrorConstant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB11C915E0F00FFAEC9 /* PayUiOSDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD6D1C8ECDB500FFAEC9 /* PayUiOSDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB21C915E0F00FFAEC9 /* PayUItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD6F1C8ECDB500FFAEC9 /* PayUItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB31C915E0F00FFAEC9 /* PayUNotificationConstant.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD711C8ECDB500FFAEC9 /* PayUNotificationConstant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB41C915E0F00FFAEC9 /* PayUPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD721C8ECDB500FFAEC9 /* PayUPayment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB51C915E0F00FFAEC9 /* PayUPaymentDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD741C8ECDB500FFAEC9 /* PayUPaymentDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB61C915E0F00FFAEC9 /* PayUShippingAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD761C8ECDB500FFAEC9 /* PayUShippingAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB71C915E0F00FFAEC9 /* PayUStoredCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD781C8ECDB500FFAEC9 /* PayUStoredCardViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB81C915E0F00FFAEC9 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD7B1C8ECDB500FFAEC9 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFB91C915E0F00FFAEC9 /* ReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD7D1C8ECDB500FFAEC9 /* ReachabilityManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFBA1C915E0F00FFAEC9 /* SharedDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBD9E1C8ECDB500FFAEC9 /* SharedDataManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFBB1C915E0F00FFAEC9 /* UIViewController+BackButtonHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDA21C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFBC1C915E0F00FFAEC9 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDA41C8ECDB500FFAEC9 /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFBD1C915E1000FFAEC9 /* PayUCardProcessViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDA91C8ECDB500FFAEC9 /* PayUCardProcessViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFBE1C915E1000FFAEC9 /* PayUCashCardViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDAC1C8ECDB500FFAEC9 /* PayUCashCardViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFBF1C915E1000FFAEC9 /* PayUInternetBankingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDAF1C8ECDB500FFAEC9 /* PayUInternetBankingViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC01C915E1000FFAEC9 /* PayUPaymentOptionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDB21C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC11C915E1000FFAEC9 /* PayUPaymentResultViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDB51C8ECDB500FFAEC9 /* PayUPaymentResultViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC21C915E1000FFAEC9 /* PreferredPaymentMethodCustomeCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDB81C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC31C915E1000FFAEC9 /* WebViewJavascriptBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDBC1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC41C915E1000FFAEC9 /* WebViewJavascriptBridgeBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBDBF1C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC51C915E1000FFAEC9 /* SimiGlobalVar+PayUIndian.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBE071C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC61C915E1000FFAEC9 /* SimiPayUIndianAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBE091C8ECDB500FFAEC9 /* SimiPayUIndianAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC71C915E1000FFAEC9 /* SimiPayUIndianModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBE0B1C8ECDB500FFAEC9 /* SimiPayUIndianModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC81C915E1000FFAEC9 /* SimiPayUIndianWorker.h in Headers */ = {isa = PBXBuildFile; fileRef = 893BBE0D1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		893BBFC91C915E3A00FFAEC9 /* l_icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5D1C8ECDB500FFAEC9 /* l_icon1.png */; };
+		893BBFCA1C915E3A00FFAEC9 /* l_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5E1C8ECDB500FFAEC9 /* l_icon2.png */; };
+		893BBFCB1C915E3A00FFAEC9 /* l_icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5F1C8ECDB500FFAEC9 /* l_icon3.png */; };
+		893BBFCC1C915E3A00FFAEC9 /* l_icon4.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD601C8ECDB500FFAEC9 /* l_icon4.png */; };
+		893BBFCD1C915E3A00FFAEC9 /* amex.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD801C8ECDB500FFAEC9 /* amex.png */; };
+		893BBFCE1C915E3A00FFAEC9 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD811C8ECDB500FFAEC9 /* arrow.png */; };
+		893BBFCF1C915E3B00FFAEC9 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD821C8ECDB500FFAEC9 /* calendar.png */; };
+		893BBFD01C915E3B00FFAEC9 /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD831C8ECDB500FFAEC9 /* card.png */; };
+		893BBFD11C915E3B00FFAEC9 /* cash_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD841C8ECDB500FFAEC9 /* cash_card.png */; };
+		893BBFD21C915E3B00FFAEC9 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD851C8ECDB500FFAEC9 /* checkbox.png */; };
+		893BBFD31C915E3B00FFAEC9 /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD861C8ECDB500FFAEC9 /* checkbox@2x.png */; };
+		893BBFD41C915E3B00FFAEC9 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD871C8ECDB500FFAEC9 /* coin.png */; };
+		893BBFD51C915E3B00FFAEC9 /* diner.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD881C8ECDB500FFAEC9 /* diner.png */; };
+		893BBFD61C915E3B00FFAEC9 /* discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD891C8ECDB500FFAEC9 /* discover.png */; };
+		893BBFD71C915E3B00FFAEC9 /* dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8A1C8ECDB500FFAEC9 /* dropdown.png */; };
+		893BBFD81C915E3B00FFAEC9 /* dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8B1C8ECDB500FFAEC9 /* dropdown@2x.png */; };
+		893BBFD91C915E3B00FFAEC9 /* error_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8C1C8ECDB500FFAEC9 /* error_icon.png */; };
+		893BBFDA1C915E3B00FFAEC9 /* ic_action_add_person.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8D1C8ECDB500FFAEC9 /* ic_action_add_person.png */; };
+		893BBFDB1C915E3B00FFAEC9 /* jcb.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8E1C8ECDB500FFAEC9 /* jcb.png */; };
+		893BBFDC1C915E3B00FFAEC9 /* laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD8F1C8ECDB500FFAEC9 /* laser.png */; };
+		893BBFDD1C915E3B00FFAEC9 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD901C8ECDB500FFAEC9 /* lock.png */; };
+		893BBFDE1C915E3B00FFAEC9 /* lock2.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD911C8ECDB500FFAEC9 /* lock2.png */; };
+		893BBFDF1C915E3B00FFAEC9 /* maestro.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD921C8ECDB500FFAEC9 /* maestro.png */; };
+		893BBFE01C915E3B00FFAEC9 /* master.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD931C8ECDB500FFAEC9 /* master.png */; };
+		893BBFE11C915E3B00FFAEC9 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD941C8ECDB500FFAEC9 /* next.png */; };
+		893BBFE21C915E3B00FFAEC9 /* next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD951C8ECDB500FFAEC9 /* next@2x.png */; };
+		893BBFE31C915E3B00FFAEC9 /* payu_money.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD961C8ECDB500FFAEC9 /* payu_money.png */; };
+		893BBFE41C915E3B00FFAEC9 /* prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD971C8ECDB500FFAEC9 /* prev.png */; };
+		893BBFE51C915E3B00FFAEC9 /* prev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD981C8ECDB500FFAEC9 /* prev@2x.png */; };
+		893BBFE61C915E3C00FFAEC9 /* store_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD991C8ECDB500FFAEC9 /* store_card.png */; };
+		893BBFE71C915E3C00FFAEC9 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9A1C8ECDB500FFAEC9 /* unchecked.png */; };
+		893BBFE81C915E3C00FFAEC9 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9B1C8ECDB500FFAEC9 /* unchecked@2x.png */; };
+		893BBFE91C915E3C00FFAEC9 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9C1C8ECDB500FFAEC9 /* user.png */; };
+		893BBFEA1C915E3C00FFAEC9 /* visa.png in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD9D1C8ECDB500FFAEC9 /* visa.png */; };
+		893BBFEB1C915E5D00FFAEC9 /* AllPaymentOprionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD561C8ECDB500FFAEC9 /* AllPaymentOprionsView.xib */; };
+		893BBFEC1C915E5D00FFAEC9 /* CardProcessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD571C8ECDB500FFAEC9 /* CardProcessView.xib */; };
+		893BBFED1C915E5D00FFAEC9 /* CashCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD5A1C8ECDB500FFAEC9 /* CashCardView.xib */; };
+		893BBFEE1C915E5D00FFAEC9 /* CustomActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD631C8ECDB500FFAEC9 /* CustomActivityIndicator.xib */; };
+		893BBFEF1C915E5D00FFAEC9 /* PayUEMIOptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD6B1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.xib */; };
+		893BBFF01C915E5D00FFAEC9 /* PayUStoredCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBD7A1C8ECDB500FFAEC9 /* PayUStoredCardViewController.xib */; };
+		893BBFF11C915E5D00FFAEC9 /* StoredCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDA01C8ECDB500FFAEC9 /* StoredCard.xib */; };
+		893BBFF21C915E5D00FFAEC9 /* EMIOption5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDA71C8ECDB500FFAEC9 /* EMIOption5.xib */; };
+		893BBFF31C915E5D00FFAEC9 /* EMIOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDA81C8ECDB500FFAEC9 /* EMIOptionView.xib */; };
+		893BBFF41C915E5D00FFAEC9 /* PayUCardProcessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDAB1C8ECDB500FFAEC9 /* PayUCardProcessViewController.xib */; };
+		893BBFF51C915E5D00FFAEC9 /* PayUCashCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDAE1C8ECDB500FFAEC9 /* PayUCashCardViewController.xib */; };
+		893BBFF61C915E5D00FFAEC9 /* PayUInternetBankingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDB11C8ECDB500FFAEC9 /* PayUInternetBankingViewController.xib */; };
+		893BBFF71C915E5D00FFAEC9 /* PayUPaymentOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDB41C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.xib */; };
+		893BBFF81C915E5D00FFAEC9 /* PayUPaymentResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDB71C8ECDB500FFAEC9 /* PayUPaymentResultViewController.xib */; };
+		893BBFF91C915E5E00FFAEC9 /* PreferredPaymentMethodCustomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDBA1C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.xib */; };
+		893BC1901C91611100FFAEC9 /* plugin-simi_payuindian.plist in Resources */ = {isa = PBXBuildFile; fileRef = 893BBDC41C8ECDB500FFAEC9 /* plugin-simi_payuindian.plist */; };
 		893F4C711BEC3C8F00082A59 /* default_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 893F4C6A1BEC3C8F00082A59 /* default_banner.png */; };
 		893F4C721BEC3C8F00082A59 /* default_category.png in Resources */ = {isa = PBXBuildFile; fileRef = 893F4C6B1BEC3C8F00082A59 /* default_category.png */; };
 		893F4C731BEC3C8F00082A59 /* default_spotproduct.png in Resources */ = {isa = PBXBuildFile; fileRef = 893F4C6C1BEC3C8F00082A59 /* default_spotproduct.png */; };
@@ -578,6 +767,9 @@
 		895B674F1BF0502B0009746A /* UIWebViewSearch.js in Resources */ = {isa = PBXBuildFile; fileRef = 895B67271BF0502B0009746A /* UIWebViewSearch.js */; };
 		895B67501BF0502B0009746A /* XMLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 895B67291BF0502B0009746A /* XMLHandler.m */; };
 		895B67551BF0551C0009746A /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 895B67541BF0551C0009746A /* QuickLook.framework */; };
+		8968F01D1C88325A00492EA8 /* SCPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8968F01C1C88325A00492EA8 /* SCPaymentViewController.m */; };
+		8968F01E1C883A3C00492EA8 /* SCPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8968F01C1C88325A00492EA8 /* SCPaymentViewController.m */; };
+		8968F01F1C883A4400492EA8 /* SCPaymentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8968F01B1C88325A00492EA8 /* SCPaymentViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8969A3471C10206C0050D0EA /* SimiNotificationName.m in Sources */ = {isa = PBXBuildFile; fileRef = 8969A3461C10206C0050D0EA /* SimiNotificationName.m */; };
 		8969A34A1C10375C0050D0EA /* SimiSpotModelCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8969A3491C10375C0050D0EA /* SimiSpotModelCollection.m */; };
 		896FB1041B871F57009B8006 /* SCHomeCategoryCollectionViewCellPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 896FB1031B871F57009B8006 /* SCHomeCategoryCollectionViewCellPad.m */; };
@@ -1485,6 +1677,117 @@
 		891D51281B835365001B0880 /* SCProductCollectionViewCellPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProductCollectionViewCellPad.h; sourceTree = "<group>"; };
 		891D51291B835365001B0880 /* SCProductCollectionViewCellPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProductCollectionViewCellPad.m; sourceTree = "<group>"; };
 		892A36F51BFC83BC007EE4E3 /* plugin-simi_simidownload.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "plugin-simi_simidownload.plist"; sourceTree = "<group>"; };
+		893BBD561C8ECDB500FFAEC9 /* AllPaymentOprionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllPaymentOprionsView.xib; sourceTree = "<group>"; };
+		893BBD571C8ECDB500FFAEC9 /* CardProcessView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardProcessView.xib; sourceTree = "<group>"; };
+		893BBD581C8ECDB500FFAEC9 /* CardValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardValidation.h; sourceTree = "<group>"; };
+		893BBD591C8ECDB500FFAEC9 /* CardValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardValidation.m; sourceTree = "<group>"; };
+		893BBD5A1C8ECDB500FFAEC9 /* CashCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CashCardView.xib; sourceTree = "<group>"; };
+		893BBD5D1C8ECDB500FFAEC9 /* l_icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_icon1.png; sourceTree = "<group>"; };
+		893BBD5E1C8ECDB500FFAEC9 /* l_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_icon2.png; sourceTree = "<group>"; };
+		893BBD5F1C8ECDB500FFAEC9 /* l_icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_icon3.png; sourceTree = "<group>"; };
+		893BBD601C8ECDB500FFAEC9 /* l_icon4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_icon4.png; sourceTree = "<group>"; };
+		893BBD611C8ECDB500FFAEC9 /* CustomActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivityIndicator.h; sourceTree = "<group>"; };
+		893BBD621C8ECDB500FFAEC9 /* CustomActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivityIndicator.m; sourceTree = "<group>"; };
+		893BBD631C8ECDB500FFAEC9 /* CustomActivityIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomActivityIndicator.xib; sourceTree = "<group>"; };
+		893BBD641C8ECDB500FFAEC9 /* PayU_iOS_SDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayU_iOS_SDK.h; sourceTree = "<group>"; };
+		893BBD651C8ECDB500FFAEC9 /* PayU_iOS_SDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayU_iOS_SDK.m; sourceTree = "<group>"; };
+		893BBD661C8ECDB500FFAEC9 /* PayUConnectionHandlerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUConnectionHandlerController.h; sourceTree = "<group>"; };
+		893BBD671C8ECDB500FFAEC9 /* PayUConnectionHandlerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUConnectionHandlerController.m; sourceTree = "<group>"; };
+		893BBD681C8ECDB500FFAEC9 /* PayUConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUConstant.h; sourceTree = "<group>"; };
+		893BBD691C8ECDB500FFAEC9 /* PayUEMIOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUEMIOptionViewController.h; sourceTree = "<group>"; };
+		893BBD6A1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUEMIOptionViewController.m; sourceTree = "<group>"; };
+		893BBD6B1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUEMIOptionViewController.xib; sourceTree = "<group>"; };
+		893BBD6C1C8ECDB500FFAEC9 /* PayUErrorConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUErrorConstant.h; sourceTree = "<group>"; };
+		893BBD6D1C8ECDB500FFAEC9 /* PayUiOSDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUiOSDevice.h; sourceTree = "<group>"; };
+		893BBD6E1C8ECDB500FFAEC9 /* PayUiOSDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUiOSDevice.m; sourceTree = "<group>"; };
+		893BBD6F1C8ECDB500FFAEC9 /* PayUItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUItem.h; sourceTree = "<group>"; };
+		893BBD701C8ECDB500FFAEC9 /* PayUItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUItem.m; sourceTree = "<group>"; };
+		893BBD711C8ECDB500FFAEC9 /* PayUNotificationConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUNotificationConstant.h; sourceTree = "<group>"; };
+		893BBD721C8ECDB500FFAEC9 /* PayUPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUPayment.h; sourceTree = "<group>"; };
+		893BBD731C8ECDB500FFAEC9 /* PayUPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUPayment.m; sourceTree = "<group>"; };
+		893BBD741C8ECDB500FFAEC9 /* PayUPaymentDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUPaymentDetails.h; sourceTree = "<group>"; };
+		893BBD751C8ECDB500FFAEC9 /* PayUPaymentDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUPaymentDetails.m; sourceTree = "<group>"; };
+		893BBD761C8ECDB500FFAEC9 /* PayUShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUShippingAddress.h; sourceTree = "<group>"; };
+		893BBD771C8ECDB500FFAEC9 /* PayUShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUShippingAddress.m; sourceTree = "<group>"; };
+		893BBD781C8ECDB500FFAEC9 /* PayUStoredCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUStoredCardViewController.h; sourceTree = "<group>"; };
+		893BBD791C8ECDB500FFAEC9 /* PayUStoredCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUStoredCardViewController.m; sourceTree = "<group>"; };
+		893BBD7A1C8ECDB500FFAEC9 /* PayUStoredCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUStoredCardViewController.xib; sourceTree = "<group>"; };
+		893BBD7B1C8ECDB500FFAEC9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		893BBD7C1C8ECDB500FFAEC9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		893BBD7D1C8ECDB500FFAEC9 /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityManager.h; sourceTree = "<group>"; };
+		893BBD7E1C8ECDB500FFAEC9 /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
+		893BBD801C8ECDB500FFAEC9 /* amex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amex.png; sourceTree = "<group>"; };
+		893BBD811C8ECDB500FFAEC9 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		893BBD821C8ECDB500FFAEC9 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		893BBD831C8ECDB500FFAEC9 /* card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card.png; sourceTree = "<group>"; };
+		893BBD841C8ECDB500FFAEC9 /* cash_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cash_card.png; sourceTree = "<group>"; };
+		893BBD851C8ECDB500FFAEC9 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
+		893BBD861C8ECDB500FFAEC9 /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
+		893BBD871C8ECDB500FFAEC9 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
+		893BBD881C8ECDB500FFAEC9 /* diner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diner.png; sourceTree = "<group>"; };
+		893BBD891C8ECDB500FFAEC9 /* discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover.png; sourceTree = "<group>"; };
+		893BBD8A1C8ECDB500FFAEC9 /* dropdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdown.png; sourceTree = "<group>"; };
+		893BBD8B1C8ECDB500FFAEC9 /* dropdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown@2x.png"; sourceTree = "<group>"; };
+		893BBD8C1C8ECDB500FFAEC9 /* error_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_icon.png; sourceTree = "<group>"; };
+		893BBD8D1C8ECDB500FFAEC9 /* ic_action_add_person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_action_add_person.png; sourceTree = "<group>"; };
+		893BBD8E1C8ECDB500FFAEC9 /* jcb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jcb.png; sourceTree = "<group>"; };
+		893BBD8F1C8ECDB500FFAEC9 /* laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laser.png; sourceTree = "<group>"; };
+		893BBD901C8ECDB500FFAEC9 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		893BBD911C8ECDB500FFAEC9 /* lock2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock2.png; sourceTree = "<group>"; };
+		893BBD921C8ECDB500FFAEC9 /* maestro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maestro.png; sourceTree = "<group>"; };
+		893BBD931C8ECDB500FFAEC9 /* master.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = master.png; sourceTree = "<group>"; };
+		893BBD941C8ECDB500FFAEC9 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		893BBD951C8ECDB500FFAEC9 /* next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next@2x.png"; sourceTree = "<group>"; };
+		893BBD961C8ECDB500FFAEC9 /* payu_money.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = payu_money.png; sourceTree = "<group>"; };
+		893BBD971C8ECDB500FFAEC9 /* prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev.png; sourceTree = "<group>"; };
+		893BBD981C8ECDB500FFAEC9 /* prev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prev@2x.png"; sourceTree = "<group>"; };
+		893BBD991C8ECDB500FFAEC9 /* store_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_card.png; sourceTree = "<group>"; };
+		893BBD9A1C8ECDB500FFAEC9 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
+		893BBD9B1C8ECDB500FFAEC9 /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
+		893BBD9C1C8ECDB500FFAEC9 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		893BBD9D1C8ECDB500FFAEC9 /* visa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa.png; sourceTree = "<group>"; };
+		893BBD9E1C8ECDB500FFAEC9 /* SharedDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedDataManager.h; sourceTree = "<group>"; };
+		893BBD9F1C8ECDB500FFAEC9 /* SharedDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedDataManager.m; sourceTree = "<group>"; };
+		893BBDA01C8ECDB500FFAEC9 /* StoredCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoredCard.xib; sourceTree = "<group>"; };
+		893BBDA21C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BackButtonHandler.h"; sourceTree = "<group>"; };
+		893BBDA31C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BackButtonHandler.m"; sourceTree = "<group>"; };
+		893BBDA41C8ECDB500FFAEC9 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		893BBDA51C8ECDB500FFAEC9 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		893BBDA71C8ECDB500FFAEC9 /* EMIOption5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMIOption5.xib; sourceTree = "<group>"; };
+		893BBDA81C8ECDB500FFAEC9 /* EMIOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMIOptionView.xib; sourceTree = "<group>"; };
+		893BBDA91C8ECDB500FFAEC9 /* PayUCardProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUCardProcessViewController.h; sourceTree = "<group>"; };
+		893BBDAA1C8ECDB500FFAEC9 /* PayUCardProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUCardProcessViewController.m; sourceTree = "<group>"; };
+		893BBDAB1C8ECDB500FFAEC9 /* PayUCardProcessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUCardProcessViewController.xib; sourceTree = "<group>"; };
+		893BBDAC1C8ECDB500FFAEC9 /* PayUCashCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUCashCardViewController.h; sourceTree = "<group>"; };
+		893BBDAD1C8ECDB500FFAEC9 /* PayUCashCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUCashCardViewController.m; sourceTree = "<group>"; };
+		893BBDAE1C8ECDB500FFAEC9 /* PayUCashCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUCashCardViewController.xib; sourceTree = "<group>"; };
+		893BBDAF1C8ECDB500FFAEC9 /* PayUInternetBankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUInternetBankingViewController.h; sourceTree = "<group>"; };
+		893BBDB01C8ECDB500FFAEC9 /* PayUInternetBankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUInternetBankingViewController.m; sourceTree = "<group>"; };
+		893BBDB11C8ECDB500FFAEC9 /* PayUInternetBankingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUInternetBankingViewController.xib; sourceTree = "<group>"; };
+		893BBDB21C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUPaymentOptionsViewController.h; sourceTree = "<group>"; };
+		893BBDB31C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUPaymentOptionsViewController.m; sourceTree = "<group>"; };
+		893BBDB41C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUPaymentOptionsViewController.xib; sourceTree = "<group>"; };
+		893BBDB51C8ECDB500FFAEC9 /* PayUPaymentResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayUPaymentResultViewController.h; sourceTree = "<group>"; };
+		893BBDB61C8ECDB500FFAEC9 /* PayUPaymentResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayUPaymentResultViewController.m; sourceTree = "<group>"; };
+		893BBDB71C8ECDB500FFAEC9 /* PayUPaymentResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayUPaymentResultViewController.xib; sourceTree = "<group>"; };
+		893BBDB81C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferredPaymentMethodCustomeCell.h; sourceTree = "<group>"; };
+		893BBDB91C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferredPaymentMethodCustomeCell.m; sourceTree = "<group>"; };
+		893BBDBA1C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferredPaymentMethodCustomeCell.xib; sourceTree = "<group>"; };
+		893BBDBC1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		893BBDBD1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
+		893BBDBE1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		893BBDBF1C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		893BBDC01C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		893BBDC31C8ECDB500FFAEC9 /* PayUIndianNote.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = PayUIndianNote.rtf; sourceTree = "<group>"; };
+		893BBDC41C8ECDB500FFAEC9 /* plugin-simi_payuindian.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "plugin-simi_payuindian.plist"; sourceTree = "<group>"; };
+		893BBE071C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SimiGlobalVar+PayUIndian.h"; sourceTree = "<group>"; };
+		893BBE081C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SimiGlobalVar+PayUIndian.m"; sourceTree = "<group>"; };
+		893BBE091C8ECDB500FFAEC9 /* SimiPayUIndianAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimiPayUIndianAPI.h; sourceTree = "<group>"; };
+		893BBE0A1C8ECDB500FFAEC9 /* SimiPayUIndianAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiPayUIndianAPI.m; sourceTree = "<group>"; };
+		893BBE0B1C8ECDB500FFAEC9 /* SimiPayUIndianModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimiPayUIndianModel.h; sourceTree = "<group>"; };
+		893BBE0C1C8ECDB500FFAEC9 /* SimiPayUIndianModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiPayUIndianModel.m; sourceTree = "<group>"; };
+		893BBE0D1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimiPayUIndianWorker.h; sourceTree = "<group>"; };
+		893BBE0E1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiPayUIndianWorker.m; sourceTree = "<group>"; };
 		893F4C6A1BEC3C8F00082A59 /* default_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_banner.png; sourceTree = "<group>"; };
 		893F4C6B1BEC3C8F00082A59 /* default_category.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_category.png; sourceTree = "<group>"; };
 		893F4C6C1BEC3C8F00082A59 /* default_spotproduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_spotproduct.png; sourceTree = "<group>"; };
@@ -1535,6 +1838,8 @@
 		895B67281BF0502B0009746A /* XMLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLHandler.h; sourceTree = "<group>"; };
 		895B67291BF0502B0009746A /* XMLHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLHandler.m; sourceTree = "<group>"; };
 		895B67541BF0551C0009746A /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		8968F01B1C88325A00492EA8 /* SCPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaymentViewController.h; sourceTree = "<group>"; };
+		8968F01C1C88325A00492EA8 /* SCPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaymentViewController.m; sourceTree = "<group>"; };
 		8969A3451C10206C0050D0EA /* SimiNotificationName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimiNotificationName.h; sourceTree = "<group>"; };
 		8969A3461C10206C0050D0EA /* SimiNotificationName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimiNotificationName.m; sourceTree = "<group>"; };
 		8969A3481C10375C0050D0EA /* SimiSpotModelCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimiSpotModelCollection.h; sourceTree = "<group>"; };
@@ -1881,6 +2186,8 @@
 		374096D418B2E855000F2B07 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				8968F01B1C88325A00492EA8 /* SCPaymentViewController.h */,
+				8968F01C1C88325A00492EA8 /* SCPaymentViewController.m */,
 				89D208591BC659020075480A /* SCThankYouPageViewController.h */,
 				89D2085A1BC659020075480A /* SCThankYouPageViewController.m */,
 				891D4EB21B82F196001B0880 /* SCOrderMethodCell.h */,
@@ -2600,6 +2907,7 @@
 		80A30EE819C3FA9E00821AD2 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				893BBD541C8ECDB500FFAEC9 /* PayUIndian */,
 			);
 			name = Plugins;
 			path = ../../Plugins;
@@ -2643,6 +2951,181 @@
 				80AF3D3919D3A44A0077AFED /* UIView+WebCacheOperation.m */,
 			);
 			path = SDWebImage;
+			sourceTree = "<group>";
+		};
+		893BBD541C8ECDB500FFAEC9 /* PayUIndian */ = {
+			isa = PBXGroup;
+			children = (
+				893BBD551C8ECDB500FFAEC9 /* PayU_iOS_SDK */,
+				893BBDC31C8ECDB500FFAEC9 /* PayUIndianNote.rtf */,
+				893BBDC41C8ECDB500FFAEC9 /* plugin-simi_payuindian.plist */,
+				893BBE071C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.h */,
+				893BBE081C8ECDB500FFAEC9 /* SimiGlobalVar+PayUIndian.m */,
+				893BBE091C8ECDB500FFAEC9 /* SimiPayUIndianAPI.h */,
+				893BBE0A1C8ECDB500FFAEC9 /* SimiPayUIndianAPI.m */,
+				893BBE0B1C8ECDB500FFAEC9 /* SimiPayUIndianModel.h */,
+				893BBE0C1C8ECDB500FFAEC9 /* SimiPayUIndianModel.m */,
+				893BBE0D1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.h */,
+				893BBE0E1C8ECDB500FFAEC9 /* SimiPayUIndianWorker.m */,
+			);
+			name = PayUIndian;
+			path = "../../Cloud-iOs-plugins/PayUIndian";
+			sourceTree = "<group>";
+		};
+		893BBD551C8ECDB500FFAEC9 /* PayU_iOS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				893BBD561C8ECDB500FFAEC9 /* AllPaymentOprionsView.xib */,
+				893BBD571C8ECDB500FFAEC9 /* CardProcessView.xib */,
+				893BBD581C8ECDB500FFAEC9 /* CardValidation.h */,
+				893BBD591C8ECDB500FFAEC9 /* CardValidation.m */,
+				893BBD5A1C8ECDB500FFAEC9 /* CashCardView.xib */,
+				893BBD5B1C8ECDB500FFAEC9 /* PayU Activity Indicator */,
+				893BBD641C8ECDB500FFAEC9 /* PayU_iOS_SDK.h */,
+				893BBD651C8ECDB500FFAEC9 /* PayU_iOS_SDK.m */,
+				893BBD661C8ECDB500FFAEC9 /* PayUConnectionHandlerController.h */,
+				893BBD671C8ECDB500FFAEC9 /* PayUConnectionHandlerController.m */,
+				893BBD681C8ECDB500FFAEC9 /* PayUConstant.h */,
+				893BBD691C8ECDB500FFAEC9 /* PayUEMIOptionViewController.h */,
+				893BBD6A1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.m */,
+				893BBD6B1C8ECDB500FFAEC9 /* PayUEMIOptionViewController.xib */,
+				893BBD6C1C8ECDB500FFAEC9 /* PayUErrorConstant.h */,
+				893BBD6D1C8ECDB500FFAEC9 /* PayUiOSDevice.h */,
+				893BBD6E1C8ECDB500FFAEC9 /* PayUiOSDevice.m */,
+				893BBD6F1C8ECDB500FFAEC9 /* PayUItem.h */,
+				893BBD701C8ECDB500FFAEC9 /* PayUItem.m */,
+				893BBD711C8ECDB500FFAEC9 /* PayUNotificationConstant.h */,
+				893BBD721C8ECDB500FFAEC9 /* PayUPayment.h */,
+				893BBD731C8ECDB500FFAEC9 /* PayUPayment.m */,
+				893BBD741C8ECDB500FFAEC9 /* PayUPaymentDetails.h */,
+				893BBD751C8ECDB500FFAEC9 /* PayUPaymentDetails.m */,
+				893BBD761C8ECDB500FFAEC9 /* PayUShippingAddress.h */,
+				893BBD771C8ECDB500FFAEC9 /* PayUShippingAddress.m */,
+				893BBD781C8ECDB500FFAEC9 /* PayUStoredCardViewController.h */,
+				893BBD791C8ECDB500FFAEC9 /* PayUStoredCardViewController.m */,
+				893BBD7A1C8ECDB500FFAEC9 /* PayUStoredCardViewController.xib */,
+				893BBD7B1C8ECDB500FFAEC9 /* Reachability.h */,
+				893BBD7C1C8ECDB500FFAEC9 /* Reachability.m */,
+				893BBD7D1C8ECDB500FFAEC9 /* ReachabilityManager.h */,
+				893BBD7E1C8ECDB500FFAEC9 /* ReachabilityManager.m */,
+				893BBD7F1C8ECDB500FFAEC9 /* Resources */,
+				893BBD9E1C8ECDB500FFAEC9 /* SharedDataManager.h */,
+				893BBD9F1C8ECDB500FFAEC9 /* SharedDataManager.m */,
+				893BBDA01C8ECDB500FFAEC9 /* StoredCard.xib */,
+				893BBDA11C8ECDB500FFAEC9 /* UIViewController Category */,
+				893BBDA41C8ECDB500FFAEC9 /* Utils.h */,
+				893BBDA51C8ECDB500FFAEC9 /* Utils.m */,
+				893BBDA61C8ECDB500FFAEC9 /* View Controller */,
+				893BBDBB1C8ECDB500FFAEC9 /* WebViewJavascript Bridge */,
+			);
+			path = PayU_iOS_SDK;
+			sourceTree = "<group>";
+		};
+		893BBD5B1C8ECDB500FFAEC9 /* PayU Activity Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				893BBD5C1C8ECDB500FFAEC9 /* Artworks */,
+				893BBD611C8ECDB500FFAEC9 /* CustomActivityIndicator.h */,
+				893BBD621C8ECDB500FFAEC9 /* CustomActivityIndicator.m */,
+				893BBD631C8ECDB500FFAEC9 /* CustomActivityIndicator.xib */,
+			);
+			path = "PayU Activity Indicator";
+			sourceTree = "<group>";
+		};
+		893BBD5C1C8ECDB500FFAEC9 /* Artworks */ = {
+			isa = PBXGroup;
+			children = (
+				893BBD5D1C8ECDB500FFAEC9 /* l_icon1.png */,
+				893BBD5E1C8ECDB500FFAEC9 /* l_icon2.png */,
+				893BBD5F1C8ECDB500FFAEC9 /* l_icon3.png */,
+				893BBD601C8ECDB500FFAEC9 /* l_icon4.png */,
+			);
+			path = Artworks;
+			sourceTree = "<group>";
+		};
+		893BBD7F1C8ECDB500FFAEC9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				893BBD801C8ECDB500FFAEC9 /* amex.png */,
+				893BBD811C8ECDB500FFAEC9 /* arrow.png */,
+				893BBD821C8ECDB500FFAEC9 /* calendar.png */,
+				893BBD831C8ECDB500FFAEC9 /* card.png */,
+				893BBD841C8ECDB500FFAEC9 /* cash_card.png */,
+				893BBD851C8ECDB500FFAEC9 /* checkbox.png */,
+				893BBD861C8ECDB500FFAEC9 /* checkbox@2x.png */,
+				893BBD871C8ECDB500FFAEC9 /* coin.png */,
+				893BBD881C8ECDB500FFAEC9 /* diner.png */,
+				893BBD891C8ECDB500FFAEC9 /* discover.png */,
+				893BBD8A1C8ECDB500FFAEC9 /* dropdown.png */,
+				893BBD8B1C8ECDB500FFAEC9 /* dropdown@2x.png */,
+				893BBD8C1C8ECDB500FFAEC9 /* error_icon.png */,
+				893BBD8D1C8ECDB500FFAEC9 /* ic_action_add_person.png */,
+				893BBD8E1C8ECDB500FFAEC9 /* jcb.png */,
+				893BBD8F1C8ECDB500FFAEC9 /* laser.png */,
+				893BBD901C8ECDB500FFAEC9 /* lock.png */,
+				893BBD911C8ECDB500FFAEC9 /* lock2.png */,
+				893BBD921C8ECDB500FFAEC9 /* maestro.png */,
+				893BBD931C8ECDB500FFAEC9 /* master.png */,
+				893BBD941C8ECDB500FFAEC9 /* next.png */,
+				893BBD951C8ECDB500FFAEC9 /* next@2x.png */,
+				893BBD961C8ECDB500FFAEC9 /* payu_money.png */,
+				893BBD971C8ECDB500FFAEC9 /* prev.png */,
+				893BBD981C8ECDB500FFAEC9 /* prev@2x.png */,
+				893BBD991C8ECDB500FFAEC9 /* store_card.png */,
+				893BBD9A1C8ECDB500FFAEC9 /* unchecked.png */,
+				893BBD9B1C8ECDB500FFAEC9 /* unchecked@2x.png */,
+				893BBD9C1C8ECDB500FFAEC9 /* user.png */,
+				893BBD9D1C8ECDB500FFAEC9 /* visa.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		893BBDA11C8ECDB500FFAEC9 /* UIViewController Category */ = {
+			isa = PBXGroup;
+			children = (
+				893BBDA21C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.h */,
+				893BBDA31C8ECDB500FFAEC9 /* UIViewController+BackButtonHandler.m */,
+			);
+			path = "UIViewController Category";
+			sourceTree = "<group>";
+		};
+		893BBDA61C8ECDB500FFAEC9 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				893BBDA71C8ECDB500FFAEC9 /* EMIOption5.xib */,
+				893BBDA81C8ECDB500FFAEC9 /* EMIOptionView.xib */,
+				893BBDA91C8ECDB500FFAEC9 /* PayUCardProcessViewController.h */,
+				893BBDAA1C8ECDB500FFAEC9 /* PayUCardProcessViewController.m */,
+				893BBDAB1C8ECDB500FFAEC9 /* PayUCardProcessViewController.xib */,
+				893BBDAC1C8ECDB500FFAEC9 /* PayUCashCardViewController.h */,
+				893BBDAD1C8ECDB500FFAEC9 /* PayUCashCardViewController.m */,
+				893BBDAE1C8ECDB500FFAEC9 /* PayUCashCardViewController.xib */,
+				893BBDAF1C8ECDB500FFAEC9 /* PayUInternetBankingViewController.h */,
+				893BBDB01C8ECDB500FFAEC9 /* PayUInternetBankingViewController.m */,
+				893BBDB11C8ECDB500FFAEC9 /* PayUInternetBankingViewController.xib */,
+				893BBDB21C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.h */,
+				893BBDB31C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.m */,
+				893BBDB41C8ECDB500FFAEC9 /* PayUPaymentOptionsViewController.xib */,
+				893BBDB51C8ECDB500FFAEC9 /* PayUPaymentResultViewController.h */,
+				893BBDB61C8ECDB500FFAEC9 /* PayUPaymentResultViewController.m */,
+				893BBDB71C8ECDB500FFAEC9 /* PayUPaymentResultViewController.xib */,
+				893BBDB81C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.h */,
+				893BBDB91C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.m */,
+				893BBDBA1C8ECDB500FFAEC9 /* PreferredPaymentMethodCustomeCell.xib */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		893BBDBB1C8ECDB500FFAEC9 /* WebViewJavascript Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				893BBDBC1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.h */,
+				893BBDBD1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.js.txt */,
+				893BBDBE1C8ECDB500FFAEC9 /* WebViewJavascriptBridge.m */,
+				893BBDBF1C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.h */,
+				893BBDC01C8ECDB500FFAEC9 /* WebViewJavascriptBridgeBase.m */,
+			);
+			path = "WebViewJavascript Bridge";
 			sourceTree = "<group>";
 		};
 		893F4C691BEC3C8F00082A59 /* Fake Images */ = {
@@ -3449,6 +3932,38 @@
 				89BF38BC1C27FEB800ECDAE5 /* SimiShippingAPI.h in Headers */,
 				89BF38BD1C27FEB800ECDAE5 /* SimiPaymentAPI.h in Headers */,
 				89D2FD7D1C4F42FD007ADEE9 /* SCChangePasswordViewController.h in Headers */,
+				8968F01F1C883A4400492EA8 /* SCPaymentViewController.h in Headers */,
+				893BBFAA1C915E0F00FFAEC9 /* CardValidation.h in Headers */,
+				893BBFAB1C915E0F00FFAEC9 /* CustomActivityIndicator.h in Headers */,
+				893BBFAC1C915E0F00FFAEC9 /* PayU_iOS_SDK.h in Headers */,
+				893BBFAD1C915E0F00FFAEC9 /* PayUConnectionHandlerController.h in Headers */,
+				893BBFAE1C915E0F00FFAEC9 /* PayUConstant.h in Headers */,
+				893BBFAF1C915E0F00FFAEC9 /* PayUEMIOptionViewController.h in Headers */,
+				893BBFB01C915E0F00FFAEC9 /* PayUErrorConstant.h in Headers */,
+				893BBFB11C915E0F00FFAEC9 /* PayUiOSDevice.h in Headers */,
+				893BBFB21C915E0F00FFAEC9 /* PayUItem.h in Headers */,
+				893BBFB31C915E0F00FFAEC9 /* PayUNotificationConstant.h in Headers */,
+				893BBFB41C915E0F00FFAEC9 /* PayUPayment.h in Headers */,
+				893BBFB51C915E0F00FFAEC9 /* PayUPaymentDetails.h in Headers */,
+				893BBFB61C915E0F00FFAEC9 /* PayUShippingAddress.h in Headers */,
+				893BBFB71C915E0F00FFAEC9 /* PayUStoredCardViewController.h in Headers */,
+				893BBFB81C915E0F00FFAEC9 /* Reachability.h in Headers */,
+				893BBFB91C915E0F00FFAEC9 /* ReachabilityManager.h in Headers */,
+				893BBFBA1C915E0F00FFAEC9 /* SharedDataManager.h in Headers */,
+				893BBFBB1C915E0F00FFAEC9 /* UIViewController+BackButtonHandler.h in Headers */,
+				893BBFBC1C915E0F00FFAEC9 /* Utils.h in Headers */,
+				893BBFBD1C915E1000FFAEC9 /* PayUCardProcessViewController.h in Headers */,
+				893BBFBE1C915E1000FFAEC9 /* PayUCashCardViewController.h in Headers */,
+				893BBFBF1C915E1000FFAEC9 /* PayUInternetBankingViewController.h in Headers */,
+				893BBFC01C915E1000FFAEC9 /* PayUPaymentOptionsViewController.h in Headers */,
+				893BBFC11C915E1000FFAEC9 /* PayUPaymentResultViewController.h in Headers */,
+				893BBFC21C915E1000FFAEC9 /* PreferredPaymentMethodCustomeCell.h in Headers */,
+				893BBFC31C915E1000FFAEC9 /* WebViewJavascriptBridge.h in Headers */,
+				893BBFC41C915E1000FFAEC9 /* WebViewJavascriptBridgeBase.h in Headers */,
+				893BBFC51C915E1000FFAEC9 /* SimiGlobalVar+PayUIndian.h in Headers */,
+				893BBFC61C915E1000FFAEC9 /* SimiPayUIndianAPI.h in Headers */,
+				893BBFC71C915E1000FFAEC9 /* SimiPayUIndianModel.h in Headers */,
+				893BBFC81C915E1000FFAEC9 /* SimiPayUIndianWorker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3502,6 +4017,11 @@
 				TargetAttributes = {
 					37813D5C1876943800A9371B = {
 						DevelopmentTeam = 88X6EP4WFV;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -3549,6 +4069,56 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				893BC1901C91611100FFAEC9 /* plugin-simi_payuindian.plist in Resources */,
+				893BBFEB1C915E5D00FFAEC9 /* AllPaymentOprionsView.xib in Resources */,
+				893BBFEC1C915E5D00FFAEC9 /* CardProcessView.xib in Resources */,
+				893BBFED1C915E5D00FFAEC9 /* CashCardView.xib in Resources */,
+				893BBFEE1C915E5D00FFAEC9 /* CustomActivityIndicator.xib in Resources */,
+				893BBFEF1C915E5D00FFAEC9 /* PayUEMIOptionViewController.xib in Resources */,
+				893BBFF01C915E5D00FFAEC9 /* PayUStoredCardViewController.xib in Resources */,
+				893BBFF11C915E5D00FFAEC9 /* StoredCard.xib in Resources */,
+				893BBFF21C915E5D00FFAEC9 /* EMIOption5.xib in Resources */,
+				893BBFF31C915E5D00FFAEC9 /* EMIOptionView.xib in Resources */,
+				893BBFF41C915E5D00FFAEC9 /* PayUCardProcessViewController.xib in Resources */,
+				893BBFF51C915E5D00FFAEC9 /* PayUCashCardViewController.xib in Resources */,
+				893BBFF61C915E5D00FFAEC9 /* PayUInternetBankingViewController.xib in Resources */,
+				893BBFF71C915E5D00FFAEC9 /* PayUPaymentOptionsViewController.xib in Resources */,
+				893BBFF81C915E5D00FFAEC9 /* PayUPaymentResultViewController.xib in Resources */,
+				893BBFF91C915E5E00FFAEC9 /* PreferredPaymentMethodCustomeCell.xib in Resources */,
+				893BBFC91C915E3A00FFAEC9 /* l_icon1.png in Resources */,
+				893BBFCA1C915E3A00FFAEC9 /* l_icon2.png in Resources */,
+				893BBFCB1C915E3A00FFAEC9 /* l_icon3.png in Resources */,
+				893BBFCC1C915E3A00FFAEC9 /* l_icon4.png in Resources */,
+				893BBFCD1C915E3A00FFAEC9 /* amex.png in Resources */,
+				893BBFCE1C915E3A00FFAEC9 /* arrow.png in Resources */,
+				893BBFCF1C915E3B00FFAEC9 /* calendar.png in Resources */,
+				893BBFD01C915E3B00FFAEC9 /* card.png in Resources */,
+				893BBFD11C915E3B00FFAEC9 /* cash_card.png in Resources */,
+				893BBFD21C915E3B00FFAEC9 /* checkbox.png in Resources */,
+				893BBFD31C915E3B00FFAEC9 /* checkbox@2x.png in Resources */,
+				893BBFD41C915E3B00FFAEC9 /* coin.png in Resources */,
+				893BBFD51C915E3B00FFAEC9 /* diner.png in Resources */,
+				893BBFD61C915E3B00FFAEC9 /* discover.png in Resources */,
+				893BBFD71C915E3B00FFAEC9 /* dropdown.png in Resources */,
+				893BBFD81C915E3B00FFAEC9 /* dropdown@2x.png in Resources */,
+				893BBFD91C915E3B00FFAEC9 /* error_icon.png in Resources */,
+				893BBFDA1C915E3B00FFAEC9 /* ic_action_add_person.png in Resources */,
+				893BBFDB1C915E3B00FFAEC9 /* jcb.png in Resources */,
+				893BBFDC1C915E3B00FFAEC9 /* laser.png in Resources */,
+				893BBFDD1C915E3B00FFAEC9 /* lock.png in Resources */,
+				893BBFDE1C915E3B00FFAEC9 /* lock2.png in Resources */,
+				893BBFDF1C915E3B00FFAEC9 /* maestro.png in Resources */,
+				893BBFE01C915E3B00FFAEC9 /* master.png in Resources */,
+				893BBFE11C915E3B00FFAEC9 /* next.png in Resources */,
+				893BBFE21C915E3B00FFAEC9 /* next@2x.png in Resources */,
+				893BBFE31C915E3B00FFAEC9 /* payu_money.png in Resources */,
+				893BBFE41C915E3B00FFAEC9 /* prev.png in Resources */,
+				893BBFE51C915E3B00FFAEC9 /* prev@2x.png in Resources */,
+				893BBFE61C915E3C00FFAEC9 /* store_card.png in Resources */,
+				893BBFE71C915E3C00FFAEC9 /* unchecked.png in Resources */,
+				893BBFE81C915E3C00FFAEC9 /* unchecked@2x.png in Resources */,
+				893BBFE91C915E3C00FFAEC9 /* user.png in Resources */,
+				893BBFEA1C915E3C00FFAEC9 /* visa.png in Resources */,
 				89D2FD7E1C4F4316007ADEE9 /* ic_password.png in Resources */,
 				89D2FD7F1C4F4316007ADEE9 /* ic_password@2x.png in Resources */,
 				89D2FD801C4F4316007ADEE9 /* ic_password@3x.png in Resources */,
@@ -3696,16 +4266,27 @@
 				89CFE39A1C02AFC2001E4318 /* ic_delete_download_item.png in Resources */,
 				899BDB3B1BC4FA3500A6AA91 /* ic_acc@2x.png in Resources */,
 				899BDB4A1BC4FA3500A6AA91 /* ic_category@2x.png in Resources */,
+				893BBEDD1C8ECDB600FFAEC9 /* diner.png in Resources */,
 				899BDB3F1BC4FA3500A6AA91 /* ic_address_book@3x.png in Resources */,
+				893BBEC31C8ECDB600FFAEC9 /* l_icon2.png in Resources */,
 				899BDB741BC4FA3500A6AA91 /* ic_more@2x.png in Resources */,
 				899BDB381BC4FA3500A6AA91 /* delete.png in Resources */,
+				893BBECB1C8ECDB600FFAEC9 /* PayUEMIOptionViewController.xib in Resources */,
+				893BBEE31C8ECDB600FFAEC9 /* jcb.png in Resources */,
 				899BDB561BC4FA3500A6AA91 /* ic_forgot@2x.png in Resources */,
+				893BBEE61C8ECDB600FFAEC9 /* lock2.png in Resources */,
+				893BBEF71C8ECDB600FFAEC9 /* EMIOption5.xib in Resources */,
 				899BDB3A1BC4FA3500A6AA91 /* ic_acc.png in Resources */,
+				893BBEE71C8ECDB600FFAEC9 /* maestro.png in Resources */,
+				893BBEBF1C8ECDB600FFAEC9 /* CardProcessView.xib in Resources */,
 				80B0483C1A0B59260033EE64 /* Localizable.strings in Resources */,
 				899BDB9D1BC4FA3500A6AA91 /* minus@2x.png in Resources */,
 				899BDBA31BC4FA3500A6AA91 /* rate2.png in Resources */,
 				899BDB201BC4FA3500A6AA91 /* Default-Landscape-v7@2x~ipad.png in Resources */,
+				893BBEEA1C8ECDB600FFAEC9 /* next@2x.png in Resources */,
+				893BBEEF1C8ECDB600FFAEC9 /* unchecked.png in Resources */,
 				899BDB371BC4FA3500A6AA91 /* cell_placeholder@2x.png in Resources */,
+				893BBF041C8ECDB600FFAEC9 /* PreferredPaymentMethodCustomeCell.xib in Resources */,
 				899BDB9B1BC4FA3500A6AA91 /* images_transpa_view_now.png in Resources */,
 				893F4C761BEC3C8F00082A59 /* matrix_spot.png in Resources */,
 				899BDB7E1BC4FA3500A6AA91 /* ic_pass.png in Resources */,
@@ -3713,9 +4294,12 @@
 				897CBF351C4E1BF80029B0B3 /* ic_password@3x.png in Resources */,
 				899BDB7D1BC4FA3500A6AA91 /* ic_pagecontrolnochoice.png in Resources */,
 				899BDB781BC4FA3500A6AA91 /* ic_narrow_up.png in Resources */,
+				893BBEDE1C8ECDB600FFAEC9 /* discover.png in Resources */,
+				893BBEFA1C8ECDB600FFAEC9 /* PayUCardProcessViewController.xib in Resources */,
 				899BDB1D1BC4FA3500A6AA91 /* Default-568h@2x.png in Resources */,
 				899BDB651BC4FA3500A6AA91 /* ic_language@2x.png in Resources */,
 				899BDB9C1BC4FA3500A6AA91 /* minus.png in Resources */,
+				893BBEF01C8ECDB600FFAEC9 /* unchecked@2x.png in Resources */,
 				899BDB711BC4FA3500A6AA91 /* ic_menu@2x.png in Resources */,
 				899BDB921BC4FA3500A6AA91 /* ic_star_50@2x.png in Resources */,
 				899BDB211BC4FA3500A6AA91 /* Default-Landscape-v7~ipad.png in Resources */,
@@ -3725,13 +4309,18 @@
 				893F4C731BEC3C8F00082A59 /* default_spotproduct.png in Resources */,
 				895B674F1BF0502B0009746A /* UIWebViewSearch.js in Resources */,
 				899BDB9E1BC4FA3500A6AA91 /* nofitication.png in Resources */,
+				893BBF001C8ECDB600FFAEC9 /* PayUPaymentOptionsViewController.xib in Resources */,
+				893BBEE41C8ECDB600FFAEC9 /* laser.png in Resources */,
 				899BDB2B1BC4FA3500A6AA91 /* Mark Simonson - Proxima Nova Regular.ttf in Resources */,
 				893F4C721BEC3C8F00082A59 /* default_category.png in Resources */,
+				893BBEFC1C8ECDB600FFAEC9 /* PayUCashCardViewController.xib in Resources */,
 				893F4C751BEC3C8F00082A59 /* matrix_category_two.png in Resources */,
+				893BBEE21C8ECDB600FFAEC9 /* ic_action_add_person.png in Resources */,
 				899BDB801BC4FA3500A6AA91 /* ic_pass@3x.png in Resources */,
 				899BDBA21BC4FA3500A6AA91 /* rate1.png in Resources */,
 				899BDB861BC4FA3500A6AA91 /* ic_setting@3x.png in Resources */,
 				892A36F61BFC83BC007EE4E3 /* plugin-simi_simidownload.plist in Resources */,
+				893BBF051C8ECDB600FFAEC9 /* WebViewJavascriptBridge.js.txt in Resources */,
 				899BDB901BC4FA3500A6AA91 /* ic_star@3x.png in Resources */,
 				899BDB541BC4FA3500A6AA91 /* ic_filter@3x.png in Resources */,
 				899BDB671BC4FA3500A6AA91 /* ic_list.png in Resources */,
@@ -3740,6 +4329,8 @@
 				899BDB521BC4FA3500A6AA91 /* ic_filter.png in Resources */,
 				899BDB761BC4FA3500A6AA91 /* ic_multiselected.png in Resources */,
 				899BDB751BC4FA3500A6AA91 /* ic_more@3x.png in Resources */,
+				893BBEC11C8ECDB600FFAEC9 /* CashCardView.xib in Resources */,
+				893BBEE91C8ECDB600FFAEC9 /* next.png in Resources */,
 				899BDB4B1BC4FA3500A6AA91 /* ic_category@3x.png in Resources */,
 				899BDB351BC4FA3500A6AA91 /* card_visa.png in Resources */,
 				899BDB961BC4FA3500A6AA91 /* ic_unselected.png in Resources */,
@@ -3751,12 +4342,16 @@
 				899BDB571BC4FA3500A6AA91 /* ic_forgot@3x.png in Resources */,
 				899BDB4D1BC4FA3500A6AA91 /* ic_curency.png in Resources */,
 				899BDB4E1BC4FA3500A6AA91 /* ic_curency@2x.png in Resources */,
+				893BBEFE1C8ECDB600FFAEC9 /* PayUInternetBankingViewController.xib in Resources */,
+				893BBED61C8ECDB600FFAEC9 /* arrow.png in Resources */,
 				899BDB731BC4FA3500A6AA91 /* ic_more.png in Resources */,
 				899BDB7A1BC4FA3500A6AA91 /* ic_orderhistory@2x.png in Resources */,
+				893BBEDC1C8ECDB600FFAEC9 /* coin.png in Resources */,
 				899BDB2A1BC4FA3500A6AA91 /* Mark Simonson - Proxima Nova Light.ttf in Resources */,
 				899BDB431BC4FA3500A6AA91 /* ic_app_setting@3x.png in Resources */,
 				899BDB721BC4FA3500A6AA91 /* ic_menu@3x.png in Resources */,
 				899BDB2E1BC4FA3500A6AA91 /* logo~ipad.png in Resources */,
+				893BBEE81C8ECDB600FFAEC9 /* master.png in Resources */,
 				899BDB771BC4FA3500A6AA91 /* ic_narrow_down.png in Resources */,
 				899BDB231BC4FA3500A6AA91 /* Default-Landscape~ipad.png in Resources */,
 				89CA95FA1BFABCAA0062CCD3 /* ic_down.png in Resources */,
@@ -3764,9 +4359,11 @@
 				899BDB421BC4FA3500A6AA91 /* ic_app_setting@2x.png in Resources */,
 				899BDB481BC4FA3500A6AA91 /* ic_cart@3x.png in Resources */,
 				899BDB8E1BC4FA3500A6AA91 /* ic_star2@3x.png in Resources */,
+				893BBEC51C8ECDB600FFAEC9 /* l_icon4.png in Resources */,
 				899BDB511BC4FA3500A6AA91 /* ic_email.png in Resources */,
 				899BDB6B1BC4FA3500A6AA91 /* ic_log_out@2x.png in Resources */,
 				899BDBA51BC4FA3500A6AA91 /* stockstatus_background@2x.png in Resources */,
+				893BBEEB1C8ECDB600FFAEC9 /* payu_money.png in Resources */,
 				899BDB531BC4FA3500A6AA91 /* ic_filter@2x.png in Resources */,
 				899BDB501BC4FA3500A6AA91 /* ic_delete.png in Resources */,
 				899BDB911BC4FA3500A6AA91 /* ic_star_50.png in Resources */,
@@ -3774,29 +4371,37 @@
 				899BDB221BC4FA3500A6AA91 /* Default-Landscape@2x~ipad.png in Resources */,
 				899BDB581BC4FA3500A6AA91 /* ic_grib.png in Resources */,
 				893F4C7A1BEC4A0B00082A59 /* zara_banner.png in Resources */,
+				893BBF0B1C8ECDB600FFAEC9 /* plugin-simi_payuindian.plist in Resources */,
 				899BDB631BC4FA3500A6AA91 /* ic_lang_den@3x.png in Resources */,
 				37DEBBC718CB26B100507738 /* Images.xcassets in Resources */,
 				899BDB971BC4FA3500A6AA91 /* ic_user.png in Resources */,
+				893BBEEC1C8ECDB600FFAEC9 /* prev.png in Resources */,
 				899BDBA11BC4FA3500A6AA91 /* rate0.png in Resources */,
 				899BDB321BC4FA3500A6AA91 /* card_discover.png in Resources */,
 				899BDB701BC4FA3500A6AA91 /* ic_menu.png in Resources */,
 				899BDB411BC4FA3500A6AA91 /* ic_app_setting.png in Resources */,
 				899BDB881BC4FA3500A6AA91 /* ic_sort.png in Resources */,
 				899BDB7B1BC4FA3500A6AA91 /* ic_orderhistory@3x.png in Resources */,
+				893BBED51C8ECDB600FFAEC9 /* amex.png in Resources */,
 				899BDB2C1BC4FA3500A6AA91 /* logo.png in Resources */,
+				893BBEF21C8ECDB600FFAEC9 /* visa.png in Resources */,
 				899BDB951BC4FA3500A6AA91 /* ic_unmultiselected.png in Resources */,
 				899BDB8A1BC4FA3500A6AA91 /* ic_sort@3x.png in Resources */,
 				899BDB1E1BC4FA3500A6AA91 /* Default-667h@2x.png in Resources */,
 				899BDB6E1BC4FA3500A6AA91 /* ic_login@2x.png in Resources */,
+				893BBEE51C8ECDB600FFAEC9 /* lock.png in Resources */,
 				899BDB311BC4FA3500A6AA91 /* card_diners.png in Resources */,
 				899BDB821BC4FA3500A6AA91 /* ic_search.png in Resources */,
 				899BDB9A1BC4FA3500A6AA91 /* ic_view_all@3x.png in Resources */,
 				899BDBA41BC4FA3500A6AA91 /* stockstatus_background.png in Resources */,
 				899BDB241BC4FA3500A6AA91 /* Default-Portrait-v7@2x~ipad.png in Resources */,
+				893BBEC71C8ECDB600FFAEC9 /* CustomActivityIndicator.xib in Resources */,
 				899BDB551BC4FA3500A6AA91 /* ic_forgot.png in Resources */,
+				893BBEDA1C8ECDB600FFAEC9 /* checkbox.png in Resources */,
 				899BDB931BC4FA3500A6AA91 /* ic_star_50@3x.png in Resources */,
 				899BDB611BC4FA3500A6AA91 /* ic_lang_den.png in Resources */,
 				899BDB4F1BC4FA3500A6AA91 /* ic_curency@3x.png in Resources */,
+				893BBEC21C8ECDB600FFAEC9 /* l_icon1.png in Resources */,
 				899BDB6A1BC4FA3500A6AA91 /* ic_log_out.png in Resources */,
 				899BDB941BC4FA3500A6AA91 /* ic_street.png in Resources */,
 				899BDB791BC4FA3500A6AA91 /* ic_orderhistory.png in Resources */,
@@ -3809,11 +4414,16 @@
 				899BDB4C1BC4FA3500A6AA91 /* ic_cong.png in Resources */,
 				893F4C771BEC3C8F00082A59 /* matrix_spot~ipad.png in Resources */,
 				899BDB661BC4FA3500A6AA91 /* ic_language@3x.png in Resources */,
+				893BBEDF1C8ECDB600FFAEC9 /* dropdown.png in Resources */,
 				899BDB341BC4FA3500A6AA91 /* card_mastercard.png in Resources */,
+				893BBEEE1C8ECDB600FFAEC9 /* store_card.png in Resources */,
 				899BDB281BC4FA3500A6AA91 /* Default@2x.png in Resources */,
 				899BDB1F1BC4FA3500A6AA91 /* Default-736h@3x.png in Resources */,
 				897CBF341C4E1BF80029B0B3 /* ic_password@2x.png in Resources */,
 				899BDB6D1BC4FA3500A6AA91 /* ic_login.png in Resources */,
+				893BBED81C8ECDB600FFAEC9 /* card.png in Resources */,
+				893BBEBE1C8ECDB600FFAEC9 /* AllPaymentOprionsView.xib in Resources */,
+				893BBEDB1C8ECDB600FFAEC9 /* checkbox@2x.png in Resources */,
 				899BDB301BC4FA3500A6AA91 /* card_amex.png in Resources */,
 				899BDB5E1BC4FA3500A6AA91 /* ic_home.png in Resources */,
 				899BDB811BC4FA3500A6AA91 /* ic_phone.png in Resources */,
@@ -3822,9 +4432,11 @@
 				893F4C711BEC3C8F00082A59 /* default_banner.png in Resources */,
 				899BDB3C1BC4FA3500A6AA91 /* ic_acc@3x.png in Resources */,
 				899BDB2F1BC4FA3500A6AA91 /* alarm.mp3 in Resources */,
+				893BBEF11C8ECDB600FFAEC9 /* user.png in Resources */,
 				899BDB851BC4FA3500A6AA91 /* ic_setting@2x.png in Resources */,
 				899BDB6C1BC4FA3500A6AA91 /* ic_log_out@3x.png in Resources */,
 				899BDB8C1BC4FA3500A6AA91 /* ic_star2.png in Resources */,
+				893BBF0A1C8ECDB600FFAEC9 /* PayUIndianNote.rtf in Resources */,
 				899BDB991BC4FA3500A6AA91 /* ic_view_all@2x.png in Resources */,
 				899BDB621BC4FA3500A6AA91 /* ic_lang_den@2x.png in Resources */,
 				899BDB691BC4FA3500A6AA91 /* ic_list@3x.png in Resources */,
@@ -3833,16 +4445,26 @@
 				899BDB471BC4FA3500A6AA91 /* ic_cart@2x.png in Resources */,
 				899BDB451BC4FA3500A6AA91 /* ic_bg_more.png in Resources */,
 				899BDB681BC4FA3500A6AA91 /* ic_list@2x.png in Resources */,
+				893BBED71C8ECDB600FFAEC9 /* calendar.png in Resources */,
+				893BBEC41C8ECDB600FFAEC9 /* l_icon3.png in Resources */,
+				893BBEED1C8ECDB600FFAEC9 /* prev@2x.png in Resources */,
 				899BDB591BC4FA3500A6AA91 /* ic_grib@2x.png in Resources */,
 				899BDB491BC4FA3500A6AA91 /* ic_category.png in Resources */,
 				899BDB981BC4FA3500A6AA91 /* ic_view_all.png in Resources */,
+				893BBED91C8ECDB600FFAEC9 /* cash_card.png in Resources */,
+				893BBEF41C8ECDB600FFAEC9 /* StoredCard.xib in Resources */,
 				899BDB391BC4FA3500A6AA91 /* delete@2x.png in Resources */,
 				899BDB3D1BC4FA3500A6AA91 /* ic_address_book.png in Resources */,
+				893BBEE01C8ECDB600FFAEC9 /* dropdown@2x.png in Resources */,
 				899BDB871BC4FA3500A6AA91 /* ic_share.png in Resources */,
+				893BBEE11C8ECDB600FFAEC9 /* error_icon.png in Resources */,
 				897CBF331C4E1BF80029B0B3 /* ic_password.png in Resources */,
 				899BDB8B1BC4FA3500A6AA91 /* ic_star.png in Resources */,
+				893BBF021C8ECDB600FFAEC9 /* PayUPaymentResultViewController.xib in Resources */,
 				899BDB9F1BC4FA3500A6AA91 /* plus.png in Resources */,
+				893BBEF81C8ECDB600FFAEC9 /* EMIOptionView.xib in Resources */,
 				899BDB261BC4FA3500A6AA91 /* Default-Portrait~ipad.png in Resources */,
+				893BBED21C8ECDB600FFAEC9 /* PayUStoredCardViewController.xib in Resources */,
 				893F4C7B1BEC4A0B00082A59 /* zara_banner~ipad.png in Resources */,
 				899BDB7F1BC4FA3500A6AA91 /* ic_pass@2x.png in Resources */,
 				899BDB331BC4FA3500A6AA91 /* card_jcb.png in Resources */,
@@ -3888,6 +4510,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				893BBF8E1C915DEF00FFAEC9 /* CardValidation.m in Sources */,
+				893BBF8F1C915DEF00FFAEC9 /* CustomActivityIndicator.m in Sources */,
+				893BBF901C915DEF00FFAEC9 /* PayU_iOS_SDK.m in Sources */,
+				893BBF911C915DEF00FFAEC9 /* PayUConnectionHandlerController.m in Sources */,
+				893BBF921C915DEF00FFAEC9 /* PayUEMIOptionViewController.m in Sources */,
+				893BBF931C915DEF00FFAEC9 /* PayUiOSDevice.m in Sources */,
+				893BBF941C915DEF00FFAEC9 /* PayUItem.m in Sources */,
+				893BBF951C915DEF00FFAEC9 /* PayUPayment.m in Sources */,
+				893BBF961C915DEF00FFAEC9 /* PayUPaymentDetails.m in Sources */,
+				893BBF971C915DF000FFAEC9 /* PayUShippingAddress.m in Sources */,
+				893BBF981C915DF000FFAEC9 /* PayUStoredCardViewController.m in Sources */,
+				893BBF991C915DF000FFAEC9 /* Reachability.m in Sources */,
+				893BBF9A1C915DF000FFAEC9 /* ReachabilityManager.m in Sources */,
+				893BBF9B1C915DF000FFAEC9 /* SharedDataManager.m in Sources */,
+				893BBF9C1C915DF000FFAEC9 /* UIViewController+BackButtonHandler.m in Sources */,
+				893BBF9D1C915DF000FFAEC9 /* Utils.m in Sources */,
+				893BBF9E1C915DF000FFAEC9 /* PayUCardProcessViewController.m in Sources */,
+				893BBF9F1C915DF000FFAEC9 /* PayUCashCardViewController.m in Sources */,
+				893BBFA01C915DF000FFAEC9 /* PayUInternetBankingViewController.m in Sources */,
+				893BBFA11C915DF000FFAEC9 /* PayUPaymentOptionsViewController.m in Sources */,
+				893BBFA21C915DF000FFAEC9 /* PayUPaymentResultViewController.m in Sources */,
+				893BBFA31C915DF000FFAEC9 /* PreferredPaymentMethodCustomeCell.m in Sources */,
+				893BBFA41C915DF000FFAEC9 /* WebViewJavascriptBridge.m in Sources */,
+				893BBFA51C915DF000FFAEC9 /* WebViewJavascriptBridgeBase.m in Sources */,
+				893BBFA61C915DF000FFAEC9 /* SimiGlobalVar+PayUIndian.m in Sources */,
+				893BBFA71C915DF000FFAEC9 /* SimiPayUIndianAPI.m in Sources */,
+				893BBFA81C915DF000FFAEC9 /* SimiPayUIndianModel.m in Sources */,
+				893BBFA91C915DF000FFAEC9 /* SimiPayUIndianWorker.m in Sources */,
+				8968F01E1C883A3C00492EA8 /* SCPaymentViewController.m in Sources */,
 				89D2FD7C1C4F42F5007ADEE9 /* SCChangePasswordViewController.m in Sources */,
 				89BF389F1C27FE9C00ECDAE5 /* ioapi.c in Sources */,
 				89BF38A01C27FE9C00ECDAE5 /* mztools.c in Sources */,
@@ -4155,10 +4806,12 @@
 				891712FF1B8C583100331ACF /* SimiCurrencyAPI.m in Sources */,
 				895B67501BF0502B0009746A /* XMLHandler.m in Sources */,
 				80AF3D4519D3A44A0077AFED /* UIImage+MultiFormat.m in Sources */,
+				893BBF031C8ECDB600FFAEC9 /* PreferredPaymentMethodCustomeCell.m in Sources */,
 				891712F91B8C57E400331ACF /* SimiCurrencyModel.m in Sources */,
 				376C7B3C18BB45310013E3AC /* SCNewAddressViewController.m in Sources */,
 				895B67481BF0502B0009746A /* ioapi.c in Sources */,
 				C3581F461B784BBE00A93728 /* iCarousel.m in Sources */,
+				893BBED11C8ECDB600FFAEC9 /* PayUStoredCardViewController.m in Sources */,
 				89886F421B7C8D0300CAB52C /* ActionSheetDatePicker.m in Sources */,
 				89BF387E1C2799D700ECDAE5 /* SimiShippingAPI.m in Sources */,
 				C37307F81B6F8C4D00F136EB /* MatrixHomeViewController.m in Sources */,
@@ -4169,19 +4822,24 @@
 				3779578118B44BAD00102C66 /* SimiAddressModel.m in Sources */,
 				610EF5241A37E90900919DB2 /* NSNull+CrossTypes.m in Sources */,
 				3779578418B4538200102C66 /* SimiPaymentModelCollection.m in Sources */,
+				893BBEC91C8ECDB600FFAEC9 /* PayUConnectionHandlerController.m in Sources */,
+				893BBF4F1C8ECDB600FFAEC9 /* SimiPayUIndianModel.m in Sources */,
 				80AF3D4619D3A44A0077AFED /* UIImage+WebP.m in Sources */,
 				37DEBCF418DEDE4200A46A81 /* SimiPluginModelCollection.m in Sources */,
 				C37307F91B6F8C4D00F136EB /* SCHomeViewController.m in Sources */,
 				37899F5918ACAA750020C1EE /* SimiProductModel.m in Sources */,
 				6120D5081A13152D00CDBB26 /* SimiFormRow.m in Sources */,
 				89886F401B7C8D0300CAB52C /* AbstractActionSheetPicker.m in Sources */,
+				893BBEFB1C8ECDB600FFAEC9 /* PayUCashCardViewController.m in Sources */,
 				37899F5018ACAA750020C1EE /* SimiTableView.m in Sources */,
 				6120D5171A13159700CDBB26 /* SimiFormText.m in Sources */,
 				C3D290681B7A04DE006FE4CE /* SCLeftMenuViewController.m in Sources */,
 				373367FC18E2CA9A004FDB30 /* SimiAppAPI.m in Sources */,
 				80AF3D4019D3A44A0077AFED /* SDWebImageDownloaderOperation.m in Sources */,
+				893BBF4D1C8ECDB600FFAEC9 /* SimiGlobalVar+PayUIndian.m in Sources */,
 				61A178171A19961F005AC71B /* SimiTreeView.m in Sources */,
 				89D2085B1BC659020075480A /* SCThankYouPageViewController.m in Sources */,
+				893BBECA1C8ECDB600FFAEC9 /* PayUEMIOptionViewController.m in Sources */,
 				C3581F481B784BBE00A93728 /* MatrixSpotProductCellPad.m in Sources */,
 				37899F5118ACAA750020C1EE /* SimiView.m in Sources */,
 				37899F4618ACAA750020C1EE /* SimiCategoryAPI.m in Sources */,
@@ -4223,6 +4881,7 @@
 				373870DD18C4681700AE3C3F /* SCAccountViewController.m in Sources */,
 				89886F521B7C8F2900CAB52C /* SCOrderViewControllerPad.m in Sources */,
 				370D7FF218ADD9F0005767CA /* SimiReviewModel.m in Sources */,
+				893BBF501C8ECDB600FFAEC9 /* SimiPayUIndianWorker.m in Sources */,
 				370D7FE418ADBF6E005767CA /* SCProductInfoView.m in Sources */,
 				80AF3D4219D3A44A0077AFED /* SDWebImagePrefetcher.m in Sources */,
 				895B66E01BF04E370009746A /* DownloadModelCollection.m in Sources */,
@@ -4253,8 +4912,10 @@
 				3779577418B43EC200102C66 /* SCAddressViewController.m in Sources */,
 				37899F4C18ACAA750020C1EE /* SimiMutableArray.m in Sources */,
 				3779577E18B4472500102C66 /* SimiOrderModel.m in Sources */,
+				893BBECE1C8ECDB600FFAEC9 /* PayUPayment.m in Sources */,
 				6120D4F91A13132E00CDBB26 /* SimiFormBlock.m in Sources */,
 				80AF3D3F19D3A44A0077AFED /* SDWebImageDownloader.m in Sources */,
+				893BBED31C8ECDB600FFAEC9 /* Reachability.m in Sources */,
 				37899F4318ACAA750020C1EE /* InitWorker.m in Sources */,
 				C3581F3E1B784BB700A93728 /* MatrixHomeViewControllerPad.m in Sources */,
 				37899F4418ACAA750020C1EE /* SimiAPI.m in Sources */,
@@ -4267,15 +4928,18 @@
 				C347235D1B748EAD00DA7B12 /* ZaraHomeViewControllerPad.m in Sources */,
 				C3D290651B7A0449006FE4CE /* SCProductOptionSection.m in Sources */,
 				5496382B194ABA50006D782D /* UIImage+SimiCustom.m in Sources */,
+				893BBEF61C8ECDB600FFAEC9 /* Utils.m in Sources */,
 				891D4EB41B82F196001B0880 /* SCOrderMethodCell.m in Sources */,
 				6120D4FE1A1313C100CDBB26 /* SimiFormAbstract.m in Sources */,
 				89886F411B7C8D0300CAB52C /* ActionSheetCustomPicker.m in Sources */,
+				893BBEF31C8ECDB600FFAEC9 /* SharedDataManager.m in Sources */,
 				6120D4C81A13021400CDBB26 /* SimiController.m in Sources */,
 				3783A18F18C5CE880061067F /* UIScrollView+SVPullToRefresh.m in Sources */,
 				373B90C918DC39BC00E6B75B /* SCProductViewController.m in Sources */,
 				80AF3D4919D3A44A0077AFED /* UIView+WebCacheOperation.m in Sources */,
 				376DF1BF18E12DFC006833D0 /* SCForgotPasswordViewController.m in Sources */,
 				809980041A09E02A004D3714 /* AFHTTPSessionManager.m in Sources */,
+				893BBEFF1C8ECDB600FFAEC9 /* PayUPaymentOptionsViewController.m in Sources */,
 				805C4E2A19A65B05000F14FA /* SCGenderViewController.m in Sources */,
 				C3C212921B706ECE00D56F36 /* MatrixCategoryProductCell.m in Sources */,
 				80AF3D4319D3A44A0077AFED /* UIButton+WebCache.m in Sources */,
@@ -4287,6 +4951,7 @@
 				3772D2B218C5BEA200BA2F2C /* SimiOrderModelCollection.m in Sources */,
 				89886F551B7C8FF500CAB52C /* SCProductMoreViewController.m in Sources */,
 				547A153F194AD61700C5748F /* SimiAppConfiguration.m in Sources */,
+				893BBECD1C8ECDB600FFAEC9 /* PayUItem.m in Sources */,
 				C3D1AF6B1AFA0D4100750892 /* SCFilterViewController.m in Sources */,
 				80AF3D4119D3A44A0077AFED /* SDWebImageManager.m in Sources */,
 				C3D1AF801AFA0F2900750892 /* CustomIOS7AlertView.m in Sources */,
@@ -4296,6 +4961,7 @@
 				3779578F18B45EAE00102C66 /* SimiAddressModelCollection.m in Sources */,
 				895B67341BF0502B0009746A /* EbookViewController.m in Sources */,
 				6120D5471A131A4900CDBB26 /* SimiFormPassword.m in Sources */,
+				893BBEC61C8ECDB600FFAEC9 /* CustomActivityIndicator.m in Sources */,
 				37DEBCF718DEDE6900A46A81 /* SimiPluginAPI.m in Sources */,
 				6120D4C21A12E7A800CDBB26 /* SimiCart.m in Sources */,
 				895B67301BF0502B0009746A /* DownloadControlViewController.m in Sources */,
@@ -4303,16 +4969,20 @@
 				89886F431B7C8D0300CAB52C /* ActionSheetDistancePicker.m in Sources */,
 				37899F4A18ACAA750020C1EE /* SimiProductAPI.m in Sources */,
 				8969A34A1C10375C0050D0EA /* SimiSpotModelCollection.m in Sources */,
+				893BBECF1C8ECDB600FFAEC9 /* PayUPaymentDetails.m in Sources */,
 				373367F918E2CA35004FDB30 /* SimiAppModel.m in Sources */,
 				37899F5718ACAA750020C1EE /* SimiModel.m in Sources */,
 				895B67491BF0502B0009746A /* mztools.c in Sources */,
+				893BBF061C8ECDB600FFAEC9 /* WebViewJavascriptBridge.m in Sources */,
 				376C7B3318BB44160013E3AC /* NSObject+SimiObject.m in Sources */,
 				C3D1AF481AFA0C4900750892 /* SimiTheme.m in Sources */,
 				809B30EC19C2AE0000A48D12 /* SCOptionGroupViewCell.m in Sources */,
 				89BF38811C279A0E00ECDAE5 /* SimiPaymentAPI.m in Sources */,
 				371514E21904EBE800E64063 /* SimiNavigationBar.m in Sources */,
 				C3D2905E1B79DBCB006FE4CE /* WYPopoverController.m in Sources */,
+				8968F01D1C88325A00492EA8 /* SCPaymentViewController.m in Sources */,
 				374A0D461954421B00E17DED /* GTMNSString+HTML.m in Sources */,
+				893BBF071C8ECDB600FFAEC9 /* WebViewJavascriptBridgeBase.m in Sources */,
 				B6B94A5318B5947400BDAFA4 /* SimiBannerAPI.m in Sources */,
 				375CB33818C6B2A6001BA428 /* SCOrderDetailViewController.m in Sources */,
 				89886F441B7C8D0300CAB52C /* ActionSheetLocalePicker.m in Sources */,
@@ -4322,10 +4992,12 @@
 				6120D4CB1A1302BE00CDBB26 /* UIView+SimiCart.m in Sources */,
 				895B67311BF0502B0009746A /* DownloadItemsAvailableViewController.m in Sources */,
 				37899F3718ACAA750020C1EE /* SCCartViewController.m in Sources */,
+				893BBED41C8ECDB600FFAEC9 /* ReachabilityManager.m in Sources */,
 				610AAA5D1A2C410100FFE9B8 /* SimiFormName.m in Sources */,
 				37899F4918ACAA750020C1EE /* SimiOrderAPI.m in Sources */,
 				89886F461B7C8D0300CAB52C /* DistancePickerView.m in Sources */,
 				89516FC61B8AC94900F0CDC2 /* SCHomeSpotProductCell.m in Sources */,
+				893BBF011C8ECDB600FFAEC9 /* PayUPaymentResultViewController.m in Sources */,
 				6120D4DF1A13100F00CDBB26 /* SimiListView.m in Sources */,
 				376051F618C849EC001E2DF5 /* SCRefineViewController.m in Sources */,
 				899BDBAD1BC5137000A6AA91 /* AFViewShaker.m in Sources */,
@@ -4335,6 +5007,7 @@
 				6120D51D1A1315CF00CDBB26 /* SimiFormNumber.m in Sources */,
 				37899F3818ACAA750020C1EE /* SCCategoryViewController.m in Sources */,
 				37B61A3218BC994D003224A2 /* NSArray+MutableDeepCopy.m in Sources */,
+				893BBEC81C8ECDB600FFAEC9 /* PayU_iOS_SDK.m in Sources */,
 				37899F5218ACAA750020C1EE /* SimiViewController.m in Sources */,
 				376DF1C218E131EF006833D0 /* SimiSection.m in Sources */,
 				37899F4B18ACAA750020C1EE /* SimiResponder.m in Sources */,
@@ -4356,9 +5029,11 @@
 				891D51271B835311001B0880 /* SCProductCollectionViewControllerPad.m in Sources */,
 				891D51241B8352DE001B0880 /* SCProductListViewControllerPad.m in Sources */,
 				374A0D471954421B00E17DED /* NSString+HTML.m in Sources */,
+				893BBEC01C8ECDB600FFAEC9 /* CardValidation.m in Sources */,
 				370D7FD218ADB635005767CA /* SCProductReviewView.m in Sources */,
 				C3581F471B784BBE00A93728 /* MatrixCategoryProductCellPad.m in Sources */,
 				3783A18E18C5CE880061067F /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				893BBEF91C8ECDB600FFAEC9 /* PayUCardProcessViewController.m in Sources */,
 				6120D52C1A13179900CDBB26 /* SimiGridBlock.m in Sources */,
 				37813D9F1876955800A9371B /* main.m in Sources */,
 				61CE6F85196296100086C3B3 /* SimiFormatter.m in Sources */,
@@ -4368,7 +5043,9 @@
 				612501EE195D42510077B9F3 /* SimiDateTime.m in Sources */,
 				C3581F301B783DC600A93728 /* SCSettingCell.m in Sources */,
 				37D286B718BEEF01003B6871 /* SCCreditCardViewController.m in Sources */,
+				893BBEFD1C8ECDB600FFAEC9 /* PayUInternetBankingViewController.m in Sources */,
 				3779579218B4600000102C66 /* SimiAddressAPI.m in Sources */,
+				893BBF4E1C8ECDB600FFAEC9 /* SimiPayUIndianAPI.m in Sources */,
 				C37307FE1B6F8C4D00F136EB /* SCThemeWorker.m in Sources */,
 				C37307FC1B6F8C4D00F136EB /* SCNavigationBarPad.m in Sources */,
 				37684BCA18C39D070091E0B9 /* KeychainItemWrapper.m in Sources */,
@@ -4379,6 +5056,7 @@
 				809980051A09E02A004D3714 /* AFNetworkReachabilityManager.m in Sources */,
 				3779578818B4556A00102C66 /* SCOrderFeeCell.m in Sources */,
 				6108E0CA1A318A97000C5C66 /* SimiTable.m in Sources */,
+				893BBECC1C8ECDB600FFAEC9 /* PayUiOSDevice.m in Sources */,
 				80AF3D3A19D3A44A0077AFED /* MKAnnotationView+WebCache.m in Sources */,
 				C333C9F51B73806E0061E450 /* SCHomeCategoryCollectionViewCell.m in Sources */,
 				37899F4E18ACAA750020C1EE /* SimiNavigationController.m in Sources */,
@@ -4391,8 +5069,10 @@
 				6120D54C1A131A8500CDBB26 /* SimiFormBoolean.m in Sources */,
 				375CB34518C6DDF3001BA428 /* SCProfileViewController.m in Sources */,
 				804621A419A6597D004C4D38 /* UILabelDynamicSize.m in Sources */,
+				893BBED01C8ECDB600FFAEC9 /* PayUShippingAddress.m in Sources */,
 				615C9192196E8DE000B51924 /* M13Checkbox.m in Sources */,
 				37899F6418ACAA750020C1EE /* SimiNetworkManager.m in Sources */,
+				893BBEF51C8ECDB600FFAEC9 /* UIViewController+BackButtonHandler.m in Sources */,
 				373B90BF18DC190E00E6B75B /* SimiTabViewController.m in Sources */,
 				37899F5418ACAA750020C1EE /* SimiCategoryModel.m in Sources */,
 				8969A3471C10206C0050D0EA /* SimiNotificationName.m in Sources */,
@@ -4457,7 +5137,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.simicart.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d23f1f7f-a911-4c11-bdcd-f88db51e855b";
+				PROVISIONING_PROFILE = "ffebb1cf-61cd-4cbc-9fa2-7bfc29bf0916";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				VALID_ARCHS = "$(ARCHS_STANDARD) i386";
@@ -4487,7 +5167,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.simicart.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d23f1f7f-a911-4c11-bdcd-f88db51e855b";
+				PROVISIONING_PROFILE = "ffebb1cf-61cd-4cbc-9fa2-7bfc29bf0916";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				VALID_ARCHS = "$(ARCHS_STANDARD) i386";
@@ -4577,7 +5257,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -4603,7 +5283,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.cloud;
 				PRODUCT_MODULE_NAME = SimiCartPluginFW;
 				PRODUCT_NAME = Cloud;
-				PROVISIONING_PROFILE = "d9d872d4-9478-459f-862a-bd2b7299bb3d";
+				PROVISIONING_PROFILE = "ffebb1cf-61cd-4cbc-9fa2-7bfc29bf0916";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/Checkout.com/SimiCartPluginFW-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4618,7 +5298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "$(SRCROOT)/OptimizationProfiles/$(PROJECT_NAME).profdata";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -4645,7 +5325,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.cloud;
 				PRODUCT_MODULE_NAME = SimiCartPluginFW;
 				PRODUCT_NAME = Cloud;
-				PROVISIONING_PROFILE = "9d1e96a6-5c97-4db6-8e36-4651e863d1f2";
+				PROVISIONING_PROFILE = "ffebb1cf-61cd-4cbc-9fa2-7bfc29bf0916";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/Checkout.com/SimiCartPluginFW-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";

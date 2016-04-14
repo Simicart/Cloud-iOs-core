@@ -37,14 +37,6 @@
 
     SimiGlobalVar *config = [SimiGlobalVar sharedInstance];
     //Add fields
-    if (![[config prefixShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name" : @"prefix",
-                         @"title": SCLocalizedString(@"Prefix"),
-                         @"required": [NSNumber numberWithBool:[[config prefixShow] isEqualToString:@"req"]]
-                         }];
-    }
     
     [form addField:@"Name"
             config:@{
@@ -59,46 +51,6 @@
                      @"title": SCLocalizedString(@"Last Name"),
                      @"required": @1
                      }];
-    
-    if (![[config suffixShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name" : @"suffix",
-                         @"title": SCLocalizedString(@"Suffix"),
-                         @"required": [NSNumber numberWithBool:[[config suffixShow] isEqualToString:@"req"]]
-                         }];
-    }
-    
-    
-    if (![[config dobShow] isEqualToString:@""]) {
-        [form addField:@"Date"
-                config:@{
-                         @"name": @"dob",
-                         @"title": SCLocalizedString(@"Date of Birth"),
-                         @"date_type": @"date",
-                         @"date_format": @"yyyy-MM-dd",
-                         @"required": [NSNumber numberWithBool:[[config dobShow] isEqualToString:@"req"]]
-                         }];
-    }
-    
-    if (![[config genderShow] isEqualToString:@""]) {
-        [form addField:@"Select"
-                config:@{
-                         @"name": @"gender",
-                         @"title": SCLocalizedString(@"Gender"),
-                         @"required": [NSNumber numberWithBool:[[config genderShow] isEqualToString:@"req"]],
-                         @"source": @[@{@"value":@"123",@"label":SCLocalizedString(@"Male")},@{@"value":@"234",@"label":SCLocalizedString(@"Female")}]
-                         }];
-    }
-    
-    if (![[config taxvatShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name": @"taxvat",
-                         @"title": SCLocalizedString(@"VAT Number"),
-                         @"required": [NSNumber numberWithBool:[[config taxvatShow] isEqualToString:@"req"]]
-                         }];
-    }
     
     [form addField:@"Email"
             config:@{

@@ -509,7 +509,7 @@
 }
 
 - (NSString *)countryCode{
-    return [[self.store valueForKey:@"store_config"] valueForKey:@"country_code"] ? [[self.store valueForKey:@"store_config"] valueForKey:@"country_code"] : @"";
+    return [[[self.store valueForKey:@"general"] valueForKey:@"country"]valueForKey:@"code"] ? [[[self.store valueForKey:@"general"] valueForKey:@"country"]valueForKey:@"code"] : @"";
 }
 
 //Axe edited
@@ -583,30 +583,7 @@
     return _cart;
 }
 
-#pragma mark - Customer address methods - King
-- (NSString *)prefixShow{
-    return [[self.store valueForKey:@"customer_address_config"] valueForKey:@"prefix_show"] ? [[self.store valueForKey:@"customer_address_config"] valueForKey:@"prefix_show"] : @"";
-}
-
-- (NSString *)suffixShow{
-    return [[self.store valueForKey:@"customer_address_config"] valueForKey:@"suffix_show"] ? [[self.store valueForKey:@"customer_address_config"] valueForKey:@"suffix_show"] : @"";
-}
-
-- (NSString *)dobShow{
-    return [[self.store valueForKey:@"customer_address_config"] valueForKey:@"dob_show"] ? [[self.store valueForKey:@"customer_address_config"] valueForKey:@"dob_show"] : @"";
-}
-
-- (NSString *)taxvatShow{
-    NSString *taxvat = @"";
-    if([[self.store valueForKey:@"customer_address_config"] valueForKey:@"taxvat_show"] && ![[[self.store valueForKey:@"customer_address_config"] valueForKey:@"taxvat_show"] isKindOfClass:[NSNull class]]){
-        taxvat = [[self.store valueForKey:@"customer_address_config"] valueForKey:@"taxvat_show"];
-    }
-    return taxvat;
-}
-
-- (NSString *)genderShow{
-    return [[self.store valueForKey:@"customer_address_config"] valueForKey:@"gender_show"] ? [[self.store valueForKey:@"customer_address_config"] valueForKey:@"gender_show"] : @"";
-}
+#pragma mark - Customer address methods
 
 - (NSString *)getGenderLabel: (int) value{
     if(value == 123){

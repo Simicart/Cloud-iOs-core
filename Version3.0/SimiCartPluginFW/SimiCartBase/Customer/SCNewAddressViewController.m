@@ -50,15 +50,6 @@
     form.height = 50;
     SimiGlobalVar *config = [SimiGlobalVar sharedInstance];
     
-    if (![[config prefixShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name" : @"prefix",
-                         @"title": SCLocalizedString(@"Prefix"),
-                         @"required": [NSNumber numberWithBool:[[config prefixShow] isEqualToString:@"req"]]
-                         }];
-    }
-    
     [form addField:@"Name"
             config:@{
                      @"name": @"first_name",
@@ -73,14 +64,6 @@
                      @"required": @1
                      }];
     
-    if (![[config suffixShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name" : @"suffix",
-                         @"title": SCLocalizedString(@"Suffix"),
-                         @"required": [NSNumber numberWithBool:[[config suffixShow] isEqualToString:@"req"]]
-                         }];
-    }
     if (![config isLogin]) {
         [form addField:@"Email"
                 config:@{
@@ -89,23 +72,36 @@
                          @"required": @1
                          }];
     }
+    self.country = (SimiFormSelect *)[form addField:@"Select"
+                                             config:@{
+                                                      @"name": @"country_code",
+                                                      @"title": SCLocalizedString(@"Country"),
+                                                      @"option_type": SimiFormOptionNavigation,
+                                                      @"nav_controller": self.navigationController,
+                                                      @"value_field": @"code",
+                                                      @"label_field": @"name",
+                                                      @"index_titles": @1,
+                                                      @"searchable": @1,
+                                                      @"required": @1
+                                                      }];
+    self.stateName = (SimiFormText *)[form addField:@"Text"
+                                             config:@{
+                                                      @"name": @"state_name",
+                                                      @"title": SCLocalizedString(@"State"),
+                                                      }];
     
-    [form addField:@"Text"
-            config:@{
-                     @"name": @"street",
-                     @"title": SCLocalizedString(@"Street"),
-                     @"required": @1
-                     }];
-    
-    SimiStoreModel *store = [[SimiGlobalVar sharedInstance] store];
-    if ([[[store valueForKey:@"checkout_config"] valueForKey:@"taxvat_show"] boolValue]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name": @"vat_id",
-                         @"title": SCLocalizedString(@"VAT Number")
-                         }];
-    }
-    
+    self.stateId = (SimiFormSelect *)[form addField:@"Select"
+                                             config:@{
+                                                      @"name": @"state_code",
+                                                      @"title": SCLocalizedString(@"State"),
+                                                      @"option_type": SimiFormOptionNavigation,
+                                                      @"nav_controller": self.navigationController,
+                                                      @"value_field": @"code",
+                                                      @"label_field": @"name",
+                                                      @"index_titles": @1,
+                                                      @"searchable": @1,
+                                                      @"required": @1
+                                                      }];
     
     [form addField:@"Text"
             config:@{
@@ -114,35 +110,10 @@
                      @"required": @1
                      }];
     
-    self.stateName = (SimiFormText *)[form addField:@"Text"
+    [form addField:@"Text"
             config:@{
-                     @"name": @"state_name",
-                     @"title": SCLocalizedString(@"State"),
-                     }];
-    
-    self.stateId = (SimiFormSelect *)[form addField:@"Select"
-            config:@{
-                     @"name": @"state_code",
-                     @"title": SCLocalizedString(@"State"),
-                     @"option_type": SimiFormOptionNavigation,
-                     @"nav_controller": self.navigationController,
-                     @"value_field": @"code",
-                     @"label_field": @"name",
-                     @"index_titles": @1,
-                     @"searchable": @1,
-                     @"required": @1
-                     }];
-    
-    self.country = (SimiFormSelect *)[form addField:@"Select"
-            config:@{
-                     @"name": @"country_code",
-                     @"title": SCLocalizedString(@"Country"),
-                     @"option_type": SimiFormOptionNavigation,
-                     @"nav_controller": self.navigationController,
-                     @"value_field": @"code",
-                     @"label_field": @"name",
-                     @"index_titles": @1,
-                     @"searchable": @1,
+                     @"name": @"street",
+                     @"title": SCLocalizedString(@"Street"),
                      @"required": @1
                      }];
     
@@ -159,34 +130,6 @@
                      @"title": SCLocalizedString(@"Phone"),
                      @"required": @1
                      }];
-    
-    // Add new profile fields
-    if (!isEditing && ![config isLogin]) {
-        [form addField:@"Date"
-                config:@{
-                         @"name": @"dob",
-                         @"title": SCLocalizedString(@"Date of Birth"),
-                         @"date_type": @"date",
-                         @"date_format": @"yyyy-MM-dd",
-                         @"required": [NSNumber numberWithBool:[[config dobShow] isEqualToString:@"req"]]
-                         }];
-        
-        [form addField:@"Select"
-                config:@{
-                         @"name": @"gender",
-                         @"title": SCLocalizedString(@"Gender"),
-                         @"required": [NSNumber numberWithBool:[[config genderShow] isEqualToString:@"req"]],
-                         @"source": @[@{@"value":@"123",@"label":SCLocalizedString(@"Male")},@{@"value":@"234",@"label":SCLocalizedString(@"Female")}]
-                         }];
-        
-        [form addField:@"Text"
-                config:@{
-                         @"name": @"taxvat",
-                         @"title": SCLocalizedString(@"Tax/VAT number"),
-                         @"required": [NSNumber numberWithBool:[[config taxvatShow] isEqualToString:@"req"]]
-                         }];
-
-    }
     
     
     if (isNewCustomer) {
@@ -367,14 +310,17 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidCreateAddressAutofill" object:tableViewAddress userInfo:@{@"newAddressView": self}];
     countries = [SimiGlobalVar sharedInstance].countryColllection;
     [self.country setDataSource:countries];
-//    NSLog(@"%@",countries);
     if (self.stateId == nil) {
         // NOTHING
     } else if (!isEditing) {
-        // delete country selected default is firse.
-//        SimiAddressModel *defaultCountry = [countries objectAtIndex:0];
-//        [self.country addSelected:defaultCountry];
-//        states = [defaultCountry valueForKey:@"states"];
+        for (int i = 0; i < countries.count; i++) {
+            SimiAddressModel *addressModel = [countries objectAtIndex:i];
+            if ([[[addressModel valueForKey:@"code"]uppercaseString] isEqualToString:[[SimiGlobalVar sharedInstance].countryCode uppercaseString]]) {
+                [self.country addSelected:addressModel];
+                states = [addressModel valueForKey:@"states"];
+                break;
+            }
+        }
         if ([states isKindOfClass:[NSNull class]] || states.count == 0) {
             // Show State Name
             [form.fields removeObject:self.stateId];

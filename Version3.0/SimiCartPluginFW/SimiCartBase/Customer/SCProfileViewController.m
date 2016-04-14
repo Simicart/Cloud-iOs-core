@@ -87,15 +87,6 @@
     
     SimiGlobalVar *config = [SimiGlobalVar sharedInstance];
     //Add fields
-    if (![[config prefixShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name" : @"prefix",
-                         @"title": SCLocalizedString(@"Prefix"),
-                         @"required": [NSNumber numberWithBool:[[config prefixShow] isEqualToString:@"req"]]
-                         }];
-    }
-    
     [form addField:@"Name"
             config:@{
                      @"name": @"first_name",
@@ -110,59 +101,12 @@
                      @"required": @1
                      }];
     
-    if (![[config suffixShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name" : @"suffix",
-                         @"title": SCLocalizedString(@"Suffix"),
-                         @"required": [NSNumber numberWithBool:[[config suffixShow] isEqualToString:@"req"]]
-                         }];
-    }
-    
     [form addField:@"Email"
             config:@{
                      @"name": @"email",
                      @"title": SCLocalizedString(@"Email"),
                      @"required": @1
                      }].enabled = ![SimiGlobalVar sharedInstance].isLogin;
-    
-    if (![[config dobShow] isEqualToString:@""]) {
-        [form addField:@"Date"
-                config:@{
-                         @"name": @"dob",
-                         @"title": SCLocalizedString(@"Date of Birth"),
-                         @"date_type": @"date",
-                         @"date_format": @"yyyy-MM-dd",
-                         @"required": [NSNumber numberWithBool:[[config dobShow] isEqualToString:@"req"]]
-                         }];
-        //format Date of Birth
-        NSString *year = [customer valueForKey:@"year"];
-        NSString *month = [customer valueForKey:@"month"];
-        NSString *day = [customer valueForKey:@"day"];
-        NSString *dateShow = [[[[year stringByAppendingString:@"-"] stringByAppendingString:month]stringByAppendingString:@"-"]stringByAppendingString:day];
-        [customer setValue:dateShow forKey:@"dob"];
-    }
-    
-    if (![[config genderShow] isEqualToString:@""]) {
-        [form addField:@"Select"
-                config:@{
-                         @"name": @"gender",
-                         @"title": SCLocalizedString(@"Gender"),
-                         @"required": [NSNumber numberWithBool:[[config genderShow] isEqualToString:@"req"]],
-                         @"source": @[@{@"value":@"123",@"label":SCLocalizedString(@"Male")},@{@"value":@"234",@"label":SCLocalizedString(@"Female")}]
-                         }];
-    }
-    
-    if (![[config taxvatShow] isEqualToString:@""]) {
-        [form addField:@"Text"
-                config:@{
-                         @"name": @"taxvat",
-                         @"title": SCLocalizedString(@"Tax/VAT number"),
-                         @"required": [NSNumber numberWithBool:[[config taxvatShow] isEqualToString:@"req"]]
-                         }];
-    }
-        
-    
     
     [form setFormData:customer];
     

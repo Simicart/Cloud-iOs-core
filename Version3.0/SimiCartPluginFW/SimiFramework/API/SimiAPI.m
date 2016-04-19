@@ -91,9 +91,8 @@ NSString *const kSimiCreditCard             = @"creditcard";
     if ([self.target respondsToSelector:@selector(currentNotificationName)]) {
         self.simiObjectName = [[target currentNotificationName] copy];
     }
-    if (params == nil) {
-        params = @{};
-    }
+    NSMutableDictionary *currentParams = [[NSMutableDictionary alloc]initWithDictionary:params];
+    [currentParams setValue:[[SimiGlobalVar sharedInstance] localeIdentifier] forKey:@"language"];
     if (header == nil) {
         header = @{};
     }
@@ -101,7 +100,7 @@ NSString *const kSimiCreditCard             = @"creditcard";
     if ([medthod isEqualToString:POST] || [medthod isEqualToString:PUT]) {
         [headerParams setValue:@"application/json" forKey:@"Content-Type"];
     }
-    [[SimiNetworkManager sharedInstance] requestWithMethod:medthod urlPath:url parameters:params target:self selector:@selector(convertData:) header:headerParams];
+    [[SimiNetworkManager sharedInstance] requestWithMethod:medthod urlPath:url parameters:currentParams target:self selector:@selector(convertData:) header:headerParams];
 }
 
 

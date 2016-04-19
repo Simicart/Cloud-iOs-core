@@ -92,7 +92,7 @@ NSString *const kSimiCreditCard             = @"creditcard";
         self.simiObjectName = [[target currentNotificationName] copy];
     }
     NSMutableDictionary *currentParams = [[NSMutableDictionary alloc]initWithDictionary:params];
-    [currentParams setValue:[[SimiGlobalVar sharedInstance] localeIdentifier] forKey:@"language"];
+    [currentParams setValue:[[SimiGlobalVar sharedInstance] localeIdentifier] forKey:@"filter[language]"];
     if (header == nil) {
         header = @{};
     }

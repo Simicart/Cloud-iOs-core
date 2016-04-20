@@ -31,9 +31,10 @@
         [self addSubview:self.lblMethodContent];
     }
     self.lblMethodContent.text = content;
-    CGRect contentFrame = CGRectMake(45, 30, 260, 20);
+    CGRect contentFrame = CGRectMake(45, 10, 260, 20);
     if ([content sizeWithAttributes:@{NSFontAttributeName:[self.lblMethodContent font]}].width >= contentFrame.size.width){
-        contentFrame.size.height += 50;
+        contentFrame.size.height += 60;
+        
         self.lblMethodContent.numberOfLines += 3;
     }
     [self.lblMethodContent setFrame:contentFrame];

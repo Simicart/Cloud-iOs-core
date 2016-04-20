@@ -10,7 +10,9 @@
 #import "SimiResponder.h"
 #import "SimiSection.h"
 
-@interface SCNewAddressViewController ()
+@interface SCNewAddressViewController () {
+    SimiStoreModel *storeSetting;
+}
 
 @end
 
@@ -331,7 +333,17 @@
             [form.fields addObject:self.stateId];
             // Make select fist state
             [self.stateId setDataSource:states];
-            [self.stateId addSelected:[states objectAtIndex:0]];
+            NSDictionary *stateConfig = [storeSetting objectForKey:@"state"];
+            if (stateConfig != nil) {
+                if ([stateConfig objectForKey:@"code"] != nil) {
+                    for (int i = 0; i < states.count; i ++) {
+                        NSDictionary *state = [states objectAtIndex:i];
+                        if ([[state valueForKey:@"code"] isEqualToString:[stateConfig valueForKey:@"code"]]) {
+                            [self.stateId addSelected:[states objectAtIndex:i]];
+                        }
+                    }
+                }
+            }
         }
         [form sortFormFields];
     } else {
@@ -406,7 +418,19 @@
                         [form.fields addObject:self.stateId];
                     }
                     [self.stateId setDataSource:states];
-                    [self.stateId addSelected:[states objectAtIndex:0]];
+                    // check and set default state
+                    NSDictionary *stateConfig = [[storeSetting objectForKey:@"general"] objectForKey:@"state"];
+                    if (stateConfig != nil) {
+                        if ([stateConfig objectForKey:@"code"] != nil) {
+                            for (int i = 0; i < states.count; i ++) {
+                                NSDictionary *state = [states objectAtIndex:i];
+                                if ([[state valueForKey:@"code"] isEqualToString:[stateConfig valueForKey:@"code"]]) {
+                                    [self.stateId addSelected:[states objectAtIndex:i]];
+                                }
+                            }
+                        }
+                    }
+                    
                     self.stateId.optionsViewController = nil;
                 }
                 [form sortFormFields];

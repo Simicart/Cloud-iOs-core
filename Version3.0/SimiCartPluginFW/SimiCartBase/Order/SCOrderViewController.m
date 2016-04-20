@@ -332,6 +332,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     SimiSection *simiSection = [self.orderTable objectAtIndex:indexPath.section];
     SimiRow *row = [simiSection.rows objectAtIndex:indexPath.row];
+    if ([simiSection.identifier isEqualToString:ORDER_SHIPMENT_SECTION]) {
+        return 90;
+    }
     CGFloat heightRow = row.height;
     return heightRow;
 }

@@ -118,7 +118,7 @@
                      @"title": SCLocalizedString(@"Street"),
                      @"required": @1
                      }];
-    
+    storeSetting = [[SimiGlobalVar sharedInstance] store];
     [form addField:@"Text"
             config:@{
                      @"name": @"zip",
@@ -344,7 +344,6 @@
             [form.fields addObject:self.stateId];
             // Make select fist state
             [self.stateId setDataSource:states];
-            NSLog(@"store setting : %@", storeSetting);
             NSDictionary *stateConfig = [[storeSetting objectForKey:@"general"] objectForKey:@"state"];
             if (stateConfig != nil) {
                 if ([stateConfig objectForKey:@"code"] != nil) {

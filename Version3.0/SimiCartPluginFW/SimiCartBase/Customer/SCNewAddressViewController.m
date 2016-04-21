@@ -312,6 +312,17 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidCreateAddressAutofill" object:tableViewAddress userInfo:@{@"newAddressView": self}];
     countries = [SimiGlobalVar sharedInstance].countryColllection;
     [self.country setDataSource:countries];
+    NSDictionary *countryConfig = [[storeSetting objectForKey:@"general"] objectForKey:@"country"];
+    if (countryConfig != nil) {
+        if ([countryConfig objectForKey:@"code"] != nil) {
+            for (int i = 0; i < countries.count; i ++) {
+                NSDictionary *country = [countries objectAtIndex:i];
+                if ([[country valueForKey:@"code"] isEqualToString:[countryConfig valueForKey:@"code"]]) {
+                    [self.country addSelected:[countries objectAtIndex:i]];
+                }
+            }
+        }
+    }
     if (self.stateId == nil) {
         // NOTHING
     } else if (!isEditing) {
@@ -333,7 +344,8 @@
             [form.fields addObject:self.stateId];
             // Make select fist state
             [self.stateId setDataSource:states];
-            NSDictionary *stateConfig = [storeSetting objectForKey:@"state"];
+            NSLog(@"store setting : %@", storeSetting);
+            NSDictionary *stateConfig = [[storeSetting objectForKey:@"general"] objectForKey:@"state"];
             if (stateConfig != nil) {
                 if ([stateConfig objectForKey:@"code"] != nil) {
                     for (int i = 0; i < states.count; i ++) {

@@ -419,19 +419,8 @@
                         [form.fields addObject:self.stateId];
                     }
                     [self.stateId setDataSource:states];
-                    // check and set default state
-                    NSDictionary *stateConfig = [[storeSetting objectForKey:@"general"] objectForKey:@"state"];
-                    if (stateConfig != nil) {
-                        if ([stateConfig objectForKey:@"code"] != nil) {
-                            for (int i = 0; i < states.count; i ++) {
-                                NSDictionary *state = [states objectAtIndex:i];
-                                if ([[state valueForKey:@"code"] isEqualToString:[stateConfig valueForKey:@"code"]]) {
-                                    [self.stateId addSelected:[states objectAtIndex:i]];
-                                }
-                            }
-                        }
-                    }
-                    
+                    // clear selected
+                    [self.stateId addSelected:nil];
                     self.stateId.optionsViewController = nil;
                 }
                 [form sortFormFields];

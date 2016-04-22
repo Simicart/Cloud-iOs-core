@@ -175,8 +175,12 @@
        //end
         if ([(NSString *)[self.expandableSections objectForKey:ORDER_SHIPMENT_SECTION] boolValue]) {
             for (int i = 0; i< self.shippingCollection.count; i++) {
-                SimiRow *shipmentRow = [[SimiRow alloc] initWithIdentifier:ORDER_VIEW_SHIPPING_METHOD height:55];
+                SimiRow *shipmentRow = [[SimiRow alloc] initWithIdentifier:ORDER_VIEW_SHIPPING_METHOD height:0];
+                
                 [shipmentRow setData:[self.shippingCollection objectAtIndex:i]];
+                NSString *shipmentDescription = [shipmentRow.data valueForKey:@"description"];
+                CGRect rect = [shipmentDescription boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:[UIFont fontWithName:THEME_FONT_NAME size:12]} context:nil];
+                shipmentRow.height = 30 + rect.size.height;
                 [shipmentSection addRow:shipmentRow];
             }
         }else {
@@ -332,9 +336,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     SimiSection *simiSection = [self.orderTable objectAtIndex:indexPath.section];
     SimiRow *row = [simiSection.rows objectAtIndex:indexPath.row];
-    if ([simiSection.identifier isEqualToString:ORDER_SHIPMENT_SECTION]) {
-        return 90;
-    }
+//    if ([simiSection.identifier isEqualToString:ORDER_SHIPMENT_SECTION]) {
+//        return 90;
+//    }
     CGFloat heightRow = row.height;
     return heightRow;
 }
@@ -536,7 +540,6 @@
                     [self.textFieldCouponCode setFont:[UIFont fontWithName:THEME_FONT_NAME_REGULAR size:16]];
                     [self.textFieldCouponCode setTextColor:THEME_CONTENT_COLOR];
                     
-                    
                     if ([[SimiGlobalVar sharedInstance]isReverseLanguage]) {
                         [self.textFieldCouponCode setTextAlignment:NSTextAlignmentRight];
                     }
@@ -589,7 +592,7 @@
 #pragma mark Shipment Section
     }else if([simiSection.identifier isEqualToString:ORDER_SHIPMENT_SECTION])
     {
-        NSString *identi = [ simiRow.data valueForKey:@"code"];
+        NSString *identi = [simiRow.data valueForKey:@"code"];
         if(simiRow.identifier == ORDER_VIEW_SHIPPING_METHOD){
             cell = [tableView dequeueReusableCellWithIdentifier:ORDER_VIEW_SHIPPING_METHOD];
             if (cell == nil) {

@@ -76,7 +76,7 @@
         clLocationManager = [CLLocationManager new];
         clLocationManager.delegate = self;
         if (SIMI_SYSTEM_IOS >= 8.0) {
-            [clLocationManager requestAlwaysAuthorization];
+            [clLocationManager requestWhenInUseAuthorization];
         }
         currentLatitude = 0;
         currentLongitude = 0;

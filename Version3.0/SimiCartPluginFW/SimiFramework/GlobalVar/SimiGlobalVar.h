@@ -224,6 +224,6 @@ typedef NS_ENUM(NSInteger, CurrentVersionPhoneUsing)
 //Axe added
 - (NSString* )thousandSeparator;
 - (NSString* )decimalSeparator;
--(NSString *) numberOfDecimals;
+- (NSString *) numberOfDecimals;
 
 @end

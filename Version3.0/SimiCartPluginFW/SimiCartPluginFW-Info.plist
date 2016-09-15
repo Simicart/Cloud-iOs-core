@@ -107,6 +107,8 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>SIMI_DEBUG_ENABLE</key>
 	<false/>
 	<key>SIMI_DEVELOPMENT_ENABLE</key>

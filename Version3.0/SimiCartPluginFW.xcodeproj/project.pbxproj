@@ -1116,7 +1116,6 @@
 		89BF38BE1C27FFD400ECDAE5 /* ic_delete_download_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CFE3991C02AFC2001E4318 /* ic_delete_download_item.png */; };
 		89BF38BF1C27FFD400ECDAE5 /* ic_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CA95F91BFABCAA0062CCD3 /* ic_down.png */; };
 		89BF38C01C27FFF700ECDAE5 /* plugin-simi_simidownload.plist in Resources */ = {isa = PBXBuildFile; fileRef = 892A36F51BFC83BC007EE4E3 /* plugin-simi_simidownload.plist */; };
-		89BF38C11C27FFF700ECDAE5 /* SimiCartBundle-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3704881B19077F5C004BD051 /* SimiCartBundle-Info.plist */; };
 		89CA95FA1BFABCAA0062CCD3 /* ic_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CA95F91BFABCAA0062CCD3 /* ic_down.png */; };
 		89CFE39A1C02AFC2001E4318 /* ic_delete_download_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CFE3991C02AFC2001E4318 /* ic_delete_download_item.png */; };
 		89D2085B1BC659020075480A /* SCThankYouPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D2085A1BC659020075480A /* SCThankYouPageViewController.m */; };
@@ -4012,7 +4011,7 @@
 		37813D551876943800A9371B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Trueplus;
 				TargetAttributes = {
 					37813D5C1876943800A9371B = {
@@ -4123,7 +4122,6 @@
 				89D2FD7F1C4F4316007ADEE9 /* ic_password@2x.png in Resources */,
 				89D2FD801C4F4316007ADEE9 /* ic_password@3x.png in Resources */,
 				89BF38C01C27FFF700ECDAE5 /* plugin-simi_simidownload.plist in Resources */,
-				89BF38C11C27FFF700ECDAE5 /* SimiCartBundle-Info.plist in Resources */,
 				89BF38BE1C27FFD400ECDAE5 /* ic_delete_download_item.png in Resources */,
 				89BF38BF1C27FFD400ECDAE5 /* ic_down.png in Resources */,
 				893F4C7C1BEC52F500082A59 /* zara_banner.png in Resources */,
@@ -5129,7 +5127,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "SimiCartBundle/SimiCartBundle-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = mh_object;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -5159,7 +5157,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "SimiCartBundle/SimiCartBundle-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = mh_object;
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -5179,6 +5177,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -5188,15 +5187,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -5209,7 +5213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "d23f1f7f-a911-4c11-bdcd-f88db51e855b";
 				SDKROOT = iphoneos;
@@ -5221,6 +5225,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -5230,21 +5235,26 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE = "d23f1f7f-a911-4c11-bdcd-f88db51e855b";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5255,11 +5265,12 @@
 		37813D8A1876943800A9371B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 88X6EP4WFV;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5268,7 +5279,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimiCartPluginFW/SimiCartPluginFW-Prefix.pch";
 				INFOPLIST_FILE = "SimiCartPluginFW/SimiCartPluginFW-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5283,7 +5294,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.cloud;
 				PRODUCT_MODULE_NAME = SimiCartPluginFW;
 				PRODUCT_NAME = Cloud;
-				PROVISIONING_PROFILE = "ffebb1cf-61cd-4cbc-9fa2-7bfc29bf0916";
+				PROVISIONING_PROFILE = "0a5e92a3-18bb-4b54-926b-aedc2277b1fc";
+				PROVISIONING_PROFILE_SPECIFIER = "Simi Development";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/Checkout.com/SimiCartPluginFW-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5296,12 +5308,13 @@
 		37813D8B1876943800A9371B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "$(SRCROOT)/OptimizationProfiles/$(PROJECT_NAME).profdata";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Nguyen Duc (46E4K2GM7H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 88X6EP4WFV;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5310,7 +5323,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimiCartPluginFW/SimiCartPluginFW-Prefix.pch";
 				INFOPLIST_FILE = "SimiCartPluginFW/SimiCartPluginFW-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5325,7 +5338,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.cloud;
 				PRODUCT_MODULE_NAME = SimiCartPluginFW;
 				PRODUCT_NAME = Cloud;
-				PROVISIONING_PROFILE = "ffebb1cf-61cd-4cbc-9fa2-7bfc29bf0916";
+				PROVISIONING_PROFILE = "0a5e92a3-18bb-4b54-926b-aedc2277b1fc";
+				PROVISIONING_PROFILE_SPECIFIER = "Simi Development";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Volumes/DATA/00.GitHub/Cloud-iOs-plugins/Checkout.com/SimiCartPluginFW-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";

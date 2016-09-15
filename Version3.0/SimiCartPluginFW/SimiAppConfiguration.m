@@ -29,7 +29,7 @@ NSString *kBaseURL                      = @"http://dev-api.jajahub.com/rest/";
 //NSString *const kSimiKey                = @"43d4ba3f7c8ecbba2606233b82e237df67a4b361";
 
 
-//NSString *const kSimiKey                = @"43d4ba3f7c8ecbba2606233b82e237df67a4b361";
+//NSString *const kSimiKey                = @"a0bbd59124f4c39221fc5be3079c08f99165e8ee";
 //NSString *kBaseURL                      = @"http://api.jajahub.com/rest/";
 
 

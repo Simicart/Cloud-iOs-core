@@ -33,8 +33,7 @@
 @property (nonatomic, strong) UILabel *lblCountLike;
 @property (nonatomic) int tagView;
 @property (nonatomic) int tagFacebookView;
-@property (nonatomic) BOOL isLoginWithComment;
-@property (nonatomic, strong) UIButton *btnCommentWithOtherAccount;
+@property (nonatomic, strong) UIButton *btnClearAllFacebookCookies;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 @property (nonatomic) BOOL isHideTabBar;
 

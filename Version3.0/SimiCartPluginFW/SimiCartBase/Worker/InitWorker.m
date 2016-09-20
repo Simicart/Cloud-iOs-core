@@ -204,13 +204,17 @@
     for (SimiModel *plugin in activePlugins) {
         pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", [plugin valueForKey:@"sku"]]];
     }
-    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_paypalmobile"]];
-    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_ccavenue"]];
-    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_simiklarna"]];
-    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_checkout"]];
-    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_payu"]];
-    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_payuindian"]];
-    
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_paypalexpress"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_searchvoice"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_appwishlist"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_loyalty"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_simivideo"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_zopim"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_simibarcode"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_addressautofill"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_simicontact"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"magestore_storelocator"]];
+    pluginString = [pluginString stringByAppendingString:[NSString stringWithFormat:@"%@|", @"simi_fblogin"]];
     //Read Plugins
     if (SIMI_DEVELOPMENT_ENABLE) {
         for (NSString *pluginFileName in pluginFileNames) {

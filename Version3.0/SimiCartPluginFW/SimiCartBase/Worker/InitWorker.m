@@ -158,23 +158,25 @@
         _rootController = [[UITabBarController alloc] init];
         id obj = nil;
         obj = [SCThemeWorker sharedInstance];
-        if (SIMI_DEVELOPMENT_ENABLE) {
-            if (ZTHEME_ENABLE) {
-                [SimiGlobalVar sharedInstance].themeUsing = ThemeShowZTheme;
-            }else if (SIMI_THEME_ENABLE) {
-                [SimiGlobalVar sharedInstance].themeUsing = ThemeShowMatrixTheme;
+        if (![SimiGlobalVar sharedInstance].useThemeConfigOnLocal) {
+            if (SIMI_DEVELOPMENT_ENABLE) {
+                if (ZTHEME_ENABLE) {
+                    [SimiGlobalVar sharedInstance].themeUsing = ThemeShowZTheme;
+                }else if (SIMI_THEME_ENABLE) {
+                    [SimiGlobalVar sharedInstance].themeUsing = ThemeShowMatrixTheme;
+                }else
+                {
+                    [SimiGlobalVar sharedInstance].themeUsing = ThemeShowDefault;
+                }
             }else
             {
-                [SimiGlobalVar sharedInstance].themeUsing = ThemeShowDefault;
-            }
-        }else
-        {
-            if ([[[SimiGlobalVar sharedInstance].appConfigure valueForKey:@"layout"] isEqualToString:@"zara"]) {
-                [SimiGlobalVar sharedInstance].themeUsing = ThemeShowZTheme;
-            }else if ([[[SimiGlobalVar sharedInstance].appConfigure valueForKey:@"layout"] isEqualToString:@"matrix"]) {
-                [SimiGlobalVar sharedInstance].themeUsing = ThemeShowMatrixTheme;
-            }else{
-                [SimiGlobalVar sharedInstance].themeUsing = ThemeShowDefault;
+                if ([[[SimiGlobalVar sharedInstance].appConfigure valueForKey:@"layout"] isEqualToString:@"zara"]) {
+                    [SimiGlobalVar sharedInstance].themeUsing = ThemeShowZTheme;
+                }else if ([[[SimiGlobalVar sharedInstance].appConfigure valueForKey:@"layout"] isEqualToString:@"matrix"]) {
+                    [SimiGlobalVar sharedInstance].themeUsing = ThemeShowMatrixTheme;
+                }else{
+                    [SimiGlobalVar sharedInstance].themeUsing = ThemeShowDefault;
+                }
             }
         }
     }

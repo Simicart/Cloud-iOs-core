@@ -15,6 +15,7 @@
 #import "SimiCurrencyModel.h"
 #import "SCAppDelegate.h"
 #import "SimiModelCollection+CMS.h"
+#import "ActionSheetPicker.h"
 
 @implementation SCSettingViewController
 {
@@ -93,8 +94,27 @@
         [storeViewController setSelectedName:selectedName];
         storeViewController.delegate = self;
         [self.navigationController pushViewController:storeViewController animated:YES];
+    }else if ([row.identifier isEqualToString:CHANGE_THEME])
+    {
+        ActionSheetStringPicker *stringPicket = [[ActionSheetStringPicker alloc]initWithTitle:@"Change Theme" rows:@[@"Default Theme", @"Matrix Theme", @"Zara Theme"] initialSelection:[SimiGlobalVar sharedInstance].themeUsing target:self successAction:@selector(didSelectValue:element:) cancelAction:@selector(cancelActionSheet:) origin:self.view];
+        [stringPicket showActionSheetPicker];
     }
 }
+
+- (void)didSelectValue:(NSNumber *)selectedIndex element:(id)element
+{
+    if ([selectedIndex integerValue] != [SimiGlobalVar sharedInstance].themeUsing) {
+        [SimiGlobalVar sharedInstance].themeUsing = [selectedIndex integerValue];
+        [SimiGlobalVar sharedInstance].useThemeConfigOnLocal = YES;
+        [[NSNotificationCenter defaultCenter]postNotificationName:ChangeAppLanguage object:nil];
+    }
+}
+
+- (void)cancelActionSheet:(id)sender
+{
+    
+}
+
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     SimiSection *section = [_cells objectAtIndex:indexPath.section];
     SimiRow *row = [section objectAtIndex:indexPath.row];
@@ -131,6 +151,11 @@
         _cells = [[SimiTable alloc] init];
         
         SimiSection *section = [[SimiSection alloc] init];
+        SimiRow* themeRow = [[SimiRow alloc] initWithIdentifier:CHANGE_THEME height:55];
+        themeRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        themeRow.title = SCLocalizedString(@"Change Theme");
+        [section addRow:themeRow];
+        
         if (stores.count > 1) {
             SimiRow* langRow = [[SimiRow alloc] initWithIdentifier:LANGUAGE_CELL height:55];
             langRow.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

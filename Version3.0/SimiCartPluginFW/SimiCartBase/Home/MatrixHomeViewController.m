@@ -63,49 +63,38 @@
     tableViewHome.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableViewHome setContentSize:[SimiGlobalVar scaleSize:CGSizeMake(320, 595)]];
     [self.view addSubview:tableViewHome];
-    //AXe added
+    
     searchBarHome = [[UISearchBar alloc] initWithFrame:[SimiGlobalVar scaleFrame:CGRectMake(5, 5, 310, 28)]];
     searchBarHome.tintColor = THEME_SEARCH_TEXT_COLOR;
     searchBarHome.searchBarStyle = UIBarStyleBlackTranslucent;
     searchBarHome.placeholder = SCLocalizedString(@"Search");
     searchBarHome.layer.backgroundColor = [UIColor clearColor].CGColor;
     searchBarHome.layer.borderColor = [UIColor clearColor].CGColor;
-    searchBarHome.layer.borderWidth=1;
+    searchBarHome.layer.borderWidth = 1;
     [[NSClassFromString(@"UISearchBarTextField") appearanceWhenContainedIn:[UISearchBar class], nil] setBorderStyle:UITextBorderStyleNone];
     searchBarHome.layer.borderColor=[UIColor clearColor].CGColor;
-    //Gin edit
+    searchBarHome.delegate = self;
     for ( UIView * subview in [[searchBarHome.subviews objectAtIndex:0] subviews] )
     {
         if ([subview isKindOfClass:NSClassFromString(@"UISearchBarTextField") ] ) {
-            UITextField *searchView = (UITextField *)subview ;
+            UITextField *searchView = (UITextField *)subview;
+            [searchView setBorderStyle:UITextBorderStyleNone];
+            [searchView.rightView setBackgroundColor:THEME_SEARCH_ICON_COLOR];
+            searchView.textColor = THEME_SEARCH_TEXT_COLOR;
+            [searchView setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:@"Search" attributes:@{NSForegroundColorAttributeName: THEME_SEARCH_TEXT_COLOR}]];
             if ([[SimiGlobalVar sharedInstance] isReverseLanguage]) {
-                [searchView setBorderStyle:UITextBorderStyleNone];
-                [searchView.rightView setBackgroundColor:THEME_SEARCH_ICON_COLOR];
-                searchView.textColor = THEME_SEARCH_TEXT_COLOR;
-                [searchView.rightView setBackgroundColor:[UIColor blackColor]];
                 [searchView setTextAlignment:NSTextAlignmentRight];
             }
         }
     }
-    //end
-    searchBarHome.delegate = self;
-    searchBarHome.userInteractionEnabled = YES;
     [searchBarHome setBackgroundColor:[UIColor clearColor]];
     
     searchBarBackground = [[UIView alloc]initWithFrame:searchBarHome.frame];
     [searchBarBackground setBackgroundColor:THEME_SEARCH_BOX_BACKGROUND_COLOR];
+    [searchBarBackground setAlpha:0.9f];
+    
     [self.view addSubview:searchBarBackground];
     [self.view addSubview:searchBarHome];
-    [searchBarBackground setAlpha:0.9f];
-//    [searchBarHome setAlpha:0.0f];
-    UISwipeGestureRecognizer* swipeDownTheView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeTableView:)];
-    [swipeDownTheView setDirection:(UISwipeGestureRecognizerDirectionDown)];
-    UISwipeGestureRecognizer* swipeUpTheView = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeTableView:)];
-    [swipeUpTheView setDirection:(UISwipeGestureRecognizerDirectionUp)];
-    
-//    [tableViewHome addGestureRecognizer:swipeDownTheView];
-//    [tableViewHome addGestureRecognizer:swipeUpTheView];
-    //End
     
     [self setCells:nil];
     [self getBanners];

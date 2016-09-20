@@ -220,6 +220,33 @@
 		0C0CE3371D8FF04F0047AB52 /* ZDCChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0CE3331D8FF04F0047AB52 /* ZDCChat.framework */; };
 		0C0CE3381D8FF04F0047AB52 /* ZDCChatAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0CE3341D8FF04F0047AB52 /* ZDCChatAPI.framework */; };
 		0C0CE3391D8FF04F0047AB52 /* ZDCChatStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3351D8FF04F0047AB52 /* ZDCChatStrings.bundle */; };
+		0C0CE3801D90EB460047AB52 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE36C1D90EB460047AB52 /* bg.png */; };
+		0C0CE3811D90EB460047AB52 /* ic_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE36D1D90EB460047AB52 /* ic_close.png */; };
+		0C0CE3821D90EB460047AB52 /* ic_micro.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE36E1D90EB460047AB52 /* ic_micro.png */; };
+		0C0CE3831D90EB460047AB52 /* ic_micro_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE36F1D90EB460047AB52 /* ic_micro_active.png */; };
+		0C0CE3841D90EB460047AB52 /* ic_micro_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3701D90EB460047AB52 /* ic_micro_inactive.png */; };
+		0C0CE3851D90EB460047AB52 /* ic_micro_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3711D90EB460047AB52 /* ic_micro_pad.png */; };
+		0C0CE3861D90EB460047AB52 /* ic_micro_pad1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3721D90EB460047AB52 /* ic_micro_pad1.png */; };
+		0C0CE3871D90EB460047AB52 /* ic_micro_pad_old.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3731D90EB460047AB52 /* ic_micro_pad_old.png */; };
+		0C0CE3881D90EB460047AB52 /* ic_search_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3741D90EB460047AB52 /* ic_search_inactive.png */; };
+		0C0CE3891D90EB460047AB52 /* ic_small_micro.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3751D90EB460047AB52 /* ic_small_micro.png */; };
+		0C0CE38A1D90EB460047AB52 /* inrecording.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3761D90EB460047AB52 /* inrecording.png */; };
+		0C0CE38B1D90EB460047AB52 /* mic.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3771D90EB460047AB52 /* mic.png */; };
+		0C0CE38C1D90EB460047AB52 /* plugin-simi_searchvoice.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3781D90EB460047AB52 /* plugin-simi_searchvoice.plist */; };
+		0C0CE38D1D90EB460047AB52 /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3791D90EB460047AB52 /* recording.png */; };
+		0C0CE38E1D90EB460047AB52 /* SCSearchVoiceCoreWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE37B1D90EB460047AB52 /* SCSearchVoiceCoreWorker.m */; };
+		0C0CE38F1D90EB460047AB52 /* SCSearchVoicePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE37D1D90EB460047AB52 /* SCSearchVoicePadViewController.m */; };
+		0C0CE3901D90EB460047AB52 /* SCSearchVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE37F1D90EB460047AB52 /* SCSearchVoiceViewController.m */; };
+		0C0CE39A1D90EB710047AB52 /* SineWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE3931D90EB710047AB52 /* SineWaveViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0C0CE39B1D90EB710047AB52 /* SineWaveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3941D90EB710047AB52 /* SineWaveViewController.xib */; };
+		0C0CE39C1D90EB710047AB52 /* SpeechToTextModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE3961D90EB710047AB52 /* SpeechToTextModule.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0C0CE39D1D90EB710047AB52 /* Speex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0CE3971D90EB710047AB52 /* Speex.framework */; };
+		0C0CE39E1D90EB710047AB52 /* WaveDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE3991D90EB710047AB52 /* WaveDisplay.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0C0CE3A81D90EF150047AB52 /* ic_simivideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3A01D90EF150047AB52 /* ic_simivideo.png */; };
+		0C0CE3A91D90EF150047AB52 /* plugin-simi_simivideo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3A11D90EF150047AB52 /* plugin-simi_simivideo.plist */; };
+		0C0CE3AA1D90EF150047AB52 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3A31D90EF150047AB52 /* YTPlayerView-iframe-player.html */; };
+		0C0CE3AB1D90EF150047AB52 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE3A51D90EF150047AB52 /* YTPlayerView.m */; };
+		0C0CE3AC1D90EF150047AB52 /* YoutubeWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE3A71D90EF150047AB52 /* YoutubeWorker.m */; };
 		370D7FD218ADB635005767CA /* SCProductReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FD018ADB635005767CA /* SCProductReviewView.m */; };
 		370D7FE418ADBF6E005767CA /* SCProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FE218ADBF6E005767CA /* SCProductInfoView.m */; };
 		370D7FEE18ADD642005767CA /* SCProductReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FEC18ADD642005767CA /* SCProductReviewController.m */; };
@@ -1582,6 +1609,41 @@
 		0C0CE3331D8FF04F0047AB52 /* ZDCChat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZDCChat.framework; sourceTree = "<group>"; };
 		0C0CE3341D8FF04F0047AB52 /* ZDCChatAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZDCChatAPI.framework; sourceTree = "<group>"; };
 		0C0CE3351D8FF04F0047AB52 /* ZDCChatStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDCChatStrings.bundle; sourceTree = "<group>"; };
+		0C0CE36C1D90EB460047AB52 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		0C0CE36D1D90EB460047AB52 /* ic_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_close.png; sourceTree = "<group>"; };
+		0C0CE36E1D90EB460047AB52 /* ic_micro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_micro.png; sourceTree = "<group>"; };
+		0C0CE36F1D90EB460047AB52 /* ic_micro_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_micro_active.png; sourceTree = "<group>"; };
+		0C0CE3701D90EB460047AB52 /* ic_micro_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_micro_inactive.png; sourceTree = "<group>"; };
+		0C0CE3711D90EB460047AB52 /* ic_micro_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_micro_pad.png; sourceTree = "<group>"; };
+		0C0CE3721D90EB460047AB52 /* ic_micro_pad1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_micro_pad1.png; sourceTree = "<group>"; };
+		0C0CE3731D90EB460047AB52 /* ic_micro_pad_old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_micro_pad_old.png; sourceTree = "<group>"; };
+		0C0CE3741D90EB460047AB52 /* ic_search_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_search_inactive.png; sourceTree = "<group>"; };
+		0C0CE3751D90EB460047AB52 /* ic_small_micro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_small_micro.png; sourceTree = "<group>"; };
+		0C0CE3761D90EB460047AB52 /* inrecording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inrecording.png; sourceTree = "<group>"; };
+		0C0CE3771D90EB460047AB52 /* mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mic.png; sourceTree = "<group>"; };
+		0C0CE3781D90EB460047AB52 /* plugin-simi_searchvoice.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "plugin-simi_searchvoice.plist"; sourceTree = "<group>"; };
+		0C0CE3791D90EB460047AB52 /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording.png; sourceTree = "<group>"; };
+		0C0CE37A1D90EB460047AB52 /* SCSearchVoiceCoreWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchVoiceCoreWorker.h; sourceTree = "<group>"; };
+		0C0CE37B1D90EB460047AB52 /* SCSearchVoiceCoreWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchVoiceCoreWorker.m; sourceTree = "<group>"; };
+		0C0CE37C1D90EB460047AB52 /* SCSearchVoicePadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchVoicePadViewController.h; sourceTree = "<group>"; };
+		0C0CE37D1D90EB460047AB52 /* SCSearchVoicePadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchVoicePadViewController.m; sourceTree = "<group>"; };
+		0C0CE37E1D90EB460047AB52 /* SCSearchVoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchVoiceViewController.h; sourceTree = "<group>"; };
+		0C0CE37F1D90EB460047AB52 /* SCSearchVoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchVoiceViewController.m; sourceTree = "<group>"; };
+		0C0CE3921D90EB710047AB52 /* SineWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SineWaveViewController.h; sourceTree = "<group>"; };
+		0C0CE3931D90EB710047AB52 /* SineWaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SineWaveViewController.m; sourceTree = "<group>"; };
+		0C0CE3941D90EB710047AB52 /* SineWaveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SineWaveViewController.xib; sourceTree = "<group>"; };
+		0C0CE3951D90EB710047AB52 /* SpeechToTextModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechToTextModule.h; sourceTree = "<group>"; };
+		0C0CE3961D90EB710047AB52 /* SpeechToTextModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechToTextModule.m; sourceTree = "<group>"; };
+		0C0CE3971D90EB710047AB52 /* Speex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Speex.framework; sourceTree = "<group>"; };
+		0C0CE3981D90EB710047AB52 /* WaveDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveDisplay.h; sourceTree = "<group>"; };
+		0C0CE3991D90EB710047AB52 /* WaveDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveDisplay.m; sourceTree = "<group>"; };
+		0C0CE3A01D90EF150047AB52 /* ic_simivideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_simivideo.png; sourceTree = "<group>"; };
+		0C0CE3A11D90EF150047AB52 /* plugin-simi_simivideo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "plugin-simi_simivideo.plist"; sourceTree = "<group>"; };
+		0C0CE3A31D90EF150047AB52 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
+		0C0CE3A41D90EF150047AB52 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
+		0C0CE3A51D90EF150047AB52 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
+		0C0CE3A61D90EF150047AB52 /* YoutubeWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YoutubeWorker.h; sourceTree = "<group>"; };
+		0C0CE3A71D90EF150047AB52 /* YoutubeWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YoutubeWorker.m; sourceTree = "<group>"; };
 		3704881B19077F5C004BD051 /* SimiCartBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimiCartBundle-Info.plist"; sourceTree = "<group>"; };
 		370D7FCF18ADB635005767CA /* SCProductReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProductReviewView.h; sourceTree = "<group>"; };
 		370D7FD018ADB635005767CA /* SCProductReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProductReviewView.m; sourceTree = "<group>"; };
@@ -2318,6 +2380,7 @@
 				893FC5ED1BAFE4BA002A0880 /* libiconv.tbd in Frameworks */,
 				80EB34E419F4FCC20089990B /* CoreMedia.framework in Frameworks */,
 				3776F9D418BC6C1B004681B5 /* SystemConfiguration.framework in Frameworks */,
+				0C0CE39D1D90EB710047AB52 /* Speex.framework in Frameworks */,
 				0C0CE3381D8FF04F0047AB52 /* ZDCChatAPI.framework in Frameworks */,
 				3783A19118C5D56C0061067F /* QuartzCore.framework in Frameworks */,
 				0C0CE0121D8A8A480047AB52 /* FBSDKLoginKit.framework in Frameworks */,
@@ -2350,6 +2413,9 @@
 		0C0CDFF31D8A8A060047AB52 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				0C0CE39F1D90EF150047AB52 /* SimiYoutube */,
+				0C0CE3911D90EB710047AB52 /* SearchVoiceSupportingFile */,
+				0C0CE36B1D90EB460047AB52 /* SearchVoice */,
 				0C0CE3091D8FE6A50047AB52 /* Simizopim */,
 				0C0CE2AF1D8FDCC00047AB52 /* SimiBarCode */,
 				0C0CE2A61D8FC8770047AB52 /* AddressAutoFill */,
@@ -2739,6 +2805,70 @@
 				0C0CE3181D8FE6A50047AB52 /* UIViewController+OrientationFix.m */,
 			);
 			path = Simizopim;
+			sourceTree = "<group>";
+		};
+		0C0CE36B1D90EB460047AB52 /* SearchVoice */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE36C1D90EB460047AB52 /* bg.png */,
+				0C0CE36D1D90EB460047AB52 /* ic_close.png */,
+				0C0CE36E1D90EB460047AB52 /* ic_micro.png */,
+				0C0CE36F1D90EB460047AB52 /* ic_micro_active.png */,
+				0C0CE3701D90EB460047AB52 /* ic_micro_inactive.png */,
+				0C0CE3711D90EB460047AB52 /* ic_micro_pad.png */,
+				0C0CE3721D90EB460047AB52 /* ic_micro_pad1.png */,
+				0C0CE3731D90EB460047AB52 /* ic_micro_pad_old.png */,
+				0C0CE3741D90EB460047AB52 /* ic_search_inactive.png */,
+				0C0CE3751D90EB460047AB52 /* ic_small_micro.png */,
+				0C0CE3761D90EB460047AB52 /* inrecording.png */,
+				0C0CE3771D90EB460047AB52 /* mic.png */,
+				0C0CE3781D90EB460047AB52 /* plugin-simi_searchvoice.plist */,
+				0C0CE3791D90EB460047AB52 /* recording.png */,
+				0C0CE37A1D90EB460047AB52 /* SCSearchVoiceCoreWorker.h */,
+				0C0CE37B1D90EB460047AB52 /* SCSearchVoiceCoreWorker.m */,
+				0C0CE37C1D90EB460047AB52 /* SCSearchVoicePadViewController.h */,
+				0C0CE37D1D90EB460047AB52 /* SCSearchVoicePadViewController.m */,
+				0C0CE37E1D90EB460047AB52 /* SCSearchVoiceViewController.h */,
+				0C0CE37F1D90EB460047AB52 /* SCSearchVoiceViewController.m */,
+			);
+			path = SearchVoice;
+			sourceTree = "<group>";
+		};
+		0C0CE3911D90EB710047AB52 /* SearchVoiceSupportingFile */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE3921D90EB710047AB52 /* SineWaveViewController.h */,
+				0C0CE3931D90EB710047AB52 /* SineWaveViewController.m */,
+				0C0CE3941D90EB710047AB52 /* SineWaveViewController.xib */,
+				0C0CE3951D90EB710047AB52 /* SpeechToTextModule.h */,
+				0C0CE3961D90EB710047AB52 /* SpeechToTextModule.m */,
+				0C0CE3971D90EB710047AB52 /* Speex.framework */,
+				0C0CE3981D90EB710047AB52 /* WaveDisplay.h */,
+				0C0CE3991D90EB710047AB52 /* WaveDisplay.m */,
+			);
+			path = SearchVoiceSupportingFile;
+			sourceTree = "<group>";
+		};
+		0C0CE39F1D90EF150047AB52 /* SimiYoutube */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE3A01D90EF150047AB52 /* ic_simivideo.png */,
+				0C0CE3A11D90EF150047AB52 /* plugin-simi_simivideo.plist */,
+				0C0CE3A21D90EF150047AB52 /* Youtube */,
+				0C0CE3A61D90EF150047AB52 /* YoutubeWorker.h */,
+				0C0CE3A71D90EF150047AB52 /* YoutubeWorker.m */,
+			);
+			path = SimiYoutube;
+			sourceTree = "<group>";
+		};
+		0C0CE3A21D90EF150047AB52 /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE3A31D90EF150047AB52 /* YTPlayerView-iframe-player.html */,
+				0C0CE3A41D90EF150047AB52 /* YTPlayerView.h */,
+				0C0CE3A51D90EF150047AB52 /* YTPlayerView.m */,
+			);
+			path = Youtube;
 			sourceTree = "<group>";
 		};
 		373870DE18C46AE300AE3C3F /* KASlideShow */ = {
@@ -4563,6 +4693,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C0CE3811D90EB460047AB52 /* ic_close.png in Resources */,
 				899BDB831BC4FA3500A6AA91 /* ic_selected.png in Resources */,
 				89CFE39A1C02AFC2001E4318 /* ic_delete_download_item.png in Resources */,
 				899BDB3B1BC4FA3500A6AA91 /* ic_acc@2x.png in Resources */,
@@ -4613,6 +4744,7 @@
 				0C0CE3361D8FF04F0047AB52 /* ZDCChat.bundle in Resources */,
 				893F4C731BEC3C8F00082A59 /* default_spotproduct.png in Resources */,
 				0C0CE2F51D8FDCC00047AB52 /* barcode_flashonicon@2x.png in Resources */,
+				0C0CE38B1D90EB460047AB52 /* mic.png in Resources */,
 				0C0CE2F11D8FDCC00047AB52 /* barcode_flashicon.png in Resources */,
 				0C0CE01C1D8A8A480047AB52 /* like_box.png in Resources */,
 				0C0CE1711D8A8D3D0047AB52 /* contactus_call.png in Resources */,
@@ -4627,6 +4759,7 @@
 				0C0CE23C1D8A8D3E0047AB52 /* storelocator_searchdropbox@2x~ipad.png in Resources */,
 				899BDB801BC4FA3500A6AA91 /* ic_pass@3x.png in Resources */,
 				0C0CE1F71D8A8D3E0047AB52 /* sl_icon_list.png in Resources */,
+				0C0CE3AA1D90EF150047AB52 /* YTPlayerView-iframe-player.html in Resources */,
 				0C0CE2201D8A8D3E0047AB52 /* storelocator_locator.png in Resources */,
 				899BDBA21BC4FA3500A6AA91 /* rate1.png in Resources */,
 				899BDB861BC4FA3500A6AA91 /* ic_setting@3x.png in Resources */,
@@ -4643,6 +4776,7 @@
 				899BDB8D1BC4FA3500A6AA91 /* ic_star2@2x.png in Resources */,
 				899BDB521BC4FA3500A6AA91 /* ic_filter.png in Resources */,
 				0C0CE2181D8A8D3E0047AB52 /* storelocator_icon__16.png in Resources */,
+				0C0CE3821D90EB460047AB52 /* ic_micro.png in Resources */,
 				899BDB761BC4FA3500A6AA91 /* ic_multiselected.png in Resources */,
 				0C0CE1771D8A8D3D0047AB52 /* contactus_web.png in Resources */,
 				899BDB751BC4FA3500A6AA91 /* ic_more@3x.png in Resources */,
@@ -4654,6 +4788,7 @@
 				0C0CE2231D8A8D3E0047AB52 /* storelocator_point@2x.png in Resources */,
 				899BDBA01BC4FA3500A6AA91 /* plus@2x.png in Resources */,
 				0C0CE1FB1D8A8D3E0047AB52 /* storelocator_2.png in Resources */,
+				0C0CE38C1D90EB460047AB52 /* plugin-simi_searchvoice.plist in Resources */,
 				0C0CE2F71D8FDCC00047AB52 /* barcode_icon.png in Resources */,
 				899BDB5C1BC4FA3500A6AA91 /* ic_history_den@2x.png in Resources */,
 				0C0CE1F61D8A8D3E0047AB52 /* sl_icon__09@2x.png in Resources */,
@@ -4669,6 +4804,7 @@
 				899BDB7A1BC4FA3500A6AA91 /* ic_orderhistory@2x.png in Resources */,
 				899BDB2A1BC4FA3500A6AA91 /* Mark Simonson - Proxima Nova Light.ttf in Resources */,
 				0C0CE17C1D8A8D3D0047AB52 /* contactusmessage_tbl@2x.png in Resources */,
+				0C0CE3841D90EB460047AB52 /* ic_micro_inactive.png in Resources */,
 				899BDB431BC4FA3500A6AA91 /* ic_app_setting@3x.png in Resources */,
 				0C0CE1761D8A8D3D0047AB52 /* contactus_message@2x.png in Resources */,
 				899BDB721BC4FA3500A6AA91 /* ic_menu@3x.png in Resources */,
@@ -4691,6 +4827,7 @@
 				0C0CE2191D8A8D3E0047AB52 /* storelocator_icon__16@2x.png in Resources */,
 				899BDB511BC4FA3500A6AA91 /* ic_email.png in Resources */,
 				0C0CE2361D8A8D3E0047AB52 /* storelocator_search_text_field.png in Resources */,
+				0C0CE38D1D90EB460047AB52 /* recording.png in Resources */,
 				899BDB6B1BC4FA3500A6AA91 /* ic_log_out@2x.png in Resources */,
 				0C0CE17D1D8A8D3D0047AB52 /* contactusphone_tbl.png in Resources */,
 				899BDBA51BC4FA3500A6AA91 /* stockstatus_background@2x.png in Resources */,
@@ -4698,15 +4835,20 @@
 				899BDB531BC4FA3500A6AA91 /* ic_filter@2x.png in Resources */,
 				899BDB501BC4FA3500A6AA91 /* ic_delete.png in Resources */,
 				899BDB911BC4FA3500A6AA91 /* ic_star_50.png in Resources */,
+				0C0CE3861D90EB460047AB52 /* ic_micro_pad1.png in Resources */,
 				899BDB461BC4FA3500A6AA91 /* ic_cart.png in Resources */,
 				0C0CE2F31D8FDCC00047AB52 /* barcode_flashicon@3x.png in Resources */,
 				0C0CE2031D8A8D3E0047AB52 /* storelocator_6.png in Resources */,
+				0C0CE3871D90EB460047AB52 /* ic_micro_pad_old.png in Resources */,
 				899BDB221BC4FA3500A6AA91 /* Default-Landscape@2x~ipad.png in Resources */,
 				0C0CE3071D8FDCC00047AB52 /* zbar-helpicons.png in Resources */,
 				0C0CE1721D8A8D3D0047AB52 /* contactus_call@2x.png in Resources */,
+				0C0CE38A1D90EB460047AB52 /* inrecording.png in Resources */,
+				0C0CE3891D90EB460047AB52 /* ic_small_micro.png in Resources */,
 				0C0CE0181D8A8A480047AB52 /* facebookconnect_comment@2x.png in Resources */,
 				0C0CE2051D8A8D3E0047AB52 /* storelocator_7.png in Resources */,
 				899BDB581BC4FA3500A6AA91 /* ic_grib.png in Resources */,
+				0C0CE3831D90EB460047AB52 /* ic_micro_active.png in Resources */,
 				893F4C7A1BEC4A0B00082A59 /* zara_banner.png in Resources */,
 				0C0CE3251D8FE6A50047AB52 /* ic_livechat_old@2x.png in Resources */,
 				899BDB631BC4FA3500A6AA91 /* ic_lang_den@3x.png in Resources */,
@@ -4745,6 +4887,7 @@
 				0C0CE20F1D8A8D3E0047AB52 /* storelocator_bt_search.png in Resources */,
 				899BDBA41BC4FA3500A6AA91 /* stockstatus_background.png in Resources */,
 				899BDB241BC4FA3500A6AA91 /* Default-Portrait-v7@2x~ipad.png in Resources */,
+				0C0CE3801D90EB460047AB52 /* bg.png in Resources */,
 				0C0CE2F81D8FDCC00047AB52 /* barcode_icon@2x.png in Resources */,
 				0C0CE2331D8A8D3E0047AB52 /* storelocator_search_iphone_dai_10@2x.png in Resources */,
 				0C0CE1781D8A8D3D0047AB52 /* contactus_web@2x.png in Resources */,
@@ -4794,7 +4937,9 @@
 				897CBF341C4E1BF80029B0B3 /* ic_password@2x.png in Resources */,
 				899BDB6D1BC4FA3500A6AA91 /* ic_login.png in Resources */,
 				899BDB301BC4FA3500A6AA91 /* card_amex.png in Resources */,
+				0C0CE39B1D90EB710047AB52 /* SineWaveViewController.xib in Resources */,
 				899BDB5E1BC4FA3500A6AA91 /* ic_home.png in Resources */,
+				0C0CE3A81D90EF150047AB52 /* ic_simivideo.png in Resources */,
 				0C0CE2151D8A8D3E0047AB52 /* storelocator_icon__03@2x.png in Resources */,
 				0C0CE2011D8A8D3E0047AB52 /* storelocator_5.png in Resources */,
 				0C0CE2061D8A8D3E0047AB52 /* storelocator_7@2x.png in Resources */,
@@ -4821,6 +4966,8 @@
 				0C0CE23E1D8A8D3E0047AB52 /* storelocator_view.png in Resources */,
 				0C0CE3261D8FE6A50047AB52 /* ic_livechat_old@3x.png in Resources */,
 				0C0CE3021D8FDCC00047AB52 /* plugin-simi_simibarcode.plist in Resources */,
+				0C0CE3A91D90EF150047AB52 /* plugin-simi_simivideo.plist in Resources */,
+				0C0CE3881D90EB460047AB52 /* ic_search_inactive.png in Resources */,
 				0C0CE2371D8A8D3E0047AB52 /* storelocator_search_text_field@2x.png in Resources */,
 				899BDB8C1BC4FA3500A6AA91 /* ic_star2.png in Resources */,
 				0C0CE22A1D8A8D3E0047AB52 /* storelocator_search_iphone_dai_03.png in Resources */,
@@ -4842,6 +4989,7 @@
 				0C0CE23F1D8A8D3E0047AB52 /* storelocator_view@2x.png in Resources */,
 				0C0CE1FF1D8A8D3E0047AB52 /* storelocator_4.png in Resources */,
 				899BDB981BC4FA3500A6AA91 /* ic_view_all.png in Resources */,
+				0C0CE3851D90EB460047AB52 /* ic_micro_pad.png in Resources */,
 				0C0CE2341D8A8D3E0047AB52 /* storelocator_search_iphone_dai_10@2x~ipad.png in Resources */,
 				899BDB391BC4FA3500A6AA91 /* delete@2x.png in Resources */,
 				899BDB3D1BC4FA3500A6AA91 /* ic_address_book.png in Resources */,
@@ -5238,6 +5386,7 @@
 				372CEA6218D6EE7200C17EFA /* SimiStoreModelCollection.m in Sources */,
 				0C0CE24B1D8A8D3E0047AB52 /* SimiStoreLocatorDetailViewController.m in Sources */,
 				6120D5271A1315FA00CDBB26 /* SimiFormEmail.m in Sources */,
+				0C0CE39E1D90EB710047AB52 /* WaveDisplay.m in Sources */,
 				C3C216DF1B70DDFD00D56F36 /* ZaraHomeViewSection.m in Sources */,
 				89AC6B1F1B818052000DD761 /* SCOrderProductCell.m in Sources */,
 				37899F5318ACAA750020C1EE /* SimiCartModel.m in Sources */,
@@ -5326,6 +5475,7 @@
 				89886F551B7C8FF500CAB52C /* SCProductMoreViewController.m in Sources */,
 				547A153F194AD61700C5748F /* SimiAppConfiguration.m in Sources */,
 				C3D1AF6B1AFA0D4100750892 /* SCFilterViewController.m in Sources */,
+				0C0CE39C1D90EB710047AB52 /* SpeechToTextModule.m in Sources */,
 				80AF3D4119D3A44A0077AFED /* SDWebImageManager.m in Sources */,
 				C3D1AF801AFA0F2900750892 /* CustomIOS7AlertView.m in Sources */,
 				C3581F321B783DC600A93728 /* SCStoreViewController.m in Sources */,
@@ -5343,6 +5493,7 @@
 				6120D4C21A12E7A800CDBB26 /* SimiCart.m in Sources */,
 				895B67301BF0502B0009746A /* DownloadControlViewController.m in Sources */,
 				809980081A09E02A004D3714 /* AFURLRequestSerialization.m in Sources */,
+				0C0CE38F1D90EB460047AB52 /* SCSearchVoicePadViewController.m in Sources */,
 				89886F431B7C8D0300CAB52C /* ActionSheetDistancePicker.m in Sources */,
 				37899F4A18ACAA750020C1EE /* SimiProductAPI.m in Sources */,
 				8969A34A1C10375C0050D0EA /* SimiSpotModelCollection.m in Sources */,
@@ -5394,6 +5545,7 @@
 				37899F5A18ACAA750020C1EE /* SimiProductModelCollection.m in Sources */,
 				0C0CE2411D8A8D3E0047AB52 /* SCStoreListTableViewCell.m in Sources */,
 				615C9197196E9A5300B51924 /* SCTermConditionViewController.m in Sources */,
+				0C0CE39A1D90EB710047AB52 /* SineWaveViewController.m in Sources */,
 				80AF3D4419D3A44A0077AFED /* UIImage+GIF.m in Sources */,
 				6120D5511A131AD000CDBB26 /* SimiFormSelect.m in Sources */,
 				0C0CE25A1D8A8D3E0047AB52 /* UILabel+DynamicSizeMe.m in Sources */,
@@ -5405,6 +5557,7 @@
 				0C0CE2511D8A8D3E0047AB52 /* SimiStoreLocatorPopup.m in Sources */,
 				89B48D301B7DC8AC00E46EC7 /* SCCategoryViewControllerPad.m in Sources */,
 				89149DE21C0F0C770063D8D7 /* SimiCMSPagesModelCollection.m in Sources */,
+				0C0CE3901D90EB460047AB52 /* SCSearchVoiceViewController.m in Sources */,
 				8099800A1A09E02A004D3714 /* AFURLSessionManager.m in Sources */,
 				891D512A1B835365001B0880 /* SCProductCollectionViewCellPad.m in Sources */,
 				0C0CE0201D8A8A480047AB52 /* SimiCustomerModel+Facebook.m in Sources */,
@@ -5437,7 +5590,9 @@
 				80AF3D4819D3A44A0077AFED /* UIImageView+WebCache.m in Sources */,
 				0C0CE24D1D8A8D3E0047AB52 /* SimiStoreLocatorMaker.m in Sources */,
 				37383EE118B1A44000DD6708 /* SCCartCell.m in Sources */,
+				0C0CE3AC1D90EF150047AB52 /* YoutubeWorker.m in Sources */,
 				809980051A09E02A004D3714 /* AFNetworkReachabilityManager.m in Sources */,
+				0C0CE3AB1D90EF150047AB52 /* YTPlayerView.m in Sources */,
 				3779578818B4556A00102C66 /* SCOrderFeeCell.m in Sources */,
 				6108E0CA1A318A97000C5C66 /* SimiTable.m in Sources */,
 				80AF3D3A19D3A44A0077AFED /* MKAnnotationView+WebCache.m in Sources */,
@@ -5462,6 +5617,7 @@
 				0C0CE2571D8A8D3E0047AB52 /* SimiTagCollectionCell.m in Sources */,
 				89E113F31BFDBF6100093A23 /* MGSwipeButton.m in Sources */,
 				C3D2905F1B79DBCB006FE4CE /* WYStoryboardPopoverSegue.m in Sources */,
+				0C0CE38E1D90EB460047AB52 /* SCSearchVoiceCoreWorker.m in Sources */,
 				37899F4818ACAA750020C1EE /* SimiCustomerAPI.m in Sources */,
 				376C7B3F18BB453D0013E3AC /* SCShippingViewController.m in Sources */,
 				6120D5121A13157B00CDBB26 /* SimiFormDate.m in Sources */,
@@ -5664,6 +5820,7 @@
 					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/FBConnect/FacebookSDK",
 					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/Simizopim",
 					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/StoreLocator",
+					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/SearchVoiceSupportingFile",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimiCartPluginFW/SimiCartPluginFW-Prefix.pch";
@@ -5712,6 +5869,7 @@
 					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/FBConnect/FacebookSDK",
 					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/Simizopim",
 					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/StoreLocator",
+					"$(PROJECT_DIR)/SimiCartPluginFW/Plugins/SearchVoiceSupportingFile",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimiCartPluginFW/SimiCartPluginFW-Prefix.pch";

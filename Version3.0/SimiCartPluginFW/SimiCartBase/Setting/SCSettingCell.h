@@ -13,6 +13,7 @@ static NSString* const SETTING_SECTION = @"SETTING_SECTION";
 static NSString* const LANGUAGE_CELL = @"LANGUAGE_CELL";
 static NSString* const CURRENCY_CELL = @"CURRENCY_CELL";
 static NSString* const APP_SETTING_CELL = @"APP_SETTING_CELL";
+static NSString* const CHANGE_THEME = @"CHANGE_THEME";
 
 @interface SCSettingCell : UITableViewCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withRow:(SimiRow*)row;

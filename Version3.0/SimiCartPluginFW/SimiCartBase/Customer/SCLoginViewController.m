@@ -38,6 +38,10 @@
 - (void)viewDidLoadBefore
 {   
     [self setToSimiView];
+    isSaveAccount = YES;
+    stringEmail = @"test@simicart.com";
+    stringPassWord = @"12345678";
+    
     [self checkSaveAccount];
     self.navigationItem.title = SCLocalizedString(@"Sign In");
     loginTableView = [[SimiTableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
@@ -76,6 +80,10 @@
     NSString *stringCheckSaveAccount = [wrapper objectForKey:(__bridge id)(kSecAttrDescription)];
     if ([stringCheckSaveAccount isEqualToString:@"1"]) {
         isSaveAccount = YES;
+    }
+    if ([stringEmail isEqualToString:@""] || [stringPassWord isEqualToString:@""]||stringEmail == nil|| stringPassWord == nil) {
+        stringEmail = @"test@simicart.com";
+        stringPassWord = @"12345678";
     }
 }
 

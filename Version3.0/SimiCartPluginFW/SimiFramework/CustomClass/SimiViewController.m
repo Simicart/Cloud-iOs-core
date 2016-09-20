@@ -271,7 +271,7 @@ static int tagViewFog = 123456;
 }
 - (void)showAlertContactSimiCartWithMessage:(NSString *)message
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"") message:SCLocalizedString(message) delegate:self cancelButtonTitle:SCLocalizedString(@"Close") otherButtonTitles:@"Contact Us",nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"") message:SCLocalizedString(message) delegate:self cancelButtonTitle:SCLocalizedString(@"Close") otherButtonTitles:@"Contact SimiCart",@"Chat with SimiCart",nil];
     [alertView show];
 }
 
@@ -280,6 +280,9 @@ static int tagViewFog = 123456;
     switch (buttonIndex) {
         case 1:
             [self sendEmailToStoreWithEmail:@[@"support@simicart.com"] andEmailContent:@""];
+            break;
+        case 2:
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"tapToChatButton" object:nil];
             break;
         default:
             break;

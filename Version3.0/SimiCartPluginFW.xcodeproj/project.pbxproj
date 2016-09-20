@@ -285,6 +285,20 @@
 		0C0CE4001D911A1F0047AB52 /* plugin-simi_loyalty.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE3DA1D911A1F0047AB52 /* plugin-simi_loyalty.plist */; };
 		0C0CE4011D911A1F0047AB52 /* SimiOrderModel+Loyalty.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE3DC1D911A1F0047AB52 /* SimiOrderModel+Loyalty.m */; };
 		0C0CE4031D911AC10047AB52 /* demo_rewards.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4021D911AC10047AB52 /* demo_rewards.png */; };
+		0C0CE46D1D9124DC0047AB52 /* plugin-simi_appwishlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE45A1D9124DB0047AB52 /* plugin-simi_appwishlist.plist */; };
+		0C0CE46E1D9124DC0047AB52 /* SCAppWishlistAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE45C1D9124DB0047AB52 /* SCAppWishlistAPI.m */; };
+		0C0CE46F1D9124DC0047AB52 /* SCAppWishlistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE45E1D9124DB0047AB52 /* SCAppWishlistCollectionViewCell.m */; };
+		0C0CE4701D9124DC0047AB52 /* SCAppWishlistCoreWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4601D9124DB0047AB52 /* SCAppWishlistCoreWorker.m */; };
+		0C0CE4711D9124DC0047AB52 /* SCAppWishlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4621D9124DB0047AB52 /* SCAppWishlistModel.m */; };
+		0C0CE4721D9124DC0047AB52 /* SCAppWishlistModelCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4641D9124DB0047AB52 /* SCAppWishlistModelCollection.m */; };
+		0C0CE4731D9124DC0047AB52 /* SCAppWishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4661D9124DB0047AB52 /* SCAppWishlistViewController.m */; };
+		0C0CE4741D9124DC0047AB52 /* wishlist_account_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4671D9124DB0047AB52 /* wishlist_account_icon.png */; };
+		0C0CE4751D9124DC0047AB52 /* wishlist_color_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4681D9124DB0047AB52 /* wishlist_color_icon.png */; };
+		0C0CE4761D9124DC0047AB52 /* wishlist_empty_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4691D9124DB0047AB52 /* wishlist_empty_icon.png */; };
+		0C0CE4771D9124DC0047AB52 /* wishlist_leftmenu_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE46A1D9124DB0047AB52 /* wishlist_leftmenu_icon.png */; };
+		0C0CE4781D9124DC0047AB52 /* wishlist_remove_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE46B1D9124DB0047AB52 /* wishlist_remove_icon.png */; };
+		0C0CE4791D9124DC0047AB52 /* wishlist_share_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE46C1D9124DB0047AB52 /* wishlist_share_icon.png */; };
+		0C0CE47B1D9126420047AB52 /* demo_wishlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE47A1D9126420047AB52 /* demo_wishlist.png */; };
 		370D7FD218ADB635005767CA /* SCProductReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FD018ADB635005767CA /* SCProductReviewView.m */; };
 		370D7FE418ADBF6E005767CA /* SCProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FE218ADBF6E005767CA /* SCProductInfoView.m */; };
 		370D7FEE18ADD642005767CA /* SCProductReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FEC18ADD642005767CA /* SCProductReviewController.m */; };
@@ -1730,6 +1744,26 @@
 		0C0CE3DB1D911A1F0047AB52 /* SimiOrderModel+Loyalty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SimiOrderModel+Loyalty.h"; sourceTree = "<group>"; };
 		0C0CE3DC1D911A1F0047AB52 /* SimiOrderModel+Loyalty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SimiOrderModel+Loyalty.m"; sourceTree = "<group>"; };
 		0C0CE4021D911AC10047AB52 /* demo_rewards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo_rewards.png; sourceTree = "<group>"; };
+		0C0CE45A1D9124DB0047AB52 /* plugin-simi_appwishlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "plugin-simi_appwishlist.plist"; sourceTree = "<group>"; };
+		0C0CE45B1D9124DB0047AB52 /* SCAppWishlistAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppWishlistAPI.h; sourceTree = "<group>"; };
+		0C0CE45C1D9124DB0047AB52 /* SCAppWishlistAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppWishlistAPI.m; sourceTree = "<group>"; };
+		0C0CE45D1D9124DB0047AB52 /* SCAppWishlistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppWishlistCollectionViewCell.h; sourceTree = "<group>"; };
+		0C0CE45E1D9124DB0047AB52 /* SCAppWishlistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppWishlistCollectionViewCell.m; sourceTree = "<group>"; };
+		0C0CE45F1D9124DB0047AB52 /* SCAppWishlistCoreWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppWishlistCoreWorker.h; sourceTree = "<group>"; };
+		0C0CE4601D9124DB0047AB52 /* SCAppWishlistCoreWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppWishlistCoreWorker.m; sourceTree = "<group>"; };
+		0C0CE4611D9124DB0047AB52 /* SCAppWishlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppWishlistModel.h; sourceTree = "<group>"; };
+		0C0CE4621D9124DB0047AB52 /* SCAppWishlistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppWishlistModel.m; sourceTree = "<group>"; };
+		0C0CE4631D9124DB0047AB52 /* SCAppWishlistModelCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppWishlistModelCollection.h; sourceTree = "<group>"; };
+		0C0CE4641D9124DB0047AB52 /* SCAppWishlistModelCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppWishlistModelCollection.m; sourceTree = "<group>"; };
+		0C0CE4651D9124DB0047AB52 /* SCAppWishlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAppWishlistViewController.h; sourceTree = "<group>"; };
+		0C0CE4661D9124DB0047AB52 /* SCAppWishlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppWishlistViewController.m; sourceTree = "<group>"; };
+		0C0CE4671D9124DB0047AB52 /* wishlist_account_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wishlist_account_icon.png; sourceTree = "<group>"; };
+		0C0CE4681D9124DB0047AB52 /* wishlist_color_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wishlist_color_icon.png; sourceTree = "<group>"; };
+		0C0CE4691D9124DB0047AB52 /* wishlist_empty_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wishlist_empty_icon.png; sourceTree = "<group>"; };
+		0C0CE46A1D9124DB0047AB52 /* wishlist_leftmenu_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wishlist_leftmenu_icon.png; sourceTree = "<group>"; };
+		0C0CE46B1D9124DB0047AB52 /* wishlist_remove_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wishlist_remove_icon.png; sourceTree = "<group>"; };
+		0C0CE46C1D9124DB0047AB52 /* wishlist_share_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wishlist_share_icon.png; sourceTree = "<group>"; };
+		0C0CE47A1D9126420047AB52 /* demo_wishlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo_wishlist.png; sourceTree = "<group>"; };
 		3704881B19077F5C004BD051 /* SimiCartBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimiCartBundle-Info.plist"; sourceTree = "<group>"; };
 		370D7FCF18ADB635005767CA /* SCProductReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProductReviewView.h; sourceTree = "<group>"; };
 		370D7FD018ADB635005767CA /* SCProductReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProductReviewView.m; sourceTree = "<group>"; };
@@ -2499,6 +2533,7 @@
 		0C0CDFF31D8A8A060047AB52 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				0C0CE4591D9124DB0047AB52 /* AppWishlist */,
 				0C0CE3AD1D911A1F0047AB52 /* Loyalty Standard */,
 				0C0CE39F1D90EF150047AB52 /* SimiYoutube */,
 				0C0CE3911D90EB710047AB52 /* SearchVoiceSupportingFile */,
@@ -3011,6 +3046,33 @@
 				0C0CE3DC1D911A1F0047AB52 /* SimiOrderModel+Loyalty.m */,
 			);
 			path = "Loyalty Standard";
+			sourceTree = "<group>";
+		};
+		0C0CE4591D9124DB0047AB52 /* AppWishlist */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE47A1D9126420047AB52 /* demo_wishlist.png */,
+				0C0CE45A1D9124DB0047AB52 /* plugin-simi_appwishlist.plist */,
+				0C0CE45B1D9124DB0047AB52 /* SCAppWishlistAPI.h */,
+				0C0CE45C1D9124DB0047AB52 /* SCAppWishlistAPI.m */,
+				0C0CE45D1D9124DB0047AB52 /* SCAppWishlistCollectionViewCell.h */,
+				0C0CE45E1D9124DB0047AB52 /* SCAppWishlistCollectionViewCell.m */,
+				0C0CE45F1D9124DB0047AB52 /* SCAppWishlistCoreWorker.h */,
+				0C0CE4601D9124DB0047AB52 /* SCAppWishlistCoreWorker.m */,
+				0C0CE4611D9124DB0047AB52 /* SCAppWishlistModel.h */,
+				0C0CE4621D9124DB0047AB52 /* SCAppWishlistModel.m */,
+				0C0CE4631D9124DB0047AB52 /* SCAppWishlistModelCollection.h */,
+				0C0CE4641D9124DB0047AB52 /* SCAppWishlistModelCollection.m */,
+				0C0CE4651D9124DB0047AB52 /* SCAppWishlistViewController.h */,
+				0C0CE4661D9124DB0047AB52 /* SCAppWishlistViewController.m */,
+				0C0CE4671D9124DB0047AB52 /* wishlist_account_icon.png */,
+				0C0CE4681D9124DB0047AB52 /* wishlist_color_icon.png */,
+				0C0CE4691D9124DB0047AB52 /* wishlist_empty_icon.png */,
+				0C0CE46A1D9124DB0047AB52 /* wishlist_leftmenu_icon.png */,
+				0C0CE46B1D9124DB0047AB52 /* wishlist_remove_icon.png */,
+				0C0CE46C1D9124DB0047AB52 /* wishlist_share_icon.png */,
+			);
+			path = AppWishlist;
 			sourceTree = "<group>";
 		};
 		373870DE18C46AE300AE3C3F /* KASlideShow */ = {
@@ -4853,11 +4915,13 @@
 				0C0CE3E21D911A1F0047AB52 /* loyalty_card@2x.png in Resources */,
 				0C0CE2311D8A8D3E0047AB52 /* storelocator_search_iphone_dai_05~ipad.png in Resources */,
 				899BDBA31BC4FA3500A6AA91 /* rate2.png in Resources */,
+				0C0CE4771D9124DC0047AB52 /* wishlist_leftmenu_icon.png in Resources */,
 				899BDB201BC4FA3500A6AA91 /* Default-Landscape-v7@2x~ipad.png in Resources */,
 				0C0CE2041D8A8D3E0047AB52 /* storelocator_6@2x.png in Resources */,
 				0C0CE1751D8A8D3D0047AB52 /* contactus_message.png in Resources */,
 				899BDB371BC4FA3500A6AA91 /* cell_placeholder@2x.png in Resources */,
 				899BDB9B1BC4FA3500A6AA91 /* images_transpa_view_now.png in Resources */,
+				0C0CE4741D9124DC0047AB52 /* wishlist_account_icon.png in Resources */,
 				893F4C761BEC3C8F00082A59 /* matrix_spot.png in Resources */,
 				899BDB7E1BC4FA3500A6AA91 /* ic_pass.png in Resources */,
 				899BDB8F1BC4FA3500A6AA91 /* ic_star@2x.png in Resources */,
@@ -4873,6 +4937,7 @@
 				899BDB9C1BC4FA3500A6AA91 /* minus.png in Resources */,
 				899BDB711BC4FA3500A6AA91 /* ic_menu@2x.png in Resources */,
 				899BDB921BC4FA3500A6AA91 /* ic_star_50@2x.png in Resources */,
+				0C0CE4761D9124DC0047AB52 /* wishlist_empty_icon.png in Resources */,
 				0C0CE2ED1D8FDCC00047AB52 /* barcode_canvas@2x.png in Resources */,
 				899BDB211BC4FA3500A6AA91 /* Default-Landscape-v7~ipad.png in Resources */,
 				0C0CE0171D8A8A480047AB52 /* facebookconnect_comment.png in Resources */,
@@ -4895,6 +4960,7 @@
 				0C0CE3F11D911A1F0047AB52 /* loyalty_pending@2x.png in Resources */,
 				0C0CE01C1D8A8A480047AB52 /* like_box.png in Resources */,
 				0C0CE1711D8A8D3D0047AB52 /* contactus_call.png in Resources */,
+				0C0CE4791D9124DC0047AB52 /* wishlist_share_icon.png in Resources */,
 				895B674F1BF0502B0009746A /* UIWebViewSearch.js in Resources */,
 				0C0CE1801D8A8D3D0047AB52 /* contactusweb_tbl@2x.png in Resources */,
 				0C0CE2EF1D8FDCC00047AB52 /* barcode_canvas@3x.png in Resources */,
@@ -4904,6 +4970,7 @@
 				0C0CE2171D8A8D3E0047AB52 /* storelocator_icon__04@2x.png in Resources */,
 				893F4C721BEC3C8F00082A59 /* default_category.png in Resources */,
 				893F4C751BEC3C8F00082A59 /* matrix_category_two.png in Resources */,
+				0C0CE4751D9124DC0047AB52 /* wishlist_color_icon.png in Resources */,
 				0C0CE23C1D8A8D3E0047AB52 /* storelocator_searchdropbox@2x~ipad.png in Resources */,
 				899BDB801BC4FA3500A6AA91 /* ic_pass@3x.png in Resources */,
 				0C0CE1F71D8A8D3E0047AB52 /* sl_icon_list.png in Resources */,
@@ -4925,6 +4992,7 @@
 				899BDB361BC4FA3500A6AA91 /* cell_placeholder.png in Resources */,
 				899BDB8D1BC4FA3500A6AA91 /* ic_star2@2x.png in Resources */,
 				899BDB521BC4FA3500A6AA91 /* ic_filter.png in Resources */,
+				0C0CE47B1D9126420047AB52 /* demo_wishlist.png in Resources */,
 				0C0CE2181D8A8D3E0047AB52 /* storelocator_icon__16.png in Resources */,
 				0C0CE3821D90EB460047AB52 /* ic_micro.png in Resources */,
 				899BDB761BC4FA3500A6AA91 /* ic_multiselected.png in Resources */,
@@ -4950,6 +5018,7 @@
 				899BDB571BC4FA3500A6AA91 /* ic_forgot@3x.png in Resources */,
 				0C0CE2AD1D8FC8770047AB52 /* plugin-simi_addressautofill.plist in Resources */,
 				0C0CE2001D8A8D3E0047AB52 /* storelocator_4@2x.png in Resources */,
+				0C0CE4781D9124DC0047AB52 /* wishlist_remove_icon.png in Resources */,
 				899BDB4D1BC4FA3500A6AA91 /* ic_curency.png in Resources */,
 				899BDB4E1BC4FA3500A6AA91 /* ic_curency@2x.png in Resources */,
 				899BDB731BC4FA3500A6AA91 /* ic_more.png in Resources */,
@@ -5089,6 +5158,7 @@
 				0C0CE20C1D8A8D3E0047AB52 /* storelocator_Bg_icon_store@2x.png in Resources */,
 				0C0CE3081D8FDCC00047AB52 /* zbar-samples.png in Resources */,
 				0C0CE1F01D8A8D3E0047AB52 /* framework.rtf in Resources */,
+				0C0CE46D1D9124DC0047AB52 /* plugin-simi_appwishlist.plist in Resources */,
 				899BDB401BC4FA3500A6AA91 /* ic_address_edit.png in Resources */,
 				899BDB4C1BC4FA3500A6AA91 /* ic_cong.png in Resources */,
 				893F4C771BEC3C8F00082A59 /* matrix_spot~ipad.png in Resources */,
@@ -5592,6 +5662,7 @@
 				0C0CE2FF1D8FDCC00047AB52 /* BarCodeModel.m in Sources */,
 				0C0CE3F81D911A1F0047AB52 /* LoyaltyCardViewController.m in Sources */,
 				0C0CE3281D8FE6A50047AB52 /* SimizopimWorker.m in Sources */,
+				0C0CE4711D9124DC0047AB52 /* SCAppWishlistModel.m in Sources */,
 				809980091A09E02A004D3714 /* AFURLResponseSerialization.m in Sources */,
 				891712FC1B8C580200331ACF /* SimiCurrencyModelCollection.m in Sources */,
 				89B48D361B7DCB6B00E46EC7 /* ZaraSection.m in Sources */,
@@ -5624,6 +5695,7 @@
 				C347235D1B748EAD00DA7B12 /* ZaraHomeViewControllerPad.m in Sources */,
 				C3D290651B7A0449006FE4CE /* SCProductOptionSection.m in Sources */,
 				0C0CE2FE1D8FDCC00047AB52 /* BarCodeAPI.m in Sources */,
+				0C0CE4701D9124DC0047AB52 /* SCAppWishlistCoreWorker.m in Sources */,
 				5496382B194ABA50006D782D /* UIImage+SimiCustom.m in Sources */,
 				891D4EB41B82F196001B0880 /* SCOrderMethodCell.m in Sources */,
 				0C0CE2581D8A8D3E0047AB52 /* SimiTagModel.m in Sources */,
@@ -5632,6 +5704,7 @@
 				6120D4C81A13021400CDBB26 /* SimiController.m in Sources */,
 				3783A18F18C5CE880061067F /* UIScrollView+SVPullToRefresh.m in Sources */,
 				0C0CE01E1D8A8A480047AB52 /* SCFBConnectWorker.m in Sources */,
+				0C0CE4731D9124DC0047AB52 /* SCAppWishlistViewController.m in Sources */,
 				373B90C918DC39BC00E6B75B /* SCProductViewController.m in Sources */,
 				80AF3D4919D3A44A0077AFED /* UIView+WebCacheOperation.m in Sources */,
 				376DF1BF18E12DFC006833D0 /* SCForgotPasswordViewController.m in Sources */,
@@ -5668,7 +5741,9 @@
 				0C0CE2471D8A8D3E0047AB52 /* SimiConfigSearchStoreLocatorModel.m in Sources */,
 				6120D4C21A12E7A800CDBB26 /* SimiCart.m in Sources */,
 				895B67301BF0502B0009746A /* DownloadControlViewController.m in Sources */,
+				0C0CE46E1D9124DC0047AB52 /* SCAppWishlistAPI.m in Sources */,
 				809980081A09E02A004D3714 /* AFURLRequestSerialization.m in Sources */,
+				0C0CE46F1D9124DC0047AB52 /* SCAppWishlistCollectionViewCell.m in Sources */,
 				0C0CE38F1D90EB460047AB52 /* SCSearchVoicePadViewController.m in Sources */,
 				89886F431B7C8D0300CAB52C /* ActionSheetDistancePicker.m in Sources */,
 				37899F4A18ACAA750020C1EE /* SimiProductAPI.m in Sources */,
@@ -5787,6 +5862,7 @@
 				809980071A09E02A004D3714 /* AFURLConnectionOperation.m in Sources */,
 				0C0CE24C1D8A8D3E0047AB52 /* SimiStoreLocatorListViewController.m in Sources */,
 				6120D54C1A131A8500CDBB26 /* SimiFormBoolean.m in Sources */,
+				0C0CE4721D9124DC0047AB52 /* SCAppWishlistModelCollection.m in Sources */,
 				375CB34518C6DDF3001BA428 /* SCProfileViewController.m in Sources */,
 				804621A419A6597D004C4D38 /* UILabelDynamicSize.m in Sources */,
 				615C9192196E8DE000B51924 /* M13Checkbox.m in Sources */,

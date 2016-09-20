@@ -149,9 +149,12 @@ static NSString *LEFTMENU_REWARDS_ROW     = @"leftmenu_rewards";
 #pragma mark init Cart Cell
     } else if ([noti.name isEqualToString:@"InitCartCell-Before"]) {
             // Add Row to show Loyalty Labels
-        SimiTable *cartCells = (SimiTable *)noti.object;
-        SimiSection *loyaltySection = [cartCells addSectionWithIdentifier:LOYALTY_CART];
-        [loyaltySection addRowWithIdentifier:LOYALTY_CART height:44];
+        SimiCartModelCollection *cart = [[SimiGlobalVar sharedInstance] cart];
+        if (cart.count) {
+            SimiTable *cartCells = (SimiTable *)noti.object;
+            SimiSection *loyaltySection = [cartCells addSectionWithIdentifier:LOYALTY_CART];
+            [loyaltySection addRowWithIdentifier:LOYALTY_CART height:44];
+        }
     } else if ([noti.name isEqualToString:@"InitializedCartCell-Before"]) {
         SimiRow *row = [noti.userInfo objectForKey:@"row"];
         if ([row.identifier isEqualToString:LOYALTY_CART]) {

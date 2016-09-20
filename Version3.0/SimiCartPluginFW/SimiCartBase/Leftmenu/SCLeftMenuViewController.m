@@ -107,6 +107,11 @@ static NSString *TABLE_LOGIN = @"TABLE_LOGIN";
                 [section2 addObject:row20];
             }
         }
+        SimiRow *rowChangeTheme = [[SimiRow alloc]initWithIdentifier:LEFTMENU_ROW_CHANGETHEME height:rowHeight sortOrder:9999];
+        rowChangeTheme.image = [UIImage imageNamed:@"ic_change_theme"];
+        rowChangeTheme.title = SCLocalizedString(@"Change Theme");
+        rowChangeTheme.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [section2 addObject:rowChangeTheme];
         
         SimiRow *row21 = [[SimiRow alloc]initWithIdentifier:LEFTMENU_ROW_SETTING height:rowHeight sortOrder:10000];
         row21.image = [UIImage imageNamed:@"ic_setting"];

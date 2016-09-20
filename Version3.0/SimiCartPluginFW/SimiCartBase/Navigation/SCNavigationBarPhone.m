@@ -7,6 +7,7 @@
 //
 
 #import "SCNavigationBarPhone.h"
+#import "ActionSheetPicker.h"
 
 static NSString *TRANSLUCENTVIEW = @"LEFTMENU_TRANSLUCENTVIEW";
 @implementation SCNavigationBarPhone
@@ -265,8 +266,26 @@ static NSString *TRANSLUCENTVIEW = @"LEFTMENU_TRANSLUCENTVIEW";
             webViewController.title = row.title;
             webViewController.content = [row.data valueForKey:@"content"];
             [(UINavigationController *)currentVC pushViewController:webViewController animated:YES];
+        }else if([row.identifier isEqualToString:LEFTMENU_ROW_CHANGETHEME])
+        {
+            ActionSheetStringPicker *stringPicket = [[ActionSheetStringPicker alloc]initWithTitle:@"Change Theme" rows:@[@"Default Theme", @"Matrix Theme", @"Zara Theme"] initialSelection:[SimiGlobalVar sharedInstance].themeUsing target:self successAction:@selector(didSelectValue:element:) cancelAction:@selector(cancelActionSheet:) origin:currentVC.view];
+            [stringPicket showActionSheetPicker];
         }
     }
+}
+
+- (void)didSelectValue:(NSNumber *)selectedIndex element:(id)element
+{
+    if ([selectedIndex integerValue] != [SimiGlobalVar sharedInstance].themeUsing) {
+        [SimiGlobalVar sharedInstance].themeUsing = [selectedIndex integerValue];
+        [SimiGlobalVar sharedInstance].useThemeConfigOnLocal = YES;
+        [[NSNotificationCenter defaultCenter]postNotificationName:ChangeAppLanguage object:nil];
+    }
+}
+
+- (void)cancelActionSheet:(id)sender
+{
+    
 }
 
 #pragma mark Did Receive Notification

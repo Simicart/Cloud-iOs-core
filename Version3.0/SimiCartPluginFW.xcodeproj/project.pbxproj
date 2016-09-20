@@ -311,6 +311,7 @@
 		0C0CE4C01D912E770047AB52 /* SCPaypalExpressModelCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B21D912E760047AB52 /* SCPaypalExpressModelCollection.m */; };
 		0C0CE4C11D912E770047AB52 /* SCPaypalExpressShippingMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B41D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.m */; };
 		0C0CE4C21D912E770047AB52 /* SCPaypalExpressWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B61D912E760047AB52 /* SCPaypalExpressWebViewController.m */; };
+		0C0CE4C41D91380B0047AB52 /* ic_change_theme.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4C31D91380B0047AB52 /* ic_change_theme.png */; };
 		370D7FD218ADB635005767CA /* SCProductReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FD018ADB635005767CA /* SCProductReviewView.m */; };
 		370D7FE418ADBF6E005767CA /* SCProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FE218ADBF6E005767CA /* SCProductInfoView.m */; };
 		370D7FEE18ADD642005767CA /* SCProductReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FEC18ADD642005767CA /* SCProductReviewController.m */; };
@@ -1796,6 +1797,7 @@
 		0C0CE4B41D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressShippingMethodViewController.m; sourceTree = "<group>"; };
 		0C0CE4B51D912E760047AB52 /* SCPaypalExpressWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressWebViewController.h; sourceTree = "<group>"; };
 		0C0CE4B61D912E760047AB52 /* SCPaypalExpressWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressWebViewController.m; sourceTree = "<group>"; };
+		0C0CE4C31D91380B0047AB52 /* ic_change_theme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_change_theme.png; sourceTree = "<group>"; };
 		3704881B19077F5C004BD051 /* SimiCartBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimiCartBundle-Info.plist"; sourceTree = "<group>"; };
 		370D7FCF18ADB635005767CA /* SCProductReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProductReviewView.h; sourceTree = "<group>"; };
 		370D7FD018ADB635005767CA /* SCProductReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProductReviewView.m; sourceTree = "<group>"; };
@@ -4105,9 +4107,6 @@
 		899BDAA51BC4FA3500A6AA91 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				897CBF301C4E1BF80029B0B3 /* ic_password.png */,
-				897CBF311C4E1BF80029B0B3 /* ic_password@2x.png */,
-				897CBF321C4E1BF80029B0B3 /* ic_password@3x.png */,
 				899BDAA61BC4FA3500A6AA91 /* alarm.mp3 */,
 				899BDAA71BC4FA3500A6AA91 /* card_amex.png */,
 				899BDAA81BC4FA3500A6AA91 /* card_diners.png */,
@@ -4137,6 +4136,7 @@
 				899BDAC01BC4FA3500A6AA91 /* ic_category.png */,
 				899BDAC11BC4FA3500A6AA91 /* ic_category@2x.png */,
 				899BDAC21BC4FA3500A6AA91 /* ic_category@3x.png */,
+				0C0CE4C31D91380B0047AB52 /* ic_change_theme.png */,
 				899BDAC31BC4FA3500A6AA91 /* ic_cong.png */,
 				899BDAC41BC4FA3500A6AA91 /* ic_curency.png */,
 				899BDAC51BC4FA3500A6AA91 /* ic_curency@2x.png */,
@@ -4192,6 +4192,9 @@
 				899BDAF51BC4FA3500A6AA91 /* ic_pass.png */,
 				899BDAF61BC4FA3500A6AA91 /* ic_pass@2x.png */,
 				899BDAF71BC4FA3500A6AA91 /* ic_pass@3x.png */,
+				897CBF301C4E1BF80029B0B3 /* ic_password.png */,
+				897CBF311C4E1BF80029B0B3 /* ic_password@2x.png */,
+				897CBF321C4E1BF80029B0B3 /* ic_password@3x.png */,
 				899BDAF81BC4FA3500A6AA91 /* ic_phone.png */,
 				899BDAF91BC4FA3500A6AA91 /* ic_search.png */,
 				899BDAFA1BC4FA3500A6AA91 /* ic_selected.png */,
@@ -5278,6 +5281,7 @@
 				0C0CE21B1D8A8D3E0047AB52 /* storelocator_icon__17@2x.png in Resources */,
 				0C0CE01B1D8A8A480047AB52 /* facebookconnect_share@2x.png in Resources */,
 				899BDB691BC4FA3500A6AA91 /* ic_list@3x.png in Resources */,
+				0C0CE4C41D91380B0047AB52 /* ic_change_theme.png in Resources */,
 				0C0CE3061D8FDCC00047AB52 /* zbar-help.html in Resources */,
 				0C0CE3241D8FE6A50047AB52 /* ic_livechat_old.png in Resources */,
 				899BDB641BC4FA3500A6AA91 /* ic_language.png in Resources */,

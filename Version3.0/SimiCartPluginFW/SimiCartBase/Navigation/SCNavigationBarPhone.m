@@ -49,28 +49,55 @@ static NSString *TRANSLUCENTVIEW = @"LEFTMENU_TRANSLUCENTVIEW";
 
 - (NSMutableArray *)rightButtonItems{
     if (_rightButtonItems == nil) {
-        _rightButtonItems = [[NSMutableArray alloc] init];
-        
-        UIButton *cartButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-        [cartButton setImage:[[UIImage imageNamed:@"ic_cart"] imageWithColor:THEME_NAVIGATION_ICON_COLOR] forState:UIControlStateNormal];
-        [cartButton addTarget:self action:@selector(didSelectCartBarItem:) forControlEvents:UIControlEventTouchUpInside];
-        [_cartBadge setTintColor:THEME_COLOR];
-        
-        _cartItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
-        if (_cartBadge == nil) {
-            _cartBadge = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:cartButton];
-            _cartBadge.shouldHideBadgeAtZero = YES;
-            _cartBadge.badgeValue = [[[SimiGlobalVar sharedInstance] cart] cartQty];
-            _cartBadge.badgeMinSize = 4;
-            _cartBadge.badgePadding = 4;
-            _cartBadge.badgeOriginX = cartButton.frame.size.width - 10;
-            _cartBadge.badgeOriginY = cartButton.frame.origin.y - 3;
-            _cartBadge.badgeFont = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:12];
-            [_cartBadge setTintColor:THEME_COLOR];
-            _cartBadge.badgeBGColor = THEME_NAVIGATION_ICON_COLOR;
-            _cartBadge.badgeTextColor = THEME_COLOR;
+        if ([SimiGlobalVar sharedInstance].isZopimChat == YES) {
+            _rightButtonItems = [[NSMutableArray alloc] init];
+            
+            UIButton *cartButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+            [cartButton setImage:[[UIImage imageNamed:@"ic_cart"] imageWithColor:THEME_NAVIGATION_ICON_COLOR] forState:UIControlStateNormal];
+            [cartButton addTarget:self action:@selector(didSelectCartBarItem:) forControlEvents:UIControlEventTouchUpInside];
+            
+            _cartItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
+            if (_cartBadge == nil) {
+                _cartBadge = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:cartButton];
+                _cartBadge.shouldHideBadgeAtZero = YES;
+                _cartBadge.badgeValue = [[[SimiGlobalVar sharedInstance] cart] cartQty];
+                _cartBadge.badgeMinSize = 4;
+                _cartBadge.badgePadding = 4;
+                _cartBadge.badgeOriginX = cartButton.frame.size.width - 10;
+                _cartBadge.badgeOriginY = cartButton.frame.origin.y - 3;
+                _cartBadge.badgeFont = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:12];
+                [_cartBadge setTintColor:THEME_COLOR];
+                _cartBadge.badgeBGColor = THEME_NAVIGATION_ICON_COLOR;
+                _cartBadge.badgeTextColor = THEME_COLOR;
+            }
+            UIButton *chatButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+            [chatButton setImage:[[UIImage imageNamed:@"ic_livechat"] imageWithColor:THEME_NAVIGATION_ICON_COLOR] forState:UIControlStateNormal];
+            [chatButton addTarget:self action:@selector(didSelectChatBarItem:) forControlEvents:UIControlEventTouchUpInside];
+            _chatItem = [[UIBarButtonItem alloc] initWithCustomView:chatButton];
+            [_rightButtonItems addObjectsFromArray:@[_cartItem,_chatItem]];
+        } else {
+            _rightButtonItems = [[NSMutableArray alloc] init];
+            
+            UIButton *cartButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+            [cartButton setImage:[[UIImage imageNamed:@"ic_cart"] imageWithColor:THEME_NAVIGATION_ICON_COLOR] forState:UIControlStateNormal];
+            [cartButton addTarget:self action:@selector(didSelectCartBarItem:) forControlEvents:UIControlEventTouchUpInside];
+            
+            _cartItem = [[UIBarButtonItem alloc] initWithCustomView:cartButton];
+            if (_cartBadge == nil) {
+                _cartBadge = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:cartButton];
+                _cartBadge.shouldHideBadgeAtZero = YES;
+                _cartBadge.badgeValue = [[[SimiGlobalVar sharedInstance] cart] cartQty];
+                _cartBadge.badgeMinSize = 4;
+                _cartBadge.badgePadding = 4;
+                _cartBadge.badgeOriginX = cartButton.frame.size.width - 10;
+                _cartBadge.badgeOriginY = cartButton.frame.origin.y - 3;
+                _cartBadge.badgeFont = [UIFont fontWithName:THEME_FONT_NAME_REGULAR size:12];
+                [_cartBadge setTintColor:THEME_COLOR];
+                _cartBadge.badgeBGColor = THEME_NAVIGATION_ICON_COLOR;
+                _cartBadge.badgeTextColor = THEME_COLOR;
+            }
+            [_rightButtonItems addObjectsFromArray:@[_cartItem]];
         }
-        [_rightButtonItems addObjectsFromArray:@[_cartItem]];
     }
     return _rightButtonItems;
 }
@@ -120,6 +147,11 @@ static NSString *TRANSLUCENTVIEW = @"LEFTMENU_TRANSLUCENTVIEW";
     }
     [(UINavigationController *)currentVC pushViewController:self.cartViewController animated:YES];
     return;
+}
+
+- (void)didSelectChatBarItem:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"tapToChatButton" object:sender];
 }
 
 #pragma mark Left Menu Delegate

@@ -56,8 +56,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [super viewDidLoadBefore];
     }
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
 }
 
 - (void)viewWillAppearBefore:(BOOL)animated
@@ -124,7 +123,6 @@
 
 
 - (void)didLogin:(NSNotification *)noti{
-    [self removeObserverForNotification:noti];
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
         if ([noti.name isEqualToString:DidLogin]) {
@@ -186,7 +184,6 @@
     [self.textFieldPassword resignFirstResponder];
     [self.textFieldEmail resignFirstResponder];
     customer = [[SimiCustomerModel alloc] init];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DidLogin object:nil];
     [customer loginWithUserMail:self.textFieldEmail.text password:self.textFieldPassword.text];
     [self startLoadingData];
     [self hideKeyboard];

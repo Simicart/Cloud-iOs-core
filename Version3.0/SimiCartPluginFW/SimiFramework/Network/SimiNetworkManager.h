@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSMutableDictionary *headerParams;
 
 +(SimiNetworkManager *)sharedInstance;
+- (void)requestSimiPOSWithMethod:(NSString *)method urlPath:(NSString *)urlPath parameters:(NSDictionary *)params target:(id)target selector:(SEL)selector header:(NSDictionary *)header;
 - (void)requestWithMethod:(NSString *)method urlPath:(NSString *)urlPath parameters:(NSDictionary *)params target:(id)target selector:(SEL)selector header:(NSDictionary *)header;
 
 @end

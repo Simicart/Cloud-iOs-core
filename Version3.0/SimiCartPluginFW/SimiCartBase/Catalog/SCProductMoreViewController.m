@@ -197,6 +197,18 @@
     _viewMoreAction.arrayIcon = [NSMutableArray new];
     _viewMoreAction.clipsToBounds = YES;
     
+    _buttonShare = [UIButton new];
+    [_buttonShare setImage:[UIImage imageNamed:@"ic_share"] forState:UIControlStateNormal];
+    [_buttonShare setImageEdgeInsets:UIEdgeInsetsMake(9, 9, 9, 9)];
+    [_buttonShare.layer setCornerRadius:sizeButton/2.0f];
+    [_buttonShare.layer setShadowOffset:CGSizeMake(1, 1)];
+    [_buttonShare.layer setShadowRadius:2];
+    _buttonShare.layer.shadowOpacity = 0.5;
+    [_buttonShare setBackgroundColor:THEME_APP_BACKGROUND_COLOR];
+    [_buttonShare addTarget:self action:@selector(didTouchShare) forControlEvents:UIControlEventTouchUpInside];
+    _viewMoreAction.numberIcon += 1;
+    [_viewMoreAction.arrayIcon addObject:_buttonShare];
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"SCProductMoreViewController_InitViewMoreAction" object:_viewMoreAction];
     _viewMoreAction.heightMoreView = (paddingIcon + sizeButton) * (_viewMoreAction.arrayIcon.count) + paddingIcon;
     if (_viewMoreAction.arrayIcon.count > 0) {
@@ -225,10 +237,7 @@
 
 - (void)didTouchShare
 {
-    NSURL *productURL = [NSURL URLWithString:@"Hello"];
-    if ([self.productModel valueForKey:@"product_url"]) {
-        productURL = [NSURL URLWithString:[self.productModel valueForKey:@"product_url"]];
-    }
+    NSURL *productURL = [NSURL URLWithString:@"https://simicart.com"];
     
     UIActivityViewController *activityViewController =
     [[UIActivityViewController alloc] initWithActivityItems:@[productURL]

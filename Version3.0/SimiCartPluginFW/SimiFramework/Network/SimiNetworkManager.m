@@ -35,6 +35,78 @@
     return [AFNetworkReachabilityManager sharedManager].reachable;
 }
 
+- (void)requestSimiPOSWithMethod:(NSString *)method urlPath:(NSString *)urlPath parameters:(NSDictionary *)params target:(id)target selector:(SEL)selector header:(NSDictionary *)header{
+    if (SIMI_DEBUG_ENABLE) {
+        NSLog(@"Request: %@", urlPath);
+        NSLog(@"Params: %@", params);
+    }
+    //Add Header
+    headerParams = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"7da5a4671cae52674c2789e86d4912265f68c98", @"Token", nil];
+    AFHTTPRequestSerializer *request = [[AFHTTPRequestSerializer alloc] init];
+    if (isSecure && headerParams.count > 0) {
+        NSArray *keys = [headerParams allKeys];
+        for (NSString *key in keys) {
+            [request setValue:[headerParams valueForKey:key] forHTTPHeaderField:key];
+        }
+    }
+    if (header != nil) {
+        for (NSString *key in [header allKeys]) {
+            [request setValue:[header valueForKey:key] forHTTPHeaderField:key];
+        }
+    }
+    
+    AFHTTPRequestOperationManager *operationManager = [AFHTTPRequestOperationManager manager];
+    [operationManager setRequestSerializer:request];
+    
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    [serializer setAcceptableContentTypes:nil];
+    [operationManager setResponseSerializer:serializer];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if ([[method uppercaseString] isEqualToString:@"POST"]) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
+        NSString *string = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+        [operationManager POST:urlPath parameters:string success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            if (target != nil && selector != nil) {
+                if (SIMI_DEBUG_ENABLE) {
+                    NSLog(@"Response String: %@", [operation responseString]);
+                }
+                [target performSelector:selector withObject:responseObject];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (target != nil && selector != nil) {
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                if (SIMI_DEBUG_ENABLE) {
+                    NSLog(@"Request Error: %@", [error localizedDescription]);
+                }
+                [target performSelector:selector withObject:error];
+            }
+            NSLog(@"Failure: %@", error);
+        }];
+    }else{
+        [operationManager GET:urlPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            if (target != nil && selector != nil) {
+                if (SIMI_DEBUG_ENABLE){
+                    NSLog(@"Response String: %@", [operation responseString]);
+                }
+                [target performSelector:selector withObject:responseObject];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            if (SIMI_DEBUG_ENABLE) {
+                NSLog(@"Request Error: %@", [error localizedDescription]);
+            }
+            if (target != nil && selector != nil) {
+                [target performSelector:selector withObject:error];
+            }
+        }];
+    }
+#pragma clang diagnostic pop
+}
+
 - (void)requestWithMethod:(NSString *)method urlPath:(NSString *)urlPath parameters:(NSDictionary *)params target:(id)target selector:(SEL)selector header:(NSDictionary *)header{
     if (SIMI_DEBUG_ENABLE) {
         NSLog(@"Request: %@", urlPath);

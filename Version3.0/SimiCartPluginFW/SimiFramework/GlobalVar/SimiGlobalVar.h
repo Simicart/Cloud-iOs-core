@@ -155,6 +155,7 @@ typedef NS_ENUM(NSInteger, CurrentVersionPhoneUsing)
 @property (nonatomic) BOOL isGettingCart;
 @property (nonatomic) BOOL needGetCart;
 @property (nonatomic) BOOL needGetDownloadItems;
+@property (nonatomic) BOOL isZopimChat;
 
 @property (nonatomic) ThemeShow themeUsing;
 @property (nonatomic) CurrentVersionPhoneUsing phoneUsing;

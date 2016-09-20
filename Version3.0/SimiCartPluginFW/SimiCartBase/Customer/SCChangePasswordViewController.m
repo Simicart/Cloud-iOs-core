@@ -25,8 +25,9 @@
     }else
         [self configureNavigationBarOnViewDidLoad];
     CGRect frame = self.view.bounds;
-    frame.size.width = 2*SCREEN_WIDTH/3;
-    frame.size.height = 2*SCREEN_HEIGHT/3;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        frame.size.width = 2*SCREEN_WIDTH/3;
+    }
     tableViewChangePassword = [[SimiTableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     [tableViewChangePassword setBackgroundColor:[UIColor clearColor]];
     [tableViewChangePassword setDelaysContentTouches:YES];

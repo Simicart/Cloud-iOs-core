@@ -81,7 +81,7 @@ NSString *const kSimiCreditCard             = @"creditcard";
     NSData *data = [NSJSONSerialization dataWithJSONObject:customerInfo options:0 error:nil];
     NSString *string = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
     
-    [[SimiNetworkManager sharedInstance] requestWithMethod:@"POST" urlPath:url parameters:@{@"data":string} target:self selector:@selector(convertData:) header:header];
+    [[SimiNetworkManager sharedInstance] requestSimiPOSWithMethod:@"GET" urlPath:url parameters:@{@"data":string} target:self selector:@selector(convertData:) header:header];
 }
 
 - (void)requestWithMethod:(NSString*)medthod URL:(NSString *)url params:(NSDictionary *)params target:(id)target selector:(SEL)selector header:(NSDictionary *)header

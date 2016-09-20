@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "NSObject+SimiObject.h"
-
-@interface SimiViewController : UIViewController
+#import <MessageUI/MessageUI.h>
+@interface SimiViewController : UIViewController<UIAlertViewDelegate,MFMailComposeViewControllerDelegate>
 
 /*
  The function viewDidLoad raise notification name: [NSString stringWithFormat:@"%@ViewDidLoad", NSStringFromClass(self.class)]
@@ -55,4 +55,6 @@
 - (void)reloadRightBarItemsPad;
 - (void)hiddenScreenWhenShowPopOver;
 - (void)showScreenWhenHiddenPopOver;
+- (void)showAlertContactSimiCartWithMessage:(NSString*)message;
+- (void)sendEmailToStoreWithEmail:(NSArray *)email andEmailContent:(NSString *)emailContent;
 @end

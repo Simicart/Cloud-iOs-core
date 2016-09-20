@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *rightButtonItems;
 @property (strong, nonatomic) UIBarButtonItem *leftMenuItem;
 @property (strong, nonatomic) UIBarButtonItem *cartItem;
+@property (strong, nonatomic) UIBarButtonItem *chatItem;
 
 @property (strong, nonatomic) BBBadgeBarButtonItem *cartBadge;
 @property (strong, nonatomic) SCLeftMenuViewController *leftMenuPhone;

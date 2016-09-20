@@ -10,6 +10,7 @@
 #import "SimiGlobalVar.h"
 #import "SDWebImageManager.h"
 #import "SCThemeWorker.h"
+
 static NSString *dimView = @"DIMVIEW";
 static int tagViewFog = 123456;
 @interface SimiViewController ()
@@ -266,6 +267,70 @@ static int tagViewFog = 123456;
         if (imageFogView.tag == tagViewFog) {
             [imageFogView removeFromSuperview];
         }
+    }
+}
+- (void)showAlertContactSimiCartWithMessage:(NSString *)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"") message:SCLocalizedString(message) delegate:self cancelButtonTitle:SCLocalizedString(@"Close") otherButtonTitles:@"Contact Us",nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 1:
+            [self sendEmailToStoreWithEmail:@[@"support@simicart.com"] andEmailContent:@""];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)sendEmailToStoreWithEmail:(NSArray *)email andEmailContent:(NSString *)emailContent
+{
+    if([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+        controller.mailComposeDelegate = self;
+        [controller setToRecipients:email];
+        
+        [controller setSubject:[NSString stringWithFormat:@""]];
+        [controller setMessageBody:emailContent isHTML:NO];
+        
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [self presentViewController:controller animated:YES completion:NULL];
+        }
+        else {
+            [self presentViewController:controller animated:YES completion:NULL];
+        }
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:SCLocalizedString(@"You haven’t setup email account") message:SCLocalizedString(@"You must go to Settings/ Mail, Contact, Calendars and choose Add Account.")
+                                                       delegate:self cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles: nil];
+        
+        [alert show];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    
+    if(result==MFMailComposeResultCancelled)
+    {
+        [controller dismissViewControllerAnimated:YES completion:NULL];
+    }
+    if(result==MFMailComposeResultSent)
+    {  UIAlertView *sent=[[UIAlertView alloc]initWithTitle:SCLocalizedString(@"Your Email was sent succesfully.") message:nil delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil];
+        [sent show];
+        [controller dismissViewControllerAnimated:YES completion:NULL];
+    }
+    if(result==MFMailComposeResultFailed)
+    {UIAlertView *sent=[[UIAlertView alloc]initWithTitle:SCLocalizedString(@"Failed") message:SCLocalizedString(@"Your mail was not sent") delegate:nil cancelButtonTitle:SCLocalizedString(@"OK") otherButtonTitles:nil];
+        [sent show];
+        
+        [controller dismissViewControllerAnimated:YES completion:NULL];
+        
     }
 }
 

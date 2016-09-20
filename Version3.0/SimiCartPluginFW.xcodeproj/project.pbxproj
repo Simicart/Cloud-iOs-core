@@ -299,6 +299,18 @@
 		0C0CE49F1D912B170047AB52 /* SCSearchVoiceCoreWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE48C1D912B170047AB52 /* SCSearchVoiceCoreWorker.m */; };
 		0C0CE4A01D912B170047AB52 /* SCSearchVoicePadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE48E1D912B170047AB52 /* SCSearchVoicePadViewController.m */; };
 		0C0CE4A11D912B170047AB52 /* SCSearchVoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4901D912B170047AB52 /* SCSearchVoiceViewController.m */; };
+		0C0CE4B71D912E760047AB52 /* en_paypal_express_cart_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4A31D912E760047AB52 /* en_paypal_express_cart_btn.png */; };
+		0C0CE4B81D912E760047AB52 /* en_paypal_express_product_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4A41D912E760047AB52 /* en_paypal_express_product_btn.png */; };
+		0C0CE4B91D912E770047AB52 /* en_paypal_express_product_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4A51D912E760047AB52 /* en_paypal_express_product_pad.png */; };
+		0C0CE4BA1D912E770047AB52 /* plugin-simi_paypalexpress.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C0CE4A61D912E760047AB52 /* plugin-simi_paypalexpress.plist */; };
+		0C0CE4BB1D912E770047AB52 /* SCPaypalExpressAddressEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4A81D912E760047AB52 /* SCPaypalExpressAddressEditViewController.m */; };
+		0C0CE4BC1D912E770047AB52 /* SCPaypalExpressAddressReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4AA1D912E760047AB52 /* SCPaypalExpressAddressReviewViewController.m */; };
+		0C0CE4BD1D912E770047AB52 /* SCPaypalExpressAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4AC1D912E760047AB52 /* SCPaypalExpressAPI.m */; };
+		0C0CE4BE1D912E770047AB52 /* SCPaypalExpressCoreWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4AE1D912E760047AB52 /* SCPaypalExpressCoreWorker.m */; };
+		0C0CE4BF1D912E770047AB52 /* SCPaypalExpressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B01D912E760047AB52 /* SCPaypalExpressModel.m */; };
+		0C0CE4C01D912E770047AB52 /* SCPaypalExpressModelCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B21D912E760047AB52 /* SCPaypalExpressModelCollection.m */; };
+		0C0CE4C11D912E770047AB52 /* SCPaypalExpressShippingMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B41D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.m */; };
+		0C0CE4C21D912E770047AB52 /* SCPaypalExpressWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0CE4B61D912E760047AB52 /* SCPaypalExpressWebViewController.m */; };
 		370D7FD218ADB635005767CA /* SCProductReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FD018ADB635005767CA /* SCProductReviewView.m */; };
 		370D7FE418ADBF6E005767CA /* SCProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FE218ADBF6E005767CA /* SCProductInfoView.m */; };
 		370D7FEE18ADD642005767CA /* SCProductReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D7FEC18ADD642005767CA /* SCProductReviewController.m */; };
@@ -1764,6 +1776,26 @@
 		0C0CE48E1D912B170047AB52 /* SCSearchVoicePadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchVoicePadViewController.m; sourceTree = "<group>"; };
 		0C0CE48F1D912B170047AB52 /* SCSearchVoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchVoiceViewController.h; sourceTree = "<group>"; };
 		0C0CE4901D912B170047AB52 /* SCSearchVoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchVoiceViewController.m; sourceTree = "<group>"; };
+		0C0CE4A31D912E760047AB52 /* en_paypal_express_cart_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en_paypal_express_cart_btn.png; sourceTree = "<group>"; };
+		0C0CE4A41D912E760047AB52 /* en_paypal_express_product_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en_paypal_express_product_btn.png; sourceTree = "<group>"; };
+		0C0CE4A51D912E760047AB52 /* en_paypal_express_product_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = en_paypal_express_product_pad.png; sourceTree = "<group>"; };
+		0C0CE4A61D912E760047AB52 /* plugin-simi_paypalexpress.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "plugin-simi_paypalexpress.plist"; sourceTree = "<group>"; };
+		0C0CE4A71D912E760047AB52 /* SCPaypalExpressAddressEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressAddressEditViewController.h; sourceTree = "<group>"; };
+		0C0CE4A81D912E760047AB52 /* SCPaypalExpressAddressEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressAddressEditViewController.m; sourceTree = "<group>"; };
+		0C0CE4A91D912E760047AB52 /* SCPaypalExpressAddressReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressAddressReviewViewController.h; sourceTree = "<group>"; };
+		0C0CE4AA1D912E760047AB52 /* SCPaypalExpressAddressReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressAddressReviewViewController.m; sourceTree = "<group>"; };
+		0C0CE4AB1D912E760047AB52 /* SCPaypalExpressAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressAPI.h; sourceTree = "<group>"; };
+		0C0CE4AC1D912E760047AB52 /* SCPaypalExpressAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressAPI.m; sourceTree = "<group>"; };
+		0C0CE4AD1D912E760047AB52 /* SCPaypalExpressCoreWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressCoreWorker.h; sourceTree = "<group>"; };
+		0C0CE4AE1D912E760047AB52 /* SCPaypalExpressCoreWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressCoreWorker.m; sourceTree = "<group>"; };
+		0C0CE4AF1D912E760047AB52 /* SCPaypalExpressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressModel.h; sourceTree = "<group>"; };
+		0C0CE4B01D912E760047AB52 /* SCPaypalExpressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressModel.m; sourceTree = "<group>"; };
+		0C0CE4B11D912E760047AB52 /* SCPaypalExpressModelCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressModelCollection.h; sourceTree = "<group>"; };
+		0C0CE4B21D912E760047AB52 /* SCPaypalExpressModelCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressModelCollection.m; sourceTree = "<group>"; };
+		0C0CE4B31D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressShippingMethodViewController.h; sourceTree = "<group>"; };
+		0C0CE4B41D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressShippingMethodViewController.m; sourceTree = "<group>"; };
+		0C0CE4B51D912E760047AB52 /* SCPaypalExpressWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPaypalExpressWebViewController.h; sourceTree = "<group>"; };
+		0C0CE4B61D912E760047AB52 /* SCPaypalExpressWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPaypalExpressWebViewController.m; sourceTree = "<group>"; };
 		3704881B19077F5C004BD051 /* SimiCartBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimiCartBundle-Info.plist"; sourceTree = "<group>"; };
 		370D7FCF18ADB635005767CA /* SCProductReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCProductReviewView.h; sourceTree = "<group>"; };
 		370D7FD018ADB635005767CA /* SCProductReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCProductReviewView.m; sourceTree = "<group>"; };
@@ -2533,6 +2565,7 @@
 		0C0CDFF31D8A8A060047AB52 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				0C0CE4A21D912E760047AB52 /* PaypalExpress */,
 				0C0CE47C1D912B170047AB52 /* SearchVoice */,
 				0C0CE4591D9124DB0047AB52 /* AppWishlist */,
 				0C0CE3AD1D911A1F0047AB52 /* Loyalty Standard */,
@@ -3073,6 +3106,33 @@
 				0C0CE4901D912B170047AB52 /* SCSearchVoiceViewController.m */,
 			);
 			path = SearchVoice;
+			sourceTree = "<group>";
+		};
+		0C0CE4A21D912E760047AB52 /* PaypalExpress */ = {
+			isa = PBXGroup;
+			children = (
+				0C0CE4A31D912E760047AB52 /* en_paypal_express_cart_btn.png */,
+				0C0CE4A41D912E760047AB52 /* en_paypal_express_product_btn.png */,
+				0C0CE4A51D912E760047AB52 /* en_paypal_express_product_pad.png */,
+				0C0CE4A61D912E760047AB52 /* plugin-simi_paypalexpress.plist */,
+				0C0CE4A71D912E760047AB52 /* SCPaypalExpressAddressEditViewController.h */,
+				0C0CE4A81D912E760047AB52 /* SCPaypalExpressAddressEditViewController.m */,
+				0C0CE4A91D912E760047AB52 /* SCPaypalExpressAddressReviewViewController.h */,
+				0C0CE4AA1D912E760047AB52 /* SCPaypalExpressAddressReviewViewController.m */,
+				0C0CE4AB1D912E760047AB52 /* SCPaypalExpressAPI.h */,
+				0C0CE4AC1D912E760047AB52 /* SCPaypalExpressAPI.m */,
+				0C0CE4AD1D912E760047AB52 /* SCPaypalExpressCoreWorker.h */,
+				0C0CE4AE1D912E760047AB52 /* SCPaypalExpressCoreWorker.m */,
+				0C0CE4AF1D912E760047AB52 /* SCPaypalExpressModel.h */,
+				0C0CE4B01D912E760047AB52 /* SCPaypalExpressModel.m */,
+				0C0CE4B11D912E760047AB52 /* SCPaypalExpressModelCollection.h */,
+				0C0CE4B21D912E760047AB52 /* SCPaypalExpressModelCollection.m */,
+				0C0CE4B31D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.h */,
+				0C0CE4B41D912E760047AB52 /* SCPaypalExpressShippingMethodViewController.m */,
+				0C0CE4B51D912E760047AB52 /* SCPaypalExpressWebViewController.h */,
+				0C0CE4B61D912E760047AB52 /* SCPaypalExpressWebViewController.m */,
+			);
+			path = PaypalExpress;
 			sourceTree = "<group>";
 		};
 		373870DE18C46AE300AE3C3F /* KASlideShow */ = {
@@ -4991,6 +5051,7 @@
 				899BDB671BC4FA3500A6AA91 /* ic_list.png in Resources */,
 				0C0CE21D1D8A8D3E0047AB52 /* storelocator_icon_search@2x.png in Resources */,
 				0C0CE22E1D8A8D3E0047AB52 /* storelocator_search_iphone_dai_05.png in Resources */,
+				0C0CE4B91D912E770047AB52 /* en_paypal_express_product_pad.png in Resources */,
 				0C0CE1FD1D8A8D3E0047AB52 /* storelocator_3.png in Resources */,
 				899BDB361BC4FA3500A6AA91 /* cell_placeholder.png in Resources */,
 				899BDB8D1BC4FA3500A6AA91 /* ic_star2@2x.png in Resources */,
@@ -5127,6 +5188,7 @@
 				899BDB4F1BC4FA3500A6AA91 /* ic_curency@3x.png in Resources */,
 				0C0CE2EE1D8FDCC00047AB52 /* barcode_canvas@2x~ipad.png in Resources */,
 				899BDB6A1BC4FA3500A6AA91 /* ic_log_out.png in Resources */,
+				0C0CE4BA1D912E770047AB52 /* plugin-simi_paypalexpress.plist in Resources */,
 				0C0CE17E1D8A8D3D0047AB52 /* contactusphone_tbl@2x.png in Resources */,
 				0C0CE2F41D8FDCC00047AB52 /* barcode_flashonicon.png in Resources */,
 				0C0CE3F41D911A1F0047AB52 /* loyalty_setting.png in Resources */,
@@ -5159,6 +5221,7 @@
 				0C0CE1F01D8A8D3E0047AB52 /* framework.rtf in Resources */,
 				0C0CE46D1D9124DC0047AB52 /* plugin-simi_appwishlist.plist in Resources */,
 				899BDB401BC4FA3500A6AA91 /* ic_address_edit.png in Resources */,
+				0C0CE4B71D912E760047AB52 /* en_paypal_express_cart_btn.png in Resources */,
 				899BDB4C1BC4FA3500A6AA91 /* ic_cong.png in Resources */,
 				893F4C771BEC3C8F00082A59 /* matrix_spot~ipad.png in Resources */,
 				0C0CE3E91D911A1F0047AB52 /* loyalty_expired.png in Resources */,
@@ -5201,6 +5264,7 @@
 				0C0CE3E01D911A1F0047AB52 /* loyalty_canceled@2x.png in Resources */,
 				0C0CE4031D911AC10047AB52 /* demo_rewards.png in Resources */,
 				0C0CE2F91D8FDCC00047AB52 /* barcode_icon@3x.png in Resources */,
+				0C0CE4B81D912E760047AB52 /* en_paypal_express_product_btn.png in Resources */,
 				0C0CE23E1D8A8D3E0047AB52 /* storelocator_view.png in Resources */,
 				0C0CE3261D8FE6A50047AB52 /* ic_livechat_old@3x.png in Resources */,
 				0C0CE3021D8FDCC00047AB52 /* plugin-simi_simibarcode.plist in Resources */,
@@ -5621,6 +5685,7 @@
 				0C0CE3F91D911A1F0047AB52 /* LoyaltyHistoryViewController.m in Sources */,
 				37899F5818ACAA750020C1EE /* SimiModelCollection.m in Sources */,
 				895B674B1BF0502B0009746A /* zip.c in Sources */,
+				0C0CE4C01D912E770047AB52 /* SCPaypalExpressModelCollection.m in Sources */,
 				C3D1AF4C1AFA0CC100750892 /* ILTranslucentView.m in Sources */,
 				0C0CE2561D8A8D3E0047AB52 /* SimiTagAPI.m in Sources */,
 				37899F5518ACAA750020C1EE /* SimiCategoryModelCollection.m in Sources */,
@@ -5641,12 +5706,14 @@
 				370D7FF218ADD9F0005767CA /* SimiReviewModel.m in Sources */,
 				370D7FE418ADBF6E005767CA /* SCProductInfoView.m in Sources */,
 				80AF3D4219D3A44A0077AFED /* SDWebImagePrefetcher.m in Sources */,
+				0C0CE4BD1D912E770047AB52 /* SCPaypalExpressAPI.m in Sources */,
 				895B66E01BF04E370009746A /* DownloadModelCollection.m in Sources */,
 				37BC18FD18ADF4E600605407 /* SimiReviewModelCollection.m in Sources */,
 				37684B9F18C37B250091E0B9 /* SCLoginViewController.m in Sources */,
 				376C7B3918BB44310013E3AC /* SimiShippingModel.m in Sources */,
 				0C0CE2551D8A8D3E0047AB52 /* SimiStoreLocatorWorker.m in Sources */,
 				374096D718B2E8AA000F2B07 /* SCOrderViewController.m in Sources */,
+				0C0CE4BF1D912E770047AB52 /* SCPaypalExpressModel.m in Sources */,
 				C3D290541B79D5CA006FE4CE /* SCLeftMenuViewControllerPad.m in Sources */,
 				37EFC44E193839B5002EDE08 /* SimiModelCollection+CMS.m in Sources */,
 				897CBF2F1C4E1BB00029B0B3 /* SCChangePasswordViewController.m in Sources */,
@@ -5663,6 +5730,7 @@
 				0C0CE3F81D911A1F0047AB52 /* LoyaltyCardViewController.m in Sources */,
 				0C0CE49F1D912B170047AB52 /* SCSearchVoiceCoreWorker.m in Sources */,
 				0C0CE3281D8FE6A50047AB52 /* SimizopimWorker.m in Sources */,
+				0C0CE4C11D912E770047AB52 /* SCPaypalExpressShippingMethodViewController.m in Sources */,
 				0C0CE4711D9124DC0047AB52 /* SCAppWishlistModel.m in Sources */,
 				809980091A09E02A004D3714 /* AFURLResponseSerialization.m in Sources */,
 				891712FC1B8C580200331ACF /* SimiCurrencyModelCollection.m in Sources */,
@@ -5755,6 +5823,7 @@
 				C3D1AF481AFA0C4900750892 /* SimiTheme.m in Sources */,
 				809B30EC19C2AE0000A48D12 /* SCOptionGroupViewCell.m in Sources */,
 				0C0CE2501D8A8D3E0047AB52 /* SimiStoreLocatorModelCollection.m in Sources */,
+				0C0CE4BC1D912E770047AB52 /* SCPaypalExpressAddressReviewViewController.m in Sources */,
 				89BF38811C279A0E00ECDAE5 /* SimiPaymentAPI.m in Sources */,
 				371514E21904EBE800E64063 /* SimiNavigationBar.m in Sources */,
 				C3D2905E1B79DBCB006FE4CE /* WYPopoverController.m in Sources */,
@@ -5802,6 +5871,7 @@
 				6120D5511A131AD000CDBB26 /* SimiFormSelect.m in Sources */,
 				0C0CE25A1D8A8D3E0047AB52 /* UILabel+DynamicSizeMe.m in Sources */,
 				0C0CE24A1D8A8D3E0047AB52 /* SimiStoreLocatorCellCountry.m in Sources */,
+				0C0CE4BB1D912E770047AB52 /* SCPaypalExpressAddressEditViewController.m in Sources */,
 				371514DF1904D7C800E64063 /* SimiSplitViewController.m in Sources */,
 				6120D55D1A13207F00CDBB26 /* SimiFormCCDate.m in Sources */,
 				6120D53D1A1318C100CDBB26 /* SimiProductListBlock.m in Sources */,
@@ -5822,6 +5892,7 @@
 				3783A18E18C5CE880061067F /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				0C0CE4A01D912B170047AB52 /* SCSearchVoicePadViewController.m in Sources */,
 				0C0CE01F1D8A8A480047AB52 /* SimiCustomerAPI+Facebook.m in Sources */,
+				0C0CE4C21D912E770047AB52 /* SCPaypalExpressWebViewController.m in Sources */,
 				6120D52C1A13179900CDBB26 /* SimiGridBlock.m in Sources */,
 				37813D9F1876955800A9371B /* main.m in Sources */,
 				61CE6F85196296100086C3B3 /* SimiFormatter.m in Sources */,
@@ -5864,6 +5935,7 @@
 				0C0CE24C1D8A8D3E0047AB52 /* SimiStoreLocatorListViewController.m in Sources */,
 				6120D54C1A131A8500CDBB26 /* SimiFormBoolean.m in Sources */,
 				0C0CE4721D9124DC0047AB52 /* SCAppWishlistModelCollection.m in Sources */,
+				0C0CE4BE1D912E770047AB52 /* SCPaypalExpressCoreWorker.m in Sources */,
 				375CB34518C6DDF3001BA428 /* SCProfileViewController.m in Sources */,
 				804621A419A6597D004C4D38 /* UILabelDynamicSize.m in Sources */,
 				615C9192196E8DE000B51924 /* M13Checkbox.m in Sources */,

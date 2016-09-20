@@ -683,8 +683,14 @@
             [self.navigationController pushViewController:nextController animated:NO];
         }
     }else if(simiRow.identifier == ORDER_VIEW_PAYMENT_METHOD){
+        SimiModel *payment = [self.paymentCollection objectAtIndex:indexPath.row];
+        if ([[payment valueForKey:@"type"] isEqualToString:@"3"]) {
+            [self showAlertContactSimiCartWithMessage:@"This feature can only be accessed with the fully synced version. Please contact SimiCart by email or chat with us"];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            return;
+        }
         self.selectedPayment  = indexPath.row;
-        SimiModel *payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
+        payment = [self.paymentCollection objectAtIndex:self.selectedPayment];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidSelectPaymentMethod" object:payment userInfo:@{@"payment": payment}];
         [self savePaymentMethod:payment];
         if ([[payment valueForKey:@"type"] integerValue] == PaymentShowTypeCreditCard) {
@@ -894,6 +900,16 @@
     [self stopLoadingData];
     SimiResponder *responder = [noti.userInfo valueForKey:@"responder"];
     if ([responder.status isEqualToString:@"SUCCESS"]) {
+        NSDictionary *payment01 = @{@"title":@"Paypal Mobile",@"name":@"Paypal Mobile",@"method_code":@"Paypal Mobile",@"type":@"3"};
+        NSDictionary *payment02 = @{@"title":@"iPay88",@"name":@"iPay88",@"method_code":@"iPay88",@"type":@"3"};
+        NSDictionary *payment03 = @{@"title":@"Checkout.com",@"name":@"Checkout.com",@"method_code":@"Checkout.com",@"type":@"3"};
+        NSDictionary *payment04 = @{@"title":@"2Checkout",@"name":@"2Checkout",@"method_code":@"2Checkout",@"type":@"3"};
+        NSDictionary *payment05 = @{@"title":@"Paypal Express",@"name":@"Paypal Express",@"method_code":@"Paypal Express",@"type":@"3"};
+        [self.paymentCollection addObject:payment01];
+        [self.paymentCollection addObject:payment02];
+        [self.paymentCollection addObject:payment03];
+        [self.paymentCollection addObject:payment04];
+        [self.paymentCollection addObject:payment05];
         if (didSaveShipping && self.shippingCollection.count == 0) {
             [self getOrderConfig];
         }

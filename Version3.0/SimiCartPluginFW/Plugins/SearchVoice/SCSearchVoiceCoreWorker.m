@@ -28,11 +28,10 @@
 #pragma mark searchVoice Button
         
         //Product More View
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"SCHomeViewControllerViewWillAppear" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"MatrixHomeViewControllerViewWillAppear" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"ZaraHomeViewControllerViewWillAppear" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"SCProductListViewControllerViewWillAppear" object:nil];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchVoicePad:) name:@"showSearchVoiceOnPad" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"SCHomeViewControllerViewDidAppear" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"MatrixHomeViewControllerViewDidAppear" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"ZaraHomeViewControllerViewDidAppear" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSearchVoiceBtn:) name:@"SCProductListViewControllerViewDidAppear" object:nil];
         [SimiGlobalVar sharedInstance].isSearchVoice = YES;
     }
     return self;

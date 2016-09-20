@@ -185,6 +185,7 @@
 
 - (void)changeAppLanguage:(NSNotification*)noti
 {
+    [SimiGlobalVar sharedInstance].useThemeConfigOnLocal = YES;
     [self gotoHome];
 }
 
@@ -399,7 +400,9 @@
     if (self.didGetStoreConfig && self.didGetAppConfig && self.didGetPlugins) {
         [self stoploadingViewFade];
         [self initializeRootController];
-        [self initializePlugins];
+        if (![SimiGlobalVar sharedInstance].useThemeConfigOnLocal) {
+            [self initializePlugins];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"InitializedRootController" object:_rootController];
         window.rootViewController = _rootController;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DidInit" object:nil];

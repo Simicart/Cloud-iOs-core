@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4202FCD1B667AA100C997FB"
-               BuildableName = "Alamofire.framework"
-               BlueprintName = "Alamofire watchOS"
-               ReferencedContainer = "container:Alamofire.xcodeproj">
+               BlueprintIdentifier = "ED4ECD43FE6A5368AD77C56588BC8BDA"
+               BuildableName = "Pods_simitracking.framework"
+               BlueprintName = "Pods-simitracking"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4202FCD1B667AA100C997FB"
-            BuildableName = "Alamofire.framework"
-            BlueprintName = "Alamofire watchOS"
-            ReferencedContainer = "container:Alamofire.xcodeproj">
+            BlueprintIdentifier = "ED4ECD43FE6A5368AD77C56588BC8BDA"
+            BuildableName = "Pods_simitracking.framework"
+            BlueprintName = "Pods-simitracking"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,15 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4202FCD1B667AA100C997FB"
-            BuildableName = "Alamofire.framework"
-            BlueprintName = "Alamofire watchOS"
-            ReferencedContainer = "container:Alamofire.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

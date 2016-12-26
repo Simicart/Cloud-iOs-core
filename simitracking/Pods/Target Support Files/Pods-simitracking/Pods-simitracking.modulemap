@@ -1,0 +1,6 @@
+framework module Pods_simitracking {
+  umbrella header "Pods-simitracking-umbrella.h"
+
+  export *
+  module * { export * }
+}

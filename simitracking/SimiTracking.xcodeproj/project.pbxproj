@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58C5B1E7F29689396E9A8B6D /* Pods_simitracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575E7A64566583007681A6A4 /* Pods_simitracking.framework */; };
 		7F0301051DD0224500417072 /* login_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0301041DD0224500417072 /* login_password.png */; };
 		7F0301091DD024F500417072 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0301081DD024F500417072 /* logo.png */; };
 		7F03010B1DD0696100417072 /* loading_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F03010A1DD0696100417072 /* loading_icon.png */; };
@@ -201,8 +202,6 @@
 		7F3E64921DF01419001DF876 /* ViewPortHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E63FB1DF01419001DF876 /* ViewPortHandler.swift */; };
 		7F48A22A1DDABB0E0038358A /* OrderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F48A2291DDABB0E0038358A /* OrderAPI.swift */; };
 		7F48A2331DDB148E0038358A /* calendar_ic.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F48A2321DDB148E0038358A /* calendar_ic.png */; };
-		7F4FFB321DD1663900CC11FE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4FFB251DD1662A00CC11FE /* Alamofire.framework */; };
-		7F4FFB331DD1663900CC11FE /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7F4FFB251DD1662A00CC11FE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7F4FFB371DD16B7A00CC11FE /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4FFB361DD16B7A00CC11FE /* ProductModel.swift */; };
 		7F4FFB391DD17B2900CC11FE /* SimiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4FFB381DD17B2900CC11FE /* SimiModel.swift */; };
 		7F58B5131DCED4F200F6EC5E /* STLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F58B5121DCED4F200F6EC5E /* STLoginViewController.swift */; };
@@ -262,65 +261,6 @@
 		7FFA9F491DD9BBDC009CC6BE /* OrderModelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA9F481DD9BBDC009CC6BE /* OrderModelCollection.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7F4FFB241DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
-		7F4FFB261DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS Tests";
-		};
-		7F4FFB281DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
-			remoteInfo = "Alamofire macOS";
-		};
-		7F4FFB2A1DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
-			remoteInfo = "Alamofire macOS Tests";
-		};
-		7F4FFB2C1DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CF626EF1BA7CB3E0011A099;
-			remoteInfo = "Alamofire tvOS";
-		};
-		7F4FFB2E1DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CF626F81BA7CB3E0011A099;
-			remoteInfo = "Alamofire tvOS Tests";
-		};
-		7F4FFB301DD1662A00CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E4202FE01B667AA100C997FB;
-			remoteInfo = "Alamofire watchOS";
-		};
-		7F4FFB341DD1663900CC11FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		7F61B48A1DD0D7B400C290AF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -328,7 +268,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7F4FFB331DD1663900CC11FE /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +275,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C85D1001E10F08E00B87621 /* SimiTracking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimiTracking.entitlements; sourceTree = "<group>"; };
+		575E7A64566583007681A6A4 /* Pods_simitracking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_simitracking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0301041DD0224500417072 /* login_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_password.png; sourceTree = "<group>"; };
 		7F0301081DD024F500417072 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		7F03010A1DD0696100417072 /* loading_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading_icon.png; sourceTree = "<group>"; };
@@ -344,7 +285,7 @@
 		7F04C7C11DEF0EE2009BCB25 /* BestsellerModelCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestsellerModelCollection.swift; sourceTree = "<group>"; };
 		7F070FBD1DF5520F00A43B3F /* edit_ic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_ic.png; sourceTree = "<group>"; };
 		7F15BCA11DF263C70091FDF5 /* STBestsellersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBestsellersViewController.swift; sourceTree = "<group>"; };
-		7F15E3BD1DCDBBD300BB082D /* simitracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = simitracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F15E3BD1DCDBBD300BB082D /* SimiTracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimiTracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F15E3C01DCDBBD300BB082D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F15E3C51DCDBBD300BB082D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F15E3C71DCDBBD300BB082D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -550,7 +491,6 @@
 		7F3E63FB1DF01419001DF876 /* ViewPortHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPortHandler.swift; sourceTree = "<group>"; };
 		7F48A2291DDABB0E0038358A /* OrderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderAPI.swift; sourceTree = "<group>"; };
 		7F48A2321DDB148E0038358A /* calendar_ic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_ic.png; sourceTree = "<group>"; };
-		7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Alamofire.xcodeproj; sourceTree = "<group>"; };
 		7F4FFB361DD16B7A00CC11FE /* ProductModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		7F4FFB381DD17B2900CC11FE /* SimiModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiModel.swift; sourceTree = "<group>"; };
 		7F58B5121DCED4F200F6EC5E /* STLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLoginViewController.swift; sourceTree = "<group>"; };
@@ -613,6 +553,8 @@
 		7FFA9F3D1DD9ABEF009CC6BE /* STOrderListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STOrderListViewController.swift; sourceTree = "<group>"; };
 		7FFA9F461DD9B9FB009CC6BE /* SimiModelCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiModelCollection.swift; sourceTree = "<group>"; };
 		7FFA9F481DD9BBDC009CC6BE /* OrderModelCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModelCollection.swift; sourceTree = "<group>"; };
+		A907E012F719CC077DD56162 /* Pods-simitracking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simitracking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-simitracking/Pods-simitracking.debug.xcconfig"; sourceTree = "<group>"; };
+		C16A45E128C7FEB84EFB8DD8 /* Pods-simitracking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simitracking.release.xcconfig"; path = "Pods/Target Support Files/Pods-simitracking/Pods-simitracking.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -620,7 +562,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F4FFB321DD1663900CC11FE /* Alamofire.framework in Frameworks */,
+				58C5B1E7F29689396E9A8B6D /* Pods_simitracking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,13 +574,15 @@
 			children = (
 				7F15E3BF1DCDBBD300BB082D /* simitracking */,
 				7F15E3BE1DCDBBD300BB082D /* Products */,
+				C0167C24A3A51CC5EEB6509D /* Pods */,
+				A0C8B4CD1B6B4699768420E1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		7F15E3BE1DCDBBD300BB082D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F15E3BD1DCDBBD300BB082D /* simitracking.app */,
+				7F15E3BD1DCDBBD300BB082D /* SimiTracking.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -646,6 +590,7 @@
 		7F15E3BF1DCDBBD300BB082D /* simitracking */ = {
 			isa = PBXGroup;
 			children = (
+				0C85D1001E10F08E00B87621 /* SimiTracking.entitlements */,
 				7F15E3C01DCDBBD300BB082D /* AppDelegate.swift */,
 				7F15E3C41DCDBBD300BB082D /* Main.storyboard */,
 				7F15E3C71DCDBBD300BB082D /* Assets.xcassets */,
@@ -738,7 +683,6 @@
 		7F15E45A1DCDC5FA00BB082D /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				7F61B4301DD0D0B100C290AF /* Alamofire */,
 				7F03010C1DD0710200417072 /* SimiNetworkManager.swift */,
 			);
 			path = Network;
@@ -1113,28 +1057,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		7F4FFB1A1DD1662A00CC11FE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7F4FFB251DD1662A00CC11FE /* Alamofire.framework */,
-				7F4FFB271DD1662A00CC11FE /* Alamofire iOS Tests.xctest */,
-				7F4FFB291DD1662A00CC11FE /* Alamofire.framework */,
-				7F4FFB2B1DD1662A00CC11FE /* Alamofire macOS Tests.xctest */,
-				7F4FFB2D1DD1662A00CC11FE /* Alamofire.framework */,
-				7F4FFB2F1DD1662A00CC11FE /* Alamofire tvOS Tests.xctest */,
-				7F4FFB311DD1662A00CC11FE /* Alamofire.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7F61B4301DD0D0B100C290AF /* Alamofire */ = {
-			isa = PBXGroup;
-			children = (
-				7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */,
-			);
-			path = Alamofire;
-			sourceTree = "<group>";
-		};
 		7F626F5F1DD7875200422CCC /* STLoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1204,6 +1126,23 @@
 			path = MMDrawerController;
 			sourceTree = "<group>";
 		};
+		A0C8B4CD1B6B4699768420E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				575E7A64566583007681A6A4 /* Pods_simitracking.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C0167C24A3A51CC5EEB6509D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A907E012F719CC077DD56162 /* Pods-simitracking.debug.xcconfig */,
+				C16A45E128C7FEB84EFB8DD8 /* Pods-simitracking.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1211,19 +1150,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F15E3CF1DCDBBD300BB082D /* Build configuration list for PBXNativeTarget "simitracking" */;
 			buildPhases = (
+				C58F8D7FBC7D9AFBCAB52799 /* [CP] Check Pods Manifest.lock */,
 				7F15E3B91DCDBBD300BB082D /* Sources */,
 				7F15E3BA1DCDBBD300BB082D /* Frameworks */,
 				7F15E3BB1DCDBBD300BB082D /* Resources */,
 				7F61B48A1DD0D7B400C290AF /* Embed Frameworks */,
+				D9326D70400C434B573FB7DB /* [CP] Embed Pods Frameworks */,
+				7FBEEC36F4E76EAD091EEF65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7F4FFB351DD1663900CC11FE /* PBXTargetDependency */,
 			);
 			name = simitracking;
 			productName = simitracking;
-			productReference = 7F15E3BD1DCDBBD300BB082D /* simitracking.app */;
+			productReference = 7F15E3BD1DCDBBD300BB082D /* SimiTracking.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1238,9 +1179,14 @@
 				TargetAttributes = {
 					7F15E3BC1DCDBBD300BB082D = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 88X6EP4WFV;
+						DevelopmentTeam = Y4427S3SDN;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1255,70 +1201,12 @@
 			mainGroup = 7F15E3B41DCDBBD300BB082D;
 			productRefGroup = 7F15E3BE1DCDBBD300BB082D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7F4FFB1A1DD1662A00CC11FE /* Products */;
-					ProjectRef = 7F4FFB191DD1662A00CC11FE /* Alamofire.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7F15E3BC1DCDBBD300BB082D /* simitracking */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7F4FFB251DD1662A00CC11FE /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 7F4FFB241DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F4FFB271DD1662A00CC11FE /* Alamofire iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire iOS Tests.xctest";
-			remoteRef = 7F4FFB261DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F4FFB291DD1662A00CC11FE /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 7F4FFB281DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F4FFB2B1DD1662A00CC11FE /* Alamofire macOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire macOS Tests.xctest";
-			remoteRef = 7F4FFB2A1DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F4FFB2D1DD1662A00CC11FE /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 7F4FFB2C1DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F4FFB2F1DD1662A00CC11FE /* Alamofire tvOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire tvOS Tests.xctest";
-			remoteRef = 7F4FFB2E1DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F4FFB311DD1662A00CC11FE /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 7F4FFB301DD1662A00CC11FE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7F15E3BB1DCDBBD300BB082D /* Resources */ = {
@@ -1361,6 +1249,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7FBEEC36F4E76EAD091EEF65 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-simitracking/Pods-simitracking-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C58F8D7FBC7D9AFBCAB52799 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D9326D70400C434B573FB7DB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-simitracking/Pods-simitracking-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7F15E3B91DCDBBD300BB082D /* Sources */ = {
@@ -1591,14 +1527,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		7F4FFB351DD1663900CC11FE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Alamofire iOS";
-			targetProxy = 7F4FFB341DD1663900CC11FE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		7F15E3C41DCDBBD300BB082D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1716,16 +1644,20 @@
 		};
 		7F15E3D01DCDBBD300BB082D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A907E012F719CC077DD56162 /* Pods-simitracking.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 88X6EP4WFV;
+				CODE_SIGN_ENTITLEMENTS = simitracking/SimiTracking.entitlements;
+				DEVELOPMENT_TEAM = Y4427S3SDN;
 				INFOPLIST_FILE = simitracking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.simitracking;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.tracking;
+				PRODUCT_NAME = SimiTracking;
+				PROVISIONING_PROFILE = "cba3d2a6-9819-4a80-a749-d8c9bfd06cf9";
+				PROVISIONING_PROFILE_SPECIFIER = "Mobile developer tracking";
 				SWIFT_OBJC_BRIDGING_HEADER = "simitracking/SimiFramework/MMDrawerController/simitracking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1734,16 +1666,21 @@
 		};
 		7F15E3D11DCDBBD300BB082D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C16A45E128C7FEB84EFB8DD8 /* Pods-simitracking.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 88X6EP4WFV;
+				CODE_SIGN_ENTITLEMENTS = simitracking/SimiTracking.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = Y4427S3SDN;
 				INFOPLIST_FILE = simitracking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.simitracking;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.tracking;
+				PRODUCT_NAME = SimiTracking;
+				PROVISIONING_PROFILE = "b4123959-636a-4e9b-a440-bacc5af099b5";
+				PROVISIONING_PROFILE_SPECIFIER = MobileTracking;
 				SWIFT_OBJC_BRIDGING_HEADER = "simitracking/SimiFramework/MMDrawerController/simitracking-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

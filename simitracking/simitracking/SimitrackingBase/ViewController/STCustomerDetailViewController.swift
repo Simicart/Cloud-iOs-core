@@ -39,7 +39,6 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         self.view.addSubview(mainTableView)
         self.title = STLocalizedString(inputString: "Customer Details").uppercased()
         getCustomerDetail()
-        self.hideKeyboardWhenTappedAround()
     }
     
     override func updateViews() {
@@ -219,7 +218,10 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
             self.navigationController?.pushViewController(newAddressVC, animated: true)
         }
     }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        dismissKeyboard()
+    }
     
     //MARK: - Row creating functions
     func createSummaryRow(row: SimiRow, identifier: String)->UITableViewCell{

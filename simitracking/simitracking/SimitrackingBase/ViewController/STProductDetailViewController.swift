@@ -40,7 +40,6 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         self.view.addSubview(mainTableView)
         self.title = STLocalizedString(inputString: "Product Details").uppercased()
         getProductDetail()
-        self.hideKeyboardWhenTappedAround()
     }
     
     override func updateViews() {
@@ -235,20 +234,22 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = mainTableViewCells[indexPath.section] as! SimiSection
         let row = section.childRows[indexPath.row]
-        if (row.identifier == PRODUCT_DESCRIPTION_VIEW_DETAIL_ROW) {
+        if (row.identifier.range(of:PRODUCT_DESCRIPTION_VIEW_DETAIL_ROW) != nil) {
             let newDescriptionVC = SimiWebViewController()
             newDescriptionVC.content = productModel.data["description"] as? String
             newDescriptionVC.webTitle = STLocalizedString(inputString: "Description")
             self.navigationController?.pushViewController(newDescriptionVC, animated: true)
-        } else if (row.identifier == PRODUCT_SHORT_DESCRIPTION_VIEW_DETAIL_ROW) {
+        } else if (row.identifier.range(of:PRODUCT_SHORT_DESCRIPTION_VIEW_DETAIL_ROW) != nil) {
             let newDescriptionVC = SimiWebViewController()
             newDescriptionVC.content = productModel.data["short_description"] as? String
             newDescriptionVC.webTitle = STLocalizedString(inputString: "Short Description")
             self.navigationController?.pushViewController(newDescriptionVC, animated: true)
-
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        dismissKeyboard()
+    }
     
     //MARK: - Row creating functions
     

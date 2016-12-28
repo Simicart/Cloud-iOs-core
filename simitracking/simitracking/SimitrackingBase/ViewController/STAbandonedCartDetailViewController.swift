@@ -35,7 +35,6 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
         self.view.addSubview(mainTableView)
         self.title = STLocalizedString(inputString: "Cart Details").uppercased()
         getAbandonedCartDetail()
-        self.hideKeyboardWhenTappedAround()
     }
     
     override func updateViews() {
@@ -176,6 +175,9 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
         }
     }
  
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        dismissKeyboard()
+    }
     
     //MARK: - Row creating functions
     func createSummaryRow(row: SimiRow, identifier: String)->UITableViewCell{

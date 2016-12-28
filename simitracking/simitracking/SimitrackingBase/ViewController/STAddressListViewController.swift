@@ -40,7 +40,6 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
             self.view.addSubview(emptyLabel)
         }
         getAddresses()
-        self.hideKeyboardWhenTappedAround()
     }
 
     override func updateViews() {
@@ -144,7 +143,7 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
         let mainSection =  mainTableViewCells[section]
         return mainSection.childRows.count
     }
-    
+    /*
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (SimiGlobalVar.permissionsAllowed[CUSTOMER_DETAIL] == false) {
             return
@@ -157,6 +156,11 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
         newCustomerDetailVC.customerModel = CustomerModel()
         newCustomerDetailVC.customerModel.data = rowData
         self.navigationController?.pushViewController(newCustomerDetailVC, animated: true)
+    }
+     */
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        dismissKeyboard()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

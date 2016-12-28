@@ -46,15 +46,14 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
             mainTableView = SimiTableView(frame:
                 CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: UITableViewStyle.grouped)
             mainTableView.contentInset = UIEdgeInsetsMake(20, 0, 40, 0)
-            mainTableView.delegate = self
-            mainTableView.dataSource = self
         }
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
         self.view.addSubview(mainTableView)
         getOrderDetail()
         addEditButton()
         
         self.title = STLocalizedString(inputString: "Order Details").uppercased()
-        self.hideKeyboardWhenTappedAround()
     }
     
     func addEditButton() {
@@ -271,15 +270,16 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
                 cellToReturn = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
         }
-        cellToReturn?.selectionStyle = UITableViewCellSelectionStyle.none
+        //cellToReturn?.selectionStyle = UITableViewCellSelectionStyle.none
         return cellToReturn!
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = mainTableViewCells[indexPath.section] as! SimiSection
         let row = section.childRows[indexPath.row]
         let identifier = row.identifier
-        if identifier == CUSTOMER_INFO_ROW {
+        if identifier.range(of:CUSTOMER_INFO_ROW) != nil {
             if (orderModel.data["customer_id"] !=  nil) && !(orderModel.data["customer_id"] is NSNull) {
                 let customerVC = STCustomerDetailViewController()
                 customerVC.customerModel = CustomerModel()
@@ -295,6 +295,10 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
                 self.navigationController?.pushViewController(productVC, animated: true)
             }
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        dismissKeyboard()
     }
     
     //MARK: - Cell creating functions

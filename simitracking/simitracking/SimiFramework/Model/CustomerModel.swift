@@ -8,7 +8,11 @@
 
 import UIKit
 
+let DidGetCustomerDetail = "DidGetCustomerDetail"
+let DidEditCustomerDetail = "DidEditCustomerDetail"
+
 class CustomerModel: SimiModel {
+    
     var privateAPI:CustomerAPI!
     
     override func getAPI()->CustomerAPI{
@@ -26,6 +30,12 @@ class CustomerModel: SimiModel {
         currentNotificationName = "DidGetCustomerDetail"
         self.preDoRequest()
         self.getAPI().getCustomerDetailWithId(id: id, params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
+    }
+    
+    public func editCustomerDetailWithId(id:String, params:Dictionary<String, String>){
+        currentNotificationName = DidEditCustomerDetail
+        self.preDoRequest()
+        self.getAPI().editCustomerDetailWithId(id: id, params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }
     
 }

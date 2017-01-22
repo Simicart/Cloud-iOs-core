@@ -151,7 +151,6 @@
 		7F070FBE1DF5520F00A43B3F /* edit_ic.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F070FBD1DF5520F00A43B3F /* edit_ic.png */; };
 		7F15BCA21DF263C70091FDF5 /* STBestsellersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15BCA11DF263C70091FDF5 /* STBestsellersViewController.swift */; };
 		7F15E3C11DCDBBD300BB082D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E3C01DCDBBD300BB082D /* AppDelegate.swift */; };
-		7F15E3C61DCDBBD300BB082D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F15E3C41DCDBBD300BB082D /* Main.storyboard */; };
 		7F15E3C81DCDBBD300BB082D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F15E3C71DCDBBD300BB082D /* Assets.xcassets */; };
 		7F15E3CB1DCDBBD300BB082D /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F15E3C91DCDBBD300BB082D /* Launchscreen.storyboard */; };
 		7F15E4841DCDC62B00BB082D /* SimiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E4831DCDC62B00BB082D /* SimiViewController.swift */; };
@@ -259,6 +258,16 @@
 		7FFA9F3E1DD9ABEF009CC6BE /* STOrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA9F3D1DD9ABEF009CC6BE /* STOrderListViewController.swift */; };
 		7FFA9F471DD9B9FB009CC6BE /* SimiModelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA9F461DD9B9FB009CC6BE /* SimiModelCollection.swift */; };
 		7FFA9F491DD9BBDC009CC6BE /* OrderModelCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA9F481DD9BBDC009CC6BE /* OrderModelCollection.swift */; };
+		E532B16F1E23674000EC6B8B /* SimiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E532B16E1E23674000EC6B8B /* SimiTextView.swift */; };
+		E532B1711E23675700EC6B8B /* SimiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E532B1701E23675700EC6B8B /* SimiTextField.swift */; };
+		E547EFC01E2F255A000E64AA /* ForecastSaleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547EFBF1E2F255A000E64AA /* ForecastSaleModel.swift */; };
+		E547EFC21E2F2600000E64AA /* ForecastSaleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547EFC11E2F2600000E64AA /* ForecastSaleAPI.swift */; };
+		E594F06D1E2E1563008FC4A2 /* ic_forecast.png in Resources */ = {isa = PBXBuildFile; fileRef = E594F06C1E2E1563008FC4A2 /* ic_forecast.png */; };
+		E594F06F1E2E162E008FC4A2 /* STForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E594F06E1E2E162E008FC4A2 /* STForecastViewController.swift */; };
+		E5ACE5711E2640C100385FAD /* SimiTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ACE5701E2640C100385FAD /* SimiTable.swift */; };
+		E5ACE5731E26474600385FAD /* SimiFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ACE5721E26474600385FAD /* SimiFormatter.swift */; };
+		E5BA6E911E2487A30037CB85 /* ic_tick.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BA6E901E2487A30037CB85 /* ic_tick.png */; };
+		E5BA6E931E2487BE0037CB85 /* ic_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BA6E921E2487BE0037CB85 /* ic_edit.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -421,7 +430,6 @@
 		7F15BCA11DF263C70091FDF5 /* STBestsellersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STBestsellersViewController.swift; sourceTree = "<group>"; };
 		7F15E3BD1DCDBBD300BB082D /* SimiTracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimiTracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F15E3C01DCDBBD300BB082D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7F15E3C51DCDBBD300BB082D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F15E3C71DCDBBD300BB082D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F15E3CA1DCDBBD300BB082D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Launchscreen.storyboard; sourceTree = "<group>"; };
 		7F15E3CC1DCDBBD300BB082D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -555,6 +563,16 @@
 		7FFA9F481DD9BBDC009CC6BE /* OrderModelCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModelCollection.swift; sourceTree = "<group>"; };
 		A907E012F719CC077DD56162 /* Pods-simitracking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simitracking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-simitracking/Pods-simitracking.debug.xcconfig"; sourceTree = "<group>"; };
 		C16A45E128C7FEB84EFB8DD8 /* Pods-simitracking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simitracking.release.xcconfig"; path = "Pods/Target Support Files/Pods-simitracking/Pods-simitracking.release.xcconfig"; sourceTree = "<group>"; };
+		E532B16E1E23674000EC6B8B /* SimiTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiTextView.swift; sourceTree = "<group>"; };
+		E532B1701E23675700EC6B8B /* SimiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiTextField.swift; sourceTree = "<group>"; };
+		E547EFBF1E2F255A000E64AA /* ForecastSaleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastSaleModel.swift; sourceTree = "<group>"; };
+		E547EFC11E2F2600000E64AA /* ForecastSaleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastSaleAPI.swift; sourceTree = "<group>"; };
+		E594F06C1E2E1563008FC4A2 /* ic_forecast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_forecast.png; sourceTree = "<group>"; };
+		E594F06E1E2E162E008FC4A2 /* STForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STForecastViewController.swift; sourceTree = "<group>"; };
+		E5ACE5701E2640C100385FAD /* SimiTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiTable.swift; sourceTree = "<group>"; };
+		E5ACE5721E26474600385FAD /* SimiFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiFormatter.swift; sourceTree = "<group>"; };
+		E5BA6E901E2487A30037CB85 /* ic_tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_tick.png; sourceTree = "<group>"; };
+		E5BA6E921E2487BE0037CB85 /* ic_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -835,7 +853,6 @@
 			children = (
 				0C85D1001E10F08E00B87621 /* SimiTracking.entitlements */,
 				7F15E3C01DCDBBD300BB082D /* AppDelegate.swift */,
-				7F15E3C41DCDBBD300BB082D /* Main.storyboard */,
 				7F15E3C71DCDBBD300BB082D /* Assets.xcassets */,
 				7F15E3C91DCDBBD300BB082D /* Launchscreen.storyboard */,
 				7F15E3CC1DCDBBD300BB082D /* Info.plist */,
@@ -875,6 +892,7 @@
 				7F8871E01DE57B0200DCE4F9 /* AbandonedCartAPI.swift */,
 				7FD36E821DE836150023D938 /* ProductAPI.swift */,
 				7F04C7B81DEF0E43009BCB25 /* BestsellerAPI.swift */,
+				E547EFC11E2F2600000E64AA /* ForecastSaleAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -896,6 +914,10 @@
 				7F90C4AC1DD6E12C00D29525 /* SimiImageView.swift */,
 				7F26E8AF1DEC1F91000B0332 /* SimiWebViewController.swift */,
 				7F60E88E1DEC99B600A9AF3A /* SimiDataLocal.swift */,
+				E532B16E1E23674000EC6B8B /* SimiTextView.swift */,
+				E532B1701E23675700EC6B8B /* SimiTextField.swift */,
+				E5ACE5701E2640C100385FAD /* SimiTable.swift */,
+				E5ACE5721E26474600385FAD /* SimiFormatter.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -919,6 +941,7 @@
 				7FCCF43B1DE2FC62000634A6 /* AddressModelCollection.swift */,
 				7F04C7C11DEF0EE2009BCB25 /* BestsellerModelCollection.swift */,
 				7F3E63601DEFDD54001DF876 /* SaleModel.swift */,
+				E547EFBF1E2F255A000E64AA /* ForecastSaleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -971,6 +994,7 @@
 				7FA06B221DE6D41900BF834F /* STAbandonedCartDetailViewController.swift */,
 				7F60E8831DEC7B7200A9AF3A /* STSettingViewController.swift */,
 				7F23B2F91DF67A5400B1FC0A /* STQRScannerViewController.swift */,
+				E594F06E1E2E162E008FC4A2 /* STForecastViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1060,6 +1084,7 @@
 		7FE4E05E1DCE41C4003985BE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E594F06C1E2E1563008FC4A2 /* ic_forecast.png */,
 				7F23B3021DF6957400B1FC0A /* qr_ic.png */,
 				7F070FBD1DF5520F00A43B3F /* edit_ic.png */,
 				7F8871D31DE528F100DCE4F9 /* refresh_icon.png */,
@@ -1078,6 +1103,8 @@
 				7F29242F1DD4E60800FB3129 /* menu_top_background.png */,
 				7F2924231DD4E5FF00FB3129 /* bestseller_icon.png */,
 				7F2924241DD4E5FF00FB3129 /* customer_icon.png */,
+				E5BA6E921E2487BE0037CB85 /* ic_edit.png */,
+				E5BA6E901E2487A30037CB85 /* ic_tick.png */,
 				7F2924251DD4E5FF00FB3129 /* dashboard_icon.png */,
 				7F2924261DD4E5FF00FB3129 /* logout_icon.png */,
 				7F2924271DD4E5FF00FB3129 /* order_icon.png */,
@@ -1208,11 +1235,14 @@
 				7F29242B1DD4E5FF00FB3129 /* dashboard_icon.png in Resources */,
 				7F2E2D241DDCB8E400F33903 /* icon_status_filter.png in Resources */,
 				7F38581C1DD5ADC600E77C49 /* default_avt.png in Resources */,
+				E594F06D1E2E1563008FC4A2 /* ic_forecast.png in Resources */,
+				E5BA6E911E2487A30037CB85 /* ic_tick.png in Resources */,
 				7F0301091DD024F500417072 /* logo.png in Resources */,
 				7F0301051DD0224500417072 /* login_password.png in Resources */,
 				7F2E2D251DDCB8E400F33903 /* icon_time.png in Resources */,
 				7F5B40621DE3FB4E008E8495 /* ic_next_page.png in Resources */,
 				7F070FBE1DF5520F00A43B3F /* edit_ic.png in Resources */,
+				E5BA6E931E2487BE0037CB85 /* ic_edit.png in Resources */,
 				7F29242C1DD4E5FF00FB3129 /* logout_icon.png in Resources */,
 				7F1CFC391DCF959A0060AF8A /* login_url.png in Resources */,
 				7F48A2331DDB148E0038358A /* calendar_ic.png in Resources */,
@@ -1224,7 +1254,6 @@
 				7F17E78E1DDB5E2C00D25899 /* triangle_icon.png in Resources */,
 				7F90C4A41DD6BDF500D29525 /* product_icon.png in Resources */,
 				7F93D2F61DE0064100C3BDC9 /* back_btn_icon.png in Resources */,
-				7F15E3C61DCDBBD300BB082D /* Main.storyboard in Resources */,
 				7F23B3031DF6957400B1FC0A /* qr_ic.png in Resources */,
 				7F8871D41DE528F100DCE4F9 /* refresh_icon.png in Resources */,
 				7F29242A1DD4E5FF00FB3129 /* customer_icon.png in Resources */,
@@ -1366,6 +1395,7 @@
 				0C85D31A1E10F93000B87621 /* HorizontalBarChartRenderer.swift in Sources */,
 				0C85D2E21E10F93000B87621 /* PieChartDataSet.swift in Sources */,
 				7F3E635F1DEFDCD9001DF876 /* SalesAPI.swift in Sources */,
+				E532B16F1E23674000EC6B8B /* SimiTextView.swift in Sources */,
 				0C85D2DA1E10F93000B87621 /* ChartDataSet.swift in Sources */,
 				0C85D2E81E10F93000B87621 /* IBarChartDataSet.swift in Sources */,
 				0C85D2CA1E10F93000B87621 /* YAxis.swift in Sources */,
@@ -1386,16 +1416,19 @@
 				0C85D2CC1E10F93000B87621 /* BarChartData.swift in Sources */,
 				7F8871DF1DE57ADD00DCE4F9 /* AbandonedCartModelCollection.swift in Sources */,
 				0C85D3121E10F93000B87621 /* ZoomViewJob.swift in Sources */,
+				E5ACE5711E2640C100385FAD /* SimiTable.swift in Sources */,
 				0C85D3231E10F93000B87621 /* ChevronUpShapeRenderer.swift in Sources */,
 				7F17E7921DDB637A00D25899 /* StoreModelCollection.swift in Sources */,
 				0C85D2B81E10F92F00B87621 /* ChartViewBase.swift in Sources */,
 				7FE4E0701DCE501B003985BE /* STLeftMenuViewController.swift in Sources */,
 				7F93D2ED1DE001C200C3BDC9 /* STProductListViewController.swift in Sources */,
+				E532B1711E23675700EC6B8B /* SimiTextField.swift in Sources */,
 				0C85D2E11E10F93000B87621 /* PieChartDataEntry.swift in Sources */,
 				7F58B5131DCED4F200F6EC5E /* STLoginViewController.swift in Sources */,
 				7F3E63611DEFDD54001DF876 /* SaleModel.swift in Sources */,
 				0C85D30A1E10F93000B87621 /* CombinedChartDataProvider.swift in Sources */,
 				0C85D2D31E10F93000B87621 /* BubbleChartDataSet.swift in Sources */,
+				E547EFC21E2F2600000E64AA /* ForecastSaleAPI.swift in Sources */,
 				7FE4E0821DCE52F6003985BE /* UIViewController+MMDrawerController.m in Sources */,
 				7F17E7941DDB66CF00D25899 /* StoreAPI.swift in Sources */,
 				7F3859211DD5C95B00E77C49 /* UIImage+GIF.m in Sources */,
@@ -1434,6 +1467,7 @@
 				7FBCDB471DDDA46100BDE9D5 /* OrderModel.swift in Sources */,
 				0C85D3111E10F93000B87621 /* ViewPortJob.swift in Sources */,
 				7FBCDB501DDDA48F00BDE9D5 /* STOrderDetailViewController.swift in Sources */,
+				E594F06F1E2E162E008FC4A2 /* STForecastViewController.swift in Sources */,
 				0C85D2F71E10F93000B87621 /* IAxisValueFormatter.swift in Sources */,
 				0C85D3211E10F93000B87621 /* Renderer.swift in Sources */,
 				7FE4E0801DCE52F6003985BE /* MMDrawerController.m in Sources */,
@@ -1455,6 +1489,7 @@
 				0C85D2B61E10F92F00B87621 /* BubbleChartView.swift in Sources */,
 				7FE4E0571DCDE502003985BE /* SimiGlobalVar.swift in Sources */,
 				7F17E7901DDB61DD00D25899 /* StoreviewFilterViewController.swift in Sources */,
+				E547EFC01E2F255A000E64AA /* ForecastSaleModel.swift in Sources */,
 				7F23B2FA1DF67A5400B1FC0A /* STQRScannerViewController.swift in Sources */,
 				0C85D31E1E10F93000B87621 /* LineScatterCandleRadarRenderer.swift in Sources */,
 				7FE4E05D1DCE3F93003985BE /* SimiTableView.swift in Sources */,
@@ -1495,6 +1530,7 @@
 				0C85D2FD1E10F93000B87621 /* CombinedHighlighter.swift in Sources */,
 				0C85D2E31E10F93000B87621 /* RadarChartData.swift in Sources */,
 				7F15E48F1DCDCC7E00BB082D /* STDashboardViewController.swift in Sources */,
+				E5ACE5731E26474600385FAD /* SimiFormatter.swift in Sources */,
 				0C85D2DF1E10F93000B87621 /* LineScatterCandleRadarChartDataSet.swift in Sources */,
 				0C85D2ED1E10F93000B87621 /* ILineChartDataSet.swift in Sources */,
 				0C85D2E41E10F93000B87621 /* RadarChartDataEntry.swift in Sources */,
@@ -1512,14 +1548,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7F15E3C41DCDBBD300BB082D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F15E3C51DCDBBD300BB082D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7F15E3C91DCDBBD300BB082D /* Launchscreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1634,13 +1662,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = simitracking/SimiTracking.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y4427S3SDN;
 				INFOPLIST_FILE = simitracking/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.tracking;
 				PRODUCT_NAME = SimiTracking;
-				PROVISIONING_PROFILE = "cba3d2a6-9819-4a80-a749-d8c9bfd06cf9";
+				PROVISIONING_PROFILE = "4c80b2b6-44a4-4dd2-b52a-7043182365e9";
 				PROVISIONING_PROFILE_SPECIFIER = "Mobile developer tracking";
 				SWIFT_OBJC_BRIDGING_HEADER = "simitracking/SimiFramework/MMDrawerController/simitracking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1663,7 +1692,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.tracking;
 				PRODUCT_NAME = SimiTracking;
-				PROVISIONING_PROFILE = "b4123959-636a-4e9b-a440-bacc5af099b5";
+				PROVISIONING_PROFILE = "2ae5005d-df79-4ac3-b0a1-834535ac6208";
 				PROVISIONING_PROFILE_SPECIFIER = MobileTracking;
 				SWIFT_OBJC_BRIDGING_HEADER = "simitracking/SimiFramework/MMDrawerController/simitracking-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

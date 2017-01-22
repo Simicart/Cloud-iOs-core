@@ -13,7 +13,6 @@ class SimiRow: NSObject {
     var height:CGFloat = 0
     var identifier = ""
     
-    
     convenience init(withIdentifier: String) {
         self.init()
         self.identifier = withIdentifier

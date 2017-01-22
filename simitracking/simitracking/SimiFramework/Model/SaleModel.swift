@@ -8,8 +8,11 @@
 
 import UIKit
 
+let DidGetSaleInfo = "DidGetSaleInfo"
+
 class SaleModel: SimiModel {
     var privateAPI:SalesAPI!
+    
     
     override func getAPI()->SalesAPI{
         if (privateAPI == nil) {
@@ -23,14 +26,15 @@ class SaleModel: SimiModel {
     }
     
     public func getSaleInfoWith(params:Dictionary<String, String>){
-        currentNotificationName = "DidGetSaleInfo"
+        currentNotificationName = DidGetSaleInfo
         self.preDoRequest()
         self.getAPI().getSaleInfoWith(params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }
     
     public func refreshSaleInfo(params:Dictionary<String, String>){
-        currentNotificationName = "DidGetSaleInfo"
+        currentNotificationName = DidGetSaleInfo
         self.preDoRequest()
         self.getAPI().refreshSaleInfoWith(params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }
+    
 }

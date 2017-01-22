@@ -22,4 +22,9 @@ class CustomerAPI: SimiAPI {
         //self request
         self.requestWithURL(url: url, params: params, target: target, selector: selector, header:[String: String]())
     }
+    
+    func editCustomerDetailWithId(id:String,params:Dictionary<String, String>, target:NSObject, selector:Selector){
+        let url:String = SimiGlobalVar.baseURL+kSimiTrackingURL+kResource+id
+        self.putRequestWithURL(url: url, params: params, target: target, selector: selector, header: [:])
+    }
 }

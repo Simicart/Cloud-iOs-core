@@ -8,7 +8,8 @@
 
 import UIKit
 
-
+let DidGetProductDetail = "DidGetProductDetail"
+let DidEditProductDetail = "DidEditProductDetail"
 
 class ProductModel: SimiModel {
     var privateAPI:ProductAPI!
@@ -25,8 +26,13 @@ class ProductModel: SimiModel {
     }
     
     public func getProductDetailWithId(id:String, params:Dictionary<String, String>){
-        currentNotificationName = "DidGetProductDetail"
+        currentNotificationName = DidGetProductDetail
         self.preDoRequest()
         self.getAPI().getProductDetailWithId(id: id, params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
+    }
+    public func editProductDetailWithId(id:String, params:Dictionary<String, String>){
+        currentNotificationName = DidEditProductDetail
+        self.preDoRequest()
+        self.getAPI().editProductDetailWithId(id: id, params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate, UIActionSheetDelegate {
     
     let ROW_HEIGHT:CGFloat = 80
-    let ITEMS_PER_PAGE = SimiGlobalVar.itemsPerPage
+    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []

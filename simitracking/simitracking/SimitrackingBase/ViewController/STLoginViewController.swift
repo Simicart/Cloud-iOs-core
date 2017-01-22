@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Mixpanel
+
 class STLoginViewController: SimiViewController, MainNavigationControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, STQRScannerViewControllerDelegate {
     let LOGIN_LOGO_ROW = "LOGIN_LOGO_ROW"
     let LOGIN_QRCODE_ROW = "LOGIN_QRCODE_ROW"
@@ -39,12 +41,15 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     
     var dashboardViewController:STDashboardViewController!
     var navigationVC:MainNavigationController!
-    var leftMenuViewController:STLeftMenuViewController!
+    var leftMenuViewController:STLeftMenuViewController = STLeftMenuViewController.shareInstance
     var leftNavigationVC:UINavigationController!
     
-    var userData:STUserData!
+    var userData:STUserData = STUserData.sharedInstance
     
     var licenseModel:LicenseModel!
+    
+    //order id after receiving push notification
+    var orderId: String!
     
     override func viewDidLoad() {
         
@@ -69,8 +74,12 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Mixpanel.mainInstance().track(event: "Login Appeared")
     }
     
     override func updateViews() {
@@ -173,9 +182,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
                 cellToReturn = createQRRow(row: row, identifier: identifier)
             } else if row.identifier == LOGIN_FIELDS_ROW {
                 cellToReturn = createLoginFieldsRow(row: row, identifier: identifier)
-                if (userData == nil) {
-                    getLocalData()
-                }
+                getLocalData()
             } else if row.identifier == LOGIN_TRY_DEMO_ROW {
                 cellToReturn = createTryDemoRow(row: row, identifier: identifier)
             } else if row.identifier == LOGIN_NEED_HELP_ROW {
@@ -374,15 +381,9 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             urltyped += "/"
         }
         SimiGlobalVar.baseURL = urltyped
-        
-        if (userData == nil) {
-            userData = STUserData()
-        }
         userData.userEmail = loginEmailField.text!
-        userData.loadFromLocal()
         userData.userPassword = loginPasswordField.text!
         userData.userURL = loginURLField.text!
-        userData.saveToLocal()
         
         staffModel.loginWithUserMail(userEmail: loginEmailField.text!, password: loginPasswordField.text!)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
@@ -396,15 +397,10 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             urltyped += "/"
         }
         SimiGlobalVar.baseURL = urltyped
-        
-        if (userData == nil) {
-            userData = STUserData()
-        }
+
         userData.userEmail = loginEmailField.text!
-        userData.loadFromLocal()
         userData.userURL = loginURLField.text!
         userData.qrSessionId = qrSessionId
-        userData.saveToLocal()
         
         staffModel.loginWithEmailAndQrSession(userEmail: loginEmailField.text!, qrsession: qrSessionId)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
@@ -413,9 +409,11 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     }
     
     func tryDemoButtonPressed(sender: UIButton){
-        SimiGlobalVar.baseURL = "http://magento19.jajahub.com/index.php/"
+        SimiGlobalVar.baseURL = "http://dev.magento19.jajahub.com/index.php/default/"
         staffModel.loginWithUserMail(userEmail: "cody@simicart.com", password: "123456")
         loginEmailField.text = "cody@simicart.com"
+        loginURLField.text = SimiGlobalVar.baseURL
+        loginPasswordField.text = "123456"
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
         self.showLoadingView()
     }
@@ -445,9 +443,12 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             self.present(alert, animated: true, completion: nil)
         } else {
             SimiDataLocal.setLocalData(data: loginEmailField.text!, forKey: LAST_USER_EMAIL)
-            SimiGlobalVar.userData = userData
             checkLicense()
-            openDashboard()
+            if orderId == ""{
+                openDashboard()
+            }else{
+                openOrderDetail()
+            }
         }
     }
     
@@ -499,6 +500,16 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     
     //MARK: - Open Dashboard
     
+    func openOrderDetail(){
+        updateGlobalVar()
+        let orderDetailVC = STOrderDetailViewController()
+        orderDetailVC.orderId = orderId
+        leftMenuViewController.mainNavigation.popToRootViewController(animated: false)
+        leftMenuViewController.mainNavigation.pushViewController(orderDetailVC, animated: false)
+        leftMenuViewController.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+        orderDetailVC.navigationItem.leftBarButtonItem = leftMenuViewController.mainNavigation.menuButton
+    }
+    
     func openDashboard() {
         updateGlobalVar()
         
@@ -507,7 +518,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         navigationVC.rootDelegate = self
         dashboardViewController.navigationItem.leftBarButtonItem = navigationVC.menuButton
         
-        leftMenuViewController = STLeftMenuViewController()
         leftMenuViewController.staffModel = staffModel
         leftMenuViewController.mainNavigation = navigationVC
         leftNavigationVC = UINavigationController(rootViewController: leftMenuViewController)
@@ -543,13 +553,9 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     
     //MARK: - Get Saved Data
     func getLocalData() {
-        if (userData == nil) {
-            userData = STUserData()
-        }
         let emailSaved = SimiDataLocal.getLocalData(forKey: LAST_USER_EMAIL) as! String
         if (emailSaved != "") {
             userData.userEmail = emailSaved
-            userData.loadFromLocal()
             loginEmailField.text = emailSaved
             loginPasswordField.text = userData.userPassword
             loginURLField.text = userData.userURL

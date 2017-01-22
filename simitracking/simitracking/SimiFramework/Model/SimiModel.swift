@@ -75,7 +75,6 @@ class SimiModel: NSObject {
         NotificationCenter.default.post(name: Notification.Name(rawValue: currentNotificationName+"After"), object: self)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "TimeLoaderStop"), object: currentNotificationName)
         NotificationCenter.default.post(name: Notification.Name(rawValue: currentNotificationName), object: self, userInfo: responseObject)
-        
         if (currentNotificationName != "DidFinishRequest") {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "DidFinishRequest-After"), object: self)
         }

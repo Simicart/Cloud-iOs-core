@@ -11,7 +11,7 @@ import UIKit
 class STOrderListViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate {
     
     let ROW_HEIGHT:CGFloat = 65
-    let ITEMS_PER_PAGE = SimiGlobalVar.itemsPerPage
+    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
     var orderModelCollection:OrderModelCollection!
     var reloadedTime = 0
@@ -371,8 +371,9 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
 
         let newOrderDetailVC = STOrderDetailViewController()
         newOrderDetailVC.parentOrderListVC = self
-        newOrderDetailVC.orderModel = OrderModel()
-        newOrderDetailVC.orderModel.data = rowData
+//        newOrderDetailVC.orderModel = OrderModel()
+        newOrderDetailVC.orderId = rowData["entity_id"] as! String
+//        newOrderDetailVC.orderModel.data = rowData
         newOrderDetailVC.statusDict = statusDict
         self.navigationController?.pushViewController(newOrderDetailVC, animated: true)
     }

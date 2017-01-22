@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Mixpanel
 
 class STDashboardViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, IAxisValueFormatter, ChartViewDelegate{
     let SALES_SECTION_IDENTIFIER = "SALES_SECTION_IDENTIFIER"
     let SALES_TIME_RANGE_SELECT_ROW = "SALES_TIME_RANGE_SELECT_ROW"
+    let CHART_LABEL_ROW = "CHART_LABEL_ROW"
     let SALES_CHART_ROW = "SALES_CHART_ROW"
     let TOTAL_SALES_INFO_ROW = "TOTAL_SALES_INFO_ROW"
     let LIFETIME_SALES_INFO_ROW = "LIFETIME_SALES_INFO_ROW"
@@ -24,13 +26,14 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     let BEST_SELLERS_SECTION_IDENTIFIER = "BEST_SELLERS_SECTION_IDENTIFIER"
     let BEST_SELLERS_ROW = "BEST_SELLERS_ROW"
     
+    
     //tableviews
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<Any>!
     var refreshControl:UIRefreshControl!
     
     //models
-    var saleModel:SaleModel!
+    private var saleModel:SaleModel!
     var salePeriod = "day"
     var orderModelCollection:OrderModelCollection!
     var customerModelCollection:CustomerModelCollection!
@@ -51,6 +54,9 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     var rightAxis:YAxis!
     var amountAndCountRatio:Double = 1
     
+    //views need to be changed frame when rotate the screen
+    private var ordersLabel: SimiLabel!
+    private var invoicesLabel:SimiLabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +65,13 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        mainTableView.frame = CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight)
+        Mixpanel.mainInstance().track(event: "Dashboard Appeared")
     }
     
     func addViews() {
         self.setMainTableViewCells()
         mainTableView = SimiTableView(frame:
-            CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: UITableViewStyle.grouped)
+            CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: .plain)
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.separatorStyle = UITableViewCellSeparatorStyle.none
@@ -112,8 +118,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             paramMeters["from_date"] = currentTimeRangeStart
             paramMeters["to_date"] = currentTimeRangeEnd
         }
-        saleModel.refreshSaleInfo(params:
-            paramMeters)
+        saleModel.refreshSaleInfo(params: paramMeters)
         NotificationCenter.default.addObserver(self, selector: #selector(didGetSales(notification:)), name: NSNotification.Name(rawValue: "DidGetSaleInfo"), object: nil)
     }
     
@@ -209,15 +214,16 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     //MARK: - Set Data for TableView
     func setMainTableViewCells() {
         mainTableViewCells = []
-        
-        if (saleModel != nil) && (SimiGlobalVar.permissionsAllowed[SALE_TRACKING] == true) && (SimiGlobalVar.userData != nil) && (SimiGlobalVar.userData.showDashboardSales == true) {
+        if (saleModel != nil) && (SimiGlobalVar.permissionsAllowed[SALE_TRACKING] == true) && (STUserData.sharedInstance.showDashboardSales == true) {
             let salesSection = SimiSection()
             salesSection.data["title"] = STLocalizedString(inputString: "Sales Reports").uppercased()
             salesSection.height = 0
             salesSection.identifier = SALES_SECTION_IDENTIFIER
             let salesTimeRangeRow:SimiRow = SimiRow(withIdentifier: SALES_TIME_RANGE_SELECT_ROW, andHeight: 40)
             salesSection.childRows.append(salesTimeRangeRow)
-            let salesChartRow:SimiRow = SimiRow(withIdentifier: SALES_CHART_ROW, andHeight: 320)
+            let chartLabelRow:SimiRow = SimiRow(withIdentifier:CHART_LABEL_ROW, andHeight:40)
+            let salesChartRow:SimiRow = SimiRow(withIdentifier: SALES_CHART_ROW, andHeight: SimiGlobalVar.screenWidth)
+            salesSection.childRows.append(chartLabelRow)
             salesSection.childRows.append(salesChartRow)
             if (SimiGlobalVar.permissionsAllowed[TOTAL_DETAIL] == true) {
                 let totalSalesInfoRow:SimiRow = SimiRow(withIdentifier: TOTAL_SALES_INFO_ROW, andHeight: 160)
@@ -230,7 +236,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             mainTableViewCells.append(salesSection)
         }
         
-        if SimiGlobalVar.permissionsAllowed != nil && SimiGlobalVar.permissionsAllowed[PRODUCT_LIST] == true && (bestsellerModelCollection != nil) && (bestsellerModelCollection.data.count > 0) && (SimiGlobalVar.userData != nil) && (SimiGlobalVar.userData.showDashboardBestsellers == true) {
+        if SimiGlobalVar.permissionsAllowed != nil && SimiGlobalVar.permissionsAllowed[PRODUCT_LIST] == true && (bestsellerModelCollection != nil) && (bestsellerModelCollection.data.count > 0) && (STUserData.sharedInstance.showDashboardBestsellers == true) {
             let bestsellerSection = SimiSection()
             bestsellerSection.data["title"] = STLocalizedString(inputString: "Best Sellers").uppercased()
             bestsellerSection.height = 30
@@ -246,7 +252,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         }
         
         
-        if SimiGlobalVar.permissionsAllowed != nil && SimiGlobalVar.permissionsAllowed[ORDER_LIST] == true && (orderModelCollection != nil) && (orderModelCollection.data.count > 0) && (SimiGlobalVar.userData != nil) && (SimiGlobalVar.userData.showDashboardLatestOrders == true)  {
+        if SimiGlobalVar.permissionsAllowed != nil && SimiGlobalVar.permissionsAllowed[ORDER_LIST] == true && (orderModelCollection != nil) && (orderModelCollection.data.count > 0) && (STUserData.sharedInstance.showDashboardLatestOrders == true)  {
             let latestOrdersSection = SimiSection()
             latestOrdersSection.data["title"] = STLocalizedString(inputString: "Latest Orders").uppercased()
             latestOrdersSection.height = 30
@@ -261,7 +267,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             mainTableViewCells.append(latestOrdersSection)
         }
         
-        if SimiGlobalVar.permissionsAllowed != nil  && SimiGlobalVar.permissionsAllowed[CUSTOMER_LIST] == true && (customerModelCollection != nil) && (customerModelCollection.data.count > 0) && (SimiGlobalVar.userData != nil) && (SimiGlobalVar.userData.showDashboardLatestCustomers == true)  {
+        if SimiGlobalVar.permissionsAllowed != nil  && SimiGlobalVar.permissionsAllowed[CUSTOMER_LIST] == true && (customerModelCollection != nil) && (customerModelCollection.data.count > 0) && (STUserData.sharedInstance.showDashboardLatestCustomers == true)  {
             let latestCustomersSection = SimiSection()
             latestCustomersSection.data["title"] = STLocalizedString(inputString: "Latest Customers").uppercased()
             latestCustomersSection.height = 30
@@ -324,7 +330,9 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         if (cellToReturn == nil) {
             if row.identifier == SALES_TIME_RANGE_SELECT_ROW {
                 cellToReturn = createTimeRangeRow(row: row, identifier: "_noreuse")
-            } else if row.identifier.range(of:SALES_CHART_ROW) != nil {
+            }else if row.identifier == CHART_LABEL_ROW{
+                cellToReturn = createChartLabelRow(row: row, identifier: "_noreuse")
+            }else if row.identifier.range(of:SALES_CHART_ROW) != nil {
                 cellToReturn = createChartRow(row: row, identifier: "_noreuse")
             } else if row.identifier.range(of:TOTAL_SALES_INFO_ROW) != nil {
                 cellToReturn = createTotalSalesRow(row: row, identifier: "_noreuse")
@@ -356,8 +364,9 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             self.navigationController?.pushViewController(newproductVC, animated: true)
         } else if (SimiGlobalVar.permissionsAllowed[ORDER_DETAIL] == true) && (row.identifier.range(of:LATEST_ORDERS_ROW) != nil) {
             let newOrderVC = STOrderDetailViewController()
-            newOrderVC.orderModel = OrderModel()
-            newOrderVC.orderModel.data = row.data
+//            newOrderVC.orderModel = OrderModel()
+//            newOrderVC.orderModel.data = row.data
+            newOrderVC.orderId = row.data["entity_id"] as! String!
             self.navigationController?.pushViewController(newOrderVC, animated: true)
         } else if (SimiGlobalVar.permissionsAllowed[CUSTOMER_DETAIL] == true) && (row.identifier.range(of:LATEST_CUSTOMERS_ROW) != nil) {
             let newCustomerVC = STCustomerDetailViewController()
@@ -365,6 +374,23 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             newCustomerVC.customerModel.data = row.data
             self.navigationController?.pushViewController(newCustomerVC, animated: true)
         }
+    }
+    
+    func createChartLabelRow(row:SimiRow, identifier:String) -> UITableViewCell {
+        let cellToReturn = UITableViewCell(style: UITableViewCellStyle.default,reuseIdentifier: identifier)
+        let ordersLabel = SimiLabel(frame:CGRect(x:15,y:0,width:SimiGlobalVar.screenWidth/2 - 15, height:row.height))
+        ordersLabel.text = STLocalizedString(inputString: "Orders")
+        ordersLabel.textAlignment = NSTextAlignment.left
+        cellToReturn.addSubview(ordersLabel)
+        let invoicesLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2,y:0,width:SimiGlobalVar.screenWidth/2 - 15, height:row.height))
+        invoicesLabel.text = STLocalizedString(inputString: "Invoices")
+        invoicesLabel.textAlignment = NSTextAlignment.right
+        cellToReturn.addSubview(invoicesLabel)
+        ordersLabel.font = THEME_BOLD_FONT
+        invoicesLabel.font = THEME_BOLD_FONT
+        ordersLabel.textColor = UIColor.lightGray
+        invoicesLabel.textColor = UIColor.lightGray
+        return cellToReturn
     }
     
     //MARK: - Order rows
@@ -509,13 +535,16 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     // MARK: - Sale Rows 
     func createTimeRangeRow(row: SimiRow, identifier: String)->UITableViewCell{
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-        let timeFilterButton = SimiButton(frame: CGRect(x: 0, y: 0, width: scaleValue(inputSize: 160), height: 40))
+        let timeFilterButton = SimiButton(frame: CGRect(x: 10, y: 5, width: scaleValue(inputSize: 160), height: 35))
+        timeFilterButton.layer.borderColor = UIColor.lightGray.cgColor
+        timeFilterButton.layer.borderWidth = 0.5
+        timeFilterButton.layer.cornerRadius = 15
         let timeIcon = SimiImageView(image: UIImage(named: "icon_time"))
         ImageViewToColor(imageView: timeIcon, color: UIColor.gray)
-        timeIcon.frame = CGRect(x: 17, y: 8, width: 25, height: 25)
+        timeIcon.frame = CGRect(x: 17, y: 5, width: 25, height: 25)
         timeFilterButton.addSubview(timeIcon)
         if (timeFilterLabel == nil) {
-            timeFilterLabel = SimiLabel(frame: CGRect(x: 42, y: 11, width: scaleValue(inputSize: 160) - 42, height: 20))
+            timeFilterLabel = SimiLabel(frame: CGRect(x: 42, y: 7.5, width: scaleValue(inputSize: 160) - 42, height: 20))
             timeFilterLabel.text = STLocalizedString(inputString: "Last 7 Days")
             timeFilterLabel.font = UIFont.systemFont(ofSize: 11)
             timeFilterLabel.textColor = UIColor.gray
@@ -604,8 +633,6 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             amountAndCountRatio = 0.8 * maxOrderValue/maxOrderCount
         }
         
-        
-        
         let saleCombinedChartData = CombinedChartData()
         
         var barChartData:Array<BarChartDataEntry> = []
@@ -649,7 +676,6 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         }
         
         saleChartView.data = saleCombinedChartData
-        
         
         cellToReturn.addSubview(saleChartView)
         return cellToReturn

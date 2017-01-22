@@ -47,7 +47,7 @@ class STAddressTableViewCell: SimiTableViewCell {
         
         
         if !(addressData["telephone"] is NSNull) && (addressData["telephone"] != nil) && ((addressData["telephone"] as! String) != "") {
-        self.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Telephone"), andValue: (addressData["telephone"] as! String), atHeight: heightCell)
+            self.addValueLabel(withTitle: STLocalizedString(inputString: "Telephone"), andValue: (addressData["telephone"] as! String), atHeight: heightCell, isCopiable:true)
         heightCell += 22
         }
         
@@ -72,7 +72,7 @@ class STAddressTableViewCell: SimiTableViewCell {
         
         
         if !(addressData["email"] is NSNull) && (addressData["email"] != nil) && ((addressData["email"] as! String) != "") {
-            self.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Email"), andValue: (addressData["email"] as! String), atHeight: heightCell)
+            self.addValueLabel(withTitle: STLocalizedString(inputString: "Email"), andValue: (addressData["email"] as! String), atHeight: heightCell, isCopiable:true)
             heightCell += 30
         }
         row.height = CGFloat(heightCell)

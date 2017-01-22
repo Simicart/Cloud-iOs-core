@@ -10,7 +10,7 @@ import UIKit
 
 class STProductListViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate {
     
-    let ITEMS_PER_PAGE = SimiGlobalVar.itemsPerPage
+    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
@@ -298,7 +298,6 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
             productIdLabel.font = UIFont.systemFont(ofSize: 12)
             productIdLabel.text = STLocalizedString(inputString: "ID") + ": " + (itemData["entity_id"] as? String)!
             cellToReturn.addSubview(productIdLabel)
-            
             heightCell += 18
         }
         
@@ -359,7 +358,6 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
         cellToReturn.selectionStyle = UITableViewCellSelectionStyle.none
         return cellToReturn
     }
-    
     
     
     // MARK: - Action sheet Handler

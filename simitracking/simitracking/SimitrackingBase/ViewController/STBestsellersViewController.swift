@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Mixpanel
 
 class STBestsellersViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let ITEMS_PER_PAGE = SimiGlobalVar.itemsPerPage
+    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
@@ -40,6 +41,11 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
         
         addPagingView()
         getBestsellers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Mixpanel.mainInstance().track(event: "Best Seller Appeared")
     }
     
     override func updateViews() {
@@ -99,7 +105,7 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
         for item in items {
             let newRow:SimiRow = SimiRow(withIdentifier: (item["entity_id"] as! String))
             newRow.data = item
-            newRow.height = 120
+            newRow.height = 72
             newSection.childRows.append(newRow)
         }
         if newSection.childRows.count != 0 {

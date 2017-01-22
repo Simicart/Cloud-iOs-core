@@ -14,6 +14,10 @@ let LAST_USER_EMAIL = "last_user_email"
 
 let THEME_COLOR:UIColor =  SimiGlobalVar.colorWithHexString(hexStringInput: "#fc9900")
 
+//Fonts
+let THEME_FONT:UIFont = UIFont.systemFont(ofSize: 13.0)
+let THEME_BOLD_FONT: UIFont = UIFont.systemFont(ofSize:12.0)
+
 let SIMI_GET:String = "GET"
 let SIMI_POST:String = "POST"
 let SIMI_PUT:String = "PUT"
@@ -45,18 +49,14 @@ let ABANDONED_CARTS_DETAILS = "21"
 
 let PERMISSION_ARRAY = [SALE_TRACKING,TOTAL_DETAIL,SALE_DETAIL,PRODUCT_LIST,PRODUCT_DETAIL,PRODUCT_EDIT,CUSTOMER_LIST,CUSTOMER_DETAIL,CUSTOMER_EDIT,CUSTOMER_ADDRESS_LIST,CUSTOMER_ADDRESS_EDIT,CUSTOMER_ADDRESS_REMOVE,ORDER_LIST,ORDER_DETAIL,INVOICE_ORDER,SHIP_ORDER,CANCEL_ORDER,HOLD_ORDER,UNHOLD_ORDER,ABANDONED_CARTS_LIST,ABANDONED_CARTS_DETAILS]
 
-// Left menu
-let DASHBOARD_MENU = "Dashboard_menu"
-let ORDER_MENU = "Order_menu"
-let BESTSELLERS_MENU = "Bestsellers_menu"
-let PRODUCT_MENU = "Product_menu"
-let CUSTOMER_MENU = "Customer_menu"
-let ABANDONED_CART_MENU = "Abandoned_cart_menu"
-let SETTING_MENU = "Setting_menu"
-let LOGOUT_MENU = "Logout_menu"
 
 let VERTICAL_LAYOUT_DIRECTION = "_vertical"
 let HORIZONTAL_LAYOUT_DIRECTION = "_horizontal"
+
+func showAlertWithTitle(_ title:String, message: String){
+    let alertView = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: STLocalizedString(inputString: "OK"))
+    alertView.show()
+}
 
 func STLocalizedString(inputString: String) ->String {
     return SimiGlobalVar.localizedStringForKey(key: inputString)
@@ -72,17 +72,12 @@ func scaleValue(inputSize: CGFloat)->CGFloat {
 }
 
 class SimiGlobalVar: NSObject {
-    //notification
-    static var deviceToken:String = ""
     
     //session
     static var baseURL:String = ""
     static var sessionId:String = ""
     static var permissionsAllowed:Dictionary<String, Bool>!
     
-    //settings
-    static var itemsPerPage = 40
-    static var userData:STUserData!
     
     //store informations
     static var storeList:Array<Dictionary<String, Any>>!
@@ -141,12 +136,34 @@ class SimiGlobalVar: NSObject {
     }
     
     static func getPrice(currency: String, value:String)->String {
-        let priceValue = Double(value)
-        return (currency + " " + (priceValue?.description)!)
+//        let priceValue = Double(value)
+        let currencyPosition = STUserData.sharedInstance.currencyPosition
+        let decimalNumber = STUserData.sharedInstance.decimalNumber
+        let decimalSeparator = STUserData.sharedInstance.decimalSeparator
+        let thousandsSeparator = STUserData.sharedInstance.thousandsSeparator
+        
+        let numberFormatter: NumberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.decimalSeparator = decimalSeparator
+        numberFormatter.minimumFractionDigits = Int(decimalNumber)!
+        numberFormatter.maximumFractionDigits = Int(decimalNumber)!
+        numberFormatter.groupingSeparator = thousandsSeparator
+        let priceValue = numberFormatter.number(from: value)
+        switch currencyPosition {
+        case currencyLeft:
+            return (currency + "" + numberFormatter.string(from: priceValue!)!)
+        case currencyRight:
+            return (numberFormatter.string(from: priceValue!)! + "" + currency)
+        case currencyLeftSpace:
+            return (currency + " " + numberFormatter.string(from: priceValue!)!)
+        case currencyRightSpace:
+            return (numberFormatter.string(from: priceValue!)! + " " + currency)
+        default:
+            return (currency + " " + numberFormatter.string(from: priceValue!)!)
+        }
     }
     
     //screen var
-    
     static func updateScreenSize(size: CGSize) {
         screenWidth = size.width
         screenHeight = size.height

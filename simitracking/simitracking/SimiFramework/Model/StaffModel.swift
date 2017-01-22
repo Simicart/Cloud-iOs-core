@@ -28,8 +28,8 @@ class StaffModel: SimiModel {
         self.data["email"] = userEmail as AnyObject?
         self.data["password"] = password as AnyObject?
         var tokenToSend = "nontoken_"+UIDevice.current.identifierForVendor!.uuidString
-        if (SimiGlobalVar.deviceToken != "") {
-            tokenToSend = SimiGlobalVar.deviceToken
+        if (STUserData.sharedInstance.deviceTokenId != "") {
+            tokenToSend = STUserData.sharedInstance.deviceTokenId
         }
         var platformId = "1"
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
@@ -44,8 +44,8 @@ class StaffModel: SimiModel {
         self.data["email"] = userEmail as AnyObject?
         self.data["qr_session_id"] = qrsession as AnyObject?
         var tokenToSend = "nontoken_"+UIDevice.current.identifierForVendor!.uuidString
-        if (SimiGlobalVar.deviceToken != "") {
-            tokenToSend = SimiGlobalVar.deviceToken
+        if (STUserData.sharedInstance.deviceTokenId != "") {
+            tokenToSend = STUserData.sharedInstance.deviceTokenId
         }
         var platformId = "1"
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {

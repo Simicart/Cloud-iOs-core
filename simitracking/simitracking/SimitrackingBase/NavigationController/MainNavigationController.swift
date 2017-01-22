@@ -22,6 +22,8 @@ class MainNavigationController: SimiNavigationController {
         super.viewDidLoad()
         self.navigationBar.barTintColor =  THEME_COLOR
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UIToolbar.appearance().tintColor = UIColor.gray
         createLeftMenuButton()
     }
     

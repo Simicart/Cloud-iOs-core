@@ -9,13 +9,21 @@
 import UIKit
 
 class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    private var isEdittingCustomer: Bool = false
+    private var preffixTextField:SimiTextField = SimiTextField(), firstNameTextField:SimiTextField = SimiTextField(), middleNameTextField: SimiTextField = SimiTextField(), lastNameTextField:SimiTextField = SimiTextField(), suffixTextField:SimiTextField = SimiTextField(), dobTextField:SimiTextField = SimiTextField()
+    
     let SUMMARY_INFO_ROW = "customer_summary_info_row"
     let PROFILE_CUSTOMER_ROW = "profile_customer_row"
     let CUSTOMER_ADDRESS_ROW = "customer_address_row"
     let CUSTOMER_BILLING_ADDRESS_ROW = "customer_billing_address_row"
     let CUSTOMER_SHIPPING_ADDRESS_ROW = "customer_shipping_address_row"
     let CUSTOMER_ORDER_ROW = "customer_orders_row"
+    
+    let CUSTOMER_SUMMARY_SECTION = "CUSTOMER_SUMMARY_SECTION"
+    let CUSTOMER_INFO_SECTION = "CUSTOMER_INFO_SECTION"
+    let CUSTOMER_ORDERS_SECTION = "CUSTOMER_ORDERS_SECTION"
+    let CUSTOMER_ADDRESSES_SECTION = "CUSTOMER_ADDRESSES_SECTION"
     
     var gotFullInformation = false
     
@@ -29,6 +37,11 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         createBackButton()
         self.setMainTableViewCells()
         
+        let dobPickerView: UIDatePicker = UIDatePicker()
+        dobPickerView.datePickerMode = UIDatePickerMode.date
+        dobTextField.inputView = dobPickerView
+        dobPickerView.addTarget(self, action: #selector(didSelectDatePicker(datePicker:)), for: UIControlEvents.valueChanged)
+        
         if (mainTableView == nil) {
             mainTableView = SimiTableView(frame:
                 CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: UITableViewStyle.grouped)
@@ -39,6 +52,10 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         self.view.addSubview(mainTableView)
         self.title = STLocalizedString(inputString: "Customer Details").uppercased()
         getCustomerDetail()
+    }
+    
+    func didSelectDatePicker(datePicker:UIDatePicker){
+        dobTextField.text = dateToString(date: datePicker.date, format: "yyyy-MM-dd")
     }
     
     override func updateViews() {
@@ -84,20 +101,20 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
     func setMainTableViewCells() {
         mainTableViewCells = []
         
-        let summarySection = SimiSection()
+        let summarySection = SimiSection(identifier: CUSTOMER_SUMMARY_SECTION)
         summarySection.data["title"] = STLocalizedString(inputString: "Customer Summary").uppercased()
         let customerSummaryRow:SimiRow = SimiRow(withIdentifier: SUMMARY_INFO_ROW, andHeight: 150)
         summarySection.childRows.append(customerSummaryRow)
         mainTableViewCells.append(summarySection)
         
-        let profileSection = SimiSection()
+        let profileSection = SimiSection(identifier: CUSTOMER_INFO_SECTION)
         profileSection.data["title"] = STLocalizedString(inputString: "Customer Information").uppercased()
         let customerOutlineRow:SimiRow = SimiRow(withIdentifier: PROFILE_CUSTOMER_ROW, andHeight: 150)
         profileSection.childRows.append(customerOutlineRow)
         mainTableViewCells.append(profileSection)
         
         if (SimiGlobalVar.permissionsAllowed[ORDER_LIST] == true) {
-            let customerOrdersSection = SimiSection()
+            let customerOrdersSection = SimiSection(identifier: CUSTOMER_ORDERS_SECTION)
             customerOrdersSection.data["title"] = STLocalizedString(inputString: "Customer Orders").uppercased()
             let customerOrdersRow:SimiRow = SimiRow(withIdentifier: CUSTOMER_ORDER_ROW, andHeight: 40)
             customerOrdersSection.childRows.append(customerOrdersRow)
@@ -105,7 +122,7 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         }
         
         if (SimiGlobalVar.permissionsAllowed[CUSTOMER_ADDRESS_LIST] == true) {
-            let customerAddressSection = SimiSection()
+            let customerAddressSection = SimiSection(identifier: CUSTOMER_ADDRESSES_SECTION)
             customerAddressSection.data["title"] = STLocalizedString(inputString: "Customer Addresses").uppercased()
             let customerAddressRow:SimiRow = SimiRow(withIdentifier: CUSTOMER_ADDRESS_ROW, andHeight: 40)
             customerAddressSection.childRows.append(customerAddressRow)
@@ -137,19 +154,32 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 40
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: 20))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: 40))
         let section = mainTableViewCells[section] as! SimiSection
         if section.data["title"] != nil {
-            let tittleHeader = SimiLabel(frame: CGRect(x: 15, y: 0, width: SimiGlobalVar.screenWidth - 30, height: 20))
+            let tittleHeader = SimiLabel(frame: CGRect(x: 15, y: 10, width: SimiGlobalVar.screenWidth - 50, height: 20))
             tittleHeader.text = section.data["title"] as? String
-            tittleHeader.font = UIFont.systemFont(ofSize: 11)
-            tittleHeader.textColor = UIColor.lightGray
+            tittleHeader.font = THEME_FONT
+            tittleHeader.textColor = UIColor.white
             headerView.addSubview(tittleHeader)
+            let editButton = SimiButton(frame: CGRect(x:SimiGlobalVar.screenWidth - 40,y:0,width:40,height:40))
+            editButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+            if(section.identifier == CUSTOMER_SUMMARY_SECTION){
+                if !isEdittingCustomer{
+                    editButton.setImage(UIImage(named:"ic_edit"), for: UIControlState.normal)
+                    editButton.addTarget(self, action: #selector(didClickEditSummary), for: UIControlEvents.touchUpInside)
+                }else{
+                    editButton.setImage(UIImage(named:"ic_tick"), for: UIControlState.normal)
+                    editButton.addTarget(self, action: #selector(editCustomerSummary), for: UIControlEvents.touchUpInside)
+                }
+                headerView .addSubview(editButton)
+            }
         }
+        headerView.backgroundColor = THEME_COLOR
         return headerView
     }
     
@@ -173,27 +203,24 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         }
         
         var cellToReturn = mainTableView.dequeueReusableCell(withIdentifier: identifier)
-        
-        if (cellToReturn == nil) {
-            if row.identifier == PROFILE_CUSTOMER_ROW {
-                cellToReturn = createCustomerProfileRow(row: row, identifier: identifier
-)
-            } else if (row.identifier == SUMMARY_INFO_ROW) {
-                cellToReturn = createSummaryRow(row: row, identifier: identifier
-)
-            } else if (row.identifier == CUSTOMER_ADDRESS_ROW) {
-                cellToReturn = createAddressRow(row: row, identifier: identifier
-)
-            } else if (row.identifier == CUSTOMER_BILLING_ADDRESS_ROW) {
-                cellToReturn = createAddressDetailRow(row: row, identifier: identifier, addressData: customerModel.data["billing_address_data"] as! Dictionary<String, Any>)
-            } else if (row.identifier == CUSTOMER_SHIPPING_ADDRESS_ROW) {
-                cellToReturn = createAddressDetailRow(row: row, identifier: identifier, addressData: customerModel.data["shipping_address_data"] as! Dictionary<String, Any>)
-            }else if (row.identifier == CUSTOMER_ORDER_ROW) {
-                cellToReturn = createOrderRow(row: row, identifier: identifier
-)
-            }
-            else {
-                cellToReturn = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+        if (row.identifier == SUMMARY_INFO_ROW){
+            cellToReturn = createSummaryRow(row: row, identifier: identifier)
+        }else{
+            if (cellToReturn == nil) {
+                if row.identifier == PROFILE_CUSTOMER_ROW {
+                    cellToReturn = createCustomerProfileRow(row: row, identifier: identifier)
+                } else if (row.identifier == CUSTOMER_ADDRESS_ROW) {
+                    cellToReturn = createAddressRow(row: row, identifier: identifier)
+                } else if (row.identifier == CUSTOMER_BILLING_ADDRESS_ROW) {
+                    cellToReturn = createAddressDetailRow(row: row, identifier: identifier, addressData: customerModel.data["billing_address_data"] as! Dictionary<String, Any>)
+                } else if (row.identifier == CUSTOMER_SHIPPING_ADDRESS_ROW) {
+                    cellToReturn = createAddressDetailRow(row: row, identifier: identifier, addressData: customerModel.data["shipping_address_data"] as! Dictionary<String, Any>)
+                }else if (row.identifier == CUSTOMER_ORDER_ROW) {
+                    cellToReturn = createOrderRow(row: row, identifier: identifier)
+                }
+                else {
+                    cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+                }
             }
         }
         
@@ -220,7 +247,7 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        dismissKeyboard()
+        view.endEditing(true)
     }
     
     //MARK: - Row creating functions
@@ -233,37 +260,57 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         
         
         if !(customerModel.data["email"] is NSNull) && (customerModel.data["email"] != nil) {
-            cellToReturn.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (customerModel.data["email"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (customerModel.data["email"] as? String)!, atHeight: heightCell, isCopiable: true)
             heightCell += 22
         }
         
+        var preffix: String = ""
         if !(customerModel.data["prefix"] is NSNull) && (customerModel.data["prefix"] != nil){
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Prefix"), andValue: (customerModel.data["prefix"] as? String)!, atHeight: heightCell)
-            heightCell += 22
+            preffix = customerModel.data["prefix"] as! String
         }
+        cellToReturn.addEditableTextField(textField:preffixTextField, withTitle: STLocalizedString(inputString: "Prefix"), andValue: preffix, atHeight: heightCell)
+        cellToReturn.isEditable = isEdittingCustomer
+        heightCell += 26
         
+        var firstName: String = ""
         if !(customerModel.data["firstname"] is NSNull) && (customerModel.data["firstname"] != nil) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "First Name"), andValue: (customerModel.data["firstname"] as? String)!, atHeight: heightCell)
-            heightCell += 22
+            firstName = customerModel.data["firstname"] as! String
         }
+        cellToReturn.addEditableTextField(textField:firstNameTextField,withTitle: STLocalizedString(inputString: "First Name"), andValue: firstName, atHeight: heightCell)
+        cellToReturn.isEditable = isEdittingCustomer
+        heightCell += 26
         
+        var middleName: String = ""
         if !(customerModel.data["middlename"] is NSNull) && (customerModel.data["middlename"] != nil) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Middle Name"), andValue: (customerModel.data["middlename"] as? String)!, atHeight: heightCell)
-            heightCell += 22
+            middleName = (customerModel.data["middlename"] as? String)!
         }
+        cellToReturn.addEditableTextField(textField:middleNameTextField, withTitle: STLocalizedString(inputString: "Middle Name"), andValue: middleName, atHeight: heightCell)
+        cellToReturn.isEditable = isEdittingCustomer
+        heightCell += 26
         
-        
-        
+        var lastName: String = ""
         if !(customerModel.data["lastname"] is NSNull) && (customerModel.data["lastname"] != nil){
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Last Name"), andValue: (customerModel.data["lastname"] as? String)!, atHeight: heightCell)
-            heightCell += 22
+            lastName = (customerModel.data["lastname"] as? String)!
         }
+        cellToReturn.addEditableTextField(textField:lastNameTextField, withTitle: STLocalizedString(inputString: "Last Name"), andValue: lastName, atHeight: heightCell)
+        cellToReturn.isEditable = isEdittingCustomer
+        heightCell += 26
         
-        
+        var suffix: String = ""
         if !(customerModel.data["suffix"] is NSNull) && (customerModel.data["suffix"] != nil) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Suffix"), andValue: (customerModel.data["suffix"] as? String)!, atHeight: heightCell)
-            heightCell += 22
+            suffix = (customerModel.data["suffix"] as? String)!
         }
+        cellToReturn.addEditableTextField(textField:suffixTextField, withTitle: STLocalizedString(inputString: "Suffix"), andValue: suffix, atHeight: heightCell)
+        cellToReturn.isEditable = isEdittingCustomer
+        heightCell += 26
+        
+        var dob: String = ""
+        if !(customerModel.data["dob"] is NSNull) && (customerModel.data["dob"] != nil){
+            dob = customerModel.data["dob"] as! String
+        }
+        cellToReturn.addEditableTextField(textField:dobTextField, withTitle: STLocalizedString(inputString: "Dob"), andValue: dob, atHeight: heightCell)
+        cellToReturn.isEditable = isEdittingCustomer
+        heightCell += 26
         
         heightCell += 8
         row.height = CGFloat(heightCell)
@@ -279,12 +326,10 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
             heightCell += 22
         }
         
-        
         if !(customerModel.data["updated_at"] is NSNull) && (customerModel.data["updated_at"] != nil){
             cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Last Updated At"), andValue: (customerModel.data["updated_at"] as? String)!, atHeight: heightCell)
             heightCell += 22
         }
-        
         
         if !(customerModel.data["updated_at"] is NSNull) && (customerModel.data["updated_at"] != nil){
             var activeString = STLocalizedString(inputString: "No")
@@ -292,12 +337,6 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
                 activeString = STLocalizedString(inputString: "Yes")
             }
             cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Is Actived"), andValue: activeString, atHeight: heightCell)
-            heightCell += 22
-        }
-        
-        
-        if !(customerModel.data["dob"] is NSNull) && (customerModel.data["dob"] != nil){
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Date Of Birth"), andValue: (customerModel.data["dob"] as? String)!, atHeight: heightCell)
             heightCell += 22
         }
         
@@ -319,13 +358,11 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
     
     func createAddressRow(row: SimiRow, identifier: String) -> UITableViewCell {
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-        
         let customerAddressBookLabel = SimiLabel(frame: CGRect(x: 15, y: 12, width: 300, height: 16))
         customerAddressBookLabel.textColor = UIColor.darkGray
         customerAddressBookLabel.font = UIFont.systemFont(ofSize: 13)
         customerAddressBookLabel.text = STLocalizedString(inputString: "View Customer Address Book").uppercased()
         cellToReturn.addSubview(customerAddressBookLabel)
-        
         
         cellToReturn.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cellToReturn
@@ -346,11 +383,39 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         customerOrderLabel.text = STLocalizedString(inputString: "View Customer Orders").uppercased()
         cellToReturn.addSubview(customerOrderLabel)
         
-        
         cellToReturn.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cellToReturn
     }
+//MARK: -Handle edit actions
+    func didClickEditSummary(){
+        isEdittingCustomer = true
+        mainTableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
+        firstNameTextField.becomeFirstResponder()
+    }
     
-
-
+    func editCustomerSummary(){
+        var params: Dictionary<String, String> = [String:String]()
+        params.updateValue(firstNameTextField.text!, forKey: "firstname")
+        params.updateValue(middleNameTextField.text!, forKey: "middlename")
+        params.updateValue(lastNameTextField.text!, forKey: "lastname")
+        params.updateValue(suffixTextField.text!, forKey: "suffix")
+        params.updateValue(preffixTextField.text!, forKey: "prefix")
+        if !(dobTextField.text?.isEmpty)!{
+            let dobElements = splitDate(date: stringToDate(dateString:dobTextField.text!, format:"yyyy-MM-dd"))
+            params.updateValue(dobElements.0 , forKey: "day")
+            params.updateValue(dobElements.1 , forKey: "month")
+            params.updateValue(dobElements.2 , forKey: "year")
+        }
+        customerModel.editCustomerDetailWithId(id: (customerModel.data["entity_id"] as! String), params: params)
+        NotificationCenter.default.addObserver(self, selector: #selector(didEditCustomerDetail(notification:)), name: NSNotification.Name(rawValue: DidEditCustomerDetail), object: nil)
+        self.showLoadingView()
+    }
+    
+    func didEditCustomerDetail(notification:NSNotification){
+        self.hideLoadingView()
+        NotificationCenter.default.removeObserver(self, name: notification.name, object: nil)
+        isEdittingCustomer = false
+        mainTableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
+    }
+    
 }

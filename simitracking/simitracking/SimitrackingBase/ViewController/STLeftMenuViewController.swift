@@ -10,6 +10,19 @@ import UIKit
 
 class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource{
 
+    static let shareInstance = STLeftMenuViewController()
+    
+    // Left menu identifiers
+    let DASHBOARD_MENU = "Dashboard_menu"
+    let FORECAST_MENU = "FORECAST_MENU"
+    let ORDER_MENU = "Order_menu"
+    let BESTSELLERS_MENU = "Bestsellers_menu"
+    let PRODUCT_MENU = "Product_menu"
+    let CUSTOMER_MENU = "Customer_menu"
+    let ABANDONED_CART_MENU = "Abandoned_cart_menu"
+    let SETTING_MENU = "Setting_menu"
+    let LOGOUT_MENU = "Logout_menu"
+    
     let drawerWidth = 280
     
     var staffModel:StaffModel!
@@ -35,6 +48,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     var bestsellersListVC:STBestsellersViewController!
     var productListVC:STProductListViewController!
     var settingVC:STSettingViewController!
+    var forecastVC: STForecastViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +124,6 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
             self.view.addSubview(mainTableView)
         }
     }
-    
     
     func setMainTableViewCells() {
         mainTableViewCells = []
@@ -221,6 +234,9 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         case DASHBOARD_MENU:
             showDashboard()
             break
+        case FORECAST_MENU:
+            showForecast()
+            break
         case ORDER_MENU:
             showOrderList()
             break
@@ -262,6 +278,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
             var returnArray:Array<Any> = []
             returnArray.append([STLocalizedString(inputString: "Dashboard"),DASHBOARD_MENU,"dashboard_icon",
                                 []])
+            returnArray.append([STLocalizedString(inputString: "Forecast"),FORECAST_MENU,"ic_forecast",[]])
             returnArray.append([STLocalizedString(inputString: "Orders"),ORDER_MENU,"order_icon",
                                 [ORDER_LIST,ORDER_DETAIL,INVOICE_ORDER,SHIP_ORDER,CANCEL_ORDER,HOLD_ORDER,UNHOLD_ORDER]])
             returnArray.append([STLocalizedString(inputString: "Best Sellers"),BESTSELLERS_MENU,"bestseller_icon",
@@ -290,6 +307,16 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     
     func showDashboard() {
         mainNavigation.popToRootViewController(animated: false)
+    }
+    
+    func showForecast(){
+        mainNavigation.popToRootViewController(animated: false)
+        if(forecastVC == nil){
+            forecastVC = STForecastViewController()
+        }
+        mainNavigation.pushViewController(forecastVC, animated: false)
+        mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+        forecastVC.navigationItem.leftBarButtonItem = mainNavigation.menuButton
     }
     
     func showOrderList() {
@@ -341,6 +368,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     }
     
     func logout() {
+        STUserData.sharedInstance.clearUserData()
         mainNavigation.dismissDrawerController()
     }
 }

@@ -14,4 +14,27 @@ class SimiSection: NSObject {
     var childRows:Array<SimiRow> = []
     var data:Dictionary<String,Any> = [:]
     
+    var rowCount: Int{
+        get{
+            return childRows.count
+        }
+    }
+    
+    init(identifier:String){
+        super.init()
+        self.identifier = identifier;
+    }
+    
+    func addRowWithIdentifier(identifier:String, height:CGFloat){
+        let row = SimiRow.init(withIdentifier: identifier, andHeight: height)
+        childRows.append(row)
+    }
+    
+    func rowAtIndex(index:Int) -> SimiRow{
+        return childRows[index]
+    }
+    
+    override init() {
+        super.init()
+    }
 }

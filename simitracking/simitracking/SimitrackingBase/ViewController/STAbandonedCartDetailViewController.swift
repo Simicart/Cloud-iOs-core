@@ -114,17 +114,18 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 40
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: 20))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: 40))
+        headerView.backgroundColor = THEME_COLOR
         let section = mainTableViewCells[section] as! SimiSection
         if section.data["title"] != nil {
-            let tittleHeader = SimiLabel(frame: CGRect(x: 15, y: 0, width: SimiGlobalVar.screenWidth - 30, height: 20))
+            let tittleHeader = SimiLabel(frame: CGRect(x: 15, y: 0, width: SimiGlobalVar.screenWidth - 30, height: 40))
             tittleHeader.text = section.data["title"] as? String
-            tittleHeader.font = UIFont.systemFont(ofSize: 11)
-            tittleHeader.textColor = UIColor.lightGray
+            tittleHeader.font = THEME_FONT
+            tittleHeader.textColor = UIColor.white
             headerView.addSubview(tittleHeader)
         }
         return headerView
@@ -185,12 +186,12 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
         var heightCell = 10
         
         if !(abandonedCartModel.data["customer_email"] is NSNull) && (abandonedCartModel.data["customer_email"] != nil) {
-            cellToReturn.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (abandonedCartModel.data["customer_email"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (abandonedCartModel.data["customer_email"] as? String)!, atHeight: heightCell, isCopiable:true)
             heightCell += 22
         }
         
         if !(abandonedCartModel.data["remote_ip"] is NSNull) && (abandonedCartModel.data["remote_ip"] != nil) {
-            cellToReturn.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Customer IP"), andValue: (abandonedCartModel.data["remote_ip"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer IP"), andValue: (abandonedCartModel.data["remote_ip"] as? String)!, atHeight: heightCell, isCopiable:true)
             heightCell += 22
         }
         

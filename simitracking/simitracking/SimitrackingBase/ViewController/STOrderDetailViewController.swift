@@ -19,7 +19,8 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
     let SHIPPING_METHOD_ROW = "shipping_method_row"
     let TOTAL_FEE_ROW = "total_fee_row"
     
-    var orderModel:OrderModel!
+    var orderId:String!
+    private var orderModel: OrderModel!
     var statusDict:Dictionary<String, String>!
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<Any>!
@@ -40,7 +41,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         createBackButton()
-        self.setMainTableViewCells()
+        mainTableViewCells = []
         
         if (mainTableView == nil) {
             mainTableView = SimiTableView(frame:
@@ -90,9 +91,12 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
     }
     //MARK: - Get Order Detail
     func getOrderDetail() {
-        //showLoadingView()
+        showLoadingView()
         NotificationCenter.default.addObserver(self, selector: #selector(didGetOrderDetail(notification:)), name: NSNotification.Name(rawValue: "DidGetOrderDetail"), object: nil)
-        orderModel.getOrderDetailWithId(id: (orderModel.data["entity_id"] as! String), params: [:])
+        if orderModel == nil{
+            orderModel = OrderModel()
+        }
+        orderModel.getOrderDetailWithId(id: orderId, params: [:])
     }
     
     // Get Order Detail handler
@@ -148,8 +152,6 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
             mainTableViewCells.append(itemsSection)
         }
         
-        
-        
         if (orderModel.data["shipping_address"] != nil) && (orderModel.data["shipping_address"] is Dictionary<String , Any>) {
             let shippingAddressSection = SimiSection()
             shippingAddressSection.data["title"] = STLocalizedString(inputString: "Shipping Address").uppercased()
@@ -202,21 +204,30 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 40
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: 20))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: 40))
         let section = mainTableViewCells[section] as! SimiSection
         if section.data["title"] != nil {
-            let tittleHeader = SimiLabel(frame: CGRect(x: 15, y: 0, width: SimiGlobalVar.screenWidth - 30, height: 20))
-            tittleHeader.text = section.data["title"] as? String
-            tittleHeader.font = UIFont.systemFont(ofSize: 11)
-            tittleHeader.textColor = UIColor.lightGray
+            let tittleHeader = SimiLabel(frame: CGRect(x: 15, y: 0, width: SimiGlobalVar.screenWidth - 30, height: 40))
+            tittleHeader.text = STLocalizedString(inputString: (section.data["title"] as? String)!)
+            tittleHeader.font = THEME_FONT
+            tittleHeader.textColor = UIColor.white
             headerView.addSubview(tittleHeader)
+            headerView.backgroundColor = THEME_COLOR
         }
         return headerView
     }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let section = mainTableViewCells[section] as! SimiSection
+//        if((section.data["title"]) != nil){
+//            return section.data["title"] as! String
+//        }
+//        return ""
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return mainTableViewCells.count
@@ -270,12 +281,16 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
                 cellToReturn = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
         }
-        //cellToReturn?.selectionStyle = UITableViewCellSelectionStyle.none
+        cellToReturn?.selectionStyle = UITableViewCellSelectionStyle.none
+        if row.identifier.range(of: CUSTOMER_INFO_ROW) != nil{
+            cellToReturn?.selectionStyle = .default
+        }
         return cellToReturn!
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let section = mainTableViewCells[indexPath.section] as! SimiSection
         let row = section.childRows[indexPath.row]
         let identifier = row.identifier
@@ -318,7 +333,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
         }
         
         if (orderModel.data["updated_at"] !=  nil) && !(orderModel.data["updated_at"] is NSNull) {
-            cellToReturn.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Last Updated At"), andValue: (orderModel.data["updated_at"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Last Updated At"), andValue: (orderModel.data["updated_at"] as? String)!, atHeight: heightCell, isCopiable:true)
             heightCell += 22
         }
         if (orderModel.data["grand_total"] !=  nil) && !(orderModel.data["grand_total"] is NSNull) {
@@ -326,7 +341,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
             if (orderModel.data["base_grand_total"] as! String !=  orderModel.data["grand_total"] as! String) {
                 grandTotalText += " [" + SimiGlobalVar.getPrice(currency: (orderModel.data["order_currency_code"] as? String)!, value: (orderModel.data["grand_total"] as? String)!) + "]"
             }
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Grand Total"), andValue: grandTotalText, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Grand Total"), andValue: grandTotalText, atHeight: heightCell,textColor:UIColor.red)
             heightCell += 22
         }
         
@@ -336,7 +351,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
         }
         
         if (orderModel.data["status"] !=  nil) && !(orderModel.data["status"] is NSNull) {
-            cellToReturn.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Status"), andValue: (orderModel.data["status"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Status"), andValue: (orderModel.data["status"] as? String)!, atHeight: heightCell, isCopiable:true)
             heightCell += 22
         }
         return cellToReturn
@@ -369,7 +384,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
         }
         
         if (orderModel.data["customer_email"] !=  nil) && !(orderModel.data["customer_email"] is NSNull) {
-            cellToReturn.addCopiableValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (orderModel.data["customer_email"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (orderModel.data["customer_email"] as? String)!, atHeight: heightCell, isCopiable:true)
             heightCell += 22
         }
         

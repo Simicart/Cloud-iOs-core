@@ -7,23 +7,47 @@
 //
 
 import UIKit
+import Mixpanel
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
     var window: UIWindow?
-
-
+    private var orderId: String = ""
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let loginVC = STLoginViewController()
+        // For remote Notification
+        loginVC.orderId = ""
+//        if let launchOpts = launchOptions {
+//            if let notificationPayload: NSDictionary = launchOpts[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary{
+//                self.application(application, didReceiveRemoteNotification: notificationPayload as! [AnyHashable : Any], fetchCompletionHandler: { (UIBackgroundFetchResult) in
+//                })
+//                loginVC.orderId = orderId
+////                let aps = notificationPayload["aps"] as! NSDictionary
+////                showAlertWithTitle("", message: "\(aps)")
+////                let orderId = aps["order_id"] as! String
+////                loginVC.orderId = orderId
+//            }
+//        }
         SimiGlobalVar.updateLayoutDirection()
         //notification token getting
         let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.backgroundColor = UIColor.white
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController = loginVC
         
+        let token = "bc66f588572a4f25c4d56a615ded3309"
+        Mixpanel.initialize(token: token)
         return true
     }
-
+    
+    override func remoteControlReceived(with event: UIEvent?) {
+        
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -48,14 +72,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DidReceiveRemoteNotification"), object: userInfo)
+        if let aps = userInfo["aps"] as? NSDictionary {
+            let title = aps["title"] as? NSString as? String
+            let alert = aps["alert"] as? NSString as? String
+            //let message = aps["message"] as? NSString as? String
+            orderId = (aps["order_id"] as? NSString as? String)!
+            //check app state
+            let state = UIApplication.shared.applicationState
+            if state == .background {
+            }else if(state == .active){
+                let alertView = UIAlertView(title: title!, message: alert!, delegate: self, cancelButtonTitle: STLocalizedString(inputString: "OK"), otherButtonTitles: STLocalizedString(inputString: "Show Order"))
+                alertView.show()
+            }else if(state == .inactive){
+                let orderDetailVC = STOrderDetailViewController()
+                orderDetailVC.orderId = orderId
+                if let mainNavigation = STLeftMenuViewController.shareInstance.mainNavigation{
+                    mainNavigation.popToRootViewController(animated: false)
+                    mainNavigation.pushViewController(orderDetailVC, animated: false)
+                    mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+                    orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+                }else{
+                    
+                }
+            }
+        }
+    }
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         var tokenString = ""
         for i in 0..<deviceToken.count {
             tokenString += String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
-        SimiGlobalVar.deviceToken = tokenString
+//        SimiGlobalVar.deviceToken = tokenString
+        //Save device token id
+        STUserData.sharedInstance.deviceTokenId = tokenString
     }
-
-
+    
+    //Show message for order push notification
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        if(buttonIndex == 1){
+            let orderDetailVC = STOrderDetailViewController()
+            orderDetailVC.orderId = orderId
+            STLeftMenuViewController.shareInstance.mainNavigation.popToRootViewController(animated: false)
+            STLeftMenuViewController.shareInstance.mainNavigation.pushViewController(orderDetailVC, animated: false)
+            STLeftMenuViewController.shareInstance.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+            orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+        }
+    }
 }
 

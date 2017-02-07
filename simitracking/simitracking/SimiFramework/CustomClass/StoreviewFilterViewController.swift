@@ -114,6 +114,7 @@ class StoreviewFilterViewController: SimiViewController, UIActionSheetDelegate {
             for store in SimiGlobalVar.storeList {
                 if store["action_sheet_index"] as! Int == buttonIndex {
                     SimiGlobalVar.selectedStoreId = store["store_id"] as! String
+                    trackEvent("change_store", params: ["store_id":SimiGlobalVar.selectedStoreId])
                 }
             }
             switchStore()

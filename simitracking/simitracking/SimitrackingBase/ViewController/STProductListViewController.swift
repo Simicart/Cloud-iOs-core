@@ -12,13 +12,14 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
     
     let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
+    private var emptyLabel: UILabel!
+    
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
     var lastContentOffset:CGPoint?
     var productModelCollection:ProductModelCollection!
     var totalProducts = 0
     var refreshControl:UIRefreshControl!
-    
     var searchVC:STSearchViewController!
     var searchTerm = ""
     var searchAttribute = ""
@@ -59,6 +60,15 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
         
         addFloatView(withView: searchButton)
         getProducts()
+        
+        if (emptyLabel == nil) {
+            emptyLabel = SimiLabel(frame: CGRect(x: 0, y: 150, width: SimiGlobalVar.screenWidth, height: 30))
+            emptyLabel.text = STLocalizedString(inputString: "No Products Found")
+            emptyLabel.textAlignment = NSTextAlignment.center
+            emptyLabel.textColor = UIColor.gray
+            emptyLabel.isHidden = true
+            self.view.addSubview(emptyLabel)
+        }
     }
     
     override func updateViews() {
@@ -83,6 +93,7 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
         if (searchAttribute != "") && (searchTerm != "") {
             let attributeToSearch = "filter[" + searchAttribute + "][like]"
             paramMeters[attributeToSearch] = "%" + searchTerm + "%"
+            trackEvent("list_products_action", params: ["search_action":searchAttribute])
         }
         
         if (SimiGlobalVar.selectedStoreId != "") {
@@ -106,12 +117,17 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            totalProducts = productModelCollection.total!
-            maxPage = totalProducts/ITEMS_PER_PAGE + 1
-            setMainTableViewCells()
-            mainTableView.reloadData()
-            setCurrentPage(pageNumber: currentPage)
-            updatePagingView()
+            if productModelCollection.total == 0{
+                emptyLabel.isHidden = true
+            }else{
+                emptyLabel.isHidden = false
+                totalProducts = productModelCollection.total!
+                maxPage = totalProducts/ITEMS_PER_PAGE + 1
+                setMainTableViewCells()
+                mainTableView.reloadData()
+                setCurrentPage(pageNumber: currentPage)
+                updatePagingView()
+            }
         }
     }
     
@@ -172,6 +188,7 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
          let newProductDetailVC = STProductDetailViewController()
          newProductDetailVC.productModel = ProductModel()
          newProductDetailVC.productModel.data = rowData
+        trackEvent("list_products_action", params: ["action":"view_product_detail"])
          self.navigationController?.pushViewController(newProductDetailVC, animated: true)
     }
     
@@ -247,10 +264,12 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
     
     override func openNextPage() {
         super.openNextPage()
+        trackEvent("list_products_action", params: ["action":"next_page"])
         getProducts()
     }
     override func openPreviousPage() {
         super.openPreviousPage()
+        trackEvent("list_products_action", params: ["action":"previous_page"])
         getProducts()
     }
     

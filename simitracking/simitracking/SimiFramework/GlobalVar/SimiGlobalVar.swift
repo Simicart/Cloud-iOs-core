@@ -14,6 +14,7 @@ let LAST_USER_EMAIL = "last_user_email"
 
 let THEME_COLOR:UIColor =  SimiGlobalVar.colorWithHexString(hexStringInput: "#fc9900")
 
+
 //Fonts
 let THEME_FONT:UIFont = UIFont.systemFont(ofSize: 13.0)
 let THEME_BOLD_FONT: UIFont = UIFont.systemFont(ofSize:12.0)
@@ -22,7 +23,6 @@ let SIMI_GET:String = "GET"
 let SIMI_POST:String = "POST"
 let SIMI_PUT:String = "PUT"
 let SIMI_DELETE:String = "DELETE"
-
 
 // Permissions
 let SALE_TRACKING = "1"
@@ -53,6 +53,7 @@ let PERMISSION_ARRAY = [SALE_TRACKING,TOTAL_DETAIL,SALE_DETAIL,PRODUCT_LIST,PROD
 let VERTICAL_LAYOUT_DIRECTION = "_vertical"
 let HORIZONTAL_LAYOUT_DIRECTION = "_horizontal"
 
+
 func showAlertWithTitle(_ title:String, message: String){
     let alertView = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: STLocalizedString(inputString: "OK"))
     alertView.show()
@@ -70,6 +71,7 @@ func ImageViewToColor(imageView: UIImageView, color:UIColor) {
 func scaleValue(inputSize: CGFloat)->CGFloat {
     return SimiGlobalVar.scaleValue(inputSize: inputSize)
 }
+
 
 class SimiGlobalVar: NSObject {
     
@@ -139,15 +141,14 @@ class SimiGlobalVar: NSObject {
 //        let priceValue = Double(value)
         let currencyPosition = STUserData.sharedInstance.currencyPosition
         let decimalNumber = STUserData.sharedInstance.decimalNumber
-        let decimalSeparator = STUserData.sharedInstance.decimalSeparator
-        let thousandsSeparator = STUserData.sharedInstance.thousandsSeparator
+//        let separatorType = STUserData.sharedInstance.separatorType
         
         let numberFormatter: NumberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        numberFormatter.decimalSeparator = decimalSeparator
+            numberFormatter.decimalSeparator = "."
+            numberFormatter.groupingSeparator = ","
         numberFormatter.minimumFractionDigits = Int(decimalNumber)!
         numberFormatter.maximumFractionDigits = Int(decimalNumber)!
-        numberFormatter.groupingSeparator = thousandsSeparator
         let priceValue = numberFormatter.number(from: value)
         switch currencyPosition {
         case currencyLeft:

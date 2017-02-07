@@ -27,7 +27,7 @@ class CustomerModel: SimiModel {
     }
     
     public func getCustomerDetailWithId(id:String, params:Dictionary<String, String>){
-        currentNotificationName = "DidGetCustomerDetail"
+        currentNotificationName = DidGetCustomerDetail
         self.preDoRequest()
         self.getAPI().getCustomerDetailWithId(id: id, params: params, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }

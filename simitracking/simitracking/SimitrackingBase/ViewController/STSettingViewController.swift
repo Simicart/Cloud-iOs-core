@@ -8,7 +8,7 @@
 
 import UIKit
 
-class STSettingViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class STSettingViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
     
     let ITEM_PER_PAGE_ROW = "item_per_page_row"
     let DASHBOARD_SALES_ROW = "dashboard_sales_row"
@@ -18,8 +18,7 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     
     let CURRENCY_POSITION_ROW = "CURRENCY_POSITION_ROW"
     let DECIMAL_NUMBER_ROW = "DECIMAL_NUMBER_ROW"
-    let DECIMAL_SEPARATOR_ROW = "DECIMAL_SEPARATOR_ROW"
-    let THOUSANDS_SEPARATOR_ROW = "THOUSANDS_SEPARATOR_ROW"
+    let SEPARATOR_ROW = "SEPARATOR_ROW"
     
     private var isShowingKeyboard: Bool = false
     
@@ -32,10 +31,10 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     private var itemPerPageActionSheet:UIActionSheet!
     private var itemPerPage = 40
     private var currencyPositions = [currencyLeft, currencyRight, currencyLeftSpace, currencyRightSpace]
+    private var separatorTypes = [separatorType1, separatorType2]
     private var currencyPos = ""
     private var decimalNumber = ""
-    private var decimalSeparator = "."
-    private var thousandsSeparator = ","
+    private var separatorType = "1"
     
     private var dashboardSalesSwitch:UISwitch!
     private var showDashboardSales = true
@@ -51,8 +50,11 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     
     private var currencyPosTextField: SimiTextField = SimiTextField()
     private var decimalNumberTextField: SimiTextField = SimiTextField()
-    private var decimalSeparatorTextField: SimiTextField = SimiTextField()
-    private var thousandsSeparatorTextField: SimiTextField = SimiTextField()
+    private var separatorTextField:SimiTextField = SimiTextField()
+    
+    private var currencyPosPicker: UIPickerView = UIPickerView()
+    private var separatorPicker:UIPickerView = UIPickerView()
+    private var decimalNumberPicker: UIPickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,9 +76,6 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
         getSettings()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     
     func tableViewTapped(sender:Any){
         view.endEditing(true)
@@ -101,13 +100,9 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     
     //MARK: - Get Settings Data
     func getSettings() {
-//        if (userData == nil) {
-//            userData = STUserData()
-//        }
         let emailSaved = SimiDataLocal.getLocalData(forKey: LAST_USER_EMAIL) as! String
         if (emailSaved != "") {
             userData.userEmail = emailSaved
-//            userData.loadFromLocal()
             itemPerPage = userData.itemPerPage
             showDashboardSales = userData.showDashboardSales
             showDashboardBestsellers = userData.showDashboardBestsellers
@@ -116,8 +111,7 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
             
             currencyPos = userData.currencyPosition
             decimalNumber = userData.decimalNumber
-            decimalSeparator = userData.decimalSeparator
-            thousandsSeparator = userData.thousandsSeparator
+            separatorType = userData.separatorType
         }
         
         setMainTableViewCells()
@@ -147,15 +141,13 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
         tableCells.addSection(dashboardSection)
         
         let priceSettingSection = SimiSection()
-        priceSettingSection.data["title"] = STLocalizedString(inputString: "Price Setting").uppercased()
+        priceSettingSection.data["title"] = STLocalizedString(inputString: "Currency Setting").uppercased()
         let currencyPositionRow:SimiRow = SimiRow(withIdentifier: CURRENCY_POSITION_ROW, andHeight:50)
         priceSettingSection.childRows.append(currencyPositionRow)
         let decimalNumberRow: SimiRow = SimiRow(withIdentifier: DECIMAL_NUMBER_ROW, andHeight:50)
         priceSettingSection.childRows.append(decimalNumberRow)
-        let decimalSeparatorRow: SimiRow = SimiRow(withIdentifier: DECIMAL_SEPARATOR_ROW, andHeight:50)
-        priceSettingSection.childRows.append(decimalSeparatorRow)
-        let thousandsSeparatorRow: SimiRow = SimiRow(withIdentifier: THOUSANDS_SEPARATOR_ROW, andHeight:50)
-        priceSettingSection.childRows.append(thousandsSeparatorRow)
+//        let separatorRow: SimiRow = SimiRow(withIdentifier: SEPARATOR_ROW, andHeight:50)
+//        priceSettingSection.childRows.append(separatorRow)
         tableCells.addSection(priceSettingSection)
     }
     
@@ -215,10 +207,8 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
                 cellToReturn = createCurrencyPositionRow(row: row, identifier: identifier)
             }else if row.identifier == DECIMAL_NUMBER_ROW{
                 cellToReturn = createDecimalNumberRow(row: row, identifier: identifier)
-            }else if row.identifier == DECIMAL_SEPARATOR_ROW{
-                cellToReturn = createDecimalSeparatorRow(row: row, identifier: identifier)
-            }else if row.identifier == THOUSANDS_SEPARATOR_ROW{
-                cellToReturn = createThousandsSeparatorRow(row: row, identifier: identifier)
+            }else if row.identifier == SEPARATOR_ROW{
+                cellToReturn = createSeparatorRow(row:row, identifier:identifier)
             }
         }
         if !(cellToReturn != nil){
@@ -289,6 +279,10 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
                 break
             }
             itemPerPageButton.setTitle(String(itemPerPage), for: UIControlState.normal)
+            if userData.itemPerPage != Int((itemPerPageButton.titleLabel?.text)!)!{
+                userData.itemPerPage = Int((itemPerPageButton.titleLabel?.text)!)!
+                trackEvent("setting", params: ["paging":(itemPerPageButton.titleLabel?.text)!])
+            }
         }
     }
     
@@ -353,10 +347,10 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
         currencyPosTextField.layer.cornerRadius = 5
         currencyPosTextField.textColor = THEME_COLOR
         currencyPosTextField.font = THEME_FONT
-        let pickerView: UIPickerView = UIPickerView()
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        currencyPosTextField.inputView = pickerView
+        currencyPosPicker = UIPickerView()
+        currencyPosPicker.delegate = self
+        currencyPosPicker.dataSource = self
+        currencyPosTextField.inputView = currencyPosPicker
         
         cellToReturn.addSettingWith(title: STLocalizedString(inputString: "Currency Position"), andView: currencyPosTextField, atHeight: heightCell)
         heightCell += 40
@@ -376,7 +370,10 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
         decimalNumberTextField.layer.cornerRadius = 5
         decimalNumberTextField.textColor = THEME_COLOR
         decimalNumberTextField.font = THEME_FONT
-        decimalNumberTextField.keyboardType = .numberPad
+        decimalNumberPicker = UIPickerView()
+        decimalNumberPicker.delegate = self
+        decimalNumberPicker.dataSource = self
+        decimalNumberTextField.inputView = decimalNumberPicker
         
         cellToReturn.addSettingWith(title: STLocalizedString(inputString: "Decimal Number"), andView: decimalNumberTextField, atHeight: heightCell)
         heightCell += 40
@@ -384,39 +381,24 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
         return cellToReturn
     }
     
-    func createDecimalSeparatorRow(row: SimiRow, identifier: String)->UITableViewCell{
-        let cellToReturn = STSettingCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+    func createSeparatorRow(row:SimiRow, identifier:String) -> UITableViewCell{
+        let cellToReturn = STSettingCell(style:UITableViewCellStyle.default, reuseIdentifier: identifier)
         var heightCell = 10
-        decimalSeparatorTextField = SimiTextField(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
-        decimalSeparatorTextField.textAlignment = .center
-        decimalSeparatorTextField.text = decimalSeparator
-        decimalSeparatorTextField.backgroundColor = UIColor.white
-        decimalSeparatorTextField.layer.borderWidth = 1.5
-        decimalSeparatorTextField.layer.borderColor = THEME_COLOR.cgColor
-        decimalSeparatorTextField.layer.cornerRadius = 5
-        decimalSeparatorTextField.textColor = THEME_COLOR
-        decimalSeparatorTextField.font = THEME_FONT
+        separatorTextField = SimiTextField(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
+        separatorTextField.textAlignment = .center
+        separatorTextField.text = separatorType
+        separatorTextField.backgroundColor = UIColor.white
+        separatorTextField.layer.borderWidth = 1.5
+        separatorTextField.layer.borderColor = THEME_COLOR.cgColor
+        separatorTextField.layer.cornerRadius = 5
+        separatorTextField.textColor = THEME_COLOR
+        separatorTextField.font = THEME_FONT
+        separatorPicker = UIPickerView()
+        separatorPicker.delegate = self
+        separatorPicker.dataSource = self
+        separatorTextField.inputView = separatorPicker
         
-        cellToReturn.addSettingWith(title: STLocalizedString(inputString: "Decimal Separator"), andView: decimalSeparatorTextField, atHeight: heightCell)
-        heightCell += 40
-        row.height = CGFloat(heightCell)
-        return cellToReturn
-    }
-    
-    func createThousandsSeparatorRow(row: SimiRow, identifier: String)->UITableViewCell{
-        let cellToReturn = STSettingCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-        var heightCell = 10
-        thousandsSeparatorTextField = SimiTextField(frame: CGRect(x: 0, y: 0, width: 120, height: 30))
-        thousandsSeparatorTextField.textAlignment = .center
-        thousandsSeparatorTextField.text = thousandsSeparator
-        thousandsSeparatorTextField.backgroundColor = UIColor.white
-        thousandsSeparatorTextField.layer.borderWidth = 1.5
-        thousandsSeparatorTextField.layer.borderColor = THEME_COLOR.cgColor
-        thousandsSeparatorTextField.layer.cornerRadius = 5
-        thousandsSeparatorTextField.textColor = THEME_COLOR
-        thousandsSeparatorTextField.font = THEME_FONT
-        
-        cellToReturn.addSettingWith(title: STLocalizedString(inputString: "Thousands Separator"), andView: thousandsSeparatorTextField, atHeight: heightCell)
+        cellToReturn.addSettingWith(title: STLocalizedString(inputString: "Separator"), andView: separatorTextField, atHeight: heightCell)
         heightCell += 40
         row.height = CGFloat(heightCell)
         return cellToReturn
@@ -430,40 +412,107 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     }
     
     func saveSettings() {
-//        if (userData == nil) {
-//            userData = STUserData()
-//        }
         let emailSaved = SimiDataLocal.getLocalData(forKey: LAST_USER_EMAIL) as! String
         if (emailSaved != "") {
-            userData.userEmail = emailSaved
-//            userData.loadFromLocal()
-            userData.itemPerPage = Int((itemPerPageButton.titleLabel?.text)!)!
-            userData.showDashboardLatestCustomers = latestCustomersSwitch.isOn
-            userData.showDashboardSales = dashboardSalesSwitch.isOn
-            userData.showDashboardBestsellers = bestsellersSwitch.isOn
-            userData.showDashboardLatestOrders = latestOrdersSwitch.isOn
-            userData.currencyPosition = currencyPosTextField.text!
-            userData.decimalNumber = decimalNumberTextField.text!
-            userData.decimalSeparator = decimalSeparatorTextField.text!
-            userData.thousandsSeparator = thousandsSeparatorTextField.text!
-//            userData.saveToLocal()
-//            SimiGlobalVar.userData = userData
+            if userData.userEmail != emailSaved{
+                userData.userEmail = emailSaved
+            }
+            if userData.showDashboardLatestCustomers != latestCustomersSwitch.isOn{
+                userData.showDashboardLatestCustomers = latestCustomersSwitch.isOn
+                if latestCustomersSwitch.isOn{
+                    trackEvent("setting", params: ["show_reports_on_dashboard":"enable"])
+                }else{
+                    trackEvent("setting", params: ["show_reports_on_dashboard":"disable"])
+                }
+                didChangeShowingItemOnDashboard = true
+            }
+            if userData.showDashboardSales != dashboardSalesSwitch.isOn{
+                userData.showDashboardSales = dashboardSalesSwitch.isOn
+                if dashboardSalesSwitch.isOn{
+                    trackEvent("setting", params: ["show_bestsellers_on_dashboard":"enable"])
+                }else{
+                    trackEvent("setting", params: ["show_bestsellers_on_dashboard":"disable"])
+                }
+                didChangeShowingItemOnDashboard = true
+            }
+            
+            if userData.showDashboardBestsellers != bestsellersSwitch.isOn{
+                userData.showDashboardBestsellers = bestsellersSwitch.isOn
+                if bestsellersSwitch.isOn{
+                    trackEvent("setting", params: ["show_latest_customers_on_dashboard":"enable"])
+                }else{
+                    trackEvent("setting", params: ["show_latest_customers_on_dashboard":"disable"])
+                }
+                didChangeShowingItemOnDashboard = true
+            }
+            if userData.showDashboardLatestOrders != latestOrdersSwitch.isOn{
+                userData.showDashboardLatestOrders = latestOrdersSwitch.isOn
+                if latestOrdersSwitch.isOn{
+                    trackEvent("setting", params: ["show_lastest_orders_on_dashboard":"enable"])
+                }else{
+                    trackEvent("setting", params: ["show_lastest_orders_on_dashboard":"disable"])
+                }
+                didChangeShowingItemOnDashboard = true
+            }
         }
     }
 
     //MARK: -UIPickerViewDelegate && UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currencyPositions.count
+        if pickerView == currencyPosPicker{
+            return currencyPositions.count
+        }else if pickerView == separatorPicker{
+            return separatorTypes.count
+        }else{
+            return 10
+        }
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return currencyPositions[row]
+        if pickerView == currencyPosPicker{
+            return currencyPositions[row]
+        }else if pickerView == separatorPicker{
+            return separatorTypes[row]
+        }else{
+            return String(row)
+        }
     }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        currencyPosTextField.text = currencyPositions[row]
+        if pickerView == currencyPosPicker{
+            currencyPosTextField.text = currencyPositions[row]
+            if userData.currencyPosition != currencyPosTextField.text!{
+                userData.currencyPosition = currencyPosTextField.text!
+                if currencyPosTextField.text == currencyLeft{
+                    trackEvent("setting", params: ["currency_position":"left"])
+                }else if currencyPosTextField.text == currencyRight{
+                    trackEvent("setting", params: ["currency_position":"right"])
+                }else if currencyPosTextField.text == currencyLeftSpace{
+                    trackEvent("setting", params: ["currency_position":"left_space"])
+                }else if currencyPosTextField.text == currencyRightSpace{
+                    trackEvent("setting", params: ["currency_position":"right_space"])
+                }
+            }
+        } else if pickerView == decimalNumberPicker{
+            decimalNumberTextField.text = String(row)
+            if userData.decimalNumber != decimalNumberTextField.text{
+                userData.decimalNumber = decimalNumberTextField.text!
+            }
+        }else{
+            separatorTextField.text = separatorTypes[row]
+            if userData.separatorType != separatorTextField.text!{
+                userData.separatorType = separatorTextField.text!
+                if separatorType == separatorType1{
+                    trackEvent("setting", params: ["currency_separator":"type_1"])
+                }else{
+                    trackEvent("setting", params: ["currency_separator":"type_2"])
+                }
+            }
+        }
     }
     
     

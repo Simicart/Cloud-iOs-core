@@ -76,16 +76,16 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
     }
     
     //MARK: - Get Customer Detail
-    func getCustomerDetail() {
+    private func getCustomerDetail() {
+        self.showLoadingView()
         customerModel.getCustomerDetailWithId(id: (customerModel.data["entity_id"] as! String), params: [:])
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetCustomerDetail(notification:)), name: NSNotification.Name(rawValue: "DidGetCustomerDetail"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetCustomerDetail(notification:)), name: NSNotification.Name(rawValue: DidGetCustomerDetail), object: nil)
     }
     
     // Get Customer Detail handler
     func didGetCustomerDetail(notification: NSNotification) {
-        self.hideLoadingView()
         gotFullInformation = true
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DidGetCustomerDetail"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DidGetCustomerDetail), object: nil)
         if customerModel.isSucess == false {
             let alert = UIAlertController(title: "", message: customerModel.error[0]["message"] as! String?, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
@@ -95,6 +95,7 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
             setMainTableViewCells()
             self.mainTableView .reloadData()
         }
+        self.hideLoadingView()
     }
     
     //MARK: - Set Data for TableView
@@ -237,11 +238,13 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
             newOrderVC.isSearchExactlyMatch = true
             newOrderVC.searchTerm = customerModel.data["email"]  as! String
             newOrderVC.createBackButton()
+            trackEvent("customer_detail_action", params: ["action":"view_customer_orders"])
             self.navigationController?.pushViewController(newOrderVC, animated: true)
         } else if (row.identifier == CUSTOMER_ADDRESS_ROW) {
             let newAddressVC = STAddressListViewController()
             newAddressVC.customerId = customerModel.data["entity_id"] as! String
             newAddressVC.createBackButton()
+            trackEvent("customer_detail_action", params: ["action":"view_customer_addresses"])
             self.navigationController?.pushViewController(newAddressVC, animated: true)
         }
     }
@@ -407,6 +410,7 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
             params.updateValue(dobElements.2 , forKey: "year")
         }
         customerModel.editCustomerDetailWithId(id: (customerModel.data["entity_id"] as! String), params: params)
+        trackEvent("customer_detail_action", params: ["edit_action":"customer_summary"])
         NotificationCenter.default.addObserver(self, selector: #selector(didEditCustomerDetail(notification:)), name: NSNotification.Name(rawValue: DidEditCustomerDetail), object: nil)
         self.showLoadingView()
     }
@@ -418,4 +422,6 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         mainTableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
     }
     
+    deinit {
+    }
 }

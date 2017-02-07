@@ -172,6 +172,7 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
             let newProductDetailVC = STProductDetailViewController()
             newProductDetailVC.productModel = ProductModel()
             newProductDetailVC.productModel.data["entity_id"] = row.data["product_id"]
+            trackEvent("abandoned_cart_detail", params: ["action":"view_product_detail"])
             self.navigationController?.pushViewController(newProductDetailVC, animated: true)
         }
     }

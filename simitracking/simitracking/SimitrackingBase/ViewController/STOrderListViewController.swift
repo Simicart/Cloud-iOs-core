@@ -11,7 +11,6 @@ import UIKit
 class STOrderListViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate {
     
     let ROW_HEIGHT:CGFloat = 65
-    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
     var orderModelCollection:OrderModelCollection!
     var reloadedTime = 0
@@ -19,7 +18,7 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
     var lastContentOffset:CGPoint?
-    var statusDict:Dictionary<String, String>!
+    var statusDict:Dictionary<String, String>! = [:]
     var refreshControl:UIRefreshControl!
     
     var emptyLabel:SimiLabel!
@@ -66,7 +65,6 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
             mainTableView.dataSource = self
             mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 40, 0)
             self.view.addSubview(mainTableView)
-            
             
             refreshControl = UIRefreshControl()
             refreshControl.backgroundColor = UIColor.white
@@ -133,13 +131,17 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
         if (refreshControl != nil) {
             refreshControl.endRefreshing()
         }
-        var paramMeters:Dictionary<String, String> = ["dir":"desc","order":"entity_id","limit":String(ITEMS_PER_PAGE),"offset":String((currentPage-1) * ITEMS_PER_PAGE)]
+        var trackingParams : Dictionary<String, String> = [:]
+        var paramMeters:Dictionary<String, String> = ["dir":"desc","order":"entity_id","limit":String(STUserData.sharedInstance.itemPerPage),"offset":String((currentPage-1) * STUserData.sharedInstance.itemPerPage)]
         if (currentTimeRangeStart != "") && currentTimeRangeEnd != "" {
             paramMeters["from_date"] = currentTimeRangeStart
             paramMeters["to_date"] = currentTimeRangeEnd
+            trackingParams["from_date"] = currentTimeRangeStart
+            trackingParams["to_date"] = currentTimeRangeEnd
         }
         if (currentStatus != "") {
             paramMeters["filter[status]"] = currentStatus
+            trackingParams["filter_action"] = currentStatus
         }
         if (SimiGlobalVar.selectedStoreId != "") {
             paramMeters["filter[store_id]"] = SimiGlobalVar.selectedStoreId
@@ -147,6 +149,8 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
         if (currentSortingDirection != "") && (currentSortingAttribute != "") {
             paramMeters["order"] = currentSortingAttribute
             paramMeters["dir"] = currentSortingDirection
+            trackingParams["sort_action"] = currentSortingAttribute
+            trackingParams["dir"] = currentSortingDirection
         }
         
         if (searchAttribute != "") && (searchTerm != "") {
@@ -156,22 +160,24 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
             } else {
                 paramMeters[attributeToSearch] = searchTerm
             }
+            trackingParams["search_action"] = searchAttribute
         }
         orderModelCollection.getOrderListWithParam(params: paramMeters)
+        trackEvent("list_orders_action", params: trackingParams)
         NotificationCenter.default.addObserver(self, selector: #selector(didGetOrderList(notification:)), name: NSNotification.Name(rawValue: "DidGetOrderList"), object: nil)
     }
     
     // Get Order List handler
     func didGetOrderList(notification: NSNotification) {
         self.hideLoadingView()
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DidGetOrderList"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: notification.name, object: nil)
         if orderModelCollection.isSucess == false {
             let alert = UIAlertController(title: "", message: orderModelCollection.error[0]["message"] as! String?, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
             totalOrders = orderModelCollection.total!
-            maxPage = totalOrders/ITEMS_PER_PAGE + 1
+            maxPage = totalOrders/STUserData.sharedInstance.itemPerPage + 1
             updateStatusDict()
             setMainTableViewCells()
             updateActionView()
@@ -182,7 +188,6 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
     }
     
     func updateStatusDict() {
-        statusDict = [:]
         if (orderModelCollection.responseObject?["layers"] != nil) {
             let layerArray = (orderModelCollection.responseObject?["layers"] as! Dictionary<String, Any>)["layer_filter"] as! Array<Dictionary<String, Any>>
             for layerAttribute in layerArray {
@@ -375,6 +380,7 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
         newOrderDetailVC.orderId = rowData["entity_id"] as! String
 //        newOrderDetailVC.orderModel.data = rowData
         newOrderDetailVC.statusDict = statusDict
+        trackEvent("list_orders_action", params: ["action":"view_order_detail"])
         self.navigationController?.pushViewController(newOrderDetailVC, animated: true)
     }
     
@@ -511,11 +517,11 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
     override func showPageActionSheet() {
         super.showPageActionSheet()
         pageActionSheet = UIActionSheet(title: STLocalizedString(inputString: "Select Page"), delegate: self, cancelButtonTitle: STLocalizedString(inputString: "Cancel"), destructiveButtonTitle: nil)
-        if totalOrders <= ITEMS_PER_PAGE {
+        if totalOrders <= STUserData.sharedInstance.itemPerPage {
             return
         }
         pageActionSheet.addButton(withTitle: String(1))
-        for index in 1...(totalOrders/ITEMS_PER_PAGE) {
+        for index in 1...(totalOrders/STUserData.sharedInstance.itemPerPage) {
                 pageActionSheet.addButton(withTitle: String(index + 1))
         }
         pageActionSheet.delegate = self
@@ -605,17 +611,21 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
             var selectedAllTime = false
             switch buttonIndex {
             case 2: //Today
+                trackEvent("list_orders_action", params: ["time_filter_action":"today"])
                 break
             case 3: //Yesterday
                 dateStart = calendar.date(byAdding: .day, value: -1, to: dateStart)!
                 dateEnd = calendar.date(byAdding: .day, value: -1, to: dateEnd)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"yesterday"])
                 break
             case 4: //Last 7 days
                 dateStart = calendar.date(byAdding: .day, value: -6, to: dateStart)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"7_days"])
                 break
             case 5: //Current month
                 let daysPassedCurrentMonth = calendar.dateComponents([.day], from: dateStart as Date).day! - 1
                 dateStart = calendar.date(byAdding: .day, value: -daysPassedCurrentMonth, to: dateStart)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"current_month"])
                 break
             case 6: //Last month
                 let daysPassedCurrentMonth = calendar.dateComponents([.day], from: dateStart as Date).day!
@@ -623,15 +633,18 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
                 var lastMontComponent = calendar.dateComponents([.day, .month, .year], from: dateEnd as Date)
                 lastMontComponent.day = 1
                 dateStart = calendar.date(from: lastMontComponent)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"last_month"])
                 break
             case 7: //Last 3 months (90 days)
                 dateStart = calendar.date(byAdding: .day, value: -90, to: dateStart)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"3_months"])
                 break
             case 8: //YTD
                 var yearComponent = calendar.dateComponents([.day, .month, .year], from: dateStart as Date)
                 yearComponent.day = 1
                 yearComponent.month = 1
                 dateStart = calendar.date(from: yearComponent)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"this_year"])
                 break
             case 9: //2YTD
                 var yearComponent = calendar.dateComponents([.day, .month, .year], from: dateStart as Date)
@@ -639,9 +652,12 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
                 yearComponent.month = 1
                 yearComponent.year! -= 1
                 dateStart = calendar.date(from: yearComponent)!
+                trackEvent("list_orders_action", params: ["time_filter_action":"2_years_to_day"])
                 break
             default:
                 selectedAllTime = true
+                trackEvent("list_orders_action", params: ["time_filter_action":"all_time"])
+                break
             }
             timeFilterLabel.text = timeRangeActionSheet.buttonTitle(at: buttonIndex)
             if selectedAllTime {
@@ -747,10 +763,12 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
     // MARK: - Page Navigation
     override func openNextPage() {
         super.openNextPage()
+        trackEvent("list_orders_action", params: ["action":"next_page"])
         getOrders()
     }
     override func openPreviousPage() {
         super.openPreviousPage()
+        trackEvent("list_orders_action", params: ["action":"next_page"])
         getOrders()
     }
 

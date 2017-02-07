@@ -222,10 +222,11 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         hideLeftMenu()
-        if (selectedRow == indexPath.row) {
-            return
-        }
+//        if (selectedRow == indexPath.row) {
+//            return
+//        }
         selectedRow = indexPath.row
         let section = mainTableViewCells[indexPath.section] as! SimiSection
         let row = section.childRows[indexPath.row]
@@ -256,6 +257,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
             showSettingScreen()
             break
         case LOGOUT_MENU:
+            selectedRow = 0
             logout()
             break
         default:
@@ -307,6 +309,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     
     func showDashboard() {
         mainNavigation.popToRootViewController(animated: false)
+        
     }
     
     func showForecast(){
@@ -361,14 +364,30 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     
     func showSettingScreen() {
         mainNavigation.popToRootViewController(animated: false)
-        settingVC = STSettingViewController()
+        if settingVC == nil{
+            settingVC = STSettingViewController()
+        }
         mainNavigation.pushViewController(settingVC, animated: false)
         mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
         settingVC.navigationItem.leftBarButtonItem = mainNavigation.menuButton
     }
     
     func logout() {
-        STUserData.sharedInstance.clearUserData()
+        showLoadingView()
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout(noti:)), name: NSNotification.Name(rawValue: DidLogout), object: nil)
+        staffModel.logoutWithDeviceToken(STUserData.sharedInstance.deviceTokenId)
         mainNavigation.dismissDrawerController()
+        STUserData.sharedInstance.clearUserData()
     }
+    
+    func didLogout(noti:Notification){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DidLogout), object: nil)
+        hideLoadingView()
+        if staffModel.isSucess{
+            STUserData.sharedInstance.isLoggedIn = false
+        }else{
+            showAlertWithTitle("", message: (staffModel.error[0]["message"] as! String?)!)
+        }
+    }
+    
 }

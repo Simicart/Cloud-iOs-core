@@ -11,8 +11,6 @@ import UIKit
 class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate, UIActionSheetDelegate {
     
     let ROW_HEIGHT:CGFloat = 80
-    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
-    
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
     var lastContentOffset:CGPoint?
@@ -86,11 +84,12 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
             refreshControl.endRefreshing()
         }
         self.showLoadingView()
-        var paramMeters:Dictionary<String, String> =  ["dir":"desc","order":"entity_id","limit":String(ITEMS_PER_PAGE),"offset":String((currentPage-1) * ITEMS_PER_PAGE)]
+        var paramMeters:Dictionary<String, String> =  ["dir":"desc","order":"entity_id","limit":String(STUserData.sharedInstance.itemPerPage),"offset":String((currentPage-1) * STUserData.sharedInstance.itemPerPage)]
         
         if (searchAttribute != "") && (searchTerm != "") {
             let attributeToSearch = "filter[" + searchAttribute + "][like]"
             paramMeters[attributeToSearch] = "%" + searchTerm + "%"
+            trackEvent("list_abandoned_cart_action", params: ["search_action":searchAttribute])
         }
         abandonedCartModelCollection.getAbandonedCartWithParams(params: paramMeters)
         NotificationCenter.default.addObserver(self, selector: #selector(didGetAbandonedCartList(notification:)), name: NSNotification.Name(rawValue: "DidGetAbandonedCartList"), object: nil)
@@ -107,7 +106,7 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
             self.present(alert, animated: true, completion: nil)
         } else {
             totalAbandonedCarts = abandonedCartModelCollection.total!
-            maxPage = totalAbandonedCarts/ITEMS_PER_PAGE + 1
+            maxPage = totalAbandonedCarts/STUserData.sharedInstance.itemPerPage + 1
             setMainTableViewCells()
             mainTableView.reloadData()
             setCurrentPage(pageNumber: currentPage)
@@ -196,6 +195,7 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
         let newAbandonedCartDetailVC = STAbandonedCartDetailViewController()
         newAbandonedCartDetailVC.abandonedCartModel = AbandonedCartModel()
         newAbandonedCartDetailVC.abandonedCartModel.data = rowData
+        trackEvent("list_abandoned_cart_action", params: ["action":"view_abandoned_cart_detail"])
         self.navigationController?.pushViewController(newAbandonedCartDetailVC, animated: true)
     }
     
@@ -316,11 +316,11 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
     override func showPageActionSheet() {
         super.showPageActionSheet()
         pageActionSheet = UIActionSheet(title: STLocalizedString(inputString: "Select Page"), delegate: self, cancelButtonTitle: STLocalizedString(inputString: "Cancel"), destructiveButtonTitle: nil)
-        if totalAbandonedCarts <= ITEMS_PER_PAGE {
+        if totalAbandonedCarts <= STUserData.sharedInstance.itemPerPage {
             return
         }
         pageActionSheet.addButton(withTitle: String(1))
-        for index in 1...(totalAbandonedCarts/ITEMS_PER_PAGE) {
+        for index in 1...(totalAbandonedCarts/STUserData.sharedInstance.itemPerPage) {
             pageActionSheet.addButton(withTitle: String(index + 1))
         }
         pageActionSheet.delegate = self
@@ -331,10 +331,12 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
     // MARK: - Page Navigation
     override func openNextPage() {
         super.openNextPage()
+        trackEvent("list_abandoned_cart_action", params: ["action":"next_page"])
         getAbandonedCarts()
     }
     override func openPreviousPage() {
         super.openPreviousPage()
+        trackEvent("list_abandoned_cart_action", params: ["action":"previous_page"])
         getAbandonedCarts()
     }
     

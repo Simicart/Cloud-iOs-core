@@ -1,12 +1,15 @@
 PODS:
-  - Alamofire (4.2.0)
+  - Alamofire (4.3.0)
+  - Mixpanel-swift (2.1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - Mixpanel-swift
 
 SPEC CHECKSUMS:
-  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  Mixpanel-swift: e6234affa94d14f76c856f301693dc43cae5dcb0
 
-PODFILE CHECKSUM: 653e118f8b73053c558acad5d1edec96ba6835b4
+PODFILE CHECKSUM: 7361062df103ec9434ec751a0ef58e733d3b1f47
 
 COCOAPODS: 1.1.1

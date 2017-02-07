@@ -63,7 +63,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         let stockPicker: UIPickerView = UIPickerView()
         stockPicker.delegate = self
         stockTextField.inputView = stockPicker
-        qtyTextField.keyboardType = .numberPad
+        qtyTextField.keyboardType = .decimalPad
     }
     
     override func updateViews() {
@@ -101,9 +101,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         self.hideLoadingView()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DidGetProductDetail"), object: nil)
         if productModel.isSucess == false {
-            let alert = UIAlertController(title: "", message: productModel.error[0]["message"] as! String?, preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            showAlertWithTitle("", message: (productModel.error[0]["message"] as! String?)!)
             self.navigationController!.popViewController(animated: true)
         } else {
             gotFullInformation = true
@@ -275,12 +273,14 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
             shortDescriptionVC.isAbleEditting = false
             shortDescriptionVC.content = (productModel.data["short_description"] as? String)!
             shortDescriptionVC.title = STLocalizedString(inputString: "Short Description")
+            trackEvent("product_detail_action", params: ["action":"view_short_description"])
             self.navigationController?.pushViewController(shortDescriptionVC, animated: true)
         }else if(row.identifier.range(of: PRODUCT_DESCRIPTION_VIEW_DETAIL_ROW) != nil){
             let descriptionVC = STProductDescriptionViewController()
             descriptionVC.isAbleEditting = false
             descriptionVC.content = (productModel.data["description"] as? String)!
             descriptionVC.title = STLocalizedString(inputString: "Description")
+            trackEvent("product_detail_action", params: ["action":"view_description"])
             self.navigationController?.pushViewController(descriptionVC, animated: true)
         }
     }
@@ -335,7 +335,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         }
         
         if !(productModel.data["url_path"] is NSNull) && (productModel.data["url_path"] != nil) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "URL"), andValue: (SimiGlobalVar.baseURL + (productModel.data["url_path"] as? String)!), atHeight: heightCell, isCopiable:true)
+            cellToReturn.addURLLabel(withTitle: STLocalizedString(inputString: "URL"), value: (SimiGlobalVar.baseURL + (productModel.data["url_path"] as? String)!), atHeight: heightCell, urlType: .webURL)
             heightCell += 22
         }
         
@@ -399,14 +399,13 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
             productImageUrl.textColor = UIColor.lightGray
             productImageUrl.font = UIFont.systemFont(ofSize: 12)
             productImageUrl.text = itemData["url"] as? String
-            productImageUrl.isCopiable = true
+            productImageUrl.isURL = true
             productImageUrl.numberOfLines = 0
             cellToReturn.addSubview(productImageUrl)
         }else {
             productImage.image = UIImage(named: "default_avt")
         }
         cellToReturn.addSubview(productImage)
-        
         return cellToReturn
     }
     
@@ -484,6 +483,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         }
         parameters["name"] = nameTextField.text
         productModel.editProductDetailWithId(id: productModel.data["entity_id"] as! String, params: parameters)
+        trackEvent("product_detail_action", params: ["edit_action":"product_information"])
         NotificationCenter.default.addObserver(self, selector: #selector(didEditProductDetail(notification:)), name: Notification.Name(rawValue: DidEditProductDetail), object: nil)
         self.view .endEditing(true)
         self.showLoadingView()
@@ -517,6 +517,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         }
         parameters["short_description"] = content
         productModel.editProductDetailWithId(id: productModel.data["entity_id"] as! String, params: parameters)
+        trackEvent("product_detail_action", params: ["edit_action":"short_description"])
         NotificationCenter.default.addObserver(self, selector: #selector(didEditProductDetail(notification:)), name: Notification.Name(rawValue: DidEditProductDetail), object: nil)
         self.showLoadingView()
     }
@@ -531,6 +532,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
         }
         parameters["description"] = content
         productModel.editProductDetailWithId(id: productModel.data["entity_id"] as! String, params: parameters)
+        trackEvent("product_detail_action", params: ["edit_action":"description"])
         NotificationCenter.default.addObserver(self, selector: #selector(didEditProductDetail(notification:)), name: Notification.Name(rawValue: DidEditProductDetail), object: nil)
         self.showLoadingView()
     }
@@ -575,6 +577,7 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
 }
 
 class STProductDescriptionViewController: SimiViewController {
+    private var isShowingKeyboard:Bool = false
     public var content: String = ""
     public var isAbleEditting: Bool = false
     public var isShortDescription = false
@@ -582,6 +585,8 @@ class STProductDescriptionViewController: SimiViewController {
     var mainTextView: SimiTextView = SimiTextView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(noti:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(noti:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         createBackButton()
         if(isAbleEditting){
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: STLocalizedString(inputString: "Save"), style: UIBarButtonItemStyle.done, target: self, action: #selector(doneEditting))
@@ -601,6 +606,26 @@ class STProductDescriptionViewController: SimiViewController {
             self.delegate .editProductShortDescription(content: mainTextView.text)
         }else{
             self.delegate.editProductDescription(content: mainTextView.text)
+        }
+    }
+    func keyboardDidShow(noti:Notification){
+        if !isShowingKeyboard {
+            let value = noti.userInfo![UIKeyboardFrameEndUserInfoKey]! as AnyObject
+            let rawFrame = value.cgRectValue!
+            var textViewFrame = mainTextView.frame
+            textViewFrame.size.height -= rawFrame.size.height
+            mainTextView.frame = textViewFrame
+            isShowingKeyboard = true
+        }
+    }
+    func keyboardDidHide(noti:Notification){
+        if isShowingKeyboard{
+            let value = noti.userInfo![UIKeyboardFrameEndUserInfoKey]! as AnyObject
+            let rawFrame = value.cgRectValue!
+            var textViewFrame = mainTextView.frame
+            textViewFrame.size.height += rawFrame.size.height
+            mainTextView.frame = textViewFrame
+            isShowingKeyboard = false
         }
     }
 }

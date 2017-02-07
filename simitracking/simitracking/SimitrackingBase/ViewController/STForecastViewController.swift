@@ -26,6 +26,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
     private var ordersLabel: SimiLabel!
     private var invoicesLabel:SimiLabel!
     private var timeForecastLabel:SimiLabel!
+    private var forecastLabel:SimiLabel!
     
     private var currentRevenueLabel: SimiLabel!
     private var forecastedRevenueLabel:SimiLabel!
@@ -37,6 +38,8 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
     private var leftAxis:YAxis!
     private var rightAxis:YAxis!
     
+    private var timeRangeActionSheet: UIActionSheet!
+    private var forecastDays:Int = 90
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTableView = SimiTableView(frame:view.bounds, style:UITableViewStyle.plain)
@@ -54,7 +57,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         navigationItem.title = STLocalizedString(inputString: "Forecast").uppercased()
         
         initTableCells()
-        getForecastSale()
+        getForecastSale(numberOfDay: 90)
     }
     
     override func updateViews() {
@@ -68,18 +71,24 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
     func initTableCells(){
         table = SimiTable()
         let mainSection = table.addSectionWithIdentifier(identifier: MAIN_SECTION)
-        mainSection.addRowWithIdentifier(identifier: CHART_ROW, height: SimiGlobalVar.screenWidth)
-        mainSection.addRowWithIdentifier(identifier: REVENUE_ROW, height: 70)
-        mainSection.addRowWithIdentifier(identifier: SALE_ROW, height: 70)
+        mainSection.addRowWithIdentifier(identifier: CHART_ROW, height: 390)
+//        mainSection.addRowWithIdentifier(identifier: REVENUE_ROW, height: 70)
+//        mainSection.addRowWithIdentifier(identifier: SALE_ROW, height: 70)
         
         mainTableView.reloadData()
     }
     
-    func getForecastSale(){
+    func getForecastSale(numberOfDay:Int){
+        forecastDays = numberOfDay
         if forecastSaleModel == nil{
             forecastSaleModel = ForecastSaleModel()
         }
-        forecastSaleModel.getForecastSaleWith(params: ["number_of_days":"7"])
+        var params:Dictionary = Dictionary<String,String>()
+        if (SimiGlobalVar.selectedStoreId != "") {
+            params["store_id"] = SimiGlobalVar.selectedStoreId
+        }
+        params["number_of_days"] = String(numberOfDay)
+        forecastSaleModel.getForecastSaleWith(params: params)
         NotificationCenter.default.addObserver(self, selector: #selector(didGetForecastSale(noti:)), name: NSNotification.Name(rawValue: DidGetSaleInfo), object: nil)
         refreshControl.endRefreshing()
         self.showLoadingView()
@@ -89,6 +98,19 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         self.hideLoadingView()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DidGetSaleInfo), object: nil)
         mainTableView.reloadData()
+        switch forecastDays {
+        case 30:
+            timeForecastLabel.text = "1 " + STLocalizedString(inputString: "month")
+            break
+        case 60:
+            timeForecastLabel.text = "2 " + STLocalizedString(inputString: "months")
+            break
+        case 90:
+            timeForecastLabel.text = "3 " + STLocalizedString(inputString: "months")
+            break
+        default:
+            break
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -178,25 +200,32 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         var chartCell = mainTableView.dequeueReusableCell(withIdentifier: row.identifier)
         if chartCell == nil{
             chartCell = UITableViewCell(style:UITableViewCellStyle.default, reuseIdentifier:row.identifier)
-            timeForecastLabel = SimiLabel(frame:CGRect(x:15,y:10,width:SimiGlobalVar.screenWidth - 30,height:20))
+            timeForecastLabel = SimiLabel(frame:CGRect(x:15,y:10,width:SimiGlobalVar.screenWidth/2 - 15,height:30))
             timeForecastLabel.textColor = UIColor.green
             timeForecastLabel.font = UIFont.boldSystemFont(ofSize: 15)
-            timeForecastLabel.text = "3 month forecast"
-            timeForecastLabel.textAlignment = NSTextAlignment.center
+            timeForecastLabel.text = "3 months"
+            timeForecastLabel.textAlignment = .right
+            timeForecastLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showTimeRangeActionSheet)))
+            timeForecastLabel.isUserInteractionEnabled = true
+            forecastLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2 + 10,y:10,width:SimiGlobalVar.screenWidth/2 - 25,height:30))
+            forecastLabel.text = STLocalizedString(inputString: "forecast")
+            forecastLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            forecastLabel.textColor = UIColor.gray
             chartCell?.contentView.addSubview(timeForecastLabel)
-            ordersLabel = SimiLabel(frame:CGRect(x:15,y:35,width:SimiGlobalVar.screenWidth/2 - 15,height:20))
-            ordersLabel.textColor = UIColor.lightGray
-            ordersLabel.font = THEME_BOLD_FONT
-            ordersLabel.text = "Orders"
-            chartCell?.contentView.addSubview(ordersLabel)
-            invoicesLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2,y:35,width:SimiGlobalVar.screenWidth/2 - 15,height:20))
-            invoicesLabel.text = "Invoices"
-            chartCell?.contentView.addSubview(invoicesLabel)
+            chartCell?.contentView.addSubview(forecastLabel)
+            invoicesLabel = SimiLabel(frame:CGRect(x:15,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20))
             invoicesLabel.textColor = UIColor.lightGray
             invoicesLabel.font = THEME_BOLD_FONT
-            invoicesLabel.textAlignment = NSTextAlignment.right
+            invoicesLabel.text = "Invoices "  + "(\(SimiGlobalVar.baseCurrency))"
+            chartCell?.contentView.addSubview(invoicesLabel)
+            ordersLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20))
+            ordersLabel.text = "Orders"
+            chartCell?.contentView.addSubview(ordersLabel)
+            ordersLabel.textColor = UIColor.lightGray
+            ordersLabel.font = THEME_BOLD_FONT
+            ordersLabel.textAlignment = NSTextAlignment.right
             
-            forecastChartView = CombinedChartView(frame:CGRect(x:15,y:60,width:Int(SimiGlobalVar.screenWidth - 30), height:Int(row.height - 60)))
+            forecastChartView = CombinedChartView(frame:CGRect(x:15,y:70,width:Int(SimiGlobalVar.screenWidth - 30), height:320))
             forecastChartView.chartDescription?.enabled = false
             forecastChartView.maxVisibleCount = 40
             forecastChartView.pinchZoomEnabled = false
@@ -205,7 +234,6 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
             forecastChartView.drawValueAboveBarEnabled = false
             forecastChartView.highlightFullBarEnabled = false
             //saleChartView.rightAxis.enabled = false
-            
             
             let xAxis = forecastChartView.xAxis
             xAxis.labelPosition = .bottom
@@ -253,7 +281,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
                             }
                         }
                     }
-                    amountAndCountRatio = 0.8 * maxOrderValue/maxOrderCount
+                    amountAndCountRatio = maxOrderValue/maxOrderCount
                 }
             }
         }
@@ -268,7 +296,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
                 var orderCountValue:Double = 0
                 var incomeValue:Double = 0
                 if (item["total_invoiced_amount"] != nil) {
-                    incomeValue = item["total_invoiced_amount"] as! Double
+                    incomeValue = (item["total_invoiced_amount"] as! Double)/amountAndCountRatio
                 }
                 if (item["orders_count"] != nil) {
                     orderCountValue = item["orders_count"] as! Double
@@ -301,12 +329,51 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         }
         
         forecastChartView.data = saleCombinedChartData
-        forecastChartView.frame = CGRect(x:15,y:60,width:Int(SimiGlobalVar.screenWidth - 30), height:Int(SimiGlobalVar.screenWidth - 60))
-        
-        ordersLabel.frame = CGRect(x:15,y:35,width:SimiGlobalVar.screenWidth/2 - 15,height:20)
-        invoicesLabel.frame = CGRect(x:SimiGlobalVar.screenWidth/2,y:35,width:SimiGlobalVar.screenWidth/2 - 15,height:20)
-        timeForecastLabel.frame = CGRect(x:15,y:10,width:SimiGlobalVar.screenWidth - 30,height:20)
+        //Update frames
+        forecastChartView.frame = CGRect(x:15,y:70,width:Int(SimiGlobalVar.screenWidth - 30), height:320)
+        invoicesLabel.frame = CGRect(x:15,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20)
+        ordersLabel.frame = CGRect(x:SimiGlobalVar.screenWidth/2,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20)
+        timeForecastLabel.frame = CGRect(x:15,y:10,width:SimiGlobalVar.screenWidth/2 - 15,height:30)
+        forecastLabel.frame = CGRect(x:SimiGlobalVar.screenWidth/2 + 10,y:10,width:SimiGlobalVar.screenWidth/2 - 25,height:30)
         return chartCell!
+    }
+    
+    func changeTimeForecast(){
+        
+    }
+    
+    // MARK: - Add Time Range
+    func showTimeRangeActionSheet() {
+        if timeRangeActionSheet == nil{
+            timeRangeActionSheet = UIActionSheet(title: STLocalizedString(inputString: "Select Time Range To Forecast"), delegate: self, cancelButtonTitle: STLocalizedString(inputString: "Cancel"), destructiveButtonTitle: nil)
+            timeRangeActionSheet.addButton(withTitle: "1 " + STLocalizedString(inputString: "month")) //1
+            timeRangeActionSheet.addButton(withTitle: "2 " + STLocalizedString(inputString: "months")) //2
+            timeRangeActionSheet.addButton(withTitle: "3 " + STLocalizedString(inputString: "months")) //3
+        }
+        timeRangeActionSheet.show(in: self.view)
+    }
+    
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
+        if actionSheet == storeSelectActionSheet{
+            return
+        }else if actionSheet == timeRangeActionSheet{
+            switch buttonIndex {
+            case 1:
+                getForecastSale(numberOfDay: 30)
+                trackEvent("forecast_action", params: ["filter_action":"chart_1_month"])
+                break
+            case 2:
+                getForecastSale(numberOfDay: 60)
+                trackEvent("forecast_action", params: ["filter_action":"chart_2_months"])
+                break
+            case 3:
+                getForecastSale(numberOfDay: 90)
+                trackEvent("forecast_action", params: ["filter_action":"chart_3_months"])
+                break
+            default:
+                break
+            }
+        }
     }
     
     //MARK :-IAxisValueFormatter
@@ -321,7 +388,6 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
                 return ""
             }
             return String(Int(value * amountAndCountRatio))
-//            return SimiGlobalVar.baseCurrency + " " + String(Int(value * amountAndCountRatio))
         } else if (axis is XAxis) {
             if (totalChartData != nil) && (totalChartData.count > 0) {
                 let itemIndex = Int(value)
@@ -335,7 +401,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
     
     override func switchStore() {
         super.switchStore()
-        getForecastSale()
+        getForecastSale(numberOfDay: forecastDays)
     }
 }
 

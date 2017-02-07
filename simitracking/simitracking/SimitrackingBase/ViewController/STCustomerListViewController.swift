@@ -11,7 +11,6 @@ import UIKit
 class STCustomerListViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate, UIActionSheetDelegate {
 
     let ROW_HEIGHT:CGFloat = 50
-    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
     
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
@@ -86,11 +85,12 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
             customerModelCollection = CustomerModelCollection()
         }
         self.showLoadingView()
-        var paramMeters:Dictionary<String, String> =  ["dir":"desc","order":"entity_id","limit":String(ITEMS_PER_PAGE),"offset":String((currentPage-1) * ITEMS_PER_PAGE)]
+        var paramMeters:Dictionary<String, String> =  ["dir":"desc","order":"entity_id","limit":String(STUserData.sharedInstance.itemPerPage),"offset":String((currentPage-1) * STUserData.sharedInstance.itemPerPage)]
         
         if (searchAttribute != "") && (searchTerm != "") {
             let attributeToSearch = "filter[" + searchAttribute + "][like]"
             paramMeters[attributeToSearch] = "%" + searchTerm + "%"
+            trackEvent("list_customers_action", params: ["search_action":searchAttribute])
         }
         customerModelCollection.getCustomerListWithParam(params: paramMeters)
         NotificationCenter.default.addObserver(self, selector: #selector(didGetCustomerList(notification:)), name: NSNotification.Name(rawValue: "DidGetCustomerList"), object: nil)
@@ -107,7 +107,7 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
             self.present(alert, animated: true, completion: nil)
         } else {
             totalCustomers = customerModelCollection.total!
-            maxPage = totalCustomers/ITEMS_PER_PAGE + 1
+            maxPage = totalCustomers/STUserData.sharedInstance.itemPerPage + 1
             setMainTableViewCells()
             mainTableView.reloadData()
             setCurrentPage(pageNumber: currentPage)
@@ -196,6 +196,7 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
         let newCustomerDetailVC = STCustomerDetailViewController()
         newCustomerDetailVC.customerModel = CustomerModel()
         newCustomerDetailVC.customerModel.data = rowData
+        trackEvent("list_customers_action", params: ["action":"view_customer_detail"])
         self.navigationController?.pushViewController(newCustomerDetailVC, animated: true)
     }
     
@@ -279,7 +280,7 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
         if (searchVC == nil) {
             searchVC = STSearchViewController()
         }
-        searchVC.attributeList = ["entity_id":"Customer ID","email":"Email","firstname":"First Name","lastname":"First Name","website_id":"Website (Website Id)","group_id":"Group (Group Id)"]
+        searchVC.attributeList = ["entity_id":"Customer ID","email":"Email","firstname":"First Name","lastname":"Last Name","website_id":"Website (Website Id)","group_id":"Group (Group Id)"]
         searchVC.delegate = self
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -300,11 +301,11 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
     override func showPageActionSheet() {
         super.showPageActionSheet()
         pageActionSheet = UIActionSheet(title: STLocalizedString(inputString: "Select Page"), delegate: self, cancelButtonTitle: STLocalizedString(inputString: "Cancel"), destructiveButtonTitle: nil)
-        if totalCustomers <= ITEMS_PER_PAGE {
+        if totalCustomers <= STUserData.sharedInstance.itemPerPage {
             return
         }
         pageActionSheet.addButton(withTitle: String(1))
-        for index in 1...(totalCustomers/ITEMS_PER_PAGE) {
+        for index in 1...(totalCustomers/STUserData.sharedInstance.itemPerPage) {
             pageActionSheet.addButton(withTitle: String(index + 1))
         }
         pageActionSheet.delegate = self
@@ -315,10 +316,12 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
     // MARK: - Page Navigation
     override func openNextPage() {
         super.openNextPage()
+        trackEvent("list_customers_action", params: ["action":"next_page"])
         getCustomers()
     }
     override func openPreviousPage() {
         super.openPreviousPage()
+        trackEvent("list_customers_action", params: ["action":"previous_page"])
         getCustomers()
     }
     

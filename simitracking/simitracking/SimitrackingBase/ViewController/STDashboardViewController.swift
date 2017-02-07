@@ -65,7 +65,14 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Mixpanel.mainInstance().track(event: "Dashboard Appeared")
+        if didChangeShowingItemOnDashboard{
+            setMainTableViewCells()
+            mainTableView.reloadData()
+        }
+        getSales()
+        getOrders()
+        getCustomers()
+        getBestsellers()
     }
     
     func addViews() {
@@ -79,17 +86,14 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.white
         refreshControl.tintColor = UIColor.lightGray
-        refreshControl.addTarget(self, action: #selector(getSales), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshDashboardInfos), for: UIControlEvents.valueChanged)
         mainTableView.addSubview(refreshControl)
         
         self.view.addSubview(mainTableView)
         self.title = STLocalizedString(inputString: "Dashboard").uppercased()
         
         selectDefaultTimeRange()
-        getSales()
-        getOrders()
-        getCustomers()
-        getBestsellers()
+        
     }
     
     override func updateViews() {
@@ -119,7 +123,17 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             paramMeters["to_date"] = currentTimeRangeEnd
         }
         saleModel.refreshSaleInfo(params: paramMeters)
+        trackEvent("dashboard_action", params: ["action":"chart_refresh"])
         NotificationCenter.default.addObserver(self, selector: #selector(didGetSales(notification:)), name: NSNotification.Name(rawValue: "DidGetSaleInfo"), object: nil)
+    }
+    
+    //MARK: -Refresh all infos
+    func refreshDashboardInfos(){
+        showLoadingView()
+        getSales()
+        getBestsellers()
+        getOrders()
+        getCustomers()
     }
     
     //MARK: - Get Information
@@ -161,7 +175,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         }
         var paramMeters = ["dir":"desc","order":"entity_id","limit":"5","offset":"0"]
         if (SimiGlobalVar.selectedStoreId != "") {
-            paramMeters["filter[store_id]"] = SimiGlobalVar.selectedStoreId
+            paramMeters["store_id"] = SimiGlobalVar.selectedStoreId
         }
         orderModelCollection.getOrderListWithParam(params:
             paramMeters)
@@ -339,11 +353,11 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             } else if row.identifier.range(of:LIFETIME_SALES_INFO_ROW) != nil {
                 cellToReturn = createLifetimeSalesRow(row: row, identifier: "_noreuse")
             } else if row.identifier.range(of:LATEST_ORDERS_ROW) != nil {
-                cellToReturn = createOrderRow(row: row, identifier: identifier)
+                cellToReturn = createOrderRow(row: row, identifier: "_noreuse")
             } else if row.identifier.range(of:LATEST_CUSTOMERS_ROW) != nil {
-                cellToReturn = createCustomerRow(row: row, identifier: identifier)
+                cellToReturn = createCustomerRow(row: row, identifier: "_noreuse")
             } else if row.identifier.range(of:BEST_SELLERS_ROW) != nil {
-                cellToReturn = createBestsellerRow(row: row, identifier: identifier)
+                cellToReturn = createBestsellerRow(row: row, identifier: "_noreuse")
             }
             else {
                 cellToReturn = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
@@ -361,33 +375,34 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             let newproductVC = STProductDetailViewController()
             newproductVC.productModel = ProductModel()
             newproductVC.productModel.data = row.data
+            trackEvent("dashboard_action", params: ["action":"view_best_seller_detail"])
             self.navigationController?.pushViewController(newproductVC, animated: true)
         } else if (SimiGlobalVar.permissionsAllowed[ORDER_DETAIL] == true) && (row.identifier.range(of:LATEST_ORDERS_ROW) != nil) {
             let newOrderVC = STOrderDetailViewController()
-//            newOrderVC.orderModel = OrderModel()
-//            newOrderVC.orderModel.data = row.data
             newOrderVC.orderId = row.data["entity_id"] as! String!
+            trackEvent("dashboard_action", params: ["action":"view_latest_order_detail"])
             self.navigationController?.pushViewController(newOrderVC, animated: true)
         } else if (SimiGlobalVar.permissionsAllowed[CUSTOMER_DETAIL] == true) && (row.identifier.range(of:LATEST_CUSTOMERS_ROW) != nil) {
             let newCustomerVC = STCustomerDetailViewController()
             newCustomerVC.customerModel = CustomerModel()
             newCustomerVC.customerModel.data = row.data
+            trackEvent("dashboard_action", params: ["action":"view_latest_customer_detail"])
             self.navigationController?.pushViewController(newCustomerVC, animated: true)
         }
     }
     
     func createChartLabelRow(row:SimiRow, identifier:String) -> UITableViewCell {
         let cellToReturn = UITableViewCell(style: UITableViewCellStyle.default,reuseIdentifier: identifier)
-        let ordersLabel = SimiLabel(frame:CGRect(x:15,y:0,width:SimiGlobalVar.screenWidth/2 - 15, height:row.height))
-        ordersLabel.text = STLocalizedString(inputString: "Orders")
-        ordersLabel.textAlignment = NSTextAlignment.left
-        cellToReturn.addSubview(ordersLabel)
-        let invoicesLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2,y:0,width:SimiGlobalVar.screenWidth/2 - 15, height:row.height))
-        invoicesLabel.text = STLocalizedString(inputString: "Invoices")
-        invoicesLabel.textAlignment = NSTextAlignment.right
+        let invoicesLabel = SimiLabel(frame:CGRect(x:15,y:0,width:SimiGlobalVar.screenWidth/2 - 15, height:row.height))
+        invoicesLabel.text = STLocalizedString(inputString: "Invoices ") + "(\(SimiGlobalVar.baseCurrency))"
+        invoicesLabel.textAlignment = NSTextAlignment.left
         cellToReturn.addSubview(invoicesLabel)
-        ordersLabel.font = THEME_BOLD_FONT
+        let ordersLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2,y:0,width:SimiGlobalVar.screenWidth/2 - 15, height:row.height))
+        ordersLabel.text = STLocalizedString(inputString: "Orders")
+        ordersLabel.textAlignment = NSTextAlignment.right
+        cellToReturn.addSubview(ordersLabel)
         invoicesLabel.font = THEME_BOLD_FONT
+        ordersLabel.font = THEME_BOLD_FONT
         ordersLabel.textColor = UIColor.lightGray
         invoicesLabel.textColor = UIColor.lightGray
         return cellToReturn
@@ -584,7 +599,6 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             saleChartView.drawValueAboveBarEnabled = false
             saleChartView.highlightFullBarEnabled = false
             //saleChartView.rightAxis.enabled = false
-            
             
             let xAxis = saleChartView.xAxis
             xAxis.labelPosition = .bottom
@@ -809,6 +823,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
                 let daysPassedCurrentMonth = calendar.dateComponents([.day], from: dateStart as Date).day! - 1
                 dateStart = calendar.date(byAdding: .day, value: -daysPassedCurrentMonth, to: dateStart)!
                 salePeriod = "day"
+                trackEvent("dashboard_action", params: ["filter_action":"chart_current_month"])
                 break
             case 3: //Last month
                 let daysPassedCurrentMonth = calendar.dateComponents([.day], from: dateStart as Date).day!
@@ -817,10 +832,12 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
                 lastMontComponent.day = 1
                 dateStart = calendar.date(from: lastMontComponent)!
                 salePeriod = "day"
+                trackEvent("dashboard_action", params: ["filter_action":"chart_last_month"])
                 break
             case 4: //Last 3 months (90 days)
                 dateStart = calendar.date(byAdding: .day, value: -90, to: dateStart)!
                 salePeriod = "day"
+                trackEvent("dashboard_action", params: ["filter_action":"chart_last_3_months"])
                 break
             case 5: //YTD
                 var yearComponent = calendar.dateComponents([.day, .month, .year], from: dateStart as Date)
@@ -828,6 +845,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
                 yearComponent.month = 1
                 dateStart = calendar.date(from: yearComponent)!
                 salePeriod = "month"
+                trackEvent("dashboard_action", params: ["filter_action":"chart_year_to_day"])
                 break
             case 6: //2YTD
                 var yearComponent = calendar.dateComponents([.day, .month, .year], from: dateStart as Date)
@@ -836,11 +854,14 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
                 yearComponent.year! -= 1
                 dateStart = calendar.date(from: yearComponent)!
                 salePeriod = "month"
+                trackEvent("dashboard_action", params: ["filter_action":"chart_2_years_to_day"])
                 break
             default:
                 // last 7 days
                 dateStart = calendar.date(byAdding: .day, value: -6, to: dateStart)!
                 salePeriod = "day"
+                trackEvent("dashboard_action", params: ["filter_action":"chart_last_7_days"])
+                break
             }
             timeFilterLabel.text = timeRangeActionSheet.buttonTitle(at: buttonIndex)
             
@@ -848,8 +869,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             let yearStart =  componentsStart.year
             let monthStart = componentsStart.month
             let dayStart = componentsStart.day
-            
-            
+        
             let componentsEnd = calendar.dateComponents([.day, .month, .year], from: dateEnd as Date)
             let yearEnd = componentsEnd.year
             let monthEnd = componentsEnd.month

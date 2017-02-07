@@ -299,6 +299,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
                 let customerVC = STCustomerDetailViewController()
                 customerVC.customerModel = CustomerModel()
                 customerVC.customerModel.addData(data: ["entity_id":orderModel.data["customer_id"] as! String])
+                trackEvent("order_detail_action", params: ["action":"view_customer_detail"])
                 self.navigationController?.pushViewController(customerVC, animated: true)
             }
         } else if identifier.range(of:ORDER_ITEMS_ROW) != nil {
@@ -307,6 +308,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
                 let productVC = STProductDetailViewController()
                 productVC.productModel = ProductModel()
                 productVC.productModel.addData(data: ["entity_id":itemData["product_id"] as! String])
+                trackEvent("order_detail_action", params: ["action":"view_product_detail"])
                 self.navigationController?.pushViewController(productVC, animated: true)
             }
         }

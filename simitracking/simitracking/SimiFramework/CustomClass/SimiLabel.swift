@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum LabelURLType {
+    case phoneNumber
+    case webURL
+}
+
 class SimiLabel: UILabel {
 
     /*
@@ -27,9 +32,9 @@ class SimiLabel: UILabel {
         return true
     }
     
-    public var isCopiable: Bool?{
+    public var isCopiable: Bool = false{
         didSet{
-            if(isCopiable)!{
+            if isCopiable{
                 self.isUserInteractionEnabled = true
                 self.isEnabled = true
                 self.addGestureRecognizer(UITapGestureRecognizer(target:self,action:#selector(didTapOn)))
@@ -38,6 +43,19 @@ class SimiLabel: UILabel {
         }
     }
     
+    public var isURL: Bool = false{
+        didSet{
+            if isURL{
+                self.isUserInteractionEnabled = true
+                self.isEnabled = true
+                self.addGestureRecognizer(UITapGestureRecognizer(target:self,action:#selector(didTapOn)))
+                self.textColor = UIColor.blue
+            }
+        }
+    }
+    
+    var urlType: LabelURLType = .webURL
+    
     func copyContent(){
         let pb: UIPasteboard = UIPasteboard.general
         pb.string = self.text
@@ -45,10 +63,25 @@ class SimiLabel: UILabel {
     
     func didTapOn(){
         self.becomeFirstResponder()
-        let menuController: UIMenuController = UIMenuController.shared
-        let copyMenuItem:UIMenuItem = UIMenuItem.init(title: STLocalizedString(inputString: "Copy"), action: #selector(copyContent))
-        menuController.menuItems = [copyMenuItem]
-        menuController.setTargetRect(bounds, in: self)
-        menuController.setMenuVisible(true, animated: true)
+        if isCopiable{
+            let menuController: UIMenuController = UIMenuController.shared
+            let copyMenuItem:UIMenuItem = UIMenuItem.init(title: STLocalizedString(inputString: "Copy"), action: #selector(copyContent))
+            menuController.menuItems = [copyMenuItem]
+            menuController.setTargetRect(bounds, in: self)
+            menuController.setMenuVisible(true, animated: true)
+        }else if isURL{
+            switch urlType {
+            case LabelURLType.webURL:
+                UIApplication.shared.openURL(URL(string: text!)!)
+                break
+            case LabelURLType.phoneNumber:
+                if let phoneURL = URL(string: "tel://"+"\(text)"){
+                    UIApplication.shared.openURL(phoneURL)
+                }else{
+                    showAlertWithTitle("", message: STLocalizedString(inputString: "The phone number is not valid"))
+                }
+                break
+            }
+        }
     }
 }

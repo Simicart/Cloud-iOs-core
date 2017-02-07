@@ -10,6 +10,12 @@ import UIKit
 
 import Mixpanel
 
+enum LoginType {
+    case normal
+    case qrCode
+    case demo
+}
+
 class STLoginViewController: SimiViewController, MainNavigationControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, STQRScannerViewControllerDelegate {
     let LOGIN_LOGO_ROW = "LOGIN_LOGO_ROW"
     let LOGIN_QRCODE_ROW = "LOGIN_QRCODE_ROW"
@@ -50,9 +56,10 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     
     //order id after receiving push notification
     var orderId: String!
+   
+    private var loginType: LoginType = .normal
     
     override func viewDidLoad() {
-        
         super.viewDidLoad();
         self.view.backgroundColor = THEME_COLOR
         staffModel = StaffModel()
@@ -79,7 +86,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Mixpanel.mainInstance().track(event: "Login Appeared")
     }
     
     override func updateViews() {
@@ -187,8 +193,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
                 cellToReturn = createTryDemoRow(row: row, identifier: identifier)
             } else if row.identifier == LOGIN_NEED_HELP_ROW {
                 cellToReturn = createNeedHelpRow(row: row, identifier: identifier)
-            }
-            else {
+            }else {
                 cellToReturn = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
         }
@@ -202,28 +207,24 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     func createLogoRow(row: SimiRow, identifier: String)->UITableViewCell {
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
         
-        var yStart = CGFloat(-40)
-        if (SimiGlobalVar.screenHeight>600) {
-            yStart = 10
-        }
-        
+        var rowY = CGFloat(0)
         loginImage = UIImageView(image: UIImage(named: "login_logo"))
-        loginImage.frame = CGRect(x: (SimiGlobalVar.screenWidth-200)/2, y: yStart, width: 200, height: 200)
+        loginImage.frame = CGRect(x: (SimiGlobalVar.screenWidth-200)/2, y: rowY, width: 200, height: 200)
         cellToReturn.addSubview(loginImage)
-        yStart += 200
+        rowY += 200
         
-        row.height = yStart
+        row.height = rowY
         return cellToReturn
     }
     
     func createLoginFieldsRow(row: SimiRow, identifier: String)->UITableViewCell {
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
         
-        var yStart = CGFloat(0)
+        var rowY = CGFloat(0)
         
         let separatorColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#333333")
         
-        let urlIconView:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: yStart, width: 40, height: 40))
+        let urlIconView:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: rowY, width: 40, height: 40))
         urlIconView.backgroundColor = separatorColor
         let urlIcon:UIImageView = UIImageView(image: UIImage(named: "login_url"))
         urlIcon.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
@@ -231,7 +232,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         urlIconView.addSubview(urlIcon)
         cellToReturn.addSubview(urlIconView)
         
-        let loginURLFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: yStart, width: 280, height: 40))
+        let loginURLFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: rowY, width: 280, height: 40))
         loginURLFieldHolder.backgroundColor = UIColor.white
         loginURLField = UITextField(frame: CGRect(x: 10, y: 5, width: 270, height: 30))
         loginURLField.placeholder = STLocalizedString(inputString: "Your URL")
@@ -241,12 +242,12 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         loginURLFieldHolder.addSubview(loginURLField)
         cellToReturn.addSubview(loginURLFieldHolder)
         
-        let urlFieldSeparator:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: yStart+39, width: 320, height: 1))
+        let urlFieldSeparator:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: rowY+39, width: 320, height: 1))
         urlFieldSeparator.backgroundColor = separatorColor
         cellToReturn.addSubview(urlFieldSeparator)
-        yStart+=40
+        rowY+=40
         
-        let emailIconView:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: yStart, width: 40, height: 40))
+        let emailIconView:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: rowY, width: 40, height: 40))
         emailIconView.backgroundColor = separatorColor
         let emailIcon:UIImageView = UIImageView(image: UIImage(named: "login_user"))
         emailIcon.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
@@ -254,7 +255,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         emailIconView.addSubview(emailIcon)
         cellToReturn.addSubview(emailIconView)
         
-        let loginEmailFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: yStart, width: 280, height: 40))
+        let loginEmailFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: rowY, width: 280, height: 40))
         loginEmailFieldHolder.backgroundColor = UIColor.white
         loginEmailField = UITextField(frame: CGRect(x: 10, y: 5, width: 270, height: 30))
         loginEmailField.placeholder = STLocalizedString(inputString: "Your Email")
@@ -264,13 +265,13 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         loginEmailFieldHolder.addSubview(loginEmailField)
         cellToReturn.addSubview(loginEmailFieldHolder)
         
-        let emailFieldSeparator:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: yStart+39, width: 320, height: 1))
+        let emailFieldSeparator:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: rowY+39, width: 320, height: 1))
         emailFieldSeparator.backgroundColor = separatorColor
         cellToReturn.addSubview(emailFieldSeparator)
-        yStart+=40
+        rowY+=40
         
         
-        let passwordIconView:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: yStart, width: 40, height: 40))
+        let passwordIconView:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2, y: rowY, width: 40, height: 40))
         passwordIconView.backgroundColor = separatorColor
         let passwordIcon:UIImageView = UIImageView(image: UIImage(named: "login_password"))
         passwordIcon.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
@@ -278,7 +279,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         passwordIconView.addSubview(passwordIcon)
         cellToReturn.addSubview(passwordIconView)
         
-        let loginPasswordFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: yStart, width: 280, height: 40))
+        let loginPasswordFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: rowY, width: 280, height: 40))
         loginPasswordFieldHolder.backgroundColor = UIColor.white
         loginPasswordField = UITextField(frame: CGRect(x: 10, y: 5, width: 270, height: 30))
         loginPasswordField.font = UIFont.systemFont(ofSize: 14)
@@ -288,26 +289,25 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         loginPasswordFieldHolder.addSubview(loginPasswordField)
         cellToReturn.addSubview(loginPasswordFieldHolder)
         
-        yStart += 50
+        rowY += 50
         
-        
-        loginButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: yStart, width: 260, height: 40))
+        loginButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: rowY, width: 260, height: 40))
         loginButton.addTarget(self, action: #selector(self.loginButtonPressed(sender:)), for: .touchUpInside)
         loginButton.backgroundColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#f08002")
         loginButton .setTitle(STLocalizedString(inputString: "Login").uppercased(), for: UIControlState.normal)
         cellToReturn.addSubview(loginButton)
         
-        yStart += 40
-        row.height = yStart
+        rowY += 40
+        row.height = rowY
         return cellToReturn
     }
     
     func createQRRow(row: SimiRow, identifier: String)->UITableViewCell {
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
         
-        var yStart = CGFloat(10)
+        var rowY = CGFloat(10)
         
-        qrButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: yStart, width: 260, height: 40))
+        qrButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: rowY, width: 260, height: 40))
         //qrButton.layer.cornerRadius = 5
         qrButton.addTarget(self, action: #selector(self.qrcodeButtonPressed(sender:)), for: .touchUpInside)
         qrButton.backgroundColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#f08002")
@@ -317,9 +317,9 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         let qrIconImageView = SimiImageView(image: UIImage(named: "qr_ic"))
         qrIconImageView.frame = CGRect(x: 5, y: 5, width: 30, height: 30)
         qrButton.addSubview(qrIconImageView)
-        yStart += 40
+        rowY += 40
         
-        row.height = yStart
+        row.height = rowY
         return cellToReturn
     }
     
@@ -327,16 +327,16 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     func createTryDemoRow(row: SimiRow, identifier: String)->UITableViewCell {
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
         
-        var yStart = CGFloat(10)
+        var rowY = CGFloat(10)
         
-        tryDemoButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: yStart, width: 260, height: 40))
+        tryDemoButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: rowY, width: 260, height: 40))
         tryDemoButton.addTarget(self, action: #selector(self.tryDemoButtonPressed(sender:)), for: .touchUpInside)
         tryDemoButton.backgroundColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#f08002")
         tryDemoButton .setTitle(STLocalizedString(inputString: "Try Demo").uppercased(), for: UIControlState.normal)
         cellToReturn.addSubview(tryDemoButton)
         
-        yStart += 50
-        row.height = yStart
+        rowY += 50
+        row.height = rowY
         return cellToReturn
     }
     
@@ -344,16 +344,16 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     func createNeedHelpRow(row: SimiRow, identifier: String)->UITableViewCell {
         let cellToReturn = SimiTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
         
-        var yStart = CGFloat(20)
+        var rowY = CGFloat(20)
         
-        needHelpButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: yStart, width: 260, height: 16))
+        needHelpButton = SimiButton(frame: CGRect(x: (SimiGlobalVar.screenWidth - 260)/2, y: rowY, width: 260, height: 16))
         needHelpButton.addTarget(self, action: #selector(self.needHelpButtonPressed(sender:)), for: .touchUpInside)
         needHelpButton .setTitle(STLocalizedString(inputString: "Need Help?"), for: UIControlState.normal)
         needHelpButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         cellToReturn.addSubview(needHelpButton)
-        yStart += 20
+        rowY += 20
         
-        row.height = yStart
+        row.height = rowY
         return cellToReturn
     }
     
@@ -380,14 +380,15 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         if (urltyped.characters.last != "/") {
             urltyped += "/"
         }
+        
         SimiGlobalVar.baseURL = urltyped
         userData.userEmail = loginEmailField.text!
         userData.userPassword = loginPasswordField.text!
         userData.userURL = loginURLField.text!
         
         staffModel.loginWithUserMail(userEmail: loginEmailField.text!, password: loginPasswordField.text!)
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
+        loginType = .normal
         self.showLoadingView()
     }
     
@@ -403,18 +404,16 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         userData.qrSessionId = qrSessionId
         
         staffModel.loginWithEmailAndQrSession(userEmail: loginEmailField.text!, qrsession: qrSessionId)
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
+        loginType = .qrCode
         self.showLoadingView()
     }
     
     func tryDemoButtonPressed(sender: UIButton){
-        SimiGlobalVar.baseURL = "http://dev.magento19.jajahub.com/index.php/default/"
+        SimiGlobalVar.baseURL = "http://dev-magento19.jajahub.com/index.php/default/"
         staffModel.loginWithUserMail(userEmail: "cody@simicart.com", password: "123456")
-        loginEmailField.text = "cody@simicart.com"
-        loginURLField.text = SimiGlobalVar.baseURL
-        loginPasswordField.text = "123456"
-        NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
+        loginType = .demo
         self.showLoadingView()
     }
     
@@ -434,7 +433,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     
     //MARK: - Logged in
     func didLogin(notification: NSNotification) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DidLogin"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DidLogin), object: nil)
         
         if self.staffModel.isSucess == false {
             hideLoadingView()
@@ -442,8 +441,22 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
+            STUserData.sharedInstance.isLoggedIn = true
             SimiDataLocal.setLocalData(data: loginEmailField.text!, forKey: LAST_USER_EMAIL)
+            switch loginType {
+            case .normal:
+                trackEvent("login_action", params: ["action":"login_normal"])
+                break
+            case .qrCode:
+                trackEvent("login_action", params: ["action":"login_qr_code"])
+                break
+            case .demo:
+                trackEvent("login_action", params: ["action":"login_demo"])
+                break
+            }
             checkLicense()
+            updateGlobalVarAndUserData()
+            //For open order view after receiving notification
             if orderId == ""{
                 openDashboard()
             }else{
@@ -501,7 +514,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     //MARK: - Open Dashboard
     
     func openOrderDetail(){
-        updateGlobalVar()
         let orderDetailVC = STOrderDetailViewController()
         orderDetailVC.orderId = orderId
         leftMenuViewController.mainNavigation.popToRootViewController(animated: false)
@@ -511,8 +523,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     }
     
     func openDashboard() {
-        updateGlobalVar()
-        
         dashboardViewController = STDashboardViewController()
         navigationVC = MainNavigationController(rootViewController: dashboardViewController)
         navigationVC.rootDelegate = self
@@ -532,7 +542,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         
     }
     
-    func updateGlobalVar() {
+    func updateGlobalVarAndUserData (){
         if (staffModel.data["device_data"] != nil) && !(staffModel.data["device_data"] is NSNull) {
             let staffData = staffModel.data["device_data"] as! Dictionary<String, Any>
             SimiGlobalVar.sessionId = staffData["session_id"] as! String
@@ -540,6 +550,9 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         
         if (staffModel.data["base_currency"] != nil) && !(staffModel.data["base_currency"] is NSNull) {
             SimiGlobalVar.baseCurrency = staffModel.data["base_currency"] as! String
+        }
+        if let deviceIP = staffModel.data["device_ip"] as? String{
+            STUserData.sharedInstance.deviceIP = deviceIP
         }
     }
     
@@ -560,9 +573,9 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             loginPasswordField.text = userData.userPassword
             loginURLField.text = userData.userURL
             qrSessionId = userData.qrSessionId
-            if (qrSessionId != "") {
+            if (qrSessionId != "" && loginEmailField.text != "") {
                 loginWithQRCode()
-            } else if (loginPasswordField.text != "") {
+            } else if (loginPasswordField.text != "") && (loginURLField.text != "") && (loginEmailField.text != "") {
                 loginWithFilledValues()
             }
         }
@@ -577,7 +590,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(didGetLicense(notification:)), name: NSNotification.Name(rawValue: "DidGetLicenseInfo"), object: nil)
         self.showLoadingView()
     }
-    
     
     //MARK: - Logged in
     func didGetLicense(notification: NSNotification) {
@@ -598,6 +610,9 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
                     if (licenseModel.data["version"] as! String)  != CURENT_SIMTRACKING_VERSION {
                         let alert = UIAlertController(title: "", message: STLocalizedString(inputString: "Your Version is Outdated. Please install the latest one"), preferredStyle: UIAlertControllerStyle.alert)
                         alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
+                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Upgrade"), style: .default, handler: { (UIAlertAction) in
+                            UIApplication.shared.openURL(URL(string:"https://itunes.apple.com/us/app/simi-virtual-assistant/id1184815898?mt=8")!)
+                        }))
                         dashboardViewController.present(alert, animated: true, completion: nil)
                     }
                 }

@@ -1669,7 +1669,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.tracking;
 				PRODUCT_NAME = SimiTracking;
-				PROVISIONING_PROFILE = "4c80b2b6-44a4-4dd2-b52a-7043182365e9";
+				PROVISIONING_PROFILE = "c6087472-9f8d-458c-a176-9e4ec47756fa";
 				PROVISIONING_PROFILE_SPECIFIER = "Mobile developer tracking";
 				SWIFT_OBJC_BRIDGING_HEADER = "simitracking/SimiFramework/MMDrawerController/simitracking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

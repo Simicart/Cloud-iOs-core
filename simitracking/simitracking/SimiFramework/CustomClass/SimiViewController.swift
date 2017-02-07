@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Mixpanel
 class SimiViewController: UIViewController {
     
     //loading
@@ -265,5 +265,19 @@ class SimiViewController: UIViewController {
         for subview in subviews {
             subview.removeFromSuperview()
         }
+    }
+    func trackEvent(_ event:String,params:Dictionary<String, String>){
+        var trackingParams = Dictionary<String, String>()
+        trackingParams.updateValue(STUserData.sharedInstance.userEmail, forKey: "customer_identity")
+        trackingParams.updateValue(STUserData.sharedInstance.deviceIP, forKey: "customer_ip")
+        trackingParams.updateValue(STUserData.sharedInstance.userURL, forKey: "url")
+        for (key,value) in params{
+            trackingParams.updateValue(value, forKey: key)
+        }
+        Mixpanel.mainInstance().track(event: event, properties: trackingParams)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

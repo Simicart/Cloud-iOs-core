@@ -30,6 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 ////                loginVC.orderId = orderId
 //            }
 //        }
+        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {
+            let aps = notification["aps"] as! [String: AnyObject]
+            orderId = aps["order_id"] as! String
+            loginVC.orderId = orderId
+        }
         SimiGlobalVar.updateLayoutDirection()
         //notification token getting
         let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -40,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.rootViewController = loginVC
         
-        let token = "bc66f588572a4f25c4d56a615ded3309"
+        let token = "286b4016149732004b4ebb2f2891ffec"
         Mixpanel.initialize(token: token)
         return true
     }
@@ -64,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+//        UIApplication.shared.applicationIconBadgeNumber = 0
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -78,27 +83,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DidReceiveRemoteNotification"), object: userInfo)
-        if let aps = userInfo["aps"] as? NSDictionary {
-            let title = aps["title"] as? NSString as? String
-            let alert = aps["alert"] as? NSString as? String
-            //let message = aps["message"] as? NSString as? String
-            orderId = (aps["order_id"] as? NSString as? String)!
-            //check app state
-            let state = UIApplication.shared.applicationState
-            if state == .background {
-            }else if(state == .active){
-                let alertView = UIAlertView(title: title!, message: alert!, delegate: self, cancelButtonTitle: STLocalizedString(inputString: "OK"), otherButtonTitles: STLocalizedString(inputString: "Show Order"))
-                alertView.show()
-            }else if(state == .inactive){
-                let orderDetailVC = STOrderDetailViewController()
-                orderDetailVC.orderId = orderId
-                if let mainNavigation = STLeftMenuViewController.shareInstance.mainNavigation{
-                    mainNavigation.popToRootViewController(animated: false)
-                    mainNavigation.pushViewController(orderDetailVC, animated: false)
-                    mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
-                    orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
-                }else{
-                    
+        if STUserData.sharedInstance.isLoggedIn{
+            if let aps = userInfo["aps"] as? NSDictionary {
+                let title = aps["title"] as? NSString as? String
+                let alert = aps["alert"] as? NSString as? String
+                //let message = aps["message"] as? NSString as? String
+                orderId = (aps["order_id"] as? NSString as? String)!
+                //check app state
+                let state = UIApplication.shared.applicationState
+                if state == .background {
+                }else if(state == .active){
+                    let alertView = UIAlertView(title: title!, message: alert!, delegate: self, cancelButtonTitle: STLocalizedString(inputString: "OK"), otherButtonTitles: STLocalizedString(inputString: "Show Order"))
+                    alertView.show()
+                }else if(state == .inactive){
+                    let orderDetailVC = STOrderDetailViewController()
+                    orderDetailVC.orderId = orderId
+                    if let mainNavigation = STLeftMenuViewController.shareInstance.mainNavigation{
+    //                    mainNavigation.popToRootViewController(animated: false)
+                        mainNavigation.pushViewController(orderDetailVC, animated: false)
+                        mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+                        orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+                    }else{
+                        
+                    }
                 }
             }
         }
@@ -109,20 +116,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         for i in 0..<deviceToken.count {
             tokenString += String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
-//        SimiGlobalVar.deviceToken = tokenString
         //Save device token id
         STUserData.sharedInstance.deviceTokenId = tokenString
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        showAlertWithTitle("", message: "\(error)")
     }
     
     //Show message for order push notification
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if(buttonIndex == 1){
-            let orderDetailVC = STOrderDetailViewController()
-            orderDetailVC.orderId = orderId
-            STLeftMenuViewController.shareInstance.mainNavigation.popToRootViewController(animated: false)
-            STLeftMenuViewController.shareInstance.mainNavigation.pushViewController(orderDetailVC, animated: false)
-            STLeftMenuViewController.shareInstance.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
-            orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+            if STUserData.sharedInstance.isLoggedIn{
+                let orderDetailVC = STOrderDetailViewController()
+                orderDetailVC.orderId = orderId
+    //            STLeftMenuViewController.shareInstance.mainNavigation.popToRootViewController(animated: false)
+                STLeftMenuViewController.shareInstance.mainNavigation.pushViewController(orderDetailVC, animated: false)
+                STLeftMenuViewController.shareInstance.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+                orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+            }
         }
     }
 }

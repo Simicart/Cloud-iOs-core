@@ -11,8 +11,15 @@ import UIKit
 class STAddressTableViewCell: SimiTableViewCell {
     func setCellWithInfo(addressData: Dictionary<String, Any>, row: SimiRow) {
         var heightCell = 10
-        
-        var namevalueString = (addressData["firstname"] as! String) + " " + (addressData["lastname"] as! String)
+        var firstName = ""
+        var lastName = ""
+        if !(addressData["firstname"] is NSNull) && addressData["firstname"] != nil{
+            firstName = (addressData["firstname"] as? String)!
+        }
+        if !(addressData["lastname"] is NSNull) && addressData["lastname"] != nil{
+            lastName = (addressData["lastname"] as? String)!
+        }
+        var namevalueString = firstName + " " + lastName
         
         if !(addressData["suffix"] is NSNull) && (addressData["suffix"] != nil) && ((addressData["suffix"] as! String) != "") {
             namevalueString = namevalueString + " " + (addressData["suffix"] as! String)
@@ -47,7 +54,7 @@ class STAddressTableViewCell: SimiTableViewCell {
         
         
         if !(addressData["telephone"] is NSNull) && (addressData["telephone"] != nil) && ((addressData["telephone"] as! String) != "") {
-            self.addValueLabel(withTitle: STLocalizedString(inputString: "Telephone"), andValue: (addressData["telephone"] as! String), atHeight: heightCell, isCopiable:true)
+            addURLLabel(withTitle: STLocalizedString(inputString: "Telephone"), value: (addressData["telephone"] as! String), atHeight: heightCell, urlType: .phoneNumber)
         heightCell += 22
         }
         

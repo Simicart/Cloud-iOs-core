@@ -13,6 +13,11 @@ let currencyRight: String = "Right"
 let currencyLeftSpace: String = "Left Space"
 let currencyRightSpace: String = "Right Space"
 
+let separatorType1:String = "Type 1: 1.000,00"
+let separatorType2:String = "Type 2: 1,000.00"
+
+var didChangeShowingItemOnDashboard = false
+
 class STUserData: NSObject {
     static let sharedInstance = STUserData()
     private var privateUserEmail = ""
@@ -24,6 +29,9 @@ class STUserData: NSObject {
             return SimiDataLocal.getLocalData(forKey: userEmail + "_deviceTokenId") as! String
         }
     }
+    
+    var deviceIP:String = ""
+    
     var userEmail: String{
         set(newUserEmail){
             SimiDataLocal.setLocalData(data: newUserEmail, forKey: (userEmail + "_email"))
@@ -143,27 +151,28 @@ class STUserData: NSObject {
             }
         }
     }
-    var decimalSeparator: String{
-        set(newDecimalSeparator){
-            SimiDataLocal.setLocalData(data: newDecimalSeparator, forKey: (userEmail + "_decimalSeparator"))
+    var separatorType:String{
+        set(newSeparatorType){
+            SimiDataLocal.setLocalData(data: newSeparatorType, forKey: userEmail + "_separatorType")
         }
         get{
-            if SimiDataLocal.getLocalData(forKey: userEmail + "_decimalSeparator") as! String == ""{
-                return "."
+            if SimiDataLocal.getLocalData(forKey: userEmail + "_separatorType") as! String == ""{
+                return separatorType1
             }else{
-                return SimiDataLocal.getLocalData(forKey: userEmail + "_decimalSeparator") as! String
+                return SimiDataLocal.getLocalData(forKey: userEmail + "_separatorType") as! String
             }
         }
     }
-    var thousandsSeparator: String{
-        set(newThousandsSeparator){
-            SimiDataLocal.setLocalData(data: newThousandsSeparator, forKey: (userEmail + "_thousandsSeparator"))
+    
+    var isLoggedIn:Bool{
+        set(isLoggedIn){
+            SimiDataLocal.setLocalData(data: isLoggedIn, forKey: (userEmail + "_isLoggedIn"))
         }
         get{
-            if SimiDataLocal.getLocalData(forKey: userEmail + "_thousandsSeparator") as! String == ""{
-                return ","
+            if SimiDataLocal.getLocalData(forKey: userEmail + "_isLoggedIn") is Bool{
+                return SimiDataLocal.getLocalData(forKey: userEmail + "_isLoggedIn") as! Bool
             }else{
-                return SimiDataLocal.getLocalData(forKey: userEmail + "_thousandsSeparator") as! String
+                return true
             }
         }
     }

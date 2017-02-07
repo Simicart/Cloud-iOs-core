@@ -68,8 +68,13 @@ class STSearchViewController: SimiViewController, UITableViewDelegate, UITableVi
     public func resetSearch() {
         searchTextField.text = ""
         selectedAttribute = ""
+        for (index, _) in attributeList {
+            if (selectedAttribute == "") {
+                selectedAttribute = index
+            }
+        }
         mainTableView.reloadData()
-        self.delegate?.searchButtonTappedWith(attribute: "", andValue: "")
+        self.delegate?.searchButtonTappedWith(attribute: selectedAttribute, andValue: "")
     }
     
     // MARK: - Update Views

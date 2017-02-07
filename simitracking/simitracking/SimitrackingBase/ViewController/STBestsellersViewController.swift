@@ -11,8 +11,6 @@ import Mixpanel
 
 class STBestsellersViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let ITEMS_PER_PAGE = STUserData.sharedInstance.itemPerPage
-    
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
     var lastContentOffset:CGPoint?
@@ -45,7 +43,6 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Mixpanel.mainInstance().track(event: "Best Seller Appeared")
     }
     
     override func updateViews() {
@@ -65,7 +62,7 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
             bestSellerModelCollection = BestsellerModelCollection()
         }
         self.showLoadingView()
-        var paramMeters:Dictionary<String, String> =  ["dir":"desc","order":"entity_id","limit":String(ITEMS_PER_PAGE),"offset":String((currentPage-1) * ITEMS_PER_PAGE)]
+        var paramMeters:Dictionary<String, String> =  ["dir":"desc","order":"entity_id","limit":String(STUserData.sharedInstance.itemPerPage),"offset":String((currentPage-1) * STUserData.sharedInstance.itemPerPage)]
         
         if (SimiGlobalVar.selectedStoreId != "") {
             paramMeters["store_id"] = SimiGlobalVar.selectedStoreId
@@ -89,7 +86,7 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
             self.present(alert, animated: true, completion: nil)
         } else {
             totalProducts = bestSellerModelCollection.total!
-            maxPage = totalProducts/ITEMS_PER_PAGE + 1
+            maxPage = totalProducts/STUserData.sharedInstance.itemPerPage + 1
             setMainTableViewCells()
             mainTableView.reloadData()
             setCurrentPage(pageNumber: currentPage)
@@ -105,7 +102,7 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
         for item in items {
             let newRow:SimiRow = SimiRow(withIdentifier: (item["entity_id"] as! String))
             newRow.data = item
-            newRow.height = 72
+//            newRow.height = 90
             newSection.childRows.append(newRow)
         }
         if newSection.childRows.count != 0 {
@@ -153,6 +150,7 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
         let newProductDetailVC = STProductDetailViewController()
         newProductDetailVC.productModel = ProductModel()
         newProductDetailVC.productModel.data = rowData
+        trackEvent("best_bellers_action", params: ["action":"view_product_detail"])
         self.navigationController?.pushViewController(newProductDetailVC, animated: true)
     }
     
@@ -196,11 +194,11 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
     override func showPageActionSheet() {
         super.showPageActionSheet()
         pageActionSheet = UIActionSheet(title: STLocalizedString(inputString: "Select Page"), delegate: self, cancelButtonTitle: STLocalizedString(inputString: "Cancel"), destructiveButtonTitle: nil)
-        if totalProducts <= ITEMS_PER_PAGE {
+        if totalProducts <= STUserData.sharedInstance.itemPerPage {
             return
         }
         pageActionSheet.addButton(withTitle: String(1))
-        for index in 1...(totalProducts/ITEMS_PER_PAGE) {
+        for index in 1...(totalProducts/STUserData.sharedInstance.itemPerPage) {
             pageActionSheet.addButton(withTitle: String(index + 1))
         }
         pageActionSheet.delegate = self
@@ -211,10 +209,12 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
     // MARK: - Page Navigation
     override func openNextPage() {
         super.openNextPage()
+        trackEvent("best_bellers_action", params: ["action":"next_page"])
         getBestsellers()
     }
     override func openPreviousPage() {
         super.openPreviousPage()
+        trackEvent("best_bellers_action", params: ["action":"previous_page"])
         getBestsellers()
     }
     

@@ -71,6 +71,24 @@ class SimiTableViewCell: UITableViewCell, UITextFieldDelegate {
         self.contentView.addSubview(textField)
     }
     
+    func addURLLabel(withTitle:String, value:String, atHeight:Int, urlType:LabelURLType){
+        let titleLabel = SimiLabel(frame: CGRect(x: 15, y: atHeight, width: 140, height: 16))
+        titleLabel.textColor = UIColor.darkGray
+        titleLabel.font = THEME_BOLD_FONT
+        titleLabel.text = withTitle
+        self.contentView.addSubview(titleLabel)
+        
+        let valueLabel = SimiLabel(frame: CGRect(x: 160, y: atHeight, width: Int(SimiGlobalVar.screenWidth - 170), height: 16))
+        valueLabel.isURL = true
+        valueLabel.urlType = urlType
+        valueLabel.font = THEME_FONT
+        valueLabel.text = value
+        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+        let underlineAttributedString = NSAttributedString(string: value, attributes: underlineAttribute)
+        valueLabel.attributedText = underlineAttributedString
+        self.contentView.addSubview(valueLabel)
+    }
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if isEditable{
             return true

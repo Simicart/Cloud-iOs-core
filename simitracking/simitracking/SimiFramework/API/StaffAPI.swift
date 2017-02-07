@@ -13,6 +13,7 @@ class StaffAPI: SimiAPI {
     
     let kResource = "staffs/"
     let kLoginResourceId = "login/"
+    let kLogoutResourceId = "logout/"
     let kLoginWithKeySessionResourceId = "loginWithKeySession/"
     
     
@@ -27,5 +28,10 @@ class StaffAPI: SimiAPI {
         let url:String = SimiGlobalVar.baseURL+kSimiTrackingURL+kResource+kLoginWithKeySessionResourceId
         //self request
         self.requestWithURL(url: url, params: params, target: target, selector: selector, header:[String: String]())
+    }
+    
+    func logoutWithParams(_ params: Dictionary<String, String>, target:NSObject, selector:Selector){
+        let url:String = SimiGlobalVar.baseURL + kSimiTrackingURL+kResource+kLogoutResourceId
+        requestWithURL(url: url, params: params, target: target, selector: selector, header: [String:String]())
     }
 }

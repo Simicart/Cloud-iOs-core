@@ -354,9 +354,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
     }
     
     func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        if actionSheet == storeSelectActionSheet{
-            return
-        }else if actionSheet == timeRangeActionSheet{
+        if timeRangeActionSheet != nil && actionSheet == timeRangeActionSheet{
             switch buttonIndex {
             case 1:
                 getForecastSale(numberOfDay: 30)

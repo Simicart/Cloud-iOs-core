@@ -12,45 +12,46 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
     
     let ROW_HEIGHT:CGFloat = 65
     
-    var orderModelCollection:OrderModelCollection!
-    var reloadedTime = 0
-    var totalOrders = 0
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
-    var lastContentOffset:CGPoint?
-    var statusDict:Dictionary<String, String>! = [:]
-    var refreshControl:UIRefreshControl!
+    public var customerEmail: String!
+    private var orderModelCollection:OrderModelCollection!
+    private var reloadedTime = 0
+    private var totalOrders = 0
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
+    private var lastContentOffset:CGPoint?
+    private var statusDict:Dictionary<String, String>! = [:]
+    private var refreshControl:UIRefreshControl!
     
-    var emptyLabel:SimiLabel!
+    private var emptyLabel:SimiLabel!
     
-    var actionView:SimiView!
-    var actionFooterView:SimiView!
-    var actionTimeFilterButton:SimiButton!
-    var actionSeparator1:UIView!
-    var actionSortFilterButton:SimiButton!
-    var actionSeparator2:UIView!
-    var actionStatusFilterButton:UIButton!
+    private var actionView:SimiView!
+    private var actionFooterView:SimiView!
+    private var actionTimeFilterButton:SimiButton!
+    private var actionSeparator1:UIView!
+    private var actionSortFilterButton:SimiButton!
+    private var actionSeparator2:UIView!
+    private var actionStatusFilterButton:UIButton!
     
-    var sortFilterLabel:SimiLabel!
-    var timeFilterLabel:SimiLabel!
-    var statusFilterLabel:SimiLabel!
+    private var sortFilterLabel:SimiLabel!
+    private var timeFilterLabel:SimiLabel!
+    private var statusFilterLabel:SimiLabel!
     
-    var statusActionSheet:UIActionSheet!
-    var currentStatus = ""
+    private var statusActionSheet:UIActionSheet!
+    private var currentStatus = ""
     
-    var timeRangeActionSheet:UIActionSheet!
-    var currentTimeRangeStart = ""
-    var currentTimeRangeEnd = ""
+    private var timeRangeActionSheet:UIActionSheet!
+    private var currentTimeRangeStart = ""
+    private var currentTimeRangeEnd = ""
     
-    var sortingActionSheet:UIActionSheet!
-    var currentSortingAttribute = ""
-    var currentSortingDirection = ""
+    private var sortingActionSheet:UIActionSheet!
+    private var currentSortingAttribute = ""
+    private var currentSortingDirection = ""
     
-    var searchVC:STSearchViewController!
-    var searchTerm = ""
-    var searchAttribute = ""
-    var isSearchExactlyMatch = false
-    var searchButton:SimiButton!
+    private var searchVC:STSearchViewController!
+    private var searchTerm = ""
+    private var searchAttribute = ""
+    private var isSearchExactlyMatch = false
+    private var searchButton:SimiButton!
     
     // MARK: - init functions
     
@@ -72,17 +73,23 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
             refreshControl.addTarget(self, action: #selector(getOrders), for: UIControlEvents.valueChanged)
             mainTableView.addSubview(refreshControl)
         }
+        
+        if (customerEmail != nil && customerEmail != "") {
+            searchAttribute = "customer_email"
+            searchTerm = customerEmail
+        }
+        
+        self.getOrders()
+        showActionView()
         if (emptyLabel == nil) {
-            emptyLabel = SimiLabel(frame: CGRect(x: 0, y: 150, width: SimiGlobalVar.screenWidth, height: 30))
+            emptyLabel = SimiLabel(frame: view.bounds)
             emptyLabel.text = STLocalizedString(inputString: "No Orders Found")
             emptyLabel.textAlignment = NSTextAlignment.center
             emptyLabel.textColor = UIColor.gray
+            emptyLabel.backgroundColor = UIColor.white
             emptyLabel.isHidden = true
-            self.view.addSubview(emptyLabel)
+            view.addSubview(emptyLabel)
         }
-        self.getOrders()
-        showActionView()
-        
         addPagingView()
         
         let searchImageView = SimiImageView()
@@ -97,8 +104,11 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
         searchImageView.frame = CGRect(x: 10, y: 10, width: 30, height: 30)
         searchButton.addSubview(searchImageView)
         
-        addFloatView(withView: searchButton)
+        if customerEmail == nil || customerEmail == ""{
+            addFloatView(withView: searchButton)
+        }
         // Do any additional setup after loading the view.
+        
     }
     
     override func updateViews() {
@@ -153,7 +163,7 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
             trackingParams["dir"] = currentSortingDirection
         }
         
-        if (searchAttribute != "") && (searchTerm != "") {
+        if searchAttribute != "" && searchTerm != ""{
             let attributeToSearch = "filter[" + searchAttribute + "][like]"
             if (isSearchExactlyMatch == false) {
                 paramMeters[attributeToSearch] = "%" + searchTerm + "%"
@@ -746,7 +756,12 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
         if (searchVC == nil) {
             searchVC = STSearchViewController()
         }
+        
         searchVC.attributeList = ["entity_id":"Order ID","customer_email":"Customer Email","increment_id":"Increment Id"]
+        if customerEmail != nil && customerEmail != ""{
+            searchVC.attributeList = ["entity_id":"Order ID","increment_id":"Increment Id"]
+        }
+        
         searchVC.delegate = self
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -755,6 +770,12 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
         self.navigationController!.popViewController(animated: true)
         searchTerm = andValue
         searchAttribute = attribute
+        if customerEmail != nil && customerEmail != ""{
+            if attribute == "" && andValue == ""{
+                searchAttribute = "customer_email"
+                searchTerm = customerEmail
+            }
+        }
         orderModelCollection = nil
         currentPage = 1
         getOrders()

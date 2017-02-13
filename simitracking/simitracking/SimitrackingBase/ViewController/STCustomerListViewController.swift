@@ -10,6 +10,8 @@ import UIKit
 
 class STCustomerListViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate, UIActionSheetDelegate {
 
+    private var emptyLabel:UILabel!
+    
     let ROW_HEIGHT:CGFloat = 50
     
     var mainTableView:SimiTableView!
@@ -60,6 +62,16 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
         
         addFloatView(withView: searchButton)
         getCustomers()
+        
+        if (emptyLabel == nil) {
+            emptyLabel = SimiLabel(frame: view.bounds)
+            emptyLabel.text = STLocalizedString(inputString: "No Customers Found")
+            emptyLabel.textAlignment = NSTextAlignment.center
+            emptyLabel.textColor = UIColor.gray
+            emptyLabel.backgroundColor = UIColor.white
+            emptyLabel.isHidden = true
+            self.view.addSubview(emptyLabel)
+        }
     }
     
     override func updateViews() {
@@ -106,12 +118,17 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            totalCustomers = customerModelCollection.total!
-            maxPage = totalCustomers/STUserData.sharedInstance.itemPerPage + 1
-            setMainTableViewCells()
-            mainTableView.reloadData()
-            setCurrentPage(pageNumber: currentPage)
-            updatePagingView()
+            if customerModelCollection.total == 0{
+                emptyLabel.isHidden = false
+            }else{
+                emptyLabel.isHidden = true
+                totalCustomers = customerModelCollection.total!
+                maxPage = totalCustomers/STUserData.sharedInstance.itemPerPage + 1
+                setMainTableViewCells()
+                mainTableView.reloadData()
+                setCurrentPage(pageNumber: currentPage)
+                updatePagingView()
+            }
         }
     }
     

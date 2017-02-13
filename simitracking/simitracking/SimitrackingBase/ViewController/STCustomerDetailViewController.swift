@@ -234,9 +234,7 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         let row = section.childRows[indexPath.row]
         if (row.identifier == CUSTOMER_ORDER_ROW) {
             let newOrderVC = STOrderListViewController()
-            newOrderVC.searchAttribute = "customer_email"
-            newOrderVC.isSearchExactlyMatch = true
-            newOrderVC.searchTerm = customerModel.data["email"]  as! String
+            newOrderVC.customerEmail = customerModel.data["email"] as! String
             newOrderVC.createBackButton()
             trackEvent("customer_detail_action", params: ["action":"view_customer_orders"])
             self.navigationController?.pushViewController(newOrderVC, animated: true)

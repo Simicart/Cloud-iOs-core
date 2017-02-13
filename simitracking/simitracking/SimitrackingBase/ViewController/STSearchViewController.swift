@@ -13,7 +13,8 @@ protocol STSearchViewControllerDelegate {
 }
 
 class STSearchViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-
+    
+    private var resetSearchBtn:SimiButton!
     var attributeList:Dictionary<String, String> = [:]
     var selectedAttribute = ""
     
@@ -54,27 +55,23 @@ class STSearchViewController: SimiViewController, UITableViewDelegate, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDismiss), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    
     // MARK: - Reset Search
     public func createResetSearchButton() {
-        let resetSearchBtn: SimiButton = SimiButton(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
-        resetSearchBtn.setTitle(STLocalizedString(inputString: "Reset"), for: UIControlState.normal)
-        resetSearchBtn.addTarget(self, action: #selector(resetSearch), for: .touchUpInside)
-        resetSearchBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        let barResetSearchBtn = UIBarButtonItem(customView: resetSearchBtn)
-        self.navigationItem.rightBarButtonItem = barResetSearchBtn
+        if resetSearchBtn == nil{
+            resetSearchBtn = SimiButton(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
+            resetSearchBtn.isHidden = true
+            resetSearchBtn.setTitle(STLocalizedString(inputString: "Reset"), for: UIControlState.normal)
+            resetSearchBtn.addTarget(self, action: #selector(resetSearch), for: .touchUpInside)
+            resetSearchBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            let barResetSearchBtn = UIBarButtonItem(customView: resetSearchBtn)
+            self.navigationItem.rightBarButtonItem = barResetSearchBtn
+        }
     }
     
     public func resetSearch() {
         searchTextField.text = ""
-        selectedAttribute = ""
-        for (index, _) in attributeList {
-            if (selectedAttribute == "") {
-                selectedAttribute = index
-            }
-        }
         mainTableView.reloadData()
-        self.delegate?.searchButtonTappedWith(attribute: selectedAttribute, andValue: "")
+        self.delegate?.searchButtonTappedWith(attribute: "", andValue: "")
     }
     
     // MARK: - Update Views
@@ -169,6 +166,7 @@ class STSearchViewController: SimiViewController, UITableViewDelegate, UITableVi
     
     //MARK: - Searchbar delegate
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        resetSearchBtn.isHidden = false
         self.delegate?.searchButtonTappedWith(attribute: selectedAttribute, andValue: searchTextField.text!)
     }
 }

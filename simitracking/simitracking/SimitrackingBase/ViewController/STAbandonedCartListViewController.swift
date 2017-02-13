@@ -10,6 +10,8 @@ import UIKit
 
 class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, STSearchViewControllerDelegate, UIActionSheetDelegate {
     
+    private var emptyLabel:UILabel!
+    
     let ROW_HEIGHT:CGFloat = 80
     var mainTableView:SimiTableView!
     var mainTableViewCells:Array<SimiSection> = []
@@ -61,6 +63,16 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
         addFloatView(withView: searchButton)
         
         getAbandonedCarts()
+        
+        if (emptyLabel == nil) {
+            emptyLabel = SimiLabel(frame: view.bounds)
+            emptyLabel.text = STLocalizedString(inputString: "No Abandoned Carts Found")
+            emptyLabel.textAlignment = NSTextAlignment.center
+            emptyLabel.textColor = UIColor.gray
+            emptyLabel.backgroundColor = UIColor.white
+            emptyLabel.isHidden = true
+            self.view.addSubview(emptyLabel)
+        }
     }
     
     override func updateViews() {
@@ -105,12 +117,17 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            totalAbandonedCarts = abandonedCartModelCollection.total!
-            maxPage = totalAbandonedCarts/STUserData.sharedInstance.itemPerPage + 1
-            setMainTableViewCells()
-            mainTableView.reloadData()
-            setCurrentPage(pageNumber: currentPage)
-            updatePagingView()
+            if abandonedCartModelCollection.total == 0{
+                emptyLabel.isHidden = false
+            }else{
+                emptyLabel.isHidden = true
+                totalAbandonedCarts = abandonedCartModelCollection.total!
+                maxPage = totalAbandonedCarts/STUserData.sharedInstance.itemPerPage + 1
+                setMainTableViewCells()
+                mainTableView.reloadData()
+                setCurrentPage(pageNumber: currentPage)
+                updatePagingView()
+            }
         }
     }
     

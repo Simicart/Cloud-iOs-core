@@ -62,10 +62,11 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
         getProducts()
         
         if (emptyLabel == nil) {
-            emptyLabel = SimiLabel(frame: CGRect(x: 0, y: 150, width: SimiGlobalVar.screenWidth, height: 30))
+            emptyLabel = SimiLabel(frame: view.bounds)
             emptyLabel.text = STLocalizedString(inputString: "No Products Found")
             emptyLabel.textAlignment = NSTextAlignment.center
             emptyLabel.textColor = UIColor.gray
+            emptyLabel.backgroundColor = UIColor.white
             emptyLabel.isHidden = true
             self.view.addSubview(emptyLabel)
         }
@@ -118,9 +119,9 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
             self.present(alert, animated: true, completion: nil)
         } else {
             if productModelCollection.total == 0{
-                emptyLabel.isHidden = true
-            }else{
                 emptyLabel.isHidden = false
+            }else{
+                emptyLabel.isHidden = true
                 totalProducts = productModelCollection.total!
                 maxPage = totalProducts/ITEMS_PER_PAGE + 1
                 setMainTableViewCells()

@@ -102,7 +102,7 @@ class STBestsellersViewController: StoreviewFilterViewController, UITableViewDel
         for item in items {
             let newRow:SimiRow = SimiRow(withIdentifier: (item["entity_id"] as! String))
             newRow.data = item
-//            newRow.height = 90
+            newRow.height = 90
             newSection.childRows.append(newRow)
         }
         if newSection.childRows.count != 0 {

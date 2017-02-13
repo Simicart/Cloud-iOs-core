@@ -31,9 +31,10 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
             self.view.addSubview(mainTableView)
         }
         if (emptyLabel == nil) {
-            emptyLabel = UILabel(frame: CGRect(x: 0, y: 100, width: SimiGlobalVar.screenWidth, height: 40))
+            emptyLabel = UILabel(frame: view.bounds)
             emptyLabel.text = STLocalizedString(inputString: "No Addresses Found")
             emptyLabel.textColor = UIColor.gray
+            emptyLabel.backgroundColor = UIColor.white
             emptyLabel.textAlignment = NSTextAlignment.center
             emptyLabel.font = UIFont.systemFont(ofSize: 14)
             emptyLabel.isHidden = true
@@ -81,8 +82,13 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
             alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            setMainTableViewCells()
-            mainTableView.reloadData()
+            if addressModelCollection.total == 0{
+                emptyLabel.isHidden = false
+            }else{
+                emptyLabel.isHidden = true
+                setMainTableViewCells()
+                mainTableView.reloadData()
+            }
             //setCurrentPage(pageNumber: currentPage)
         }
     }

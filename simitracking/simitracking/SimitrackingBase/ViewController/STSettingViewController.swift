@@ -62,6 +62,7 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
         if (mainTableView == nil) {
             mainTableView = SimiTableView(frame:
                 CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: UITableViewStyle.grouped)
+            mainTableView.separatorStyle = .none
             mainTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
             mainTableView.delegate = self
             mainTableView.dataSource = self
@@ -211,7 +212,7 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
                 cellToReturn = createSeparatorRow(row:row, identifier:identifier)
             }
         }
-        if !(cellToReturn != nil){
+        if cellToReturn == nil{
             cellToReturn = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
         }
         cellToReturn?.selectionStyle = UITableViewCellSelectionStyle.none

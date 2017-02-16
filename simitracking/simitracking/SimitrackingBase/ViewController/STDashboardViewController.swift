@@ -8,6 +8,7 @@
 
 import UIKit
 import Mixpanel
+import Charts
 
 class STDashboardViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, IAxisValueFormatter, ChartViewDelegate{
     let SALES_SECTION_IDENTIFIER = "SALES_SECTION_IDENTIFIER"
@@ -63,8 +64,8 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         addViews()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if didChangeShowingItemOnDashboard{
             setMainTableViewCells()
             mainTableView.reloadData()
@@ -161,7 +162,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     
     func didGetSales(notification: NSNotification) {
         hideLoadingView()
-        if (saleModel != nil) {
+        if (saleModel != nil &&  saleModel.data["total_chart"] != nil && saleModel.data["total_chart"] is Array<Dictionary<String,Any>>) {
             totalsChartData = saleModel.data["total_chart"] as! Array<Dictionary<String, Any>>
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DidGetSaleInfo"), object: nil)
             setMainTableViewCells()
@@ -236,7 +237,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             let salesTimeRangeRow:SimiRow = SimiRow(withIdentifier: SALES_TIME_RANGE_SELECT_ROW, andHeight: 40)
             salesSection.childRows.append(salesTimeRangeRow)
             let chartLabelRow:SimiRow = SimiRow(withIdentifier:CHART_LABEL_ROW, andHeight:40)
-            let salesChartRow:SimiRow = SimiRow(withIdentifier: SALES_CHART_ROW, andHeight: SimiGlobalVar.screenWidth)
+            let salesChartRow:SimiRow = SimiRow(withIdentifier: SALES_CHART_ROW, andHeight: 350)
             salesSection.childRows.append(chartLabelRow)
             salesSection.childRows.append(salesChartRow)
             if (SimiGlobalVar.permissionsAllowed[TOTAL_DETAIL] == true) {
@@ -543,7 +544,6 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
         let separatorView = UIView(frame: CGRect(x: 40, y: row.height-1, width: SimiGlobalVar.screenWidth - 80, height: 1))
         separatorView.backgroundColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#f1f1f1")
         cellToReturn.addSubview(separatorView)
-        
         return cellToReturn
     }
     

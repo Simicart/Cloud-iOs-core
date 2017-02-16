@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 class STForecastViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, IAxisValueFormatter, ChartViewDelegate{
     
@@ -15,16 +16,13 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
     let REVENUE_ROW = "REVENUE_ROW"
     let SALE_ROW = "SALE_ROW"
     
-    private var forecastChartView:CombinedChartView!
+    private var forecastChartView:LineChartView!
     
     private var mainTableView: SimiTableView!
     private var table: SimiTable!
     private var forecastSaleModel: ForecastSaleModel!
     private var totalChartData: Array<Dictionary<String,Any>>!
-    private var amountAndCountRatio:Double!
-    
-    private var ordersLabel: SimiLabel!
-    private var invoicesLabel:SimiLabel!
+
     private var timeForecastLabel:SimiLabel!
     private var forecastLabel:SimiLabel!
     
@@ -57,6 +55,10 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         navigationItem.title = STLocalizedString(inputString: "Forecast").uppercased()
         
         initTableCells()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getForecastSale(numberOfDay: 90)
     }
     
@@ -64,7 +66,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         super.updateViews()
         if (mainTableView != nil) {
             mainTableView.frame = CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight);
-            initTableCells()
+            mainTableView.reloadData()
         }
     }
     
@@ -74,8 +76,6 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
         mainSection.addRowWithIdentifier(identifier: CHART_ROW, height: 390)
 //        mainSection.addRowWithIdentifier(identifier: REVENUE_ROW, height: 70)
 //        mainSection.addRowWithIdentifier(identifier: SALE_ROW, height: 70)
-        
-        mainTableView.reloadData()
     }
     
     func getForecastSale(numberOfDay:Int){
@@ -213,27 +213,17 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
             forecastLabel.textColor = UIColor.gray
             chartCell?.contentView.addSubview(timeForecastLabel)
             chartCell?.contentView.addSubview(forecastLabel)
-            invoicesLabel = SimiLabel(frame:CGRect(x:15,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20))
-            invoicesLabel.textColor = UIColor.lightGray
-            invoicesLabel.font = THEME_BOLD_FONT
-            invoicesLabel.text = "Invoices "  + "(\(SimiGlobalVar.baseCurrency))"
-            chartCell?.contentView.addSubview(invoicesLabel)
-            ordersLabel = SimiLabel(frame:CGRect(x:SimiGlobalVar.screenWidth/2,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20))
-            ordersLabel.text = "Orders"
-            chartCell?.contentView.addSubview(ordersLabel)
-            ordersLabel.textColor = UIColor.lightGray
-            ordersLabel.font = THEME_BOLD_FONT
-            ordersLabel.textAlignment = NSTextAlignment.right
             
-            forecastChartView = CombinedChartView(frame:CGRect(x:15,y:70,width:Int(SimiGlobalVar.screenWidth - 30), height:320))
+            forecastChartView = LineChartView()
+            
             forecastChartView.chartDescription?.enabled = false
             forecastChartView.maxVisibleCount = 40
             forecastChartView.pinchZoomEnabled = false
             forecastChartView.drawGridBackgroundEnabled = false
-            forecastChartView.drawBarShadowEnabled = false
-            forecastChartView.drawValueAboveBarEnabled = false
-            forecastChartView.highlightFullBarEnabled = false
-            //saleChartView.rightAxis.enabled = false
+            forecastChartView.rightAxis.enabled = false
+            forecastChartView.drawBordersEnabled = false
+            forecastChartView.dragEnabled = true
+            forecastChartView.setScaleEnabled(true)
             
             let xAxis = forecastChartView.xAxis
             xAxis.labelPosition = .bottom
@@ -251,95 +241,76 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
             leftAxis.labelTextColor = UIColor.lightGray
             leftAxis.labelCount = 5
             
-            rightAxis = forecastChartView.rightAxis
-            rightAxis.labelPosition = .outsideChart
-            rightAxis.gridColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#F1F1F1")
-            rightAxis.axisMinimum = 0.0
-            rightAxis.valueFormatter = self
-            rightAxis.labelTextColor = UIColor.lightGray
-            rightAxis.labelCount = 5
+            let chartLegend = forecastChartView.legend
+            chartLegend.horizontalAlignment = .left
+            chartLegend.verticalAlignment = .bottom
+            chartLegend.orientation = .horizontal
+            chartLegend.drawInside = false
+            
             chartCell?.contentView.addSubview(forecastChartView)
-        }
-        if forecastSaleModel != nil{
-            if(forecastSaleModel.data["day"] != nil){
-                totalChartData = forecastSaleModel.data["day"] as! Array<Dictionary<String, Any>>
-                //bar chart Data
-                if (totalChartData != nil && totalChartData.count > 0) {
-                    var maxOrderCount:Double = 1
-                    var maxOrderValue:Double = 1
-                    for item in totalChartData {
-                        if (item["orders_count"] != nil){
-                            let orderCount = item["orders_count"] as! Double
-                            if (orderCount > maxOrderCount) {
-                                maxOrderCount = orderCount
-                            }
-                        }
-                        if (item["total_invoiced_amount"] != nil) {
-                            let orderValue = item["total_invoiced_amount"] as! Double
-                            if (orderValue > maxOrderValue) {
-                                maxOrderValue = orderValue
-                            }
-                        }
-                    }
-                    amountAndCountRatio = maxOrderValue/maxOrderCount
-                }
-            }
+            
+            forecastChartView.isHidden = true
+            forecastLabel.isHidden = true
+            timeForecastLabel.isHidden = true
+        }else{
+            forecastChartView.isHidden = false
+            forecastLabel.isHidden = false
+            timeForecastLabel.isHidden = false
         }
         
-        let saleCombinedChartData = CombinedChartData()
-        
-        var barChartData:Array<BarChartDataEntry> = []
-        var lineChartData:Array<ChartDataEntry> = []
-        if totalChartData != nil && totalChartData.count > 0 {
-            var itemCount:Double = 0
-            for item in totalChartData {
-                var orderCountValue:Double = 0
-                var incomeValue:Double = 0
-                if (item["total_invoiced_amount"] != nil) {
-                    incomeValue = (item["total_invoiced_amount"] as! Double)/amountAndCountRatio
-                }
-                if (item["orders_count"] != nil) {
-                    orderCountValue = item["orders_count"] as! Double
-                }
-                let newBarEntry = BarChartDataEntry(x: itemCount, y: orderCountValue)
-                barChartData.append(newBarEntry)
-                
-                let newLineEntry = ChartDataEntry(x: itemCount, y: incomeValue)
-                lineChartData.append(newLineEntry)
-                itemCount += 1
-            }
-        }
-        
-        let barDataSet = BarChartDataSet(values: barChartData, label: STLocalizedString(inputString: "Orders Count"))
-        barDataSet.colors = [UIColor.green]
-        barDataSet.valueColors = [UIColor.white]
-        let barDataSets = [barDataSet]
-        let barData = BarChartData(dataSets: barDataSets)
-        saleCombinedChartData.barData = barData
-        
-        let lineDataSet = LineChartDataSet(values: lineChartData, label: (STLocalizedString(inputString: "Total Invoiced") + " (" + SimiGlobalVar.baseCurrency + ")"))
-        lineDataSet.colors = [SimiGlobalVar.colorWithHexString(hexStringInput: "#7D0000")]
-        lineDataSet.circleColors = [UIColor.clear]
-        lineDataSet.valueColors = [UIColor.clear]
-        lineDataSet.circleRadius = 1.0
-        lineDataSet.circleHoleRadius = 0
-        let lineData = LineChartData(dataSets: [lineDataSet])
-        if (lineChartData.count > 0) {
-            saleCombinedChartData.lineData = lineData
-        }
-        
-        forecastChartView.data = saleCombinedChartData
         //Update frames
-        forecastChartView.frame = CGRect(x:15,y:70,width:Int(SimiGlobalVar.screenWidth - 30), height:320)
-        invoicesLabel.frame = CGRect(x:15,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20)
-        ordersLabel.frame = CGRect(x:SimiGlobalVar.screenWidth/2,y:45,width:SimiGlobalVar.screenWidth/2 - 15,height:20)
+        forecastChartView.frame = CGRect(x:15,y:40,width:Int(SimiGlobalVar.screenWidth - 30), height:350)
         timeForecastLabel.frame = CGRect(x:15,y:10,width:SimiGlobalVar.screenWidth/2 - 15,height:30)
         forecastLabel.frame = CGRect(x:SimiGlobalVar.screenWidth/2 + 10,y:10,width:SimiGlobalVar.screenWidth/2 - 25,height:30)
+        updateChartData()
         return chartCell!
     }
     
-    func changeTimeForecast(){
-        
+    func updateChartData(){
+        if forecastSaleModel != nil && forecastSaleModel.data["day"] != nil{
+            totalChartData = forecastSaleModel.data["day"] as! Array<Dictionary<String, Any>>
+            var lineChartDataSets = Array<LineChartDataSet>()
+            var upperDataEntries = Array<ChartDataEntry>()
+            var lowerDataEntries = Array<ChartDataEntry>()
+            
+            if totalChartData != nil && totalChartData.count > 0 {
+                var incomeValue:Double = 0
+                for item in totalChartData{
+                    var incomeLowerValue:Double = 0
+                    var incomeUpperValue:Double = 0
+                    if (item["total_invoiced_amount_upper"] != nil) {
+                        incomeUpperValue = (item["total_invoiced_amount_upper"] as! Double)
+                    }
+                    upperDataEntries.append(ChartDataEntry(x: Double(incomeValue), y: incomeUpperValue))
+                    if (item["total_invoiced_amount_lower"] != nil) {
+                        incomeLowerValue = item["total_invoiced_amount_lower"] as! Double
+                    }
+                    lowerDataEntries.append(ChartDataEntry(x: Double(incomeValue), y: incomeLowerValue))
+                    incomeValue += 1
+                }
+            }
+            
+            let upperLineChartDataSet = LineChartDataSet(values: upperDataEntries, label: STLocalizedString(inputString: "Income Upper") + " (" + SimiGlobalVar.baseCurrency + ")")
+            upperLineChartDataSet.colors = [SimiGlobalVar.colorWithHexString(hexStringInput: "#3399ff")]
+            upperLineChartDataSet.circleColors = [UIColor.clear]
+            upperLineChartDataSet.valueColors = [UIColor.clear]
+            upperLineChartDataSet.circleRadius = 1.0
+            upperLineChartDataSet.circleHoleRadius = 0
+            upperLineChartDataSet.mode = .horizontalBezier
+            
+            let lowerLineChartDataSet = LineChartDataSet(values: lowerDataEntries, label: STLocalizedString(inputString: "Income Lower") + " (" + SimiGlobalVar.baseCurrency + ")")
+            lowerLineChartDataSet.colors = [SimiGlobalVar.colorWithHexString(hexStringInput: "#ffa500")]
+            lowerLineChartDataSet.circleColors = [UIColor.clear]
+            lowerLineChartDataSet.valueColors = [UIColor.clear]
+            lowerLineChartDataSet.circleRadius = 1.0
+            lowerLineChartDataSet.circleHoleRadius = 0
+            lowerLineChartDataSet.mode = .linear
+            
+            lineChartDataSets.append(upperLineChartDataSet)
+            lineChartDataSets.append(lowerLineChartDataSet)
+            
+            forecastChartView.data = LineChartData(dataSets: lineChartDataSets)
+        }
     }
     
     // MARK: - Add Time Range
@@ -385,7 +356,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
             if (value == 0) {
                 return ""
             }
-            return String(Int(value * amountAndCountRatio))
+            return String(Int(value))
         } else if (axis is XAxis) {
             if (totalChartData != nil) && (totalChartData.count > 0) {
                 let itemIndex = Int(value)

@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     private var orderId: String = ""
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        application.applicationIconBadgeNumber = 0
         let loginVC = STLoginViewController()
         // For remote Notification
         loginVC.orderId = ""
@@ -49,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         Mixpanel.initialize(token: token)
         return true
     }
-    
+ 
     override func remoteControlReceived(with event: UIEvent?) {
         
     }

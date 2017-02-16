@@ -384,12 +384,13 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         SimiGlobalVar.baseURL = urltyped
         userData.userEmail = loginEmailField.text!
         userData.userPassword = loginPasswordField.text!
-        userData.userURL = loginURLField.text!
+        userData.userURL = urltyped
         
         staffModel.loginWithUserMail(userEmail: loginEmailField.text!, password: loginPasswordField.text!)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
         loginType = .normal
         self.showLoadingView()
+        loginPasswordField.text = ""
     }
     
     func loginWithQRCode() {
@@ -398,7 +399,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             urltyped += "/"
         }
         SimiGlobalVar.baseURL = urltyped
-
+        
         userData.userEmail = loginEmailField.text!
         userData.userURL = loginURLField.text!
         userData.qrSessionId = qrSessionId
@@ -410,7 +411,14 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     }
     
     func tryDemoButtonPressed(sender: UIButton){
-        SimiGlobalVar.baseURL = "http://dev-magento19.jajahub.com/index.php/default/"
+        SimiGlobalVar.baseURL = "http://magento19.jajahub.com/index.php/"
+        userData.userURL = "http://magento19.jajahub.com/index.php/"
+        userData.userEmail = "cody@simicart.com"
+        userData.userPassword = "123456"
+        
+        loginEmailField.text = "cody@simicart.com"
+        loginURLField.text = "http://magento19.jajahub.com/index.php/"
+        
         staffModel.loginWithUserMail(userEmail: "cody@simicart.com", password: "123456")
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
         loginType = .demo
@@ -442,6 +450,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             self.present(alert, animated: true, completion: nil)
         } else {
             STUserData.sharedInstance.isLoggedIn = true
+            leftMenuViewController.staffModel = staffModel
             SimiDataLocal.setLocalData(data: loginEmailField.text!, forKey: LAST_USER_EMAIL)
             switch loginType {
             case .normal:
@@ -487,6 +496,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
                 if (result["user_email"] != "") && (result["url"] != "") && (result["session_id"] != "") {
                     loginURLField.text = result["url"]
                     loginEmailField.text = result["user_email"]
+                    loginPasswordField.text = ""
                     qrSessionId = result["session_id"]!
                     loginWithQRCode()
                 }
@@ -528,7 +538,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         navigationVC.rootDelegate = self
         dashboardViewController.navigationItem.leftBarButtonItem = navigationVC.menuButton
         
-        leftMenuViewController.staffModel = staffModel
         leftMenuViewController.mainNavigation = navigationVC
         leftNavigationVC = UINavigationController(rootViewController: leftMenuViewController)
         leftNavigationVC.navigationBar.isHidden = true
@@ -539,7 +548,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         
         self.present(centerContainer!, animated: true, completion:
             {self.hideLoadingView()})
-        
     }
     
     func updateGlobalVarAndUserData (){

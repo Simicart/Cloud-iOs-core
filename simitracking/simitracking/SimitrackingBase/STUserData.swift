@@ -178,10 +178,8 @@ class STUserData: NSObject {
     }
     
     func clearUserData(){
-        userEmail = ""
-        userPassword = ""
-        userURL = ""
-        qrSessionId = ""
+        self.userPassword = ""
+        self.qrSessionId = ""
     }
 }
 

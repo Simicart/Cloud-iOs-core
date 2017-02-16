@@ -1,15 +1,20 @@
 PODS:
   - Alamofire (4.3.0)
+  - Charts (3.0.1):
+    - Charts/Core (= 3.0.1)
+  - Charts/Core (3.0.1)
   - Mixpanel-swift (2.1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - Charts
   - Mixpanel-swift
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
   Mixpanel-swift: e6234affa94d14f76c856f301693dc43cae5dcb0
 
-PODFILE CHECKSUM: 7361062df103ec9434ec751a0ef58e733d3b1f47
+PODFILE CHECKSUM: 4f56436b20abe2ad91e4906a3fd6075990d780c2
 
 COCOAPODS: 1.1.1

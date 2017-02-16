@@ -25,14 +25,12 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     
     let drawerWidth = 280
     
-    var staffModel:StaffModel!
-    
     var topView:UIImageView!
     var avatarButton:SimiButton!
     var nameLabel:SimiLabel!
     var roleLabel:SimiLabel!
     var emailLabel:SimiLabel!
-    
+    var imageAvatar:UIImageView!
     
     var mainTableViewCells:Array<Any>!
     var mainTableView:SimiTableView!
@@ -50,6 +48,8 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     var settingVC:STSettingViewController!
     var forecastVC: STForecastViewController!
     
+    private var needUpdateUserInfo:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = SimiGlobalVar.colorWithHexString(hexStringInput: "#1a1a1a")
@@ -57,6 +57,19 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         addTopViews()
         addTableView()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if needUpdateUserInfo{
+            if let profileImageString:String = self.staffModel.data["user_profile_image"] as? String {
+                let urlAvatar = URL(string: profileImageString)
+                imageAvatar.sd_setImage(with: urlAvatar)
+            }
+            nameLabel.text = self.staffModel.data["user_title"] as? String
+            roleLabel.text = self.staffModel.data["role_title"] as? String
+            emailLabel.text = self.staffModel.data["user_email"] as? String
+            needUpdateUserInfo = false
+        }
     }
     
     override func updateViews() {
@@ -83,7 +96,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         avatarButton.setBackgroundImage(backgroundImage, for: UIControlState.normal)
         
         if let profileImageString:String = self.staffModel.data["user_profile_image"] as? String {
-            let imageAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+            imageAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
             let urlAvatar = URL(string: profileImageString)
             imageAvatar.sd_setImage(with: urlAvatar)
             avatarButton.addSubview(imageAvatar)
@@ -112,6 +125,12 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         topView.addSubview(avatarButton)
         
         self.view.addSubview(topView)
+    }
+    
+    var staffModel:StaffModel!{
+        didSet{
+            needUpdateUserInfo = true
+        }
     }
     
     func addTableView() {
@@ -156,7 +175,9 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     }
     
     func grandPermissions() {
-        SimiGlobalVar.grandPermissions(data: (self.staffModel.data["permissions"] as? Array<Dictionary<String, String>>)!)
+        if self.staffModel.data["permissions"] != nil &&  self.staffModel.data["permissions"] is Array<Dictionary<String,Any>>{
+            SimiGlobalVar.grandPermissions(data: (self.staffModel.data["permissions"] as? Array<Dictionary<String, Any>>)!)
+        }
     }
 
     //MARK: - Tableview Delegate
@@ -373,7 +394,6 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     }
     
     func logout() {
-        showLoadingView()
         NotificationCenter.default.addObserver(self, selector: #selector(didLogout(noti:)), name: NSNotification.Name(rawValue: DidLogout), object: nil)
         staffModel.logoutWithDeviceToken(STUserData.sharedInstance.deviceTokenId)
         mainNavigation.dismissDrawerController()
@@ -382,7 +402,6 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     
     func didLogout(noti:Notification){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DidLogout), object: nil)
-        hideLoadingView()
         if staffModel.isSucess{
             STUserData.sharedInstance.isLoggedIn = false
         }else{

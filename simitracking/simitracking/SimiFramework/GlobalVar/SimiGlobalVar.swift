@@ -120,13 +120,13 @@ class SimiGlobalVar: NSObject {
         }
     }
     
-    static func grandPermissions(data: Array<Dictionary<String, String>>) {
+    static func grandPermissions(data: Array<Dictionary<String, Any>>) {
         SimiGlobalVar.permissionsAllowed = [:]
         for permissionDefined in PERMISSION_ARRAY {
             SimiGlobalVar.permissionsAllowed[permissionDefined] = false
-            let permissionsReturned:Array<Dictionary<String, String>> = data
+            let permissionsReturned:Array<Dictionary<String, Any>> = data
             for permissionReturned in permissionsReturned {
-                if (permissionReturned["permission_id"] == permissionDefined) {
+                if (permissionReturned["permission_id"] as! String == permissionDefined) {
                     SimiGlobalVar.permissionsAllowed[permissionDefined] = true
                 }
             }

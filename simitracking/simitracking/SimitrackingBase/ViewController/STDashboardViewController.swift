@@ -454,6 +454,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             emailLabel.textColor = UIColor.lightGray
             emailLabel.font = UIFont.italicSystemFont(ofSize: 11)
             emailLabel.text = (row.data["customer_email"] as! String)
+            emailLabel.urlType = .emailAddress
             emailLabel.textAlignment = NSTextAlignment.right
             cellToReturn.addSubview(emailLabel)
         }
@@ -500,6 +501,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             emailLabel.textColor = THEME_COLOR
             emailLabel.font = UIFont.italicSystemFont(ofSize: 12)
             emailLabel.textAlignment = NSTextAlignment.right
+            emailLabel.urlType = .emailAddress
             emailLabel.text = (row.data["email"] as! String)
             cellToReturn.addSubview(emailLabel)
         }

@@ -261,7 +261,7 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
         
         
         if !(customerModel.data["email"] is NSNull) && (customerModel.data["email"] != nil) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (customerModel.data["email"] as? String)!, atHeight: heightCell, isCopiable: true)
+            cellToReturn.addURLLabel(withTitle: STLocalizedString(inputString: "Customer Email"), value: (customerModel.data["email"] as? String)!, atHeight: heightCell, urlType: .emailAddress)
             heightCell += 22
         }
         

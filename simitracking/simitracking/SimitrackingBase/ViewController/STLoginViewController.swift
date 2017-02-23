@@ -615,10 +615,10 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             }
             if (dashboardViewController != nil) {
                 if !(licenseModel.data["version"] is NSNull) {
-                    if (licenseModel.data["version"] as! String)  != CURENT_SIMTRACKING_VERSION {
+                    if (licenseModel.data["version"] as! String)  != CURRENT_SIMTRACKING_VERSION {
                         let alert = UIAlertController(title: "", message: STLocalizedString(inputString: "Your Version is Outdated. Please install the latest one"), preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
-                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Upgrade"), style: .default, handler: { (UIAlertAction) in
+                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Later"), style: UIAlertActionStyle.default, handler: nil))
+                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Upgrade Now"), style: .default, handler: { (UIAlertAction) in
                             UIApplication.shared.openURL(URL(string:"https://itunes.apple.com/us/app/simi-virtual-assistant/id1184815898?mt=8")!)
                         }))
                         dashboardViewController.present(alert, animated: true, completion: nil)

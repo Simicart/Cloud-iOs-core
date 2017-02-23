@@ -244,6 +244,7 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
             cellToReturn?.addSubview(grandTotalLabel)
             
             let emailLabel = SimiLabel(frame: CGRect(x: 65 + scaleValue(inputSize: 90), y: rowHeight, width: SimiGlobalVar.screenWidth - (80 + scaleValue(inputSize: 120)), height: 20))
+            emailLabel.urlType = .emailAddress
             if (rowData["customer_email"] is NSNull) {
                 emailLabel.textColor = UIColor.gray
                 rowData["customer_email"] = STLocalizedString(inputString: "Not Logged In")

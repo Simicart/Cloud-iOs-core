@@ -280,4 +280,11 @@ class SimiViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    public func showAlertWithTitle(_ title:String, message:String){
+        let alert = UIAlertController(title: title, message: STLocalizedString(inputString: message), preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

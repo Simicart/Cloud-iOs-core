@@ -187,7 +187,7 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
         var heightCell = 10
         
         if !(abandonedCartModel.data["customer_email"] is NSNull) && (abandonedCartModel.data["customer_email"] != nil) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (abandonedCartModel.data["customer_email"] as? String)!, atHeight: heightCell, isCopiable:true)
+            cellToReturn.addURLLabel(withTitle: STLocalizedString(inputString: "Customer Email"), value: (abandonedCartModel.data["customer_email"] as? String)!, atHeight: heightCell, urlType: .emailAddress)
             heightCell += 22
         }
         

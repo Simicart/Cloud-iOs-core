@@ -260,6 +260,7 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
             emailLabel.textColor = UIColor.blue
             emailLabel.numberOfLines = 2
             emailLabel.font = UIFont.boldSystemFont(ofSize: 12)
+//            emailLabel.urlType = .emailAddress
             emailLabel.text =  rowData["email"] as? String
             cellToReturn?.addSubview(emailLabel)
             

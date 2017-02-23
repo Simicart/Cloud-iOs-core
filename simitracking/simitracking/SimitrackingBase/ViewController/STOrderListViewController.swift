@@ -437,6 +437,7 @@ class STOrderListViewController: StoreviewFilterViewController, UITableViewDeleg
             
             let emailLabel = SimiLabel(frame: CGRect(x: scaleValue(inputSize: 22), y: 23, width: scaleValue(inputSize: 120), height: 18))
             emailLabel.font = UIFont.systemFont(ofSize: 12)
+            emailLabel.urlType = .emailAddress
             if !(rowData["customer_email"] is NSNull) {
                 emailLabel.text = rowData["customer_email"] as? String
             }

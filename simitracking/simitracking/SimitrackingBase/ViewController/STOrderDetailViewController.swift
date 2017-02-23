@@ -330,12 +330,12 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
         }
         
         if (orderModel.data["created_at"] !=  nil) && !(orderModel.data["created_at"] is NSNull) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Created At"), andValue: (orderModel.data["created_at"] as? String)!, atHeight: heightCell)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Created At"), andValue: localDateFrom(orderModel.data["created_at"] as! String,timeZone:"UTC", format: "YYYY-MM-dd HH:mm:ss"), atHeight: heightCell)
             heightCell += 22
         }
         
         if (orderModel.data["updated_at"] !=  nil) && !(orderModel.data["updated_at"] is NSNull) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Last Updated At"), andValue: (orderModel.data["updated_at"] as? String)!, atHeight: heightCell, isCopiable:true)
+            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Last Updated At"), andValue: localDateFrom(orderModel.data["updated_at"] as! String, timeZone:"UTC",format: "YYYY-MM-dd HH:mm:ss"), atHeight: heightCell, isCopiable:true)
             heightCell += 22
         }
         if (orderModel.data["grand_total"] !=  nil) && !(orderModel.data["grand_total"] is NSNull) {
@@ -386,7 +386,7 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
         }
         
         if (orderModel.data["customer_email"] !=  nil) && !(orderModel.data["customer_email"] is NSNull) {
-            cellToReturn.addValueLabel(withTitle: STLocalizedString(inputString: "Customer Email"), andValue: (orderModel.data["customer_email"] as? String)!, atHeight: heightCell, isCopiable:true)
+            cellToReturn.addURLLabel(withTitle: STLocalizedString(inputString: "Customer Email"), value: (orderModel.data["customer_email"] as? String)!, atHeight: heightCell, urlType: .emailAddress)
             heightCell += 22
         }
         

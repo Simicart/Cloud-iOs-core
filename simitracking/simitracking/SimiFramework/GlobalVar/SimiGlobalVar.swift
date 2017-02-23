@@ -8,7 +8,7 @@
 
 import UIKit
 
-let CURENT_SIMTRACKING_VERSION = "0.1.0"
+let CURRENT_SIMTRACKING_VERSION = "0.1.0"
 
 let LAST_USER_EMAIL = "last_user_email"
 
@@ -113,11 +113,7 @@ class SimiGlobalVar: NSObject {
     }
     
     static func localizedStringForKey (key: String)->String {
-        if #available(iOS 9.0, *) {
-            return key.localizedCapitalized
-        } else {
-            return key
-        }
+        return key
     }
     
     static func grandPermissions(data: Array<Dictionary<String, Any>>) {

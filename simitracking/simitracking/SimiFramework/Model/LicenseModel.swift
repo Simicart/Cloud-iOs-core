@@ -29,7 +29,7 @@ class LicenseModel: SimiModel {
         var parameters = params
         parameters["url"] = SimiGlobalVar.baseURL
         parameters["version"] = "tracking"
-        parameters["plaform"] = "ios"
+        parameters["platform"] = "ios"
         
         self.getAPI().getLicenseInfo(params: parameters, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }

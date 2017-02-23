@@ -8,9 +8,11 @@
 
 import UIKit
 
+
 enum LabelURLType {
     case phoneNumber
     case webURL
+    case emailAddress
 }
 
 class SimiLabel: UILabel {
@@ -54,7 +56,11 @@ class SimiLabel: UILabel {
         }
     }
     
-    var urlType: LabelURLType = .webURL
+    var urlType: LabelURLType = .webURL{
+        didSet{
+            self.isURL = true
+        }
+    }
     
     func copyContent(){
         let pb: UIPasteboard = UIPasteboard.general
@@ -75,10 +81,17 @@ class SimiLabel: UILabel {
                 UIApplication.shared.openURL(URL(string: text!)!)
                 break
             case LabelURLType.phoneNumber:
-                if let phoneURL = URL(string: "tel://"+"\(text)"){
+                if let phoneURL = URL(string: "tel://\(text!)"){
                     UIApplication.shared.openURL(phoneURL)
                 }else{
-                    showAlertWithTitle("", message: STLocalizedString(inputString: "The phone number is not valid"))
+                    showAlertWithTitle("Calling to \(text!)", message: STLocalizedString(inputString: "The phone number is not valid"))
+                }
+                break
+            case LabelURLType.emailAddress:
+                if let mailURL = URL(string: "mailto:\(text!)"){
+                    UIApplication.shared.openURL(mailURL)
+                }else{
+                    showAlertWithTitle("Sending email to \(text!)", message: STLocalizedString(inputString: "The email address is not valid"))
                 }
                 break
             }

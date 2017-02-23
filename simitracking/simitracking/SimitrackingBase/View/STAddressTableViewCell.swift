@@ -79,7 +79,7 @@ class STAddressTableViewCell: SimiTableViewCell {
         
         
         if !(addressData["email"] is NSNull) && (addressData["email"] != nil) && ((addressData["email"] as! String) != "") {
-            self.addValueLabel(withTitle: STLocalizedString(inputString: "Email"), andValue: (addressData["email"] as! String), atHeight: heightCell, isCopiable:true)
+            self.addURLLabel(withTitle: STLocalizedString(inputString: "Email"), value: (addressData["email"] as! String), atHeight: heightCell, urlType: .emailAddress)
             heightCell += 30
         }
         row.height = CGFloat(heightCell)

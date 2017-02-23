@@ -115,6 +115,7 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         topView.addSubview(roleLabel)
         
         emailLabel = SimiLabel(frame: CGRect(x: 110, y: 96, width: 170, height: 16))
+        emailLabel.urlType = .emailAddress
         emailLabel.textColor = UIColor.white
         emailLabel.font = UIFont.systemFont(ofSize: 12)
         emailLabel.text = self.staffModel.data["user_email"] as? String

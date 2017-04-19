@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "946C4C003D6DD5297D28F665E13252EF"
+               BlueprintIdentifier = "B48DE877DDCE25B35884147265E333A6"
                BuildableName = "Pods_simitracking.framework"
                BlueprintName = "Pods-simitracking"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "946C4C003D6DD5297D28F665E13252EF"
+            BlueprintIdentifier = "B48DE877DDCE25B35884147265E333A6"
             BuildableName = "Pods_simitracking.framework"
             BlueprintName = "Pods-simitracking"
             ReferencedContainer = "container:Pods.xcodeproj">

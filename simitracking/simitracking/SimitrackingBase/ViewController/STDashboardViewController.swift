@@ -29,31 +29,31 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     
     
     //tableviews
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<Any>!
-    var refreshControl:UIRefreshControl!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<Any>!
+    private var refreshControl:UIRefreshControl!
     
     //models
     private var saleModel:SaleModel!
-    var salePeriod = "day"
-    var orderModelCollection:OrderModelCollection!
-    var customerModelCollection:CustomerModelCollection!
-    var bestsellerModelCollection:BestsellerModelCollection!
+    private var salePeriod = "day"
+    private var orderModelCollection:OrderModelCollection!
+    private var customerModelCollection:CustomerModelCollection!
+    private var bestsellerModelCollection:BestsellerModelCollection!
     
     
     //time range
-    var timeFilterLabel:SimiLabel!
-    var timeRangeActionSheet:UIActionSheet!
-    var currentTimeRangeStart = ""
-    var currentTimeRangeEnd = ""
+    private var timeFilterLabel:SimiLabel!
+    private var timeRangeActionSheet:UIActionSheet!
+    private var currentTimeRangeStart = ""
+    private var currentTimeRangeEnd = ""
     
     
     //chart
-    var saleChartView:CombinedChartView!
-    var totalsChartData: Array<Dictionary<String, Any>>!
-    var leftAxis:YAxis!
-    var rightAxis:YAxis!
-    var amountAndCountRatio:Double = 1
+    private var saleChartView:CombinedChartView!
+    private var totalsChartData: Array<Dictionary<String, Any>>!
+    private var leftAxis:YAxis!
+    private var rightAxis:YAxis!
+    private var amountAndCountRatio:Double = 1
     
     //views need to be changed frame when rotate the screen
     private var ordersLabel: SimiLabel!
@@ -114,6 +114,9 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     
     // MARK: - Refresh stats
     func refreshMagentoStats() {
+        if (refreshControl != nil) {
+            refreshControl.endRefreshing()
+        }
         showLoadingView()
         var paramMeters = ["period":salePeriod]
         if (SimiGlobalVar.selectedStoreId != "") {
@@ -131,7 +134,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     //MARK: -Refresh all infos
     func refreshDashboardInfos(){
         showLoadingView()
-        getSales()
+        refreshMagentoStats()
         getBestsellers()
         getOrders()
         getCustomers()
@@ -139,9 +142,6 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
     
     //MARK: - Get Information
     func getSales() {
-        if (refreshControl != nil) {
-            refreshControl.endRefreshing()
-        }
         showLoadingView()
         if (saleModel == nil) {
             saleModel = SaleModel()
@@ -454,7 +454,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             emailLabel.textColor = UIColor.lightGray
             emailLabel.font = UIFont.italicSystemFont(ofSize: 11)
             emailLabel.text = (row.data["customer_email"] as! String)
-            emailLabel.urlType = .emailAddress
+            emailLabel.textColor = UIColor.blue
             emailLabel.textAlignment = NSTextAlignment.right
             cellToReturn.addSubview(emailLabel)
         }
@@ -501,7 +501,7 @@ class STDashboardViewController: StoreviewFilterViewController, UITableViewDeleg
             emailLabel.textColor = THEME_COLOR
             emailLabel.font = UIFont.italicSystemFont(ofSize: 12)
             emailLabel.textAlignment = NSTextAlignment.right
-            emailLabel.urlType = .emailAddress
+            emailLabel.textColor = UIColor.blue
             emailLabel.text = (row.data["email"] as! String)
             cellToReturn.addSubview(emailLabel)
         }

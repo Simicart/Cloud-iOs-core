@@ -10,7 +10,7 @@ import UIKit
 
 class STLeftMenuCell: UITableViewCell {
 
-    var iconMenu:SimiImageView!
+    public var iconMenu:SimiImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

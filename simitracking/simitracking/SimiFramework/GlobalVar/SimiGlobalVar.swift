@@ -8,9 +8,9 @@
 
 import UIKit
 
-let CURRENT_SIMTRACKING_VERSION = "0.1.0"
+let CURRENT_SIMTRACKING_VERSION = "0.1.8"
 
-let LAST_USER_EMAIL = "last_user_email"
+//let LAST_USER_EMAIL = "last_user_email"
 
 let THEME_COLOR:UIColor =  SimiGlobalVar.colorWithHexString(hexStringInput: "#fc9900")
 
@@ -74,7 +74,7 @@ func scaleValue(inputSize: CGFloat)->CGFloat {
 
 
 class SimiGlobalVar: NSObject {
-    
+    static let shared = SimiGlobalVar()
     //session
     static var baseURL:String = ""
     static var sessionId:String = ""
@@ -90,6 +90,9 @@ class SimiGlobalVar: NSObject {
     static var screenWidth:CGFloat = UIScreen.main.bounds.width
     static var screenHeight:CGFloat = UIScreen.main.bounds.height
     static var layoutDirection = ""
+    
+    //app indexies
+    var isAppUpdated:Bool = true
     
     //store datatable
     static var productVisibility = ["1":STLocalizedString(inputString: "Not Visible"),"2":STLocalizedString(inputString: "Catalog"),"3":STLocalizedString(inputString: "Search"),"4":STLocalizedString(inputString: "Catalog, Search")]

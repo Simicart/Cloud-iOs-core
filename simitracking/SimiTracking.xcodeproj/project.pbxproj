@@ -127,6 +127,8 @@
 		E532B1711E23675700EC6B8B /* SimiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E532B1701E23675700EC6B8B /* SimiTextField.swift */; };
 		E547EFC01E2F255A000E64AA /* ForecastSaleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547EFBF1E2F255A000E64AA /* ForecastSaleModel.swift */; };
 		E547EFC21E2F2600000E64AA /* ForecastSaleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547EFC11E2F2600000E64AA /* ForecastSaleAPI.swift */; };
+		E572FA8E1EA5F4D100510A02 /* AuthorizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572FA8D1EA5F4D100510A02 /* AuthorizeModel.swift */; };
+		E572FA901EA5F4E300510A02 /* AuthorizeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572FA8F1EA5F4E300510A02 /* AuthorizeAPI.swift */; };
 		E594F06D1E2E1563008FC4A2 /* ic_forecast.png in Resources */ = {isa = PBXBuildFile; fileRef = E594F06C1E2E1563008FC4A2 /* ic_forecast.png */; };
 		E594F06F1E2E162E008FC4A2 /* STForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E594F06E1E2E162E008FC4A2 /* STForecastViewController.swift */; };
 		E5ACE5711E2640C100385FAD /* SimiTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ACE5701E2640C100385FAD /* SimiTable.swift */; };
@@ -297,6 +299,8 @@
 		E532B1701E23675700EC6B8B /* SimiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiTextField.swift; sourceTree = "<group>"; };
 		E547EFBF1E2F255A000E64AA /* ForecastSaleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastSaleModel.swift; sourceTree = "<group>"; };
 		E547EFC11E2F2600000E64AA /* ForecastSaleAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastSaleAPI.swift; sourceTree = "<group>"; };
+		E572FA8D1EA5F4D100510A02 /* AuthorizeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeModel.swift; sourceTree = "<group>"; };
+		E572FA8F1EA5F4E300510A02 /* AuthorizeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeAPI.swift; sourceTree = "<group>"; };
 		E594F06C1E2E1563008FC4A2 /* ic_forecast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_forecast.png; sourceTree = "<group>"; };
 		E594F06E1E2E162E008FC4A2 /* STForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STForecastViewController.swift; sourceTree = "<group>"; };
 		E5ACE5701E2640C100385FAD /* SimiTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimiTable.swift; sourceTree = "<group>"; };
@@ -379,6 +383,7 @@
 				7FD36E821DE836150023D938 /* ProductAPI.swift */,
 				7F04C7B81DEF0E43009BCB25 /* BestsellerAPI.swift */,
 				E547EFC11E2F2600000E64AA /* ForecastSaleAPI.swift */,
+				E572FA8F1EA5F4E300510A02 /* AuthorizeAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				7F04C7C11DEF0EE2009BCB25 /* BestsellerModelCollection.swift */,
 				7F3E63601DEFDD54001DF876 /* SaleModel.swift */,
 				E547EFBF1E2F255A000E64AA /* ForecastSaleModel.swift */,
+				E572FA8D1EA5F4D100510A02 /* AuthorizeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -794,6 +800,7 @@
 				7F15E4841DCDC62B00BB082D /* SimiViewController.swift in Sources */,
 				7F60E88D1DEC820700A9AF3A /* STSettingCell.swift in Sources */,
 				7FE4E07F1DCE52F6003985BE /* MMDrawerBarButtonItem.m in Sources */,
+				E572FA8E1EA5F4D100510A02 /* AuthorizeModel.swift in Sources */,
 				7FCCF43E1DE2FC96000634A6 /* AddressAPI.swift in Sources */,
 				7F04C7C21DEF0EE2009BCB25 /* BestsellerModelCollection.swift in Sources */,
 				7F90C4AD1DD6E12C00D29525 /* SimiImageView.swift in Sources */,
@@ -803,6 +810,7 @@
 				7FD36E811DE8353C0023D938 /* ProductModelCollection.swift in Sources */,
 				7F38591A1DD5C95B00E77C49 /* SDWebImageCompat.m in Sources */,
 				7F751CB41DF95ED400AA06AA /* LicenseAPI.swift in Sources */,
+				E572FA901EA5F4E300510A02 /* AuthorizeAPI.swift in Sources */,
 				7F38591D1DD5C95B00E77C49 /* SDWebImageDownloaderOperation.m in Sources */,
 				7F626F611DD7875200422CCC /* STLeftMenuCell.swift in Sources */,
 				7F2924221DD4E08B00FB3129 /* MainNavigationController.swift in Sources */,
@@ -1001,7 +1009,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simicart.tracking;
 				PRODUCT_NAME = SimiTracking;
-				PROVISIONING_PROFILE = "c6087472-9f8d-458c-a176-9e4ec47756fa";
+				PROVISIONING_PROFILE = "cba3d2a6-9819-4a80-a749-d8c9bfd06cf9";
 				PROVISIONING_PROFILE_SPECIFIER = "Mobile developer tracking";
 				SWIFT_OBJC_BRIDGING_HEADER = "simitracking/SimiFramework/MMDrawerController/simitracking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

@@ -12,19 +12,19 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
     
     private var emptyLabel:UILabel!
     
-    let ROW_HEIGHT:CGFloat = 80
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
-    var lastContentOffset:CGPoint?
-    var abandonedCartModelCollection:AbandonedCartModelCollection!
-    var refreshControl:UIRefreshControl!
+    private let ROW_HEIGHT:CGFloat = 80
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
+    private var lastContentOffset:CGPoint?
+    private var abandonedCartModelCollection:AbandonedCartModelCollection!
+    private var refreshControl:UIRefreshControl!
     
-    var searchVC:STSearchViewController!
-    var searchTerm = ""
-    var searchAttribute = ""
-    var searchButton:SimiButton!
+    private var searchVC:STSearchViewController!
+    private var searchTerm = ""
+    private var searchAttribute = ""
+    private var searchButton:SimiButton!
     
-    var totalAbandonedCarts = 0
+    private var totalAbandonedCarts = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -244,7 +244,6 @@ class STAbandonedCartListViewController: SimiViewController, UITableViewDelegate
             cellToReturn?.addSubview(grandTotalLabel)
             
             let emailLabel = SimiLabel(frame: CGRect(x: 65 + scaleValue(inputSize: 90), y: rowHeight, width: SimiGlobalVar.screenWidth - (80 + scaleValue(inputSize: 120)), height: 20))
-            emailLabel.urlType = .emailAddress
             if (rowData["customer_email"] is NSNull) {
                 emailLabel.textColor = UIColor.gray
                 rowData["customer_email"] = STLocalizedString(inputString: "Not Logged In")

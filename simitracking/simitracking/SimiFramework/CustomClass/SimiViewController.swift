@@ -228,6 +228,14 @@ class SimiViewController: UIViewController {
         //defined on childrens
     }
     
+    func showSimpleAlertWithTitle(_ title:String, message:String){
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertVC.addAction(UIAlertAction(title: STLocalizedString(inputString: "OK"), style: UIAlertActionStyle.cancel, handler: { (UIAlertAction) in
+            
+        }))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
     // MARK: - Screen rotated Changing
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

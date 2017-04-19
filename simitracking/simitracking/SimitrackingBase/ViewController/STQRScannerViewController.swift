@@ -15,13 +15,13 @@ protocol STQRScannerViewControllerDelegate {
 
 class STQRScannerViewController: SimiViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    var dissmissButton:SimiButton!
+    private var dissmissButton:SimiButton!
     
-    var captureSession: AVCaptureSession!
-    var previewLayer: AVCaptureVideoPreviewLayer!
-    var squareView:SimiView!
+    private var captureSession: AVCaptureSession!
+    private var previewLayer: AVCaptureVideoPreviewLayer!
+    private var squareView:SimiView!
     
-    var delegate:STQRScannerViewControllerDelegate!
+    public var delegate:STQRScannerViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -11,10 +11,10 @@ import Charts
 
 class STForecastViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource, IAxisValueFormatter, ChartViewDelegate{
     
-    let MAIN_SECTION = "MAIN_SECTION"
-    let CHART_ROW = "CHART_ROW"
-    let REVENUE_ROW = "REVENUE_ROW"
-    let SALE_ROW = "SALE_ROW"
+    private let MAIN_SECTION = "MAIN_SECTION"
+    private let CHART_ROW = "CHART_ROW"
+    private let REVENUE_ROW = "REVENUE_ROW"
+    private let SALE_ROW = "SALE_ROW"
     
     private var forecastChartView:LineChartView!
     
@@ -304,7 +304,7 @@ class STForecastViewController: StoreviewFilterViewController, UITableViewDelega
             lowerLineChartDataSet.valueColors = [UIColor.clear]
             lowerLineChartDataSet.circleRadius = 1.0
             lowerLineChartDataSet.circleHoleRadius = 0
-            lowerLineChartDataSet.mode = .linear
+            lowerLineChartDataSet.mode = .horizontalBezier
             
             lineChartDataSets.append(upperLineChartDataSet)
             lineChartDataSets.append(lowerLineChartDataSet)

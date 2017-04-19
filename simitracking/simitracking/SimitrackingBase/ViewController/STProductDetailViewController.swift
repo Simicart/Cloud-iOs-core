@@ -33,9 +33,9 @@ class STProductDetailViewController: StoreviewFilterViewController, UITableViewD
 
     public var productModel:ProductModel!
     private var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<Any>!
+    private var mainTableViewCells:Array<Any>!
     
-    var gotFullInformation = false
+    private var gotFullInformation = false
     private var isInfoEditting = false
     
     private var stockTextField: SimiTextField = SimiTextField()

@@ -13,6 +13,7 @@ enum LabelURLType {
     case phoneNumber
     case webURL
     case emailAddress
+    case storeURL
 }
 
 class SimiLabel: UILabel {
@@ -92,6 +93,13 @@ class SimiLabel: UILabel {
                     UIApplication.shared.openURL(mailURL)
                 }else{
                     showAlertWithTitle("Sending email to \(text!)", message: STLocalizedString(inputString: "The email address is not valid"))
+                }
+                break
+            case .storeURL:
+                if let storeURL = URL(string: "itms://itunes.apple.com/us/app/simi-virtual-assistant/id1184815898?mt=8"){
+                    UIApplication.shared.openURL(storeURL)
+                }else{
+                    showAlertWithTitle("",message: STLocalizedString(inputString: "Fail to open App Store"))
                 }
                 break
             }

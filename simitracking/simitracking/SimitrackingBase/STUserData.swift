@@ -19,8 +19,8 @@ let separatorType2:String = "Type 2: 1,000.00"
 var didChangeShowingItemOnDashboard = false
 
 class STUserData: NSObject {
+    
     static let sharedInstance = STUserData()
-    private var privateUserEmail = ""
     var deviceTokenId: String{
         set(newDeviceTokenId){
             SimiDataLocal.setLocalData(data: newDeviceTokenId, forKey: userEmail + "_deviceTokenId")
@@ -34,11 +34,10 @@ class STUserData: NSObject {
     
     var userEmail: String{
         set(newUserEmail){
-            SimiDataLocal.setLocalData(data: newUserEmail, forKey: (userEmail + "_email"))
-            privateUserEmail = newUserEmail
+            SimiDataLocal.setLocalData(data: newUserEmail, forKey: ("user_email"))
         }
         get{
-            return SimiDataLocal.getLocalData(forKey: privateUserEmail + "_email") as! String
+            return SimiDataLocal.getLocalData(forKey: "user_email") as! String
         }
     }
     var userPassword:String{
@@ -173,6 +172,32 @@ class STUserData: NSObject {
                 return SimiDataLocal.getLocalData(forKey: userEmail + "_isLoggedIn") as! Bool
             }else{
                 return true
+            }
+        }
+    }
+    
+    var latestVersion: String{
+        set{
+            SimiDataLocal.setLocalData(data: latestVersion, forKey: userEmail+"_latestVersion")
+        }
+        get{
+            if SimiDataLocal.getLocalData(forKey: userEmail + "_latestVersion") as! String == ""{
+                return ""
+            }else{
+                return SimiDataLocal.getLocalData(forKey: userEmail + "_latestVersion") as! String
+            }
+        }
+    }
+    
+    var dontAskAgain:Bool{
+        set(dontAskAgain){
+            SimiDataLocal.setLocalData(data: dontAskAgain, forKey: userEmail+"_dontAskAgain")
+        }
+        get{
+            if SimiDataLocal.getLocalData(forKey: userEmail + "_dontAskAgain"+latestVersion) is Bool{
+                return SimiDataLocal.getLocalData(forKey: userEmail + "_dontAskAgain"+self.latestVersion) as! Bool
+            }else{
+                return false
             }
         }
     }

@@ -13,13 +13,13 @@ import Mixpanel
 class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
     var window: UIWindow?
-    private var orderId: String = ""
+    private var orderId: String?
+    private var authorizeModel: AuthorizeModel!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         application.applicationIconBadgeNumber = 0
         let loginVC = STLoginViewController()
         // For remote Notification
-        loginVC.orderId = ""
 //        if let launchOpts = launchOptions {
 //            if let notificationPayload: NSDictionary = launchOpts[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary{
 //                self.application(application, didReceiveRemoteNotification: notificationPayload as! [AnyHashable : Any], fetchCompletionHandler: { (UIBackgroundFetchResult) in
@@ -31,11 +31,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 ////                loginVC.orderId = orderId
 //            }
 //        }
-        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {
-            let aps = notification["aps"] as! [String: AnyObject]
-            orderId = aps["order_id"] as! String
-            loginVC.orderId = orderId
-        }
+//        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {
+//            let aps = notification["aps"] as? [String: AnyObject]
+//            orderId = aps?["order_id"] as? String
+//            if orderId != nil{
+//                loginVC.orderId = orderId
+//            }
+        //        }
+        
+        //Initialize mixpanel
+        let mixpanelToken = "286b4016149732004b4ebb2f2891ffec"
+        Mixpanel.initialize(token: mixpanelToken)
         SimiGlobalVar.updateLayoutDirection()
         //notification token getting
         let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -45,12 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         self.window?.rootViewController = loginVC
-        
-        let token = "286b4016149732004b4ebb2f2891ffec"
-        Mixpanel.initialize(token: token)
         return true
     }
  
+   
     override func remoteControlReceived(with event: UIEvent?) {
         
     }
@@ -82,14 +86,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         
     }
     
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DidReceiveRemoteNotification"), object: userInfo)
         if STUserData.sharedInstance.isLoggedIn{
             if let aps = userInfo["aps"] as? NSDictionary {
-                let title = aps["title"] as? NSString as? String
-                let alert = aps["alert"] as? NSString as? String
+                let title = aps["title"] as? NSString as String?
+                let alert = aps["alert"] as? NSString as String?
                 //let message = aps["message"] as? NSString as? String
-                orderId = (aps["order_id"] as? NSString as? String)!
+                orderId = (aps["order_id"] as? NSString as String?)!
                 //check app state
                 let state = UIApplication.shared.applicationState
                 if state == .background {
@@ -97,15 +102,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
                     let alertView = UIAlertView(title: title!, message: alert!, delegate: self, cancelButtonTitle: STLocalizedString(inputString: "OK"), otherButtonTitles: STLocalizedString(inputString: "Show Order"))
                     alertView.show()
                 }else if(state == .inactive){
-                    let orderDetailVC = STOrderDetailViewController()
-                    orderDetailVC.orderId = orderId
-                    if let mainNavigation = STLeftMenuViewController.shareInstance.mainNavigation{
-    //                    mainNavigation.popToRootViewController(animated: false)
-                        mainNavigation.pushViewController(orderDetailVC, animated: false)
-                        mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
-                        orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
-                    }else{
-                        
+                    if orderId != nil{
+                        let orderDetailVC = STOrderDetailViewController()
+                        orderDetailVC.orderId = orderId
+                        if let mainNavigation = STLeftMenuViewController.shareInstance.mainNavigation{
+        //                    mainNavigation.popToRootViewController(animated: false)
+                            mainNavigation.pushViewController(orderDetailVC, animated: false)
+                            mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+                            orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+                        }else{
+                            
+                        }
                     }
                 }
             }
@@ -117,6 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         for i in 0..<deviceToken.count {
             tokenString += String(format: "%02.2hhx", arguments: [deviceToken[i]])
         }
+        print("Device token: ",tokenString)
         //Save device token id
         STUserData.sharedInstance.deviceTokenId = tokenString
     }
@@ -129,12 +137,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if(buttonIndex == 1){
             if STUserData.sharedInstance.isLoggedIn{
-                let orderDetailVC = STOrderDetailViewController()
-                orderDetailVC.orderId = orderId
-    //            STLeftMenuViewController.shareInstance.mainNavigation.popToRootViewController(animated: false)
-                STLeftMenuViewController.shareInstance.mainNavigation.pushViewController(orderDetailVC, animated: false)
-                STLeftMenuViewController.shareInstance.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
-                orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+                if orderId != nil{
+                    let orderDetailVC = STOrderDetailViewController()
+                    orderDetailVC.orderId = orderId
+        //            STLeftMenuViewController.shareInstance.mainNavigation.popToRootViewController(animated: false)
+                    STLeftMenuViewController.shareInstance.mainNavigation.pushViewController(orderDetailVC, animated: false)
+                    STLeftMenuViewController.shareInstance.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+                    orderDetailVC.navigationItem.leftBarButtonItem = STLeftMenuViewController.shareInstance.mainNavigation.menuButton
+                }
             }
         }
     }

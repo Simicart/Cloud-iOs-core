@@ -13,24 +13,24 @@ class STCustomerDetailViewController: SimiViewController, UITableViewDelegate, U
     private var isEdittingCustomer: Bool = false
     private var preffixTextField:SimiTextField = SimiTextField(), firstNameTextField:SimiTextField = SimiTextField(), middleNameTextField: SimiTextField = SimiTextField(), lastNameTextField:SimiTextField = SimiTextField(), suffixTextField:SimiTextField = SimiTextField(), dobTextField:SimiTextField = SimiTextField()
     
-    let SUMMARY_INFO_ROW = "customer_summary_info_row"
-    let PROFILE_CUSTOMER_ROW = "profile_customer_row"
-    let CUSTOMER_ADDRESS_ROW = "customer_address_row"
-    let CUSTOMER_BILLING_ADDRESS_ROW = "customer_billing_address_row"
-    let CUSTOMER_SHIPPING_ADDRESS_ROW = "customer_shipping_address_row"
-    let CUSTOMER_ORDER_ROW = "customer_orders_row"
+    private let SUMMARY_INFO_ROW = "customer_summary_info_row"
+    private let PROFILE_CUSTOMER_ROW = "profile_customer_row"
+    private let CUSTOMER_ADDRESS_ROW = "customer_address_row"
+    private let CUSTOMER_BILLING_ADDRESS_ROW = "customer_billing_address_row"
+    private let CUSTOMER_SHIPPING_ADDRESS_ROW = "customer_shipping_address_row"
+    private let CUSTOMER_ORDER_ROW = "customer_orders_row"
     
     let CUSTOMER_SUMMARY_SECTION = "CUSTOMER_SUMMARY_SECTION"
     let CUSTOMER_INFO_SECTION = "CUSTOMER_INFO_SECTION"
     let CUSTOMER_ORDERS_SECTION = "CUSTOMER_ORDERS_SECTION"
     let CUSTOMER_ADDRESSES_SECTION = "CUSTOMER_ADDRESSES_SECTION"
     
-    var gotFullInformation = false
+    private var gotFullInformation = false
     
-    var customerModel:CustomerModel!
-    var statusDict:Dictionary<String, String>!
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<Any>!
+    public var customerModel:CustomerModel!
+    private var statusDict:Dictionary<String, String>!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<Any>!
     
     override func viewDidLoad() {
         super.viewDidLoad()

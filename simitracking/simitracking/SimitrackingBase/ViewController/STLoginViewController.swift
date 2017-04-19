@@ -23,39 +23,42 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     let LOGIN_TRY_DEMO_ROW = "LOGIN_TRY_DEMO_ROW"
     let LOGIN_NEED_HELP_ROW = "LOGIN_NEED_HELP_ROW"
     
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<Any>!
+    public var qrCodeEnabled: Bool?
     
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<Any>!
+    
+    private var authorizeModel: AuthorizeModel!
     public var staffModel: StaffModel!
     
-    var centerContainer: MMDrawerController?
+    private var centerContainer: MMDrawerController?
     
-    var loginImage: UIImageView!
-    var loginURLField: UITextField!
-    var loginEmailField: UITextField!
-    var loginPasswordField: UITextField!
+    private var loginImage: UIImageView!
+    private var loginURLField: UITextField!
+    private var loginEmailField: UITextField!
+    private var loginPasswordField: UITextField!
     
-    var qrSessionId = ""
+    private var qrSessionId = ""
     
-    var qrButton:SimiButton!
-    var loginButton:SimiButton!
-    var tryDemoButton:SimiButton!
-    var needHelpButton:SimiButton!
+    private var qrButton:SimiButton!
+    private var loginButton:SimiButton!
+    private var tryDemoButton:SimiButton!
+    private var needHelpButton:SimiButton!
     
-    var loginLoadingView:SimiView!
-    var logoLoadingImageView:SimiImageView!
+    private var loginLoadingView:SimiView!
+    private var logoLoadingImageView:SimiImageView!
     
-    var dashboardViewController:STDashboardViewController!
-    var navigationVC:MainNavigationController!
-    var leftMenuViewController:STLeftMenuViewController = STLeftMenuViewController.shareInstance
-    var leftNavigationVC:UINavigationController!
+    private var dashboardViewController:STDashboardViewController!
+    private var navigationVC:MainNavigationController!
+    private var leftMenuViewController:STLeftMenuViewController = STLeftMenuViewController.shareInstance
+    private var leftNavigationVC:UINavigationController!
     
-    var userData:STUserData = STUserData.sharedInstance
+    private var userData:STUserData = STUserData.sharedInstance
     
-    var licenseModel:LicenseModel!
+    private var licenseModel:LicenseModel!
     
-    //order id after receiving push notification
-    var orderId: String!
+    //order id after receiving push notification(disable now temporarily)
+//    public var orderId: String?
    
     private var loginType: LoginType = .normal
     
@@ -63,20 +66,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         super.viewDidLoad();
         self.view.backgroundColor = THEME_COLOR
         staffModel = StaffModel()
-        
-        setMainTableViewCells()
-        if (mainTableView == nil) {
-            mainTableView = SimiTableView(frame:
-                CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: UITableViewStyle.grouped)
-            mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-            mainTableView.delegate = self
-            mainTableView.dataSource = self
-            mainTableView.backgroundColor = UIColor.clear
-            mainTableView.separatorColor = UIColor.clear
-            mainTableView.bounces = false
-            self.view.addSubview(mainTableView)
-        }
-        mainTableView.reloadData()
+        getAuthorizeInfo()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -84,8 +74,54 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         self.hideKeyboardWhenTappedAround()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        if userData.userURL != "" && userData.userEmail != "" && userData.deviceTokenId != ""{
+//            staffModel .logoutWithDeviceToken(userData.deviceTokenId)
+//            NotificationCenter.default.addObserver(self, selector: #selector(didLogout(noti:)), name: Notification.Name(rawValue:DidLogout), object: nil)
+//            showLoadingView()
+//        }
+//    }
+//    
+//    func didLogout(noti:Notification){
+//        hideLoadingView()
+//        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue:DidLogout), object: nil)
+//        if userData.qrSessionId != ""{
+//            loginWithQRCode()
+//            return
+//        }
+//        if userData.userURL != "" && userData.userEmail != "" && userData.userPassword != ""{
+//            loginWithFilledValues()
+//        }
+//    }
+    
+    func getAuthorizeInfo(){
+        if(authorizeModel == nil){
+            authorizeModel = AuthorizeModel()
+        }
+        authorizeModel?.getAuthorizeInfo(params: [:])
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetAuthorizeInfo(noti:)), name: NSNotification.Name(rawValue: DidGetAuthorizeInfo), object: nil)
+    }
+    
+    func didGetAuthorizeInfo(noti:Notification){
+        if(authorizeModel.isSucess){
+            setMainTableViewCells()
+            if (mainTableView == nil) {
+                mainTableView = SimiTableView(frame:
+                    CGRect(x: 0, y: 0, width: SimiGlobalVar.screenWidth, height: SimiGlobalVar.screenHeight) , style: UITableViewStyle.grouped)
+                mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+                mainTableView.delegate = self
+                mainTableView.dataSource = self
+                mainTableView.backgroundColor = UIColor.clear
+                mainTableView.separatorColor = UIColor.clear
+                mainTableView.bounces = false
+                self.view.addSubview(mainTableView)
+            }
+            mainTableView.reloadData()
+        }else{
+            let alertView = UIAlertView(title: "", message: STLocalizedString(inputString: "Get authorization fail"), delegate: nil, cancelButtonTitle: STLocalizedString(inputString: "OK"))
+            alertView.show()
+        }
     }
     
     override func updateViews() {
@@ -138,12 +174,16 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         mainSection.childRows.append(logoRow)
         let fieldsRow:SimiRow = SimiRow(withIdentifier: LOGIN_FIELDS_ROW, andHeight: 50)
         mainSection.childRows.append(fieldsRow)
-        let qrCodeRow:SimiRow = SimiRow(withIdentifier: LOGIN_QRCODE_ROW, andHeight: 50)
-        mainSection.childRows.append(qrCodeRow)
+        if(authorizeModel.qrCodeEnabled){
+            let qrCodeRow:SimiRow = SimiRow(withIdentifier: LOGIN_QRCODE_ROW, andHeight: 50)
+            mainSection.childRows.append(qrCodeRow)
+        }
         let tryDemoRow:SimiRow = SimiRow(withIdentifier: LOGIN_TRY_DEMO_ROW, andHeight: 50)
         mainSection.childRows.append(tryDemoRow)
-        let needHelpRow:SimiRow = SimiRow(withIdentifier: LOGIN_NEED_HELP_ROW, andHeight: 50)
-        mainSection.childRows.append(needHelpRow)
+        if(authorizeModel.qrCodeEnabled){
+            let needHelpRow:SimiRow = SimiRow(withIdentifier: LOGIN_NEED_HELP_ROW, andHeight: 50)
+            mainSection.childRows.append(needHelpRow)
+        }
         
         mainTableViewCells.append(mainSection)
     }
@@ -188,7 +228,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
                 cellToReturn = createQRRow(row: row, identifier: identifier)
             } else if row.identifier == LOGIN_FIELDS_ROW {
                 cellToReturn = createLoginFieldsRow(row: row, identifier: identifier)
-                getLocalData()
             } else if row.identifier == LOGIN_TRY_DEMO_ROW {
                 cellToReturn = createTryDemoRow(row: row, identifier: identifier)
             } else if row.identifier == LOGIN_NEED_HELP_ROW {
@@ -282,7 +321,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         let loginPasswordFieldHolder:UIView = UIView(frame: CGRect(x: (SimiGlobalVar.screenWidth-320)/2+40, y: rowY, width: 280, height: 40))
         loginPasswordFieldHolder.backgroundColor = UIColor.white
         loginPasswordField = UITextField(frame: CGRect(x: 10, y: 5, width: 270, height: 30))
-        loginPasswordField.font = UIFont.systemFont(ofSize: 14)
+        loginPasswordField?.font = UIFont.systemFont(ofSize: 14)
         loginPasswordField.placeholder = STLocalizedString(inputString: "Your Password")
         loginPasswordField.isSecureTextEntry = true
         loginPasswordField.autocapitalizationType = UITextAutocapitalizationType.none
@@ -299,6 +338,25 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         
         rowY += 40
         row.height = rowY
+        //Auto login
+        if userData.userEmail != ""{
+            loginEmailField.text = userData.userEmail
+        }
+        if userData.userPassword != ""{
+            loginPasswordField.text = userData.userPassword
+        }
+        if userData.userURL != ""{
+            loginURLField.text = userData.userURL
+            SimiGlobalVar.baseURL = loginURLField.text!
+        }
+        if userData.qrSessionId != ""{
+            qrSessionId = userData.qrSessionId
+        }
+        if qrSessionId != "" && loginURLField.text != "" && loginEmailField.text != ""{
+            loginWithQRCode()
+        }else if loginURLField.text != "" && loginEmailField.text != "" && loginPasswordField.text != ""{
+            loginWithFilledValues()
+        }
         return cellToReturn
     }
     
@@ -394,16 +452,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
     }
     
     func loginWithQRCode() {
-        var urltyped = loginURLField.text!
-        if (urltyped.characters.last != "/") {
-            urltyped += "/"
-        }
-        SimiGlobalVar.baseURL = urltyped
-        
-        userData.userEmail = loginEmailField.text!
-        userData.userURL = loginURLField.text!
-        userData.qrSessionId = qrSessionId
-        
         staffModel.loginWithEmailAndQrSession(userEmail: loginEmailField.text!, qrsession: qrSessionId)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
         loginType = .qrCode
@@ -418,6 +466,7 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         
         loginEmailField.text = "cody@simicart.com"
         loginURLField.text = "http://magento19.jajahub.com/index.php/"
+        loginPasswordField.text = "123456"
         
         staffModel.loginWithUserMail(userEmail: "cody@simicart.com", password: "123456")
         NotificationCenter.default.addObserver(self, selector: #selector(didLogin(notification:)), name: NSNotification.Name(rawValue: DidLogin), object: nil)
@@ -450,8 +499,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             self.present(alert, animated: true, completion: nil)
         } else {
             STUserData.sharedInstance.isLoggedIn = true
-            leftMenuViewController.staffModel = staffModel
-            SimiDataLocal.setLocalData(data: loginEmailField.text!, forKey: LAST_USER_EMAIL)
             switch loginType {
             case .normal:
                 trackEvent("login_action", params: ["action":"login_normal"])
@@ -465,12 +512,14 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             }
             checkLicense()
             updateGlobalVarAndUserData()
-            //For open order view after receiving notification
-            if orderId == ""{
+            leftMenuViewController.staffModel = staffModel
+            //For opening order view after receiving notification
+//            if orderId != nil && orderId != ""{
+//                showSimpleAlertWithTitle("Test", message: "open order detail with id: \(orderId)")
+//                openOrderDetail()
+//            }else{
                 openDashboard()
-            }else{
-                openOrderDetail()
-            }
+//            }
         }
     }
     
@@ -494,11 +543,23 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
             if (json is Dictionary<String, String>) {
                 let result = json as! Dictionary<String, String>
                 if (result["user_email"] != "") && (result["url"] != "") && (result["session_id"] != "") {
-                    loginURLField.text = result["url"]
+                    var urltyped = result["url"]!
+                    if (urltyped.characters.last != "/") {
+                        urltyped += "/"
+                    }
+                    SimiGlobalVar.baseURL = urltyped
+                    userData.userEmail = result["user_email"]!
+                    userData.userURL = urltyped
+                    userData.qrSessionId = result["session_id"]!
+                    
+                    loginURLField.text = urltyped
                     loginEmailField.text = result["user_email"]
                     loginPasswordField.text = ""
                     qrSessionId = result["session_id"]!
+                    
                     loginWithQRCode()
+                }else{
+                    self.showAlertWithTitle("", message: STLocalizedString(inputString: "Couldn't scan the qr code"))
                 }
             }
         } else {
@@ -521,17 +582,17 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
+    
+//    func openOrderDetail(){
+//        let orderDetailVC = STOrderDetailViewController()
+////        orderDetailVC.orderId = orderId
+////        leftMenuViewController.mainNavigation.popToRootViewController(animated: false)
+//        leftMenuViewController.mainNavigation.pushViewController(orderDetailVC, animated: false)
+//        leftMenuViewController.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
+//        orderDetailVC.navigationItem.leftBarButtonItem = leftMenuViewController.mainNavigation.menuButton
+//    }
+    
     //MARK: - Open Dashboard
-    
-    func openOrderDetail(){
-        let orderDetailVC = STOrderDetailViewController()
-        orderDetailVC.orderId = orderId
-        leftMenuViewController.mainNavigation.popToRootViewController(animated: false)
-        leftMenuViewController.mainNavigation.pushViewController(orderDetailVC, animated: false)
-        leftMenuViewController.mainNavigation.navigationItem.setHidesBackButton(false, animated: false)
-        orderDetailVC.navigationItem.leftBarButtonItem = leftMenuViewController.mainNavigation.menuButton
-    }
-    
     func openDashboard() {
         dashboardViewController = STDashboardViewController()
         navigationVC = MainNavigationController(rootViewController: dashboardViewController)
@@ -572,23 +633,6 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
         return true
     }
     
-    //MARK: - Get Saved Data
-    func getLocalData() {
-        let emailSaved = SimiDataLocal.getLocalData(forKey: LAST_USER_EMAIL) as! String
-        if (emailSaved != "") {
-            userData.userEmail = emailSaved
-            loginEmailField.text = emailSaved
-            loginPasswordField.text = userData.userPassword
-            loginURLField.text = userData.userURL
-            qrSessionId = userData.qrSessionId
-            if (qrSessionId != "" && loginEmailField.text != "") {
-                loginWithQRCode()
-            } else if (loginPasswordField.text != "") && (loginURLField.text != "") && (loginEmailField.text != "") {
-                loginWithFilledValues()
-            }
-        }
-    }
-    
     //MARK: - License Checking
     func checkLicense() {
         if (licenseModel == nil) {
@@ -614,14 +658,24 @@ class STLoginViewController: SimiViewController, MainNavigationControllerDelegat
                 }
             }
             if (dashboardViewController != nil) {
-                if !(licenseModel.data["version"] is NSNull) {
-                    if (licenseModel.data["version"] as! String)  != CURRENT_SIMTRACKING_VERSION {
-                        let alert = UIAlertController(title: "", message: STLocalizedString(inputString: "Your Version is Outdated. Please install the latest one"), preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Later"), style: UIAlertActionStyle.default, handler: nil))
-                        alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Upgrade Now"), style: .default, handler: { (UIAlertAction) in
-                            UIApplication.shared.openURL(URL(string:"https://itunes.apple.com/us/app/simi-virtual-assistant/id1184815898?mt=8")!)
-                        }))
-                        dashboardViewController.present(alert, animated: true, completion: nil)
+                if !(licenseModel.data["version"] is NSNull && licenseModel.data["version"] is String) {
+                    STUserData.sharedInstance.latestVersion = licenseModel.data["version"] as! String
+                    if (licenseModel.data["version"] as! String).compare(CURRENT_SIMTRACKING_VERSION, options: .numeric) == .orderedDescending{
+                        SimiGlobalVar.shared.isAppUpdated = false
+                        if STUserData.sharedInstance.dontAskAgain == false{
+                            let alert = UIAlertController(title: "", message: STLocalizedString(inputString: "Your Version is Outdated. Please install the latest one"), preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Remind me later"), style: UIAlertActionStyle.default, handler: nil))
+                            alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Upgrade Now"), style: .default, handler: { (UIAlertAction) in
+                                UIApplication.shared.openURL(URL(string:"https://itunes.apple.com/us/app/simi-virtual-assistant/id1184815898?mt=8")!)
+                            }))
+                            alert.addAction(UIAlertAction(title: STLocalizedString(inputString: "Don't ask again"), style: UIAlertActionStyle.default, handler: {
+                                (UIAlertAction) in
+                                STUserData.sharedInstance.dontAskAgain = true
+                            }))
+                            dashboardViewController.present(alert, animated: true, completion: nil)
+                        }
+                    }else{
+                        SimiGlobalVar.shared.isAppUpdated = true
                     }
                 }
             }

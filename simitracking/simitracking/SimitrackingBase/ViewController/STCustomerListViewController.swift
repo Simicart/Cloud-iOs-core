@@ -14,18 +14,18 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
     
     let ROW_HEIGHT:CGFloat = 50
     
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
-    var lastContentOffset:CGPoint?
-    var customerModelCollection:CustomerModelCollection!
-    var totalCustomers = 0
-    var refreshControl:UIRefreshControl!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
+    private var lastContentOffset:CGPoint?
+    private var customerModelCollection:CustomerModelCollection!
+    private var totalCustomers = 0
+    private var refreshControl:UIRefreshControl!
     
     
-    var searchVC:STSearchViewController!
-    var searchTerm = ""
-    var searchAttribute = ""
-    var searchButton:SimiButton!
+    private var searchVC:STSearchViewController!
+    private var searchTerm = ""
+    private var searchAttribute = ""
+    private var searchButton:SimiButton!
     
     
     override func viewDidLoad() {
@@ -260,7 +260,6 @@ class STCustomerListViewController: SimiViewController, UITableViewDelegate, UIT
             emailLabel.textColor = UIColor.blue
             emailLabel.numberOfLines = 2
             emailLabel.font = UIFont.boldSystemFont(ofSize: 12)
-//            emailLabel.urlType = .emailAddress
             emailLabel.text =  rowData["email"] as? String
             cellToReturn?.addSubview(emailLabel)
             

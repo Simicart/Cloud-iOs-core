@@ -25,28 +25,29 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
     
     let drawerWidth = 280
     
-    var topView:UIImageView!
-    var avatarButton:SimiButton!
-    var nameLabel:SimiLabel!
-    var roleLabel:SimiLabel!
-    var emailLabel:SimiLabel!
-    var imageAvatar:UIImageView!
+    private var topView:UIImageView!
+    private var avatarButton:SimiButton!
+    private var nameLabel:SimiLabel!
+    private var roleLabel:SimiLabel!
+    private var emailLabel:SimiLabel!
+    private var upgradeView: SimiView!
+    private var imageAvatar:UIImageView!
     
-    var mainTableViewCells:Array<Any>!
-    var mainTableView:SimiTableView!
-    var menuItems:Array<Any>!
+    private var mainTableViewCells:Array<Any>!
+    private var mainTableView:SimiTableView!
+    private var menuItems:Array<Any>!
     
-    var selectedRow:Int = 0
+    private var selectedRow:Int = 0
     
-    var mainNavigation:MainNavigationController!
+    public var mainNavigation:MainNavigationController!
     
-    var orderListVC:STOrderListViewController!
-    var customerListVC:STCustomerListViewController!
-    var abandonedCartVC:STAbandonedCartListViewController!
-    var bestsellersListVC:STBestsellersViewController!
-    var productListVC:STProductListViewController!
-    var settingVC:STSettingViewController!
-    var forecastVC: STForecastViewController!
+    private var orderListVC:STOrderListViewController!
+    private var customerListVC:STCustomerListViewController!
+    private var abandonedCartVC:STAbandonedCartListViewController!
+    private var bestsellersListVC:STBestsellersViewController!
+    private var productListVC:STProductListViewController!
+    private var settingVC:STSettingViewController!
+    private var forecastVC: STForecastViewController!
     
     private var needUpdateUserInfo:Bool = false
     
@@ -68,6 +69,13 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
             nameLabel.text = self.staffModel.data["user_title"] as? String
             roleLabel.text = self.staffModel.data["role_title"] as? String
             emailLabel.text = self.staffModel.data["user_email"] as? String
+            
+            if SimiGlobalVar.shared.isAppUpdated {
+                upgradeView.isHidden = true
+            }else{
+                upgradeView.isHidden = false
+            }
+            
             needUpdateUserInfo = false
         }
     }
@@ -115,7 +123,6 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         topView.addSubview(roleLabel)
         
         emailLabel = SimiLabel(frame: CGRect(x: 110, y: 96, width: 170, height: 16))
-        emailLabel.urlType = .emailAddress
         emailLabel.textColor = UIColor.white
         emailLabel.font = UIFont.systemFont(ofSize: 12)
         emailLabel.text = self.staffModel.data["user_email"] as? String
@@ -124,6 +131,29 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         avatarButton.layer.cornerRadius = 40
         avatarButton.layer.masksToBounds = true
         topView.addSubview(avatarButton)
+        
+        upgradeView = SimiView(frame: CGRect(x: 0, y: 130, width: 280, height: 40))
+        upgradeView.backgroundColor = UIColor.red
+        let upgradeTitleLabel = SimiLabel(frame:CGRect(x:0,y:0,width:200,height:40))
+        upgradeTitleLabel.textAlignment = .center
+        upgradeTitleLabel.text = STLocalizedString(inputString: "New version available") + "!"
+        upgradeTitleLabel.font = UIFont.systemFont(ofSize: 17)
+        upgradeTitleLabel.textColor = UIColor.white
+        upgradeView.addSubview(upgradeTitleLabel)
+        
+        let upgradeLabel = SimiLabel(frame: CGRect(x:200,y:0,width:80,height:40))
+        upgradeLabel.textAlignment = .center
+        upgradeLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+        let underlineAttributedString = NSAttributedString(string: STLocalizedString(inputString: "Upgrade"), attributes: underlineAttribute)
+        upgradeLabel.attributedText = underlineAttributedString
+        upgradeLabel.urlType = .storeURL
+        upgradeLabel.textColor = UIColor.green
+        upgradeView.addSubview(upgradeLabel)
+        upgradeView.isHidden = true
+        topView.addSubview(upgradeView)
+        
+        topView.isUserInteractionEnabled = true
         
         self.view.addSubview(topView)
     }
@@ -398,13 +428,13 @@ class STLeftMenuViewController: SimiViewController, UITableViewDelegate, UITable
         NotificationCenter.default.addObserver(self, selector: #selector(didLogout(noti:)), name: NSNotification.Name(rawValue: DidLogout), object: nil)
         staffModel.logoutWithDeviceToken(STUserData.sharedInstance.deviceTokenId)
         mainNavigation.dismissDrawerController()
-        STUserData.sharedInstance.clearUserData()
     }
     
     func didLogout(noti:Notification){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DidLogout), object: nil)
         if staffModel.isSucess{
             STUserData.sharedInstance.isLoggedIn = false
+            STUserData.sharedInstance.clearUserData()
         }else{
             showAlertWithTitle("", message: (staffModel.error[0]["message"] as! String?)!)
         }

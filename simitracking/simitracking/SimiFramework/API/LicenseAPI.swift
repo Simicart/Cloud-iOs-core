@@ -9,7 +9,6 @@
 import UIKit
 
 class LicenseAPI: SimiAPI {
-    
     func getLicenseInfo(params:Dictionary<String, String>, target:NSObject, selector:Selector) {
         let url:String = kSimiLicenseURL
         //self request

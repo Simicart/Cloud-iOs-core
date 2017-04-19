@@ -110,7 +110,6 @@ class SimiNetworkManager: NSObject {
                 }
             )
         }
- 
     }
     
     func dictToJsonString(parameters: Dictionary<String, Any>)->String {

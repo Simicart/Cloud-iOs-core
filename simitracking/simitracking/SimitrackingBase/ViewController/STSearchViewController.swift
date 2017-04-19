@@ -15,14 +15,14 @@ protocol STSearchViewControllerDelegate {
 class STSearchViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     private var resetSearchBtn:SimiButton!
-    var attributeList:Dictionary<String, String> = [:]
-    var selectedAttribute = ""
+    public var attributeList:Dictionary<String, String> = [:]
+    private var selectedAttribute = ""
     
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
     
-    var searchTextField:UISearchBar!
-    var delegate: STSearchViewControllerDelegate?
+    private var searchTextField:UISearchBar!
+    public var delegate: STSearchViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

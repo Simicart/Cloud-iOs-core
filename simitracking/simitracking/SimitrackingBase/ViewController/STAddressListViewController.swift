@@ -10,14 +10,14 @@ import UIKit
 
 class STAddressListViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var customerId = ""
-    let ROW_HEIGHT:CGFloat = 50
+    public var customerId:String?
+    private let ROW_HEIGHT:CGFloat = 50
     
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
-    var addressModelCollection:AddressModelCollection!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
+    private var addressModelCollection:AddressModelCollection!
 
-    var emptyLabel:UILabel!
+    private var emptyLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +37,11 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
             emptyLabel.backgroundColor = UIColor.white
             emptyLabel.textAlignment = NSTextAlignment.center
             emptyLabel.font = UIFont.systemFont(ofSize: 14)
-            emptyLabel.isHidden = true
             self.view.addSubview(emptyLabel)
         }
-        getAddresses()
+        if customerId != nil && customerId != ""{
+            getAddresses()
+        }
     }
 
     override func updateViews() {
@@ -64,9 +65,10 @@ class STAddressListViewController: SimiViewController, UITableViewDelegate, UITa
     func getAddresses() {
         if (addressModelCollection == nil) {
             addressModelCollection = AddressModelCollection()
-            self.showLoadingView()
         }
-        let paramMeters:Dictionary<String, String> = ["limit":"9999","offset":"0","customer_id":customerId]
+        self.showLoadingView()
+        emptyLabel.isHidden = true
+        let paramMeters:Dictionary<String, String> = ["limit":"9999","offset":"0","customer_id":customerId!]
         
         addressModelCollection.getAddressListWithParams(params: paramMeters)
         NotificationCenter.default.addObserver(self, selector: #selector(didGetAddressList(notification:)), name: NSNotification.Name(rawValue: "DidGetAddressList"), object: nil)

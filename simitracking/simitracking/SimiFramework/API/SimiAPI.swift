@@ -11,6 +11,7 @@ import UIKit
 let kSimiConnectorURL:String = "simiconnector/rest/v2/"
 let kSimiTrackingURL:String = "simitracking/rest/v2/"
 let kSimiLicenseURL:String = "https://www.simicart.com/usermanagement/api/authorize"
+let kAuthorizeURL:String = "https://www.simicart.com/usermanagement/api/authorize"
 
 class SimiAPI: NSObject {
     

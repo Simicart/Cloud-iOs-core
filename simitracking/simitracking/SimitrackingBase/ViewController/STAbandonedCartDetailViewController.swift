@@ -10,12 +10,12 @@ import UIKit
 
 class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let CART_SUMMARY_INFO_ROW = "cart_summary_info_row"
-    let CART_ITEM_INFO_ROW = "cart_item_info_row"
+    private let CART_SUMMARY_INFO_ROW = "cart_summary_info_row"
+    private let CART_ITEM_INFO_ROW = "cart_item_info_row"
     
-    var abandonedCartModel:AbandonedCartModel!
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<Any>!
+    public var abandonedCartModel:AbandonedCartModel!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<Any>!
     
     
     var gotFullInformation = false
@@ -57,9 +57,11 @@ class STAbandonedCartDetailViewController: SimiViewController, UITableViewDelega
     
     //MARK: - Get Abandoned Cart Detail
     func getAbandonedCartDetail() {
-        self.showLoadingView()
-        abandonedCartModel.getAbandonedCartDetailWithId(id: (abandonedCartModel.data["entity_id"] as! String), params: [:])
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetAbandonedCartDetail(notification:)), name: NSNotification.Name(rawValue: "DidGetAbandonedCartDetail"), object: nil)
+        if abandonedCartModel != nil && abandonedCartModel.data["entity_id"] as? String != nil{
+            abandonedCartModel.getAbandonedCartDetailWithId(id: (abandonedCartModel.data["entity_id"] as! String), params: [:])
+            self.showLoadingView()
+            NotificationCenter.default.addObserver(self, selector: #selector(didGetAbandonedCartDetail(notification:)), name: NSNotification.Name(rawValue: "DidGetAbandonedCartDetail"), object: nil)
+        }
     }
     
     //Get Abandoned Cart Detail handler

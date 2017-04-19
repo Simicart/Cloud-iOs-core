@@ -10,6 +10,7 @@ import UIKit
 
 class LicenseModel: SimiModel {
     var privateAPI:LicenseAPI!
+    var qrCodeEnabled: Bool! = true
     
     override func getAPI()->LicenseAPI{
         if (privateAPI == nil) {
@@ -33,4 +34,22 @@ class LicenseModel: SimiModel {
         
         self.getAPI().getLicenseInfo(params: parameters, target: self, selector: #selector(didFinishRequest(responseObject:)))
     }
+    
+    override func didFinishRequest(responseObject: Dictionary<String, AnyObject>) {
+        self.error = nil
+        if responseObject["errors"] != nil
+        {
+            self.error = responseObject["errors"] as! Array<Dictionary<String, Any>>
+            self.isSucess = false
+        }
+        else {
+            self.isSucess = true
+        }
+        if self.isSucess == true {
+            self.data = responseObject[getResource()] as! Dictionary<String, Any>!
+            self.qrCodeEnabled = responseObject["qr_code"]?.boolValue
+        }
+        pushNotifications(responseObject: responseObject)
+    }
+    
 }

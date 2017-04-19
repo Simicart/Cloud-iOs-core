@@ -10,15 +10,15 @@ import UIKit
 
 class STSettingViewController: SimiViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
     
-    let ITEM_PER_PAGE_ROW = "item_per_page_row"
-    let DASHBOARD_SALES_ROW = "dashboard_sales_row"
-    let DASHBOARD_BESTSELLER_ROW = "dashboard_bestseller_row"
-    let DASHBOARD_LATEST_ORDERS_ROW = "dashboard_latest_orders_row"
-    let DASHBOARD_LATEST_CUSTOMERS_ROW = "dashboard_latest_customers_row"
+    private let ITEM_PER_PAGE_ROW = "item_per_page_row"
+    private let DASHBOARD_SALES_ROW = "dashboard_sales_row"
+    private let DASHBOARD_BESTSELLER_ROW = "dashboard_bestseller_row"
+    private let DASHBOARD_LATEST_ORDERS_ROW = "dashboard_latest_orders_row"
+    private let DASHBOARD_LATEST_CUSTOMERS_ROW = "dashboard_latest_customers_row"
     
-    let CURRENCY_POSITION_ROW = "CURRENCY_POSITION_ROW"
-    let DECIMAL_NUMBER_ROW = "DECIMAL_NUMBER_ROW"
-    let SEPARATOR_ROW = "SEPARATOR_ROW"
+    private let CURRENCY_POSITION_ROW = "CURRENCY_POSITION_ROW"
+    private let DECIMAL_NUMBER_ROW = "DECIMAL_NUMBER_ROW"
+    private let SEPARATOR_ROW = "SEPARATOR_ROW"
     
     private var isShowingKeyboard: Bool = false
     
@@ -101,19 +101,15 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     
     //MARK: - Get Settings Data
     func getSettings() {
-        let emailSaved = SimiDataLocal.getLocalData(forKey: LAST_USER_EMAIL) as! String
-        if (emailSaved != "") {
-            userData.userEmail = emailSaved
-            itemPerPage = userData.itemPerPage
-            showDashboardSales = userData.showDashboardSales
-            showDashboardBestsellers = userData.showDashboardBestsellers
-            showDashboardLatestOrders = userData.showDashboardLatestOrders
-            showDashboardLatestCustomers = userData.showDashboardLatestCustomers
-            
-            currencyPos = userData.currencyPosition
-            decimalNumber = userData.decimalNumber
-            separatorType = userData.separatorType
-        }
+        itemPerPage = userData.itemPerPage
+        showDashboardSales = userData.showDashboardSales
+        showDashboardBestsellers = userData.showDashboardBestsellers
+        showDashboardLatestOrders = userData.showDashboardLatestOrders
+        showDashboardLatestCustomers = userData.showDashboardLatestCustomers
+        
+        currencyPos = userData.currencyPosition
+        decimalNumber = userData.decimalNumber
+        separatorType = userData.separatorType
         
         setMainTableViewCells()
         self.mainTableView .reloadData()
@@ -413,48 +409,42 @@ class STSettingViewController: SimiViewController, UITableViewDelegate, UITableV
     }
     
     func saveSettings() {
-        let emailSaved = SimiDataLocal.getLocalData(forKey: LAST_USER_EMAIL) as! String
-        if (emailSaved != "") {
-            if userData.userEmail != emailSaved{
-                userData.userEmail = emailSaved
+        if userData.showDashboardLatestCustomers != latestCustomersSwitch.isOn{
+            userData.showDashboardLatestCustomers = latestCustomersSwitch.isOn
+            if latestCustomersSwitch.isOn{
+                trackEvent("setting", params: ["show_reports_on_dashboard":"enable"])
+            }else{
+                trackEvent("setting", params: ["show_reports_on_dashboard":"disable"])
             }
-            if userData.showDashboardLatestCustomers != latestCustomersSwitch.isOn{
-                userData.showDashboardLatestCustomers = latestCustomersSwitch.isOn
-                if latestCustomersSwitch.isOn{
-                    trackEvent("setting", params: ["show_reports_on_dashboard":"enable"])
-                }else{
-                    trackEvent("setting", params: ["show_reports_on_dashboard":"disable"])
-                }
-                didChangeShowingItemOnDashboard = true
+            didChangeShowingItemOnDashboard = true
+        }
+        if userData.showDashboardSales != dashboardSalesSwitch.isOn{
+            userData.showDashboardSales = dashboardSalesSwitch.isOn
+            if dashboardSalesSwitch.isOn{
+                trackEvent("setting", params: ["show_bestsellers_on_dashboard":"enable"])
+            }else{
+                trackEvent("setting", params: ["show_bestsellers_on_dashboard":"disable"])
             }
-            if userData.showDashboardSales != dashboardSalesSwitch.isOn{
-                userData.showDashboardSales = dashboardSalesSwitch.isOn
-                if dashboardSalesSwitch.isOn{
-                    trackEvent("setting", params: ["show_bestsellers_on_dashboard":"enable"])
-                }else{
-                    trackEvent("setting", params: ["show_bestsellers_on_dashboard":"disable"])
-                }
-                didChangeShowingItemOnDashboard = true
+            didChangeShowingItemOnDashboard = true
+        }
+        
+        if userData.showDashboardBestsellers != bestsellersSwitch.isOn{
+            userData.showDashboardBestsellers = bestsellersSwitch.isOn
+            if bestsellersSwitch.isOn{
+                trackEvent("setting", params: ["show_latest_customers_on_dashboard":"enable"])
+            }else{
+                trackEvent("setting", params: ["show_latest_customers_on_dashboard":"disable"])
             }
-            
-            if userData.showDashboardBestsellers != bestsellersSwitch.isOn{
-                userData.showDashboardBestsellers = bestsellersSwitch.isOn
-                if bestsellersSwitch.isOn{
-                    trackEvent("setting", params: ["show_latest_customers_on_dashboard":"enable"])
-                }else{
-                    trackEvent("setting", params: ["show_latest_customers_on_dashboard":"disable"])
-                }
-                didChangeShowingItemOnDashboard = true
+            didChangeShowingItemOnDashboard = true
+        }
+        if userData.showDashboardLatestOrders != latestOrdersSwitch.isOn{
+            userData.showDashboardLatestOrders = latestOrdersSwitch.isOn
+            if latestOrdersSwitch.isOn{
+                trackEvent("setting", params: ["show_lastest_orders_on_dashboard":"enable"])
+            }else{
+                trackEvent("setting", params: ["show_lastest_orders_on_dashboard":"disable"])
             }
-            if userData.showDashboardLatestOrders != latestOrdersSwitch.isOn{
-                userData.showDashboardLatestOrders = latestOrdersSwitch.isOn
-                if latestOrdersSwitch.isOn{
-                    trackEvent("setting", params: ["show_lastest_orders_on_dashboard":"enable"])
-                }else{
-                    trackEvent("setting", params: ["show_lastest_orders_on_dashboard":"disable"])
-                }
-                didChangeShowingItemOnDashboard = true
-            }
+            didChangeShowingItemOnDashboard = true
         }
     }
 

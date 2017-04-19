@@ -11,12 +11,12 @@ import Mixpanel
 
 class STBestsellersViewController: StoreviewFilterViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
-    var lastContentOffset:CGPoint?
-    var bestSellerModelCollection:BestsellerModelCollection!
-    var totalProducts = 0
-    var refreshControl:UIRefreshControl!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
+    private var lastContentOffset:CGPoint?
+    private var bestSellerModelCollection:BestsellerModelCollection!
+    private var totalProducts = 0
+    private var refreshControl:UIRefreshControl!
     
     
     override func viewDidLoad() {

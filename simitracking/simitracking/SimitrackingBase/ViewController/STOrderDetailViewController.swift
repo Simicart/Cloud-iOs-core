@@ -19,24 +19,24 @@ class STOrderDetailViewController: SimiViewController, UITableViewDelegate, UITa
     let SHIPPING_METHOD_ROW = "shipping_method_row"
     let TOTAL_FEE_ROW = "total_fee_row"
     
-    var orderId:String!
+    public var orderId:String!
     private var orderModel: OrderModel!
-    var statusDict:Dictionary<String, String>!
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<Any>!
-    var reloadedTime = 0
+    public var statusDict:Dictionary<String, String>!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<Any>!
+    private var reloadedTime = 0
     
-    var parentOrderListVC:STOrderListViewController!
+    public var parentOrderListVC:STOrderListViewController!
     
-    var gotFullInformation = false
+    private var gotFullInformation = false
     
     //edit order
-    var editButton:SimiButton!
-    var actionArray:Array<Dictionary<String, String>>!
-    var editOrderActionSheet:UIActionSheet!
-    var selectedActionValue = ""
-    var selectedActionKey = ""
-    var orderUpdated = false
+    private var editButton:SimiButton!
+    private var actionArray:Array<Dictionary<String, String>>!
+    private var editOrderActionSheet:UIActionSheet!
+    private var selectedActionValue = ""
+    private var selectedActionKey = ""
+    private var orderUpdated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

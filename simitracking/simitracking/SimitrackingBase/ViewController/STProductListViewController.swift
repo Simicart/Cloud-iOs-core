@@ -14,16 +14,16 @@ class STProductListViewController: StoreviewFilterViewController, UITableViewDel
     
     private var emptyLabel: UILabel!
     
-    var mainTableView:SimiTableView!
-    var mainTableViewCells:Array<SimiSection> = []
-    var lastContentOffset:CGPoint?
-    var productModelCollection:ProductModelCollection!
-    var totalProducts = 0
-    var refreshControl:UIRefreshControl!
-    var searchVC:STSearchViewController!
-    var searchTerm = ""
-    var searchAttribute = ""
-    var searchButton:SimiButton!
+    private var mainTableView:SimiTableView!
+    private var mainTableViewCells:Array<SimiSection> = []
+    private var lastContentOffset:CGPoint?
+    private var productModelCollection:ProductModelCollection!
+    private var totalProducts = 0
+    private var refreshControl:UIRefreshControl!
+    private var searchVC:STSearchViewController!
+    private var searchTerm = ""
+    private var searchAttribute = ""
+    private var searchButton:SimiButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

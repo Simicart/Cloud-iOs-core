@@ -55,6 +55,7 @@
     BOOL isShowPopup; //Check xem popup hien co show hay khong?
     
     NSString *token;
+    // Liam test create pull request
 }
 
 @synthesize storeConfigFilePath, pluginList;
